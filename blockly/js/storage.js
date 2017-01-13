@@ -194,32 +194,17 @@ BlocklyStorage.alert = function(message) {
 };
 
 
-BlocklyStorage.Save = function(opt_workspace) {
-  var xml = Blockly.Xml.workspaceToDom(workspace);
-  var xml_text = Blockly.Xml.domToText(xml);
-  var nameInput = prompt("Please enter your File name", "Newproject");
-  var data = new Blob([xml_text], {type: 'text/plain'});
-  textFile = window.URL.createObjectURL(data);
-};
-
-BlocklyStorage.Open = function(opt_workspace) {  //Not yet finish
-  var workspace = opt_workspace || Blockly.getMainWorkspace();
-  var xml = Blockly.Xml.workspaceToDom(workspace);
-  var data = Blockly.Xml.domToText(xml);
-};
 
 
 BlocklyStorage.Upload = function(opt_workspace) {    //Not yet finish
   var code = Blockly.Python.workspaceToCode(workspace);
   var nameInput = prompt("Please enter your File name", "Newproject");
   // send file via ws
+
+
 };
 
-BlocklyStorage.Savecode = function(opt_workspace) {
-  var code = Blockly.Python.workspaceToCode(workspace);
-    var nameInput = document.getElementById('filename').value;
-    if(!nameInput ? alert("Please fill name"):download(nameInput+'.py', code));
-};
+
 
 function download(filename, text) {
   var element = document.createElement('a');

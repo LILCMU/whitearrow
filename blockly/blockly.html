@@ -1,44 +1,52 @@
-<!DOCTYPE html>
+
 <html>
 <head>
   <title>Blockly NSC2017</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <script src="blockly_compressed.js"></script>
   <script src="blocks_compressed.js"></script>
   <script src="python_compressed.js"></script>
    <script src="python_more.js"></script>
+
   <script src="msg/js/en.js"></script>
   <script src="js/storage.js"></script>
+
+  
+
   <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
 </head>
 <body>
 <div class="container">
     <input type="text" id= "filename" name="filename" value="Name of Project">
-  <div class="row"> 
-    
-      
-          <div id="blocklyDiv"style="height: 500px"></div>
-         
-        
+  <div class="row">
+
+
+          <div id="blocklyDiv" style="height: 500px"></div>
+
+
   </div>
-   <div class="row"> 
+   <div class="row">
     <div class="col-md-4">
-          
-            <textarea  id="code_output" readonly style="height: 500px"></textarea>
-      
-      </div> 
+
+            <textarea  id="code_output" rows="12" cols="50"readonly style="height: 500px"></textarea>
+
+      </div>
       <div class="col-md-4">
               <center>
-              <button onclick="generate()">Generate Python </button>  
-              <button onclick="BlocklyStorage.Upload()">Upload Code </button>  
-              <button onclick="BlocklyStorage.Savecode()">Save Code </button> 
-              <button onclick="BlocklyStorage.Save()">Save Blocks</button>
-              <button onclick="BlocklyStorage.Open()">Open Blocks</button>
-              <input type="file" id="my_file">
+              <button onclick="generate()">Generate Python </button>
+              <button onclick="Upload()">Upload Code </button>
+              <button onclick="Savecode()">Save Code </button>
+              <button onclick="save()">Save Blocks</button>
+              <button onclick="loadXml()">Open Blocks</button>
+              <button onclick="generateXML()">XML</button>
+              <button onclick="loadAddons()">LoadAddons</button>
+             
             </center>
             </div>
             <div class="col-md-4"></div>
@@ -46,13 +54,9 @@
 </div>
 
 
-    
-<xml id="toolbox" style="display: none">
-  <category id="catControls" colour="190" name="Controls">
-      <block type="controls_main"></block>
-      <block type="controls_if"></block>
 
-    </category>
+<xml id="toolbox" style="display: none">
+  
     <category id="catWifi" colour="90" name="Wifi">
       <block type="Wifi_mode"></block>
     </category>
@@ -423,71 +427,12 @@
       </block>
     </block>
 </xml>
-     
 
 
 
-  <script>
-    var workspace = Blockly.inject('blocklyDiv',
-        { 
-            media: 'media/',
-            toolbox: document.getElementById('toolbox'),
-            zoom:
-                {controls: true,
-                wheel: true,
-                  startScale: 1.0,
-              maxScale: 3,
-              minScale: 0.3,
-              scaleSpeed: 1.2},
-            trashcan: true
+ <script src="js/system.js"></script>
+<script type="text/javascript">
 
-
-       });
-    BlocklyStorage.backupOnUnload();
-    if ('BlocklyStorage' in window && window.location.hash.length > 1) {
-      BlocklyStorage.retrieveXml(window.location.hash.substring(1));
-    }
-    if ('BlocklyStorage' in window) {
-      BlocklyStorage.HTTPREQUEST_ERROR = 'There was a problem with the request.\n';
-      BlocklyStorage.LINK_ALERT = 'Share your blocks with this link:\n\n%1';
-      BlocklyStorage.HASH_ERROR = 'Sorry, "%1" doesn\'t correspond with any saved Blockly file.';
-      BlocklyStorage.XML_ERROR = 'Could not load your saved file.\n'+
-          'Perhaps it was created with a different version of Blockly?';
-    } else {
-      document.write('<p id="sorry">Sorry, cloud storage is not available.  This demo must be hosted on App Engine.</p>');
-    }
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                               workspace);
-
-    function generate() {
-      // Parse the XML into a tree.
-      
-      var code = Blockly.Python.workspaceToCode(workspace);
-      document.getElementById('code_output').value = code;
-    }
-
-    function showCode() {
-      // Generate JavaScript code and display it.
-      Blockly.Python.INFINITE_LOOP_TRAP = null;
-      var code = Blockly.Python.workspaceToCode(workspace);
-      alert(code);
-    }
-
-    function runCode() {
-      // Generate JavaScript code and run it.
-      window.LoopTrap = 1000;
-      Blockly.Python.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-      var code = Blockly.Python.workspaceToCode(workspace);
-      Blockly.Python.INFINITE_LOOP_TRAP = null;
-      try {
-        eval(code);
-      } catch (e) {
-        alert(e);
-      }
-    }
-
-  </script>
-
+</script>
 </body>
 </html>

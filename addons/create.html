@@ -1,0 +1,75 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<form>
+  Add-on Name:<br>
+  <input type="text" name="aname" value="Example">
+  <br>
+  Developer :<br>
+  <input type="text" name="dname" value="admin">
+  <br><br>
+  Code :
+  <select name ="scode">
+  <option value="1">Code</option>
+  <option value="2">Block</option></select>
+<br>
+<br>
+  Type :
+  <select name ="type">
+  <option value="1">String</option>
+  <option value="2">Number</option>
+  <option value="3">Boolean</option>
+</select><br>
+<br>...................................................
+<br>
+
+	
+Input variable :<br>
+  <input type="text" name="invar" id="invar" value= 0 ><br><div id="variableIn"></div><button type="button" onclick="appendbox()">add</button>
+
+  <br>
+output variable : <br>
+  <input type="text" name="outvar" id="outvar"value= 0 ><div id="variableOut"></div><button type="button" onclick="appendbox2()">add</button>
+  <br>
+Code micropython :<br>
+  <textarea rows="4" cols="50"  name="codetext" value=""></textarea>
+  <br>
+
+
+
+
+Description:<br>
+   <textarea rows="4" cols="50" name="Desp"  value=""></textarea>
+  <br>
+</form>
+
+<button onclick="myFunction()">Click me</button>
+
+
+<script>
+console.log("start form")
+var varIncount =0;
+var varOutcount =0;
+
+function appendbox() {
+	document.getElementById('invar').value = varIncount;
+$("#variableIn").append(varIncount + "  <input type=\"text\" name = \"invarname[]\" id=\"invarname[]\"value=\"variable "+varIncount+"\"><br>");
+varIncount++;
+document.createElement('invarname'+varIncount)
+document.getElementById('invar').value = varIncount;
+
+};
+function appendbox2() {
+	document.getElementById('outvar').value = varOutcount;
+$("#variableOut").append(varOutcount + "  <input type=\"text\" name = \"outvarname[]\" id=\"outvarname[]\"value=\"variable "+varOutcount+"\"><br>");
+varOutcount++;
+document.createElement('outvarname'+varOutcount)
+document.getElementById('outvar').value = varOutcount;
+
+};
+
+function myFunction(){
+$.post('test.php',$('form').serialize())
+	};
+
+
+
+</script>

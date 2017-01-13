@@ -1,0 +1,17 @@
+<div id="result">prepare</div><br>
+<div id="result1">prepare1</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+var path="";
+$.get( "http://10.10.184.230:100/nsc2017/block/getblock", function( data ) {
+  console.log(data.files
+  	)
+  console.log(data.xml)
+
+  console.log( "Load was performed." );
+}).done(function() {
+   
+  });
+
+</script>

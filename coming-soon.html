@@ -10,7 +10,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet"> 
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
-
+    
     <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
@@ -45,19 +45,19 @@
                     <div class="time-count">
                         <ul id="countdown">
                             <li class="angle-one">
-                                <span class="days time-font">00</span>
+                                <span class="days time-font" id="days"></span>
                                 <p>Days</p>
                             </li>
                             <li class="angle-two">
-                                <span class="hours time-font">00</span>
+                                <span class="hours time-font"><p id="Hours"></p></span>
                                 <p>Hours</p>
                             </li>
                             <li class="angle-three">
-                                <span class="minutes time-font">00</span>
+                                <span class="minutes time-font"><p id="minute"></p></span>
                                 <p class="minute">Mins</p>
                             </li>                            
                             <li class="angle-four">
-                                <span class="seconds time-font">00</span>
+                                <span class="seconds time-font"><p id="Secs"></p></span>
                                 <p>Secs</p>
                             </li>               
                         </ul>   
@@ -105,15 +105,48 @@
     <script type="text/javascript" src="js/coundown-timer.js"></script>
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/moment.min.js" ></script>
     <script type="text/javascript">
-            //Countdown js
-         $("#countdown").countdown({
-                date: "10 march 2015 12:00:00",
-                format: "on"
-            },      
-            function() {
-                // callback function
-        });
+            
+         function getTimeRemaining(endtime) {
+                  var t = 1479513600 - moment.unix();
+                  var seconds = Math.floor((t / 1000) % 60);
+                  var minutes = Math.floor((t / 1000 / 60) % 60);
+                  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+                  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+                  return {
+                    'total': t,
+                    'days': days,
+                    'hours': hours,
+                    'minutes': minutes,
+                    'seconds': seconds
+                  };
+                }
+
+                function initializeClock(endtime) {
+                  var daysSpan = document.getElementById('days');
+                  var hoursSpan = document.getElementById('Hours');
+                  var minutesSpan = document.getElementById('minute');
+                  var secondsSpan = document.getElementById('Secs');
+                    updateClock();
+                  var timeinterval = setInterval(updateClock, 1000);
+                  function updateClock() {
+                    var t = getTimeRemaining(endtime);
+                     console.log(t)
+                    daysSpan.innerHTML = t.days;
+                    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+                    
+                }
+            }
+
+               var deadline = new Date(1479513600);
+               initializeClock(deadline);
+
+
+               
+
     </script>
     
 </body>

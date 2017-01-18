@@ -1,0 +1,5 @@
+<block type="pin_module"></block>
+            <block type="io_set_pin"></block>
+            <block type="io_input"></block>
+            <block type="io_output"></block>
+           <block type="io_hl"></block>

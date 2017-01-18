@@ -1,0 +1,21 @@
+{
+    "name": "",
+    "authors": [
+        {
+            "name": "Tananut Panyagosa",
+            "email": "tongtananut@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.22"
+    },
+    "autoload":{
+    	"psr-4": {
+            "MrMe\\":"src/MrMe",
+            "MrMe/Database\\":"src/MrMe/Database",
+            "MrMe/Database/MySql\\":"src/MrMe/Database/MySql",
+            "Api\\":"src/Api",
+            "Tests\\":"src/Tests"
+        }
+    }
+}

@@ -226,12 +226,9 @@
                                     </div>
                                     <div class="body">
                                         <button type="button" class="btn bg-light-green waves-effect" id="test5">ON</button>
-
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="col-md-4">
                             <select class="show-tick" id="type">
@@ -242,16 +239,12 @@
                         <option value="5" >sensor</option>
                         <option value="6" >Circle</option>
                         <option value="7" >graph</option>
-
       </select>
-
                             <button type="button" onclick="createContent()">Add</button>
                             <button type="button" onclick="clrArr()">clear</button>
-
                         </div>
                     </div>
                 </div>
-
                 <div class="row clearfix" id="FileMannger">
                     <div class="col-md-6">
                         <div class="card">
@@ -261,20 +254,10 @@
                                 <button type="button" onclick="refreshFile()">refreshFile</button>
                             </div>
                             <div class="body" id="listfile">
-
-
-
-
-
-
-
-
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-6">
-
                         <div class="card">
                             <div class="header">
                                 <h2>
@@ -313,10 +296,6 @@
 
                                     </div>
                                 </div>
-
-
-
-
 
                             </div>
 
@@ -697,32 +676,30 @@
     <sep></sep>
     <category id="catWifi" colour="90" name="Wifi">
         <!-- <block type="wlan_import"></block> -->
-        <block type="wifi_setting"></block>
-        <block type="connect_wifi"></block>
-        <block type="check_network"></block>
+        <block type="WLAN_setting"></block>
+        <block type="WLAN_connectwifi"></block>
+        <block type="WLAN_checknetwork"></block>
     </category>
 
     <category id="catio" colour="160" name="Input Output">
-        <block type="pin_module"></block>
-        <block type="io_set_pin"></block>
-        <block type="io_input"></block>
-        <block type="io_output"></block>
-        <block type="io_hl"></block>
+        <block type="ADC_input"></block>
+        <block type="Pin_output"></block>
+        <block type="Pin_hl"></block>
 
         <block type="Pin_PWM"></block>
 
-        <block type="PWM_Freq"></block>
-        <block type="PWM_Duty"></block>
-        <block type="PWM_Deinit"></block>
+        <block type="Pin_PWMFreq"></block>
+        <block type="Pin_PWMDuty"></block>
+        <block type="Pin_PWMDeinit"></block>
 
     </category>
 
-    <category id="i2c" colour="230" name="i2c">
-        <block type="i2c_read"></block>
-        <block type="i2c_write">
-            <value name="NAME">
+    <category id="i2c" colour="230" name="I2C">
+        <block type="Pin_I2C_read"></block>
+        <block type="Pin_I2C_write">
+            <value name="i2c">
                 <shadow type="text">
-                    <field name="TEXT">abc</field>
+                    <field name="TEXT">Message</field>
                 </shadow>
             </value>
         </block>
@@ -742,6 +719,13 @@
     <sep></sep>
     <category id="catVariables" colour="330" custom="VARIABLE" name="Variables"></category>
     <category id="catFunctions" colour="290" custom="PROCEDURE" name="Functions"></category>
+    <sep></sep>
+    <category id="catmqtt" colour="110" name="MQTT">
+        <block type="mqtt_init"></block>
+        <block type="mqtt_connect"></block>
+        <block type="mqtt_publish"></block>
+        <block type="mqtt_disconnect"></block>
+    </category>
 </xml>
 <xml id="blocklyDefault" style="display: none">
     <block type="variables_set">

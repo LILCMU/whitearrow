@@ -128,11 +128,51 @@ class Block extends Controller
 		$this->db->select($table, $select);
 		$model  = $this->db->executeReader();
 
+		// if ($model)
+		// 	$this->response->success(array("status" => true,
+		// 								   "model" => $model));
+		// else
+		// 	$this->response->success(array("status" => false));
+
+		/* Write file html */
+		$file_top    = file_get_contents('top.txt', FILE_USE_INCLUDE_PATH);
+		$file_bottom = file_get_contents('bottom.txt', FILE_USE_INCLUDE_PATH);
+
+		$file_mid1 	 = ' <div class="col-xs-6 col-sm-6 col-md-4 portfolio-item Cloud ">
+                                <div class="portfolio-wrapper">
+                                    <div class="portfolio-single">
+                                        <div class="portfolio-thumb">
+                                            <p > ';
+		$file_mid2 	= ' </p>
+                                        </div>
+                                    </div>
+                                    <div class="portfolio-info ">
+                                        <h2 >by ';
+		$file_mid3 = '</h2>
+                                        <button id="Addons';
+		$file_mid4 = '">add to Blockly</button>
+                                    </div>
+                                </div>
+                            </div>';
+
+		$file_all = $file_top;
+		
+		foreach ($model as $key => $value) 
+		{
+			$uid = (string)$model[$key]->user_id; 
+			$id  = (string)$model[$key]->id;
+			$file_all .= $file_mid1 . $model[$key]->name . $file_mid2 . $uid . $file_mid3 . $id . $file_mid4;
+		}
+		
+		$file_all .= $file_bottom; 
+		fopen("../addon_manager.html", "w");
+        $myfile = file_put_contents("../addon_manager.html", $file_all.PHP_EOL , FILE_APPEND | LOCK_EX);
 		if ($model)
 			$this->response->success(array("status" => true,
 										   "model" => $model));
 		else
 			$this->response->success(array("status" => false));
+
 	}
 
 	public function getblocksystems()
@@ -177,8 +217,28 @@ class Block extends Controller
 		header('Content-Type: application/json');
 
 		//$data = ($_POST["aname"]);
-		$data = $this->request->body->aname;
-		var_dump($data);
+		
+		$file_top    = file_get_contents('top.txt', FILE_USE_INCLUDE_PATH);
+		$file_bottom = file_get_contents('bottom.txt', FILE_USE_INCLUDE_PATH);
+
+		$file_mid1 	 = ' <div class="col-xs-6 col-sm-6 col-md-4 portfolio-item Cloud ">
+                                <div class="portfolio-wrapper">
+                                    <div class="portfolio-single">
+                                        <div class="portfolio-thumb">
+                                            <p > ';
+		$file_mid2 	= ' </p>
+                                        </div>
+                                    </div>
+                                    <div class="portfolio-info ">
+                                        <h2 >by ';
+		$file_mid3 = '</h2>
+                                        <button id="';
+		$file_mid4 = '">add to Blockly</button>
+                                    </div>
+                                </div>
+                            </div>';
+										
+		$this->response->success($file_top);
 
 	}
 }

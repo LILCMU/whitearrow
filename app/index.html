@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Application</title>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
@@ -32,18 +33,18 @@
     <script src="blocks_compressed.js"></script>
     <script src="python_compressed.js"></script>
     <script src="python_more.js"></script>
-    
-  
-   
+
+
+
 
     <script src="msg/js/en.js"></script>
     <script src="js/storage.js"></script>
 
-    
+
 
     <!-- Bootstrap Select Css -->
     <link href="./plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-     <!-- Bootstrap Core Css -->
+    <!-- Bootstrap Core Css -->
     <link href="./plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
@@ -55,7 +56,7 @@
     <!-- Range Slider Css -->
     <link href="./plugins/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
     <link href="./plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
-     <!--WaitMe Css-->
+    <!--WaitMe Css-->
     <link href="./plugins/waitme/waitMe.css" rel="stylesheet" />
 
     <!-- Custom Css -->
@@ -67,16 +68,17 @@
     <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
 
     <style type="text/css" media="screen">
-    #editor {
-        width:100%;
-        height: 500px;
-        vertical-align: center;
-    }
+        #editor {
+            width: 100%;
+            height: 500px;
+            vertical-align: center;
+        }
     </style>
 
-  </head>
-  <body class="theme-indigo">
-      <div class="page-loader-wrapper">
+</head>
+
+<body class="theme-indigo">
+    <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
                 <div class="spinner-layer pl-red">
@@ -132,21 +134,21 @@
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CPECMU </div>
-                   
+
                 </div>
             </div>
             <!-- #User Info -->
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                  
-                       
-                          <li class="tablinks" onclick="menu1()" ><a data-toggle="tab" href="#Prompt">Prompt</a></li>
-                          <li class="tablinks" onclick="menu2()" ><a data-toggle="tab" href="#Editor">Editor</a></li>
-                          <li class="tablinks" onclick="menu3()" ><a data-toggle="tab" href="#Blockly">Blockly</a></li>
-                          <li class="tablinks"  onclick="menu4()"><a data-toggle="tab" href="#monitor">monitor</a></li>
-                          <li class="tablinks" onclick="menu5()" ><a data-toggle="tab" href="#FileManager">File Manager</a></li>
-                          <li class="tablinks"  onclick="menu6()"><a data-toggle="tab" href="#Message">Message</a></li>
+
+
+                    <li class="tablinks" onclick="menu1()"><a data-toggle="tab" href="#Prompt">Prompt</a></li>
+                    <li class="tablinks" onclick="menu2()"><a data-toggle="tab" href="#Editor">Editor</a></li>
+                    <li class="tablinks" onclick="menu3()"><a data-toggle="tab" href="#Blockly">Blockly</a></li>
+                    <li class="tablinks" onclick="menu4()"><a data-toggle="tab" href="#monitor">monitor</a></li>
+                    <li class="tablinks" onclick="menu5()"><a data-toggle="tab" href="#FileManager">File Manager</a></li>
+                    <li class="tablinks" onclick="menu6()"><a data-toggle="tab" href="#Message">Message</a></li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -164,75 +166,75 @@
         <!-- #END# Left Sidebar -->
 
 
-   <section class="content">
-        <div class="container-fluid">
-      <div  class="row clearfix" id="Blockly" >
-           <input type="text" id= "filename" name="filename" value="Name of Project">
-           <div id="blocklyDiv" style="height:500px"></div><br>
-            <center>
-              <button onclick="generate()">Generate Python </button>
-              <button onclick="put_file()">upload</button>
-              <button onclick="Savecode()">Save Code </button>
-              <button onclick="save()">Save Blocks</button>
-              <button onclick="loadXml()">Open Blocks</button>
-              <button onclick="generateXML()">XML</button>
-              <button onclick="loadAddons()">LoadAddons</button>
-            </center><br>
-          <textarea  id="code_output" rows="12" cols="50"readonly style="height: 500px"></textarea>
-         
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row clearfix" id="Blockly">
+                    <input type="text" id="filename" name="filename" value="Name of Project">
+                    <div id="blocklyDiv" style="height:500px"></div><br>
+                    <center>
+                        <button onclick="generate()">Generate Python </button>
+                        <button onclick="put_file()">upload</button>
+                        <button onclick="Savecode()">Save Code </button>
+                        <button onclick="save()">Save Blocks</button>
+                        <button onclick="loadXml()">Open Blocks</button>
+                        <button onclick="generateXML()">XML</button>
+                        <button onclick="loadAddons()">LoadAddons</button>
+                    </center><br>
+                    <textarea id="code_output" rows="12" cols="50" readonly style="height: 500px"></textarea>
 
-      </div>
 
-      <div class="row clearfix" id="Prompt" >
-            Address : <input type="text" name="webrepl_url" id="url" value="192.168.4.1"><br>
-            Port : 
-            <input type="text" name="webrepl_url_port" id="port_url" value="8266"><br>
-            <input type="button" id="button" value="Connnect" onclick="button_click(); return false;"><br>
-            <div id="repl"></div> 
-      </div>
+                </div>
 
-      <div class="row clearfix" id="Editor1" >
-        
-          <div id="editor"><div> def main():
-          print('Hello IOT World')</div></div>
-</div>
-       
+                <div class="row clearfix" id="Prompt">
+                    Address : <input type="text" name="webrepl_url" id="url" value="192.168.4.1"><br> Port :
+                    <input type="text" name="webrepl_url_port" id="port_url" value="8266"><br>
+                    <input type="button" id="button" value="Connnect" onclick="button_click(); return false;"><br>
+                    <div id="repl"></div>
+                </div>
 
-    <div class="row clearfix" id="monitor" >
-    <div class="row clearfix">
-      <div class="col-md-8" id="content">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-cyan">
-                            <h2>
+                <div class="row clearfix" id="Editor1">
+
+                    <div id="editor">
+                        <div> def main(): print('Hello IOT World')</div>
+                    </div>
+                </div>
+
+
+                <div class="row clearfix" id="monitor">
+                    <div class="row clearfix">
+                        <div class="col-md-8" id="content">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>
                                GPIO04
                             </h2>
-                        </div>
-                        <div class="body">
-                              <button type="button" class="btn bg-light-green waves-effect" id="test4">ON</button>
+                                    </div>
+                                    <div class="body">
+                                        <button type="button" class="btn bg-light-green waves-effect" id="test4">ON</button>
 
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+                                </div>
+                            </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="header bg-cyan">
-                            <h2>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-cyan">
+                                        <h2>
                                GPIO05
                             </h2>
-                        </div>
-                        <div class="body">
-                              <button type="button" class="btn bg-light-green waves-effect" id="test5">ON</button>
+                                    </div>
+                                    <div class="body">
+                                        <button type="button" class="btn bg-light-green waves-effect" id="test5">ON</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
 
                         </div>
-                    </div>
-                </div>
-        
-
-      </div>
-      <div class="col-md-4">
-      <select class="show-tick" id="type">
+                        <div class="col-md-4">
+                            <select class="show-tick" id="type">
                         <option value="1" >Button</option>
                         <option value="2" >Slider</option>
                         <option value="3" >LED</option>
@@ -240,656 +242,684 @@
                         <option value="5" >sensor</option>
                         <option value="6" >Circle</option>
                         <option value="7" >graph</option>
-                       
+
       </select>
 
-      <button type="button"onclick="createContent()">Add</button>
-      <button type="button"onclick="clrArr()">clear</button>
+                            <button type="button" onclick="createContent()">Add</button>
+                            <button type="button" onclick="clrArr()">clear</button>
 
-      </div>
-    </div>
-      </div>
-
-      <div class="row clearfix" id="FileMannger" >
-      <div class="col-md-6">
-          <div class="card" >
-                        <div class="header ">
-                            <h3>File Manager</h3>
-                            <button type="button"onclick="addFile()">addFile</button>
-                            <button type="button"onclick="refreshFile()">refreshFile</button>
                         </div>
-                        <div class="body" id="listfile">
+                    </div>
+                </div>
 
-                        
-                  
-                      
+                <div class="row clearfix" id="FileMannger">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header ">
+                                <h3>File Manager</h3>
+                                <button type="button" onclick="addFile()">addFile</button>
+                                <button type="button" onclick="refreshFile()">refreshFile</button>
+                            </div>
+                            <div class="body" id="listfile">
 
 
 
 
-                  </div>
-           </div>   
-</div>
-           
-          <div class="col-md-6">
-        
-          <div class="card" >
-                        <div class="header">
-                            <h2>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="card">
+                            <div class="header">
+                                <h2>
                                  <h3>Device Manager</h3>
                                   <button type="button" onclick='fetchdata()'>addDevice</button>
                                    <button type="button" onclick='arrDevice = [];window.localStorage.setItem("device", "");'>clr</button>
                             </h2>
-                        </div>
-                        <div class="body" id="listDevice">
-                           
-                   <div class="card">
-                        <div class="header bg-light-green">
-                            <h2>
+                            </div>
+                            <div class="body" id="listDevice">
+
+                                <div class="card">
+                                    <div class="header bg-light-green">
+                                        <h2>
                                 Micropython <small>testmini 1</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li>
-                                    <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="rotation" data-loading-color="lightGreen">
-                                        <i class="material-icons">loop</i>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                          
-                            
+                                        <ul class="header-dropdown m-r--5">
+                                            <li>
+                                                <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="rotation" data-loading-color="lightGreen">
+                                                    <i class="material-icons">loop</i>
+                                                </a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="material-icons">more_vert</i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li><a href="javascript:void(0);">Action</a></li>
+                                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="body">
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+
                         </div>
                     </div>
 
-
-                   
-
-
                 </div>
+                <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content modal-col-grey">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="largeModalLabel">Automade step 1</h4>
+                            </div>
+                            <div class="modal-body">
 
-          </div>
-          </div>
+                                - connect to micropython ap - image of micropython - pass micropythoN -wait response feom micropython to next step
+                            </div>
+                            <div class="modal-footer">
 
-        </div>
-      <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content modal-col-grey">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="largeModalLabel">Automade step 1</h4>
-                        </div>
-                        <div class="modal-body">
-                            
-                            - connect to micropython ap
-                            - image of micropython
-                            - pass micropythoN
-
-                            -wait response feom micropython to next step
-                        </div>
-                        <div class="modal-footer">
-                            
-                            <button type="button" id="step1miss" class="btn btn-link waves-effect"  data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
+                                <button type="button" id="step1miss" class="btn btn-link waves-effect" data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content modal-col-grey">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
-                        </div>
-                        <div class="modal-body">
-                           
-                           - set wifi ssid pass
-                           - if success return mac of sta and ip
+                <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content modal-col-grey">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
+                            </div>
+                            <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            
-                            <button type="button"  id="step2miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                - set wifi ssid pass - if success return mac of sta and ip
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" id="step2miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal fade" id="largeModal3" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content modal-col-grey">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
-                        </div>
-                        <div class="modal-body">
-                           - suggect choose wifi as micropython connected now 
-                           - later system to auto connect to ip now
-                           - but auto connect system failed you need to click automed setup and make there again
-                        </div>
-                        <div class="modal-footer">
-                            
-                            <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                <div class="modal fade" id="largeModal3" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content modal-col-grey">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
+                            </div>
+                            <div class="modal-body">
+                                - suggect choose wifi as micropython connected now - later system to auto connect to ip now - but auto connect system failed you need to click automed setup and make there again
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-      <div class="row clearfix" id="Message" >
-     
-        <div class="jsdemo-notification-button">
-          <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
-          <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
-          <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
+                <div class="row clearfix" id="Message">
 
-         <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right"  data-placement-text="Disconneced !!!! Please connect internet"
-                                            data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
+                    <div class="jsdemo-notification-button">
+                        <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
+                        <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
+                        <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
+
+                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
                                         TOP RIGHT
                                     </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  </section>
-  </body>
-  <xml id="toolbox" style="display: none">
-  
-    <category id="catWifi" colour="90" name="Wifi">
-      <block type="Wifi_mode"></block>
-    </category>
-     <category id="catmqtt" colour="20" name="mqtt">
-      <block type="mqtt_init"></block>
-      <block type="mqtt_connect"></block>
-      <block type="mqtt_disconnect"></block>
-      <block type="mqtt_publish"></block>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+</body>
 
+<xml id="toolbox" style="display: none">
 
-    </category>
     <category id="catLogic" colour="210" name="Logic">
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_null"></block>
-      <block type="logic_ternary"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
     </category>
     <category id="catLoops" colour="120" name="Loops">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <value name="FROM">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="TO">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-        <value name="BY">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+        <block type="controls_for">
+            <value name="FROM">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="TO">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="BY">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="controls_forEach"></block>
+        <block type="controls_flow_statements"></block>
     </category>
     <category id="catMath" colour="230" name="Math">
-      <block type="math_number"></block>
-      <block type="math_arithmetic">
-        <value name="A">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="B">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_single">
-        <value name="NUM">
-          <shadow type="math_number">
-            <field name="NUM">9</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_trig">
-        <value name="NUM">
-          <shadow type="math_number">
-            <field name="NUM">45</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_constant"></block>
-      <block type="math_number_property">
-        <value name="NUMBER_TO_CHECK">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_change">
-        <value name="DELTA">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_round">
-        <value name="NUM">
-          <shadow type="math_number">
-            <field name="NUM">3.1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_on_list"></block>
-      <block type="math_modulo">
-        <value name="DIVIDEND">
-          <shadow type="math_number">
-            <field name="NUM">64</field>
-          </shadow>
-        </value>
-        <value name="DIVISOR">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_constrain">
-        <value name="VALUE">
-          <shadow type="math_number">
-            <field name="NUM">50</field>
-          </shadow>
-        </value>
-        <value name="LOW">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="HIGH">
-          <shadow type="math_number">
-            <field name="NUM">100</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_random_int">
-        <value name="FROM">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="TO">
-          <shadow type="math_number">
-            <field name="NUM">100</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="math_random_float"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic">
+            <value name="A">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="B">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_single">
+            <value name="NUM">
+                <shadow type="math_number">
+                    <field name="NUM">9</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_trig">
+            <value name="NUM">
+                <shadow type="math_number">
+                    <field name="NUM">45</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_constant"></block>
+        <block type="math_number_property">
+            <value name="NUMBER_TO_CHECK">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_change">
+            <value name="DELTA">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_round">
+            <value name="NUM">
+                <shadow type="math_number">
+                    <field name="NUM">3.1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_on_list"></block>
+        <block type="math_modulo">
+            <value name="DIVIDEND">
+                <shadow type="math_number">
+                    <field name="NUM">64</field>
+                </shadow>
+            </value>
+            <value name="DIVISOR">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_constrain">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">50</field>
+                </shadow>
+            </value>
+            <value name="LOW">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="HIGH">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_random_int">
+            <value name="FROM">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="TO">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="math_random_float"></block>
     </category>
     <category id="catText" colour="160" name="Text">
-      <block type="text"></block>
-      <block type="text_join"></block>
-      <block type="text_append">
-        <value name="TEXT">
-          <shadow type="text"></shadow>
-        </value>
-      </block>
-      <block type="text_length">
-        <value name="VALUE">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_isEmpty">
-        <value name="VALUE">
-          <shadow type="text">
-            <field name="TEXT"></field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_indexOf">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-        <value name="FIND">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_charAt">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-      </block>
-      <block type="text_getSubstring">
-        <value name="STRING">
-          <block type="variables_get">
-            <field name="VAR">text</field>
-          </block>
-        </value>
-      </block>
-      <block type="text_changeCase">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_trim">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_print">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text_prompt_ext">
-        <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="text"></block>
+        <block type="text_join"></block>
+        <block type="text_append">
+            <value name="TEXT">
+                <shadow type="text"></shadow>
+            </value>
+        </block>
+        <block type="text_length">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_isEmpty">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_indexOf">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+            <value name="FIND">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_charAt">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_getSubstring">
+            <value name="STRING">
+                <block type="variables_get">
+                    <field name="VAR">text</field>
+                </block>
+            </value>
+        </block>
+        <block type="text_changeCase">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_trim">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_print">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="text_prompt_ext">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
     </category>
     <category id="catLists" colour="260" name="Lists">
-      <block type="lists_create_with">
-        <mutation items="0"></mutation>
-      </block>
-      <block type="lists_create_with"></block>
-      <block type="lists_repeat">
-        <value name="NUM">
-          <shadow type="math_number">
-            <field name="NUM">5</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="lists_length"></block>
-      <block type="lists_isEmpty"></block>
-      <block type="lists_indexOf">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">list</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_getIndex">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">list</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_setIndex">
-        <value name="LIST">
-          <block type="variables_get">
-            <field name="VAR">list</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_getSublist">
-        <value name="LIST">
-          <block type="variables_get">
-            <field name="VAR">list</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_split">
-        <value name="DELIM">
-          <shadow type="text">
-            <field name="TEXT">,</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="lists_sort"></block>
+        <block type="lists_create_with">
+            <mutation items="0"></mutation>
+        </block>
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat">
+            <value name="NUM">
+                <shadow type="math_number">
+                    <field name="NUM">5</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_indexOf">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_getIndex">
+            <value name="VALUE">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_setIndex">
+            <value name="LIST">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_getSublist">
+            <value name="LIST">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+        </block>
+        <block type="lists_split">
+            <value name="DELIM">
+                <shadow type="text">
+                    <field name="TEXT">,</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="lists_sort"></block>
     </category>
     <category id="catColour" colour="20" name="Color">
-      <block type="colour_picker"></block>
-      <block type="colour_random"></block>
-      <block type="colour_rgb">
-        <value name="RED">
-          <shadow type="math_number">
-            <field name="NUM">100</field>
-          </shadow>
-        </value>
-        <value name="GREEN">
-          <shadow type="math_number">
-            <field name="NUM">50</field>
-          </shadow>
-        </value>
-        <value name="BLUE">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="colour_blend">
-        <value name="COLOUR1">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-          </shadow>
-        </value>
-        <value name="COLOUR2">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#3333ff</field>
-          </shadow>
-        </value>
-        <value name="RATIO">
-          <shadow type="math_number">
-            <field name="NUM">0.5</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="colour_picker"></block>
+        <block type="colour_random"></block>
+        <block type="colour_rgb">
+            <value name="RED">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+            <value name="GREEN">
+                <shadow type="math_number">
+                    <field name="NUM">50</field>
+                </shadow>
+            </value>
+            <value name="BLUE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="colour_blend">
+            <value name="COLOUR1">
+                <shadow type="colour_picker">
+                    <field name="COLOUR">#ff0000</field>
+                </shadow>
+            </value>
+            <value name="COLOUR2">
+                <shadow type="colour_picker">
+                    <field name="COLOUR">#3333ff</field>
+                </shadow>
+            </value>
+            <value name="RATIO">
+                <shadow type="math_number">
+                    <field name="NUM">0.5</field>
+                </shadow>
+            </value>
+        </block>
     </category>
+    <sep></sep>
+    <category id="catWifi" colour="90" name="Wifi">
+        <!-- <block type="wlan_import"></block> -->
+        <block type="wifi_setting"></block>
+        <block type="connect_wifi"></block>
+        <block type="check_network"></block>
+    </category>
+
+    <category id="catio" colour="160" name="Input Output">
+        <block type="pin_module"></block>
+        <block type="io_set_pin"></block>
+        <block type="io_input"></block>
+        <block type="io_output"></block>
+        <block type="io_hl"></block>
+
+        <block type="Pin_PWM"></block>
+
+        <block type="PWM_Freq"></block>
+        <block type="PWM_Duty"></block>
+        <block type="PWM_Deinit"></block>
+
+    </category>
+
+    <category id="i2c" colour="230" name="i2c">
+        <block type="i2c_read"></block>
+        <block type="i2c_write">
+            <value name="NAME">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+    </category>
+
+    <category id="catTime" colour="270" name="Time">
+        <block type="time_delay">
+            <value name="in_value">
+                <block type="math_number">
+                    <field name="NUM">1</field>
+                </block>
+            </value>
+        </block>
+
+    </category>
+
     <sep></sep>
     <category id="catVariables" colour="330" custom="VARIABLE" name="Variables"></category>
     <category id="catFunctions" colour="290" custom="PROCEDURE" name="Functions"></category>
-  </xml>
+</xml>
 <xml id="blocklyDefault" style="display: none">
-  <block type="variables_set">
-    <field name="VAR">Count</field>
-    <value name="VALUE">
-      <block type="math_number">
-        <field name="NUM">1</field>
-      </block>
-    </value>
-    <next>
-    <block type="controls_whileUntil" x="16" y="16">
-      <field name="MODE">WHILE</field>
-        <value name="BOOL">
-          <block type="logic_compare">
-            <field name="OP">LTE</field>
-            <value name="A">
-              <block type="variables_get">
-                <field name="VAR">Count</field>
-              </block>
-            </value>
-            <value name="B">
-              <block type="math_number">
-                <field name="NUM">3</field>
-              </block>
-            </value>
-          </block>
+    <block type="variables_set">
+        <field name="VAR">Count</field>
+        <value name="VALUE">
+            <block type="math_number">
+                <field name="NUM">1</field>
+            </block>
         </value>
-        <statement name="DO">
-          <block type="text_print">
-            <value name="TEXT">
-              <block type="text">
-                <field name="TEXT">Hello World!</field>
-              </block>
-            </value>
-            <next>
-              <block type="variables_set">
-              <field name="VAR">Count</field>
-                <value name="VALUE">
-                  <block type="math_arithmetic">
-                  <field name="OP">ADD</field>
-                    <value name="A">
-                      <block type="variables_get">
-                        <field name="VAR">Count</field>
-                      </block>
-                    </value>
-                    <value name="B">
-                      <block type="math_number">
-                        <field name="NUM">1</field>
-                      </block>
-                    </value>
-                  </block>
+        <next>
+            <block type="controls_whileUntil" x="16" y="16">
+                <field name="MODE">WHILE</field>
+                <value name="BOOL">
+                    <block type="logic_compare">
+                        <field name="OP">LTE</field>
+                        <value name="A">
+                            <block type="variables_get">
+                                <field name="VAR">Count</field>
+                            </block>
+                        </value>
+                        <value name="B">
+                            <block type="math_number">
+                                <field name="NUM">3</field>
+                            </block>
+                        </value>
+                    </block>
                 </value>
-              </block>
-            </next>
-          </block>
-        </statement>
-      </block>
+                <statement name="DO">
+                    <block type="text_print">
+                        <value name="TEXT">
+                            <block type="text">
+                                <field name="TEXT">Hello World!</field>
+                            </block>
+                        </value>
+                        <next>
+                            <block type="variables_set">
+                                <field name="VAR">Count</field>
+                                <value name="VALUE">
+                                    <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                            <block type="variables_get">
+                                                <field name="VAR">Count</field>
+                                            </block>
+                                        </value>
+                                        <value name="B">
+                                            <block type="math_number">
+                                                <field name="NUM">1</field>
+                                            </block>
+                                        </value>
+                                    </block>
+                                </value>
+                            </block>
+                        </next>
+                    </block>
+                </statement>
+            </block>
     </block>
 </xml>
 
-  <!-- JS Files  -->
-       <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript">
-          var editor = ace.edit("editor");
-          editor.setTheme("ace/theme/twilight");
-          editor.session.setMode("ace/mode/python");
-          editor.commands.addCommand({
-          name: 'Save',
-          bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
-          exec: function(editor) {
-              alert("Save Done!!!");
-          },
-        });
-        </script>
-  <script type="text/javascript">
-
-
-  tabcontent = document.getElementsByClassName("tabcontent");
+<!-- JS Files  -->
+<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/python");
+    editor.commands.addCommand({
+        name: 'Save',
+        bindKey: {
+            win: 'Ctrl-S',
+            mac: 'Command-S'
+        },
+        exec: function(editor) {
+            alert("Save Done!!!");
+        },
+    });
+</script>
+<script type="text/javascript">
+    tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 1; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-  tablinks = document.getElementsByClassName("tablinks");
-   for (i = 1; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-
-
-  function openTab(evt, Tab) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
     tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
+    for (i = 1; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(Tab).style.display = "block";
-    $('#'+Tab).hi
-    evt.currentTarget.className += " active";
-}
-  //If serviceWorker supports, then register it.
-  if ("serviceWorker" in navigator) {
-    //navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw
-    //.then(function (registration) {
-    //  console.info('Service worker is registered!');
-   // })
-    //.catch(function (error) {
-   //   console.error('Service worker failed ', error);
-   // });
-  }
-  </script>
-  
-
-   <!--<script src="toolbox.js"></script>-->
-
- 
-      <!-- Jquery Core Js -->
-    <script src="./plugins/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="./plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="./plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="./plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Bootstrap Notify Plugin Js -->
-    <script src="./plugins/bootstrap-notify/bootstrap-notify.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="./plugins/node-waves/waves.js"></script>
-    <!-- RangeSlider Plugin Js -->
-    <script src="./plugins/ion-rangeslider/js/ion.rangeSlider.js"></script>
-        <!-- Jquery Knob Plugin Js -->
-    <script src="./plugins/jquery-knob/jquery.knob.min.js"></script>
-        <!-- Wait Me Plugin Js -->
-    <script src="./plugins/waitme/waitMe.js"></script>
-    <!-- Bootstrap Notify Plugin Js -->
-    <script src="./plugins/bootstrap-notify/bootstrap-notify.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="./plugins/node-waves/waves.js"></script>
-
-  
 
 
-    <!-- Custom Js -->
-    <script src="./js/admin.js"></script>
-    <script src="./js/pages/ui/range-sliders.js"></script>
-    <script src="./js/pages/charts/jquery-knob.js"></script>
-    <script src="./js/pages/cards/colored.js"></script>
-    <script src="./js/pages/ui/notifications.js"></script>
+
+    function openTab(evt, Tab) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(Tab).style.display = "block";
+        $('#' + Tab).hi
+        evt.currentTarget.className += " active";
+    }
+    //If serviceWorker supports, then register it.
+    if ("serviceWorker" in navigator) {
+        //navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw
+        //.then(function (registration) {
+        //  console.info('Service worker is registered!');
+        // })
+        //.catch(function (error) {
+        //   console.error('Service worker failed ', error);
+        // });
+    }
+</script>
 
 
-    <script src="./js/monitor.js"></script>
-    <script src="./js/manager.js"></script>
-    
-  <script src="js/system.js"></script>
-  <script src="js/prompt.js"></script>
+<!--<script src="toolbox.js"></script>-->
 
 
-  <script type="text/javascript"  src="js/term.js"></script>
-  <script type="text/javascript"  src="js/FileSaver.js"></script>
+<!-- Jquery Core Js -->
+<script src="./plugins/jquery/jquery.min.js"></script>
 
-  <script src="./js/toast.js"></script>
-  <script src="./js/offline.js"></script>
-  <script src="./js/app.js"></script>
-  <script src="./js/push.js"></script>
-  <script src="./js/sync.js"></script>
-  <script src="./js/share.js"></script>
-  <script src="./js/menu.js"></script>
-  </body>
+<!-- Bootstrap Core Js -->
+<script src="./plugins/bootstrap/js/bootstrap.js"></script>
+
+<!-- Select Plugin Js -->
+<script src="./plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script src="./plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<!-- Bootstrap Notify Plugin Js -->
+<script src="./plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="./plugins/node-waves/waves.js"></script>
+<!-- RangeSlider Plugin Js -->
+<script src="./plugins/ion-rangeslider/js/ion.rangeSlider.js"></script>
+<!-- Jquery Knob Plugin Js -->
+<script src="./plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- Wait Me Plugin Js -->
+<script src="./plugins/waitme/waitMe.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="./plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="./plugins/node-waves/waves.js"></script>
 
 
-  
+
+
+<!-- Custom Js -->
+<script src="./js/admin.js"></script>
+<script src="./js/pages/ui/range-sliders.js"></script>
+<script src="./js/pages/charts/jquery-knob.js"></script>
+<script src="./js/pages/cards/colored.js"></script>
+<script src="./js/pages/ui/notifications.js"></script>
+
+
+<script src="./js/monitor.js"></script>
+<script src="./js/manager.js"></script>
+
+<script src="js/system.js"></script>
+<script src="js/prompt.js"></script>
+
+
+<script type="text/javascript" src="js/term.js"></script>
+<script type="text/javascript" src="js/FileSaver.js"></script>
+
+<script src="./js/toast.js"></script>
+<script src="./js/offline.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/push.js"></script>
+<script src="./js/sync.js"></script>
+<script src="./js/share.js"></script>
+<script src="./js/menu.js"></script>
+</body>
+
+
+
 </html>

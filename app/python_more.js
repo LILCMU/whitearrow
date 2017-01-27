@@ -40,7 +40,7 @@ Blockly.Blocks['mqtt_init'] = {
             .appendField(new Blockly.FieldTextInput("Host"), "hostServer");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(20);
+        this.setColour(110);
         this.setTooltip('');
     }
 };
@@ -58,7 +58,7 @@ Blockly.Blocks['mqtt_connect'] = {
             .appendField("MQTT Connect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(20);
+        this.setColour(110);
         this.setTooltip('');
     }
 };
@@ -75,7 +75,7 @@ Blockly.Blocks['mqtt_disconnect'] = {
             .appendField("MQTT Disconnect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(20);
+        this.setColour(110);
         this.setTooltip('');
     }
 };
@@ -97,7 +97,7 @@ Blockly.Blocks['mqtt_publish'] = {
             .appendField(new Blockly.FieldCheckbox("TRUE"), "retain");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(20);
+        this.setColour(110);
         this.setTooltip('');
     }
 };
@@ -107,26 +107,20 @@ Blockly.Python['mqtt_publish'] = function(block) {
     var text_msg = block.getFieldValue('Msg');
     var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
     // TODO: Assemble JavaScript into code variable.
-    var code = "mqtt.publish(b\"" + text_topic + "\",\'" + text_msg + "',retain=True)\n";
+    var code = "mqtt.publish(\"" + text_topic + "\",\'" + text_msg + "',retain=True)\n";
     return code;
 };
 
-var pwm_pin = 0;
+var pwm_port = 0;
 Blockly.Blocks['Pin_PWM'] = {
     init: function() {
         this.appendStatementInput("NAME")
             .setCheck(null)
-            .appendField("PWM Pin")
+            .appendField("Set PWM port")
             .appendField(new Blockly.FieldDropdown([
-                ["GIPO 0", "0"],
-                ["GIPO 2", "2"],
-                ["GIPO 4", "4"],
-                ["GIPO 5", "5"],
-                ["GIPO 12", "12"],
-                ["GIPO 13", "13"],
-                ["GIPO 14", "14"],
-                ["GIPO 15", "15"]
-            ]), "Pin");
+                ["1", "1"],
+                ["2", "2"]
+            ]), "port");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(0);
@@ -135,21 +129,21 @@ Blockly.Blocks['Pin_PWM'] = {
     }
 };
 Blockly.Python['Pin_PWM'] = function(block) {
-    var dropdown_pin = block.getFieldValue('Pin');
-    pwm_pin = dropdown_pin;
+    var dropdown_port = block.getFieldValue('port');
+    pwm_port = dropdown_port;
     var statements_name = Blockly.Python.statementToCode(block, 'NAME', true);
     statements_name = statements_name.replace(/\s/g, '');
     // console.log("1 =>" + statements_name)
     statements_name = statements_name.replace(/\$n/g, '\n');
     // console.log("2 =>" + statements_name)
-    var code = 'import machine\npwm' + dropdown_pin + ' = PWM(Pin(' + dropdown_pin + '))' + statements_name + '\n';
+    var code = 'pwm' + dropdown_port + ' = PWM(Pin(' + dropdown_port + '))' + statements_name + '\n';
     return code;
 };
-Blockly.Blocks['PWM_Freq'] = {
+Blockly.Blocks['Pin_PWMFreq'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("PWM frequency")
+            .appendField("PWM Frequency")
             .appendField(new Blockly.FieldNumber(0, 0, 1000), "freq");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -158,21 +152,21 @@ Blockly.Blocks['PWM_Freq'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['PWM_Freq'] = function(block) {
+Blockly.Python['Pin_PWMFreq'] = function(block) {
     var number_freq = block.getFieldValue('freq');
     if (number_freq == 0)
         var code = '$npwm' + pwm_pin + '.freq()';
     else
         var code = '$npwm' + pwm_pin + '.freq(' + number_freq + ')';
-    console.log(code);
+    // console.log(code);
     return code;
 };
 
-Blockly.Blocks['PWM_Duty'] = {
+Blockly.Blocks['Pin_PWMDuty'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("PWM duty")
+            .appendField("PWM Duty")
             .appendField(new Blockly.FieldNumber(0, 0, 1023), "duty");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -181,109 +175,55 @@ Blockly.Blocks['PWM_Duty'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['PWM_Duty'] = function(block) {
+Blockly.Python['Pin_PWMDuty'] = function(block) {
     var number_duty = block.getFieldValue('duty');
     if (number_duty == 0)
         var code = '$npwm' + pwm_pin + '.duty()';
     else
         var code = '$npwm' + pwm_pin + '.duty(' + number_duty + ')';
-    console.log(code);
+    // console.log(code);
     return code;
 };
 
-Blockly.Blocks['PWM_Deinit'] = {
+Blockly.Blocks['Pin_PWMDeinit'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("PWM deinit");
+            .appendField("PWM Deinit");
         this.setPreviousStatement(true, null);
         this.setColour(0);
         this.setTooltip('');
         this.setHelpUrl('');
     }
 };
-Blockly.Python['PWM_Deinit'] = function(block) {
-    var code = 'pwm' + pwm_pin + '.deinit()';
+Blockly.Python['Pin_PWMDeinit'] = function(block) {
+    var code = 'pwm' + pwm_pin + '.deinit()\n';
     return code;
 };
 
-Blockly.Blocks['i2c_read'] = {
+Blockly.Blocks['Pin_I2C_read'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("i2c-Read scl Pin")
-            .appendField(new Blockly.FieldDropdown([
-                ["GIPO  0", "0"],
-                ["GIPO 1", "1"],
-                ["GIPO 2", "2"],
-                ["GIPO 3", "3"],
-                ["GIPO 4", "4"],
-                ["GIPO 5", "5"],
-                ["GIPO 12", "12"],
-                ["GIPO 13", "13"],
-                ["GIPO 14", "14"],
-                ["GIPO 15", "15"]
-            ]), "scl_pin")
-            .appendField("  sda Pin")
-            .appendField(new Blockly.FieldDropdown([
-                ["GIPO  0", "0"],
-                ["GIPO 1", "1"],
-                ["GIPO 2", "2"],
-                ["GIPO 3", "3"],
-                ["GIPO 4", "4"],
-                ["GIPO 5", "5"],
-                ["GIPO 12", "12"],
-                ["GIPO 13", "13"],
-                ["GIPO 14", "14"],
-                ["GIPO 15", "15"]
-            ]), "sda_pin")
-            .appendField("  address")
-            .appendField(new Blockly.FieldTextInput("0x00"), "address");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+            .appendField("Read I2C from ")
+            .appendField(new Blockly.FieldTextInput("address 0x00"), "i2c_addr");
+        this.setOutput(true, null);
         this.setColour(230);
         this.setTooltip('');
         this.setHelpUrl('');
     }
 };
-Blockly.Python['i2c_read'] = function(block) {
-    var dropdown_scl_pin = block.getFieldValue('scl_pin');
-    var dropdown_sda_pin = block.getFieldValue('sda_pin');
-    var text_address = block.getFieldValue('address');
-    var code = 'import machine\ni2c = I2C(scl=Pin(' + dropdown_scl_pin + '), sda=Pin(' + dropdown_sda_pin + "))\ni2c.readfrom(" + text_address + ", 4)";
-    return code;
+
+Blockly.Python['Pin_I2C_read'] = function(block) {
+    var ext_i2c_addr = block.getFieldValue('i2c_addr');
+    var code = 'i2c = I2C(scl=Pin(0), sda=Pin(2))\ni2c.readfrom(' + ext_i2c_addr + ', 4)\n';
+    return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Blocks['i2c_write'] = {
+Blockly.Blocks['Pin_I2C_write'] = {
     init: function() {
-        this.appendValueInput("NAME")
+        this.appendValueInput("i2c")
             .setCheck(["String", "Array"])
-            .appendField("i2c-Write scl Pin")
-            .appendField(new Blockly.FieldDropdown([
-                ["GIPO  0", "0"],
-                ["GIPO 1", "1"],
-                ["GIPO 2", "2"],
-                ["GIPO 3", "3"],
-                ["GIPO 4", "4"],
-                ["GIPO 5", "5"],
-                ["GIPO 12", "12"],
-                ["GIPO 13", "13"],
-                ["GIPO 14", "14"],
-                ["GIPO 15", "15"]
-            ]), "scl_pin")
-            .appendField("  sda Pin")
-            .appendField(new Blockly.FieldDropdown([
-                ["GIPO  0", "0"],
-                ["GIPO 1", "1"],
-                ["GIPO 2", "2"],
-                ["GIPO 3", "3"],
-                ["GIPO 4", "4"],
-                ["GIPO 5", "5"],
-                ["GIPO 12", "12"],
-                ["GIPO 13", "13"],
-                ["GIPO 14", "14"],
-                ["GIPO 15", "15"]
-            ]), "sda_pin")
-            .appendField("  address")
-            .appendField(new Blockly.FieldTextInput("0x00"), "address");
+            .appendField("Write I2C to ")
+            .appendField(new Blockly.FieldTextInput("address 0x00"), "i2c_addr");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);
@@ -291,16 +231,17 @@ Blockly.Blocks['i2c_write'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['i2c_write'] = function(block) {
-    var dropdown_scl_pin = block.getFieldValue('scl_pin');
-    var dropdown_sda_pin = block.getFieldValue('sda_pin');
-    var text_address = block.getFieldValue('address');
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    var code = 'import machine\ni2c = I2C(scl=Pin(' + dropdown_scl_pin + '), sda=Pin(' + dropdown_sda_pin + "))\ni2c.writeto(" + text_address + ", " + value_name + ")";
+
+Blockly.Python['Pin_I2C_write'] = function(block) {
+    var text_i2c_addr = block.getFieldValue('i2c_addr');
+    var value_i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+    // TODO: Assemble Python into code variable.
+    var code = 'i2c = I2C(scl=Pin(0), sda=Pin(2))\ni2c.writeto(' + text_i2c_addr + ', ' + value_i2c + ')\n';
+    // TODO: Change ORDER_NONE to the correct strength.
     return code;
 };
 
-Blockly.Blocks['wifi_setting'] = {
+Blockly.Blocks['WLAN_setting'] = {
     init: function() {
         this.appendStatementInput("Wifi_Mode")
             .setCheck(null)
@@ -321,7 +262,7 @@ Blockly.Blocks['wifi_setting'] = {
     }
 };
 
-Blockly.Python['wifi_setting'] = function(block) {
+Blockly.Python['WLAN_setting'] = function(block) {
     var dropdown_mode = block.getFieldValue('Mode');
     var dropdown_state = block.getFieldValue('State');
     var statements_wifi = Blockly.Python.statementToCode(block, 'Wifi_Mode', true);
@@ -329,11 +270,11 @@ Blockly.Python['wifi_setting'] = function(block) {
     statements_wifi = statements_wifi.replace(/\$n/g, '\n');
     // var value_wifi_mode = Blockly.Python.valueToCode(block, 'Wifi Mode', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble JavaScript into code variable.
-    var code = 'from network import WLAN\nwlan = network.WLAN(network.' + dropdown_mode + ')\n' + 'wlan.active(' + dropdown_state + ')' + statements_wifi + '\n';
+    var code = 'wlan = network.WLAN(network.' + dropdown_mode + ')\n' + 'wlan.active(' + dropdown_state + ')' + statements_wifi + '\n';
     return code;
 };
 
-Blockly.Blocks['connect_wifi'] = {
+Blockly.Blocks['WLAN_connectwifi'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("Connect to ")
@@ -348,7 +289,7 @@ Blockly.Blocks['connect_wifi'] = {
     }
 };
 
-Blockly.Python['connect_wifi'] = function(block) {
+Blockly.Python['WLAN_connectwifi'] = function(block) {
     var text_ssid = block.getFieldValue('ssid');
     var text_pw = block.getFieldValue('pw');
     // TODO: Assemble Python into code variable.
@@ -356,7 +297,7 @@ Blockly.Python['connect_wifi'] = function(block) {
     return code;
 };
 
-Blockly.Blocks['check_network'] = {
+Blockly.Blocks['WLAN_checknetwork'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("Check Network Status ")
@@ -371,48 +312,26 @@ Blockly.Blocks['check_network'] = {
     }
 };
 
-Blockly.Python['check_network'] = function(block) {
+Blockly.Python['WLAN_checknetwork'] = function(block) {
     var dropdown_interfaces = block.getFieldValue('Interfaces');
     var code = '$nwlan.ifconfig()';
     return code;
 };
 
-Blockly.Blocks['pin_module'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("Import PIN");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(180);
-        this.setTooltip('');
-        this.setHelpUrl('');
-    }
-};
-
-Blockly.Python['pin_module'] = function(block) {
-    // TODO: Assemble Python into code variable.
-    var code = 'from machine import Pin\n';
-    return code;
-};
-
-
-
-Blockly.Blocks['io_output'] = {
+Blockly.Blocks['Pin_output'] = {
     init: function() {
         this.appendValueInput("onoff_value")
             .setCheck("Boolean")
-            .appendField("Output PIN")
+            .appendField("Set Output Port")
             .appendField(new Blockly.FieldDropdown([
-                ["GPIO 0", "0"],
-                ["GPIO 2", "2"],
-                ["GPIO 4", "4"],
-                ["GPIO 5", "5"],
-                ["GPIO 12", "12"],
-                ["GPIO 13", "13"],
-                ["GPIO 14", "14"],
-                ["GPIO 15", "15"],
-                ["GPIO 16", "16"]
-            ]), "pin_id");
+                ["1", "1"],
+                ["2", "2"]
+            ]), "port_id")
+            .appendField(" turn(?)")
+            .appendField(new Blockly.FieldDropdown([
+                ["Clockwise", "right"],
+                ["Counter-Clockwise", "left"]
+            ]), "turn");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(180);
@@ -421,20 +340,43 @@ Blockly.Blocks['io_output'] = {
     }
 };
 
-Blockly.Python['io_output'] = function(block) {
-    var dropdown_pin_id = block.getFieldValue('pin_id');
+Blockly.Python['Pin_output'] = function(block) {
+    var dropdown_port_id = block.getFieldValue('port_id');
+    var dropdown_turn = block.getFieldValue('turn');
     var value_onoff_value = Blockly.Python.valueToCode(block, 'onoff_value', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'pin' + dropdown_pin_id + '.value' + value_onoff_value + '\n';
+    // console.log(value_onoff_value)
+    // console.log(dropdown_turn)
+    if (value_onoff_value == '(1)') {
+        if (dropdown_turn == 'left') {
+            if (dropdown_port_id == '1') {
+                var code = 'pin1 = Pin(12, Pin.OUT)\npin2 = Pin(14, Pin.OUT)\npin1.value(0)\npin2.value(1)\n'
+            } else {
+                var code = 'pin3 = Pin(13, Pin.OUT)\npin4 = Pin(15, Pin.OUT)\npin3.value(0)\npin4.value(1)\n'
+            }
+        } else if (dropdown_turn == 'right') {
+            if (dropdown_port_id == '1') {
+                var code = 'pin1 = Pin(12, Pin.OUT)\npin2 = Pin(14, Pin.OUT)\npin1.value(1)\npin2.value(0)\n'
+            } else {
+                var code = 'pin3 = Pin(13, Pin.OUT)\npin4 = Pin(15, Pin.OUT)\npin3.value(1)\npin4.value(0)\n'
+            }
+        }
+    } else {
+        if (dropdown_port_id == '1') {
+            var code = 'pin1 = Pin(12, Pin.OUT)\npin2 = Pin(14, Pin.OUT)\npin1.value(0)\npin2.value(0)\n'
+        } else {
+            var code = 'pin3 = Pin(13, Pin.OUT)\npin4 = Pin(15, Pin.OUT)\npin3.value(0)\npin4.value(0)\n'
+        }
+    }
     return code;
 };
 
-Blockly.Blocks['io_hl'] = {
+Blockly.Blocks['Pin_hl'] = {
     init: function() {
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([
-                ["High", "1"],
-                ["Low", "0"]
+                ['On', '1'],
+                ['Off', '0']
             ]), "value");
         this.setOutput(true, null);
         this.setColour(180);
@@ -443,7 +385,7 @@ Blockly.Blocks['io_hl'] = {
     }
 };
 
-Blockly.Python['io_hl'] = function(block) {
+Blockly.Python['Pin_hl'] = function(block) {
     var dropdown_value = block.getFieldValue('value');
     // TODO: Assemble Python into code variable.
     var code = dropdown_value;
@@ -451,21 +393,10 @@ Blockly.Python['io_hl'] = function(block) {
     return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Blocks['io_input'] = {
+Blockly.Blocks['ADC_input'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("Read PIN")
-            .appendField(new Blockly.FieldDropdown([
-                ["GPIO 0", "0"],
-                ["GPIO 2", "2"],
-                ["GPIO 4", "4"],
-                ["GPIO 5", "5"],
-                ["GPIO 12", "12"],
-                ["GPIO 13", "13"],
-                ["GPIO 14", "14"],
-                ["GPIO 15", "15"],
-                ["GPIO 16", "16"]
-            ]), "pin_id")
+            .appendField("Read Sensor on analog port")
         this.setOutput(true, null);
         this.setColour(180);
         this.setTooltip('');
@@ -473,48 +404,11 @@ Blockly.Blocks['io_input'] = {
     }
 };
 
-Blockly.Python['io_input'] = function(block) {
-    var dropdown_pin_id = block.getFieldValue('pin_id');
+Blockly.Python['ADC_input'] = function(block) {
     // TODO: Assemble Python into code variable.
-    var code = 'pin' + dropdown_pin_id + '.value()';
+    var code = 'adc = ADC(0)\nadc.read()\n';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Blocks['io_set_pin'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("Set PIN")
-            .appendField(new Blockly.FieldDropdown([
-                ["GPIO 0", "0"],
-                ["GPIO 2", "2"],
-                ["GPIO 4", "4"],
-                ["GPIO 5", "5"],
-                ["GPIO 12", "12"],
-                ["GPIO 13", "13"],
-                ["GPIO 14", "14"],
-                ["GPIO 15", "15"],
-                ["GPIO 16", "16"]
-            ]), "pin_id")
-            .appendField("as")
-            .appendField(new Blockly.FieldDropdown([
-                ["Input", "IN"],
-                ["Output", "OUT"]
-            ]), "select_io");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(180);
-        this.setTooltip('');
-        this.setHelpUrl('');
-    }
-};
-
-Blockly.Python['io_set_pin'] = function(block) {
-    var dropdown_pin_id = block.getFieldValue('pin_id');
-    var dropdown_select_io = block.getFieldValue('select_io');
-    // TODO: Assemble Python into code variable.
-    var code = 'pin' + dropdown_pin_id + ' = Pin(' + dropdown_pin_id + ',Pin.' + dropdown_select_io + ')\n';
-    return code;
 };
 
 Blockly.Blocks['time_delay'] = {
@@ -541,11 +435,11 @@ Blockly.Python['time_delay'] = function(block) {
     var dropdown_prefix_second = block.getFieldValue('prefix_second');
     // TODO: Assemble Python into code variable.
     if (dropdown_prefix_second == 'second') {
-        var code = 'import time\ntime.sleep(' + value_in_value + ')\n'
+        var code = 'time.sleep(' + value_in_value + ')\n'
     } else if (dropdown_prefix_second == 'milli') {
-        var code = 'import time\ntime.sleep_ms(' + value_in_value + ')\n'
+        var code = 'time.sleep_ms(' + value_in_value + ')\n'
     } else if (dropdown_prefix_second == 'micro') {
-        var code = 'import time\ntime.sleep_us(' + value_in_value + ')\n'
+        var code = 'time.sleep_us(' + value_in_value + ')\n'
     }
     return code;
 };

@@ -95,7 +95,7 @@ class Block extends Controller
 		$server_part = $ip.":".$port;
 
 		$table   = "systems";
-		$select  = "user_id, name";
+		$select  = "user_id, name, block_name";
 		$this->db->select($table, $select);
 		$this->db->where("id", "=", "$addons_id");
 		$model   = $this->db->executeReader();
@@ -110,9 +110,9 @@ class Block extends Controller
 		$this->response->success(array(
 								"success" => true,
 								"block"   => array(
-									// "files" => "http://".$server_part."/nsc2017/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
-									"files" => "http://localhost/nsc2017/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
-									"xml"   => $model[0]->name)
+									// "files" => "http://".$server_part."/NSC2017/api/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
+									"files" => "http://localhost/NSC2017/api/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
+									"xml"   => $model[0]->block_name)
 								));
 	}
 
@@ -149,13 +149,13 @@ class Block extends Controller
 		$this->response->success(array(
 								"success" => true,
 								"wifi"    => array(
-									//"files" => "http://".$server_part."/nsc2017/add-ons/system/wifi/wifi.js",
-									"files" => "http://localhost/nsc2017/add-ons/system/wifi/wifi.js",
-									"xml"   => ["network_module","wifi_setting","connect_wifi","check_network"]),
-								"io_pin"  => array(
-									// "files" => "http://".$server_part."/nsc2017/add-ons/system/io_pin/io_pin.js",
-									"files" => "http://localhost/nsc2017/add-ons/system/io_pin/io_pin.js",
-									"xml"   => "")
+									"files" => "http://".$server_part."/nsc2017/api/add-ons/system/wifi/wifi.js",
+									// "files" => "http://localhost/NSC2017/api/add-ons/system/wifi/wifi.js",
+									"xml"   => ["network_module","wifi_setting","connect_wifi","check_network"])/*,*/
+								// "io_pin"  => array(
+								// 	"files" => "http://".$server_part."/NSC2017/api/add-ons/system/io_pin/io_pin.js",
+								// 	// "files" => "http://localhost/NSC2017/api/add-ons/system/io_pin/io_pin.js",
+								// 	"xml"   => "")
 								));
 	}
 

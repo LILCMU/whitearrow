@@ -498,8 +498,8 @@ Blockly.Blocks['io_set_pin'] = {
             ]), "pin_id")
             .appendField("as")
             .appendField(new Blockly.FieldDropdown([
-                ["Input", "In"],
-                ["Output", "Out"]
+                ["Input", "IN"],
+                ["Output", "OUT"]
             ]), "select_io");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);

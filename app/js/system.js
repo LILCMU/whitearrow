@@ -17,8 +17,7 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'),
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
 var t_space = Blockly.Python.INDENT + Blockly.Python.INDENT + Blockly.Python.INDENT;
-//connect('ws://'+ localStorage.nsc_prompt_ip +':'+ '8266' + '/');
-
+connect('ws://'+ localStorage.nsc_prompt_ip +':'+ '8266' + '/');
 var put_file_name = null;
 var put_file_data = null;
 
@@ -154,6 +153,18 @@ function autoloadBlock(){
 	Blockly.Xml.domToWorkspace(workspace, xml);
 }
 
+function shareAddons () {
+  var res=document.getElementById('res');
+   var xml = Blockly.Xml.workspaceToDom(workspace);
+      var xml_text = Blockly.Xml.domToText(xml);
+  $.post('http://192.168.12.100:100/nsc2017/api//getblocksystems',$('form').serialize()).done(function( data ) {
+   res.innerHTML = "<br><h3>your id is " + data + "  </h3><br>"
+ $('#send').hide();
+ });
+  
+  console.log($('form').serialize()+"&xml="+'xml_text')
+  
+}
 function loadAddons() {
 var path="";
 $.get( "http://10.10.184.230:100/nsc2017/api//getblocksystems", function( data ) {
@@ -190,7 +201,13 @@ function connect(url) {
     ws = new WebSocket(url);
     ws.binaryType = 'arraybuffer';
     ws.onopen = function() {
-    	ws.send('1234\r\n');
+      var connected = document.getElementById('status');
+      connected.value = "true"
+      connected.setAttribute('title',"status : Connected")
+      connected.innerHTML ='<p >wifi_tethering</p>'
+             var connected = document.getElementById('button');
+      connected.value = "disconnect"
+          	ws.send('1234\r\n');
         console.log('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.onmessage = function(event) {
             if (event.data instanceof ArrayBuffer) {
@@ -273,8 +290,13 @@ function connect(url) {
         };
     };
     ws.onclose = function() {
-        connected = false;
+        var connected = document.getElementById('status');
+      connected.value = "false"
+      connected.setAttribute('title',"status : disconnected")
+      connected.innerHTML ='<p >perm_scan_wifi</p>'
 
+       var connected = document.getElementById('button');
+      connected.value = "connect"
             console.log('\x1b[31mDisconnected\x1b[m\r\n');
         
         

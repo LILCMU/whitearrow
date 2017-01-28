@@ -7,7 +7,8 @@ if(!localStorage.nsc_prompt_ip){
 
 var term;
 var ws;
-var connected = false;
+var connected = document.getElementById('status').getAttribute('value');
+var trigger = false;
 var binary_state = 0;
 var put_file_name = null;
 var put_file_data = null;
@@ -52,7 +53,7 @@ function calculate_size(win) {
         var size = calculate_size(self);
         term.resize(size[0], size[1]);
     });
-    if(!connected){
+    if(connected==="false" && trigger){
         
             $('#step1').trigger('click');
            
@@ -88,7 +89,10 @@ function button_click() {
         document.getElementById('url').disabled = true;
         document.getElementById('port_url').disabled = true;
         document.getElementById('button').value = "Disconnect";
-        connected = true;
+         var connected = document.getElementById('status');
+      connected.value = "true"
+      connected.setAttribute('title',"status : Connected")
+      connected.innerHTML ='<p >wifi_tethering</p>'
         localStorage.nsc_prompt_ip = document.getElementById('url').value;
         connect('ws://'+ document.getElementById('url').value +':'+ document.getElementById('port_url').value + '/');
     }

@@ -116,14 +116,14 @@ Blockly.Blocks['Pin_PWM'] = {
     init: function() {
         this.appendStatementInput("NAME")
             .setCheck(null)
-            .appendField("Set PWM port")
+            .appendField("Set PWM on Port")
             .appendField(new Blockly.FieldDropdown([
                 ["1", "1"],
                 ["2", "2"]
             ]), "port");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(200);
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -132,56 +132,63 @@ Blockly.Python['Pin_PWM'] = function(block) {
     var dropdown_port = block.getFieldValue('port');
     pwm_port = dropdown_port;
     var statements_name = Blockly.Python.statementToCode(block, 'NAME', true);
+    // console.log(statements_name)
     statements_name = statements_name.replace(/\s/g, '');
-    // console.log("1 =>" + statements_name)
+    // console.log(statements_name)
     statements_name = statements_name.replace(/\$n/g, '\n');
-    // console.log("2 =>" + statements_name)
-    var code = 'pwm' + dropdown_port + ' = PWM(Pin(' + dropdown_port + '))' + statements_name + '\n';
+    if (pwm_port == '1') {
+        var code = 'pwm' + pwm_port + ' = PWM(Pin(14))' + statements_name + '\n';
+    } else {
+        var code = 'pwm' + pwm_port + ' = PWM(Pin(13))' + statements_name + '\n';
+    }
     return code;
 };
+
 Blockly.Blocks['Pin_PWMFreq'] = {
     init: function() {
+        this.appendValueInput("freq")
+            .setCheck("Number")
+            .appendField("PWM Frequency");
         this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("PWM Frequency")
-            .appendField(new Blockly.FieldNumber(0, 0, 1000), "freq");
+            .appendField("0 for show current value");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(200);
         this.setTooltip('');
         this.setHelpUrl('');
     }
 };
+
 Blockly.Python['Pin_PWMFreq'] = function(block) {
-    var number_freq = block.getFieldValue('freq');
-    if (number_freq == 0)
-        var code = '$npwm' + pwm_pin + '.freq()';
+    var value_freq = Blockly.Python.valueToCode(block, 'freq', Blockly.Python.ORDER_ATOMIC);
+    if (value_freq == 0)
+        var code = '$npwm' + pwm_port + '.freq()';
     else
-        var code = '$npwm' + pwm_pin + '.freq(' + number_freq + ')';
-    // console.log(code);
+        var code = '$npwm' + pwm_port + '.freq(' + value_freq + ')';
     return code;
 };
 
 Blockly.Blocks['Pin_PWMDuty'] = {
     init: function() {
+        this.appendValueInput("duty")
+            .setCheck("Number")
+            .appendField("PWM Duty (0 - 1024)");
         this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("PWM Duty")
-            .appendField(new Blockly.FieldNumber(0, 0, 1023), "duty");
+            .appendField("0 for show current value");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(200);
         this.setTooltip('');
         this.setHelpUrl('');
     }
 };
+
 Blockly.Python['Pin_PWMDuty'] = function(block) {
-    var number_duty = block.getFieldValue('duty');
-    if (number_duty == 0)
-        var code = '$npwm' + pwm_pin + '.duty()';
+    var value_duty = Blockly.Python.valueToCode(block, 'duty', Blockly.Python.ORDER_ATOMIC);
+    if (value_duty == 0)
+        var code = '$npwm' + pwm_port + '.duty()';
     else
-        var code = '$npwm' + pwm_pin + '.duty(' + number_duty + ')';
-    // console.log(code);
+        var code = '$npwm' + pwm_port + '.duty(' + value_duty + ')';
     return code;
 };
 
@@ -190,13 +197,13 @@ Blockly.Blocks['Pin_PWMDeinit'] = {
         this.appendDummyInput()
             .appendField("PWM Deinit");
         this.setPreviousStatement(true, null);
-        this.setColour(0);
+        this.setColour(200);
         this.setTooltip('');
         this.setHelpUrl('');
     }
 };
 Blockly.Python['Pin_PWMDeinit'] = function(block) {
-    var code = 'pwm' + pwm_pin + '.deinit()\n';
+    var code = 'pwm' + pwm_port + '.deinit()\n';
     return code;
 };
 

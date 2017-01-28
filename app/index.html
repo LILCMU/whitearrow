@@ -683,13 +683,31 @@
 
     <category id="catio" colour="160" name="Input Output">
         <block type="ADC_input"></block>
-        <block type="Pin_output"></block>
+        <block type="Pin_output">
+          <value name="onoff_value">
+              <block type="Pin_hl">
+                  <field name="value">On</field>
+              </block>
+          </value>
+        </block>
         <block type="Pin_hl"></block>
 
         <block type="Pin_PWM"></block>
 
-        <block type="Pin_PWMFreq"></block>
-        <block type="Pin_PWMDuty"></block>
+        <block type="Pin_PWMFreq">
+            <value name="freq">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+        </block>
+        <block type="Pin_PWMDuty">
+            <value name="duty">
+                <block type="math_number">
+                    <field name="NUM">0</field>
+                </block>
+            </value>
+        </block>
         <block type="Pin_PWMDeinit"></block>
 
     </category>

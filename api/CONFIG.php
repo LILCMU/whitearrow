@@ -1,6 +1,6 @@
 <?php
 $_CONFIG = array();
-$_CONFIG['COMMON'] ['DEBUG']    = true;
+$_CONFIG['COMMON'] ['DEBUG']    = false;
 $_CONFIG['COMMON'] ['BASE_URL'] = $_SERVER['HTTP_HOST'] . "/nsc2017/api/";
 $_CONFIG['URL']    ['M_OFFSET'] = 2;
 

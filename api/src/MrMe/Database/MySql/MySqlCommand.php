@@ -141,7 +141,7 @@ class MySqlCommand
 	public function where($field, $opt, $value)
 	{
 		$sql = "";
-		if (!empty($value))
+		if (!empty($value) && is_numeric($value))
 		{
 			if (!$this->clause_)
 			{

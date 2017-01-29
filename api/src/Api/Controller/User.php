@@ -63,7 +63,7 @@ class User extends Controller
 			}
 			else
 				$this->response->error(array("success" => false,
-											 "error" => "You already log in on another computer!"));
+											 "error" => "You're already log in on another computer!"));
 		}
 	    else
 		{

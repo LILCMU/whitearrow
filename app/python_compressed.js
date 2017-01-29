@@ -601,9 +601,9 @@ Blockly.Python.procedures_defreturn = function(a) {
 	var f = Blockly.Python.valueToCode(a, "RETURN", Blockly.Python.ORDER_NONE) || "";
 	f ? f = "  return " + f + "\n" : e || (e = Blockly.Python.PASS);
 	for (var g = [], c = 0; c < a.arguments_.length; c++) g[c] = Blockly.Python.variableDB_.getName(a.arguments_[c], Blockly.Variables.NAME_TYPE);
-	b = "def " + d + "(" + g.join(", ") + "):\n" + b + e + f;
+	b = 'start$\n' + "def " + d + "(" + g.join(", ") + "):\n" + b + e + f + '\n$end\n';
 	b = Blockly.Python.scrub_(a, b);
-	Blockly.Python.definitions_["%" + d] = b;
+	Blockly.Python.definitions_["%" +  d] = b;
 	return null
 };
 Blockly.Python.procedures_defnoreturn = Blockly.Python.procedures_defreturn;

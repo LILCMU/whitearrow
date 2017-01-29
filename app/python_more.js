@@ -28,7 +28,7 @@ Blockly.Python['controls_main'] = function(block) {
     } else if (!statements_a) {
         statements_a = Blockly.Python.PASS;
     }
-    var code = 'start\ndef main():\n' + statements_a + '\nend\n';
+    var code = 'start$\ndef main():\n' + statements_a + '\$end\n';
 
     return code;
 };

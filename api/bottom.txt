@@ -1,4 +1,4 @@
-                  
+                </div> 
                     </div>
                 </div>
             </div>
@@ -92,5 +92,6 @@
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>  
     <script type="text/javascript" src="js/_addons.js"></script>  
-</body>
+
+
 </html>

@@ -14,6 +14,8 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'),
 }
 
        });
+var _import ="import "
+var _machine = "from machine import "
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
 var t_space = Blockly.Python.INDENT + Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -21,6 +23,9 @@ connect('ws://'+ localStorage.nsc_prompt_ip +':'+ '8266' + '/');
 var put_file_name = null;
 var put_file_data = null;
 
+var arraddons=[];
+//var arraddons = JSON.parse(window.localStorage.getItem('addons'));
+console.log(window.localStorage.getItem('addons'))
 
 setInterval(function(){
 		autosaveBlock();
@@ -32,21 +37,57 @@ setInterval(function(){
    
 function generate() {
       // Parse the XML into a tree.
-
+      generateXML()
       var code = Blockly.Python.workspaceToCode(workspace);
-      console.log(code)
-      code = code.split('start')
-      code = code[1].split('end')
-      document.getElementById('repl').value = code[0];
-      editor.setValue(code[0]);
+      
+      var newcode = code.split('$')
+      
+      var execcode = _import + "\n" +  _machine.slice(0, -1); + "\n"
+      for (var i = 1; i < newcode.length; i+=2) {
+       execcode += newcode[i]
+      };
+      console.log()
+
+      document.getElementById('code_output').value = execcode;
+      editor.setValue(execcode);
+
 
     }
 
 function generateXML() {
-
+var arrXml = [];
+var first= true;
      var xmlDom = Blockly.Xml.workspaceToDom(workspace);
   	var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-  	 document.getElementById('repl').value = xmlText;
+    _import += "os"
+    arrXml.push(xmlText.search("Pin"))
+    arrXml.push(xmlText.search("WLAN"))
+    arrXml.push(xmlText.search("I2C"))
+    for (var i = 0 ; i < arrXml.length; i++) {
+      if(arrXml[i]>0){
+         
+                     switch(i) {
+                  case 0:
+                      _machine += "Pin"
+                      break;
+                  case 1:
+                      _machine += "Network"
+                      break;
+              }
+              if(first){
+               first = false;
+              }
+                if(!first){
+                _machine += ","
+              }
+
+          } 
+       
+    }
+   
+    console.log(arrXml)
+  	 document.getElementById('code_output').value = xmlText;
+
     }
 
 function Savecode() {
@@ -154,22 +195,35 @@ function autoloadBlock(){
 }
 
 function shareAddons () {
-  var res=document.getElementById('res');
+
    var xml = Blockly.Xml.workspaceToDom(workspace);
       var xml_text = Blockly.Xml.domToText(xml);
-  $.post('http://192.168.12.100:100/nsc2017/api//getblocksystems',$('form').serialize()).done(function( data ) {
-   res.innerHTML = "<br><h3>your id is " + data + "  </h3><br>"
- $('#send').hide();
+        var str = $('form').serialize()
+  var str2 = str+"&xml="+ String(xml_text)
+  $.post('http://192.168.12.100:100/nsc2017/api/block/addblock',str2).done(function( data ) {
+   $('#res').append("<br><h3>your id is " + data + "  </h3><br>")
+// $('#send').hide();
+ console.log(data)
  });
-  
-  console.log($('form').serialize()+"&xml="+'xml_text')
+
+  console.log(str2)
   
 }
+
+function resetConfig () {
+     $('#res').innerHTML = ""
+ $('#send').show();
+}
 function loadAddons() {
-var path="";
-$.get( "http://10.10.184.230:100/nsc2017/api//getblocksystems", function( data ) {
-  console.log(data)
- 	var s = document.createElement("script");
+
+
+    var lenght = $(arraddons).size();
+    console.log(lenght)
+
+    for(var i=0;i<lenght;i++){
+$.get( "http://192.168.12.100:100/nsc2017/api/block/getblock/aid/"+String(arraddons[i]), function( data ) {
+  console.log(data.file)
+ 	/*var s = document.createElement("script");
 	s.type = "text/javascript";
 	s.src = data.wifi.files;
 	$("head").append(s);
@@ -188,13 +242,18 @@ $.get( "http://10.10.184.230:100/nsc2017/api//getblocksystems", function( data )
       }
   xmlToolbox.appendChild(addons);
   workspace.updateToolbox(xmlToolbox);
+*/
+        var xml_text = data.file;
+        var xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(workspace, xml);
+        Blockly.Xml.domToWorkspace(workspace, xml);
 
-  console.log( "Load was performed." );
+  console.log( "Load was success." );
 }).done(function() {
 
   });
 
-
+ }
 };
 
 function connect(url) {

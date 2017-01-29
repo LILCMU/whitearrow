@@ -14,71 +14,58 @@ class Block extends Controller
 		header('Access-Control-Allow-Methods: *');
 		header('Content-Type: application/json');
 
-		$name		     = $this->request->body->aname;
-		$dev             = $this->request->body->dname;
-		$mode		     = $this->request->body->scode;
-		$type		     = $this->request->body->type;
-		$input_var       = $this->request->body->invar;
-		$input_var_name  = $this->request->body->invarname;
-		$output_var      = $this->request->body->outvar;
-		$output_var_name = $this->request->body->outvarname;
-		$codetext		 = $this->request->body->codetext;
-		$description	 = $this->request->body->Desp;
-		$facebook_id     = $this->request->body->f_id;
-        //$name = $this->request->body->name;
+		$aname = $this->request->body->aname;
+		$dname = $this->request->body->dname;
+		$xml   = $this->request->body->xml;
+		$des   = $this->request->body->des;
+		$path   = "add-ons/" .$dname. "/" .$aname. ".eiei"; 
 
-		// $msg  = json_decode($json);
-		// $u_id = $msg->header->uid;
-		// $name = $msg->header->name;
-		// $dev  = $msg->header->developer;
-		// $sel  = $msg->header->select;
+		$table = "systems";
+		$select = "id";
+		$this->db->select($table, $select);
+		$this->db->and("user_id", "=", 1)
+				 ->and("name", "LIKE", "'$aname'");
+		$model = $this->db->executeReader();
 
-		//echo $u_id. " " .$name. " " .$dev. " " .$sel;
-		//var_dump($msg->header);
-		// echo json_encode($msg);
+		if (!$model)
+		{
+			$table = "systems";
+			$field = ["user_id", "name", "description", "path"];
+			$value = [1, "'$aname'", "'$des'", "'$path'"];
+			$this->db->insert($table, $field, $value);
+			$err = $this->db->execute();
 
-		/* ========================== check and insert system ==================================== */
-		// $table = "systems";
-		// $this->db->select($table);
-		// $this->db->and("user_id", "LIKE", "'$u_id'" )
-		// 	     ->and("name", "LIKE", "'$name'");
-		// $result   = $this->db->executeReader();
-		//
-		// if ($result)
-		// 	$this->response->error(array("status" => false, "message" => "already has system!"));
-		// else
-		// {
-		// 	$fields	  = ["user_id", "name"];
-		// 	$values   = [$u_id, "'$name'"];
-		//
-		// 	$this->db->insert($table, $fields, $values);
-		// 	$err 	  = $this->db->execute();
-		// 	if ($err)
-	    //     	$this->response->success(array("success" => false,
-	    //     								   "error" => $err));
-		// 	else
-		// 		$this->response->success(array("success" => true));
-		// }
-		/* ========================== check and insert system ==================================== */
+			if ($err)
+				$this->response->error(array("success" => false,
+											"error" => $err));
+			else
+			{
+				fopen($path, "w");
+				$myfile = file_put_contents($path, $xml.PHP_EOL , FILE_APPEND | LOCK_EX);
 
+				if (!$myfile)
+					$this->response->error(array("success" => false, "message" => "error!"));
+				else
+				{
+					$select = "id";
+					$this->db->select($table, $select);
+					$this->db->and("user_id", "=", 1)
+							->and("name", "LIKE", "'$aname'")
+							->and("description", "LIKE", "'$des'");
+					$model = $this->db->executeReader();
 
-		/* =========================== write code in file ======================================== */
-        $filename_js  = $name .".js";
-		$filename_xml = $name . ".xml";
-
-        mkdir("add-ons/$facebook_id/");
-        fopen("add-ons/$facebook_id/$filename_js", "w");
-        $myfile = file_put_contents("add-ons/$facebook_id/$filename_js", $msg_js.PHP_EOL , FILE_APPEND | LOCK_EX);
-
-		fopen("add-ons/$facebook_id/$filename_js", "w");
-        $myfile = file_put_contents("add-ons/$facebook_id/$filename_js", $msg_xml.PHP_EOL , FILE_APPEND | LOCK_EX);
-
-        if (!$myfile)
-            $this->response->error(array("success" => false, "message" => "error!"));
-        else
-            $this->response->success(array("success" => true , "message"));
-
-		/* =========================== writ`e code in file ======================================== */
+					if($model)
+						$this->response->success(array("success" => true, 
+													  "model"   => $model));
+						
+					else 
+						$this->response->error(array("success" => false));
+				}
+			}
+		}
+		else
+			$this->response->error(array("success" => false,
+										 "error"   => "Add-on is already has in system"));
 	}
 
     public function getblock()
@@ -88,31 +75,31 @@ class Block extends Controller
 		header('Access-Contro	l-Allow-Methods: *');
 		header('Content-Type: application/json');
 
-		$addons_id   = $this->request->body->aid;
+		$addons_id   = $this->request->params->aid;
 
-        $ip          = $_SERVER['SERVER_ADDR'];
-        $port        = $_SERVER['SERVER_PORT'];
-		$server_part = $ip.":".$port;
+        // $ip          = $_SERVER['SERVER_ADDR'];
+        // $port        = $_SERVER['SERVER_PORT'];
+		// $server_part = $ip.":".$port;
 
 		$table   = "systems";
-		$select  = "user_id, name, block_name";
+		$select  = "user_id, path";
 		$this->db->select($table, $select);
 		$this->db->where("id", "=", "$addons_id");
 		$model   = $this->db->executeReader();
-		$user_id = $model[0]->user_id;
 
-		$table  = "users";
-		$select = "facebook_id";
-		$this->db->select($table, $select);
-		$this->db->where("id", "=", "$user_id");
-		$model_user = $this->db->executeReader();
+		$path = $model[0]->path;
+		$file    = file_get_contents("$path", FILE_USE_INCLUDE_PATH);
+		// var_dump($file);
 
+		// $table  = "users";
+		// $select = "facebook_id";
+		// $this->db->select($table, $select);
+		// $this->db->where("id", "=", "$user_id");
+		// $model_user = $this->db->executeReader();
+		
 		$this->response->success(array(
 								"success" => true,
-								"block"   => array(
-									// "files" => "http://".$server_part."/NSC2017/api/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
-									"files" => "http://localhost/NSC2017/api/add-ons/".$model_user[0]->facebook_id."/".$model[0]->name.".js",
-									"xml"   => $model[0]->block_name)
+								"file"    => $file
 								));
 	}
 

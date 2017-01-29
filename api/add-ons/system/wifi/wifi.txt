@@ -1,4 +1,0 @@
-<block type="network_module"></block>
-<block type="wifi_setting"></block>
-<block type="connect_wifi"></block>
-<block type="check_network"></block>

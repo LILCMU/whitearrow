@@ -36,6 +36,8 @@ setInterval(function(){
 
    
 function generate() {
+ _import ="import "
+ _machine = "from machine import "
       // Parse the XML into a tree.
       generateXML()
       var code = Blockly.Python.workspaceToCode(workspace);

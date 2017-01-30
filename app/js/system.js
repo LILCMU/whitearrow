@@ -16,8 +16,8 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'),
        });
 var time = new Date();
 document.getElementById('filename').value = "NameofProject" + String(time.getMonth()+1) + String(time.getDate());
-var _import ="import "
-var _machine = "from machine import "
+var _import = ""
+var _machine = ""
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
 var t_space = Blockly.Python.INDENT + Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -38,54 +38,138 @@ setInterval(function(){
 
    
 function generate() {
-  _import ="import "
-  _machine = "from machine import "
-      // Parse the XML into a tree.
-      generateXML()
-      var code = Blockly.Python.workspaceToCode(workspace);
-      
-      var newcode = code.split('$')
-      
-      var execcode = _import + "\n" +  _machine.slice(0, -1); + "\n"
-      for (var i = 1; i < newcode.length; i+=2) {
-       execcode += newcode[i]
-      };
-      console.log()
+    _import = ""
+    _machine = ""
 
-      document.getElementById('code_output').value = execcode;
-      editor.setValue(execcode);
-return execcode
+    // Parse the XML into a tree.
+    generateXML()
+    var code = Blockly.Python.workspaceToCode(workspace);
+
+    var newcode = code.split('$')
+
+    var execcode = _import + "\n" + _machine + "\n"
+    // var execcode = _import + "\n"
+    for (var i = 1; i < newcode.length; i += 2) {
+        execcode += newcode[i]
+    };
+    console.log()
+
+    document.getElementById('code_output').value = execcode;
+    editor.setValue(execcode);
+
 
     }
 
 function generateXML() {
-var arrXml = [];
-var first= true;
-     var xmlDom = Blockly.Xml.workspaceToDom(workspace);
-  	var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    _import += "os"
+   var arrXml = [];
+    var first = true;
+    var first_sublib = true;
+    var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
     arrXml.push(xmlText.search("Pin"))
     arrXml.push(xmlText.search("WLAN"))
+    arrXml.push(xmlText.search("mqtt"))
+    arrXml.push(xmlText.search("PWM"))
     arrXml.push(xmlText.search("I2C"))
-    for (var i = 0 ; i < arrXml.length; i++) {
-      if(arrXml[i]>0){
-         
-                     switch(i) {
-                  case 0:
-                      _machine += "Pin"
-                      break;
-                  case 1:
-                      _machine += "Network"
-                      break;
-              }
-              if(first){
-               first = false;
-              }
-                if(!first){
-                _machine += ","
-              }
+    arrXml.push(xmlText.search("ADC"))
+    arrXml.push(xmlText.search("time"))
+    for (var i = 0; i < arrXml.length; i++) {
+        // console.log(arrXml)
+        if (arrXml[i] > 0) {
 
-          } 
+            switch (i) {
+                case 0:
+                    if (first_sublib) {
+                        // console.log(first)
+                        _machine += "from machine import Pin"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "Pin"
+
+                    }
+                    break;
+                case 1:
+                    if (first) {
+                        _import += "import network"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "network"
+
+                    }
+                    break;
+                case 2:
+
+                    if (first) {
+                        _import += "import mqtt"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "mqtt"
+
+                    }
+                    break;
+                case 3:
+
+                    if (first_sublib) {
+                        _machine += "from machine import PWM"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "PWM"
+
+                    }
+                    break;
+                case 4:
+
+                    if (first_sublib) {
+                        _machine += "from machine import I2C"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "I2C"
+
+                    }
+                    break;
+                case 5:
+
+                    if (first_sublib) {
+                        _machine += "from machine import ADC"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "ADC"
+
+                    }
+                    break;
+                case 6:
+
+                    if (first) {
+                        _import += "import time"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "time"
+
+                    }
+                    break;
+            }
+            // if (first) {
+            //     first = false;
+            // }
+            // if (!first) {
+            //     _import += ","
+            //     _machine += ","
+            // }
+
+        }
+
+    }
+
+    console.log(arrXml)
+    document.getElementById('code_output').value = xmlText;
        
     }
    

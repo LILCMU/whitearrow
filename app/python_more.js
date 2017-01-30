@@ -7,6 +7,7 @@ Blockly.Blocks['controls_main'] = {
         this.setColour(120);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
+        this.setDeletable(false);
     }
 };
 

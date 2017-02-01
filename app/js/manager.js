@@ -94,9 +94,7 @@ var str="";
 var str2="";
 function refreshFile() {
 	ws.send('\r\nimport os\r\n')
-	ws.send('\r\nprint(os.listdir())\r\n')
-	
-	
+	ws.send('\r\nprint(os.listdir())\r\n')	
 }
 /*
 setInterval(function(){

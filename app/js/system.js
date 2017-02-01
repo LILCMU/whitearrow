@@ -20,19 +20,25 @@ if(!localStorage.nsc_prompt_ip){
       else if(localStorage.nsc_prompt_ip){
         document.getElementById('url').value = localStorage.nsc_prompt_ip
       }
-
+if(!localStorage.firsttime){
+        localStorage.firsttime = "true";
+        step=0;
+      }
 
 var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "NameofProject" + String(time.getMonth() + 1) + String(time.getDate());
 var _import = ""
 var _machine = ""
+
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
 var t_space = Blockly.Python.INDENT + Blockly.Python.INDENT + Blockly.Python.INDENT;
 var connected = false;
 var term;
 var ws;
+
+var step=99;
 var commandSystem = false;
 var trigger = false;
 var binary_state = 0;
@@ -45,19 +51,17 @@ console.log(document.getElementById('status').value)
 var arraddons = [];
 //var arraddons = JSON.parse(window.localStorage.getItem('addons'));
 console.log(window.localStorage.getItem('addons'))
-connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
+//connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
 setInterval(function() {
     autosaveBlock();
 }, 100);
 autoloadBlock();
-  $('[data-toggle="tooltip"]').tooltip({
-        container: 'body'
-    });
+
    function calculate_size(win) {
 
-      var cols = Math.max(80, Math.min(150, (win.innerWidth - 280) / 7)) | 0;
+      var cols = Math.max(60, Math.min(50, (win.innerWidth - 280) / 7)) | 0;
     var rows = Math.max(24, Math.min(32, (win.innerHeight - 180) / 12)) | 0;
-        return [cols, rows];
+        return [60, 24];
     }
 
     (function() {
@@ -85,15 +89,11 @@ autoloadBlock();
 
 
             setTimeout(function() {
-                $('#step1miss').trigger('click');
-                $('#step1miss').trigger('click');
-                $('#step2').trigger('click');
+              
 
             }, 15000);
             setTimeout(function() {
-                $('#step2miss').trigger('click');
-                $('#step2miss').trigger('click');
-                $('#step3').trigger('click');
+              
 
             }, 30000);
             setTimeout(function() {
@@ -133,13 +133,85 @@ function prepare_for_connect() {
 
 
 function checkCMD (commandCMD) {
-
+    console.log(commandCMD)
     if(cmd.split(":")[1]=="true"){
-                        console.log("still live")
+                        
                     }
+
+    else if(cmd.split(":")[0]=="step1"){
+                        step=1;
     
+                    }
+    else if(cmd.split(":")[0]=="step2"){
+        if(cmd.split(":")[1]=="res"){
+            
+            document.getElementById("response").value = cmd.split(":")[2]
+            document.getElementById("response").innerHTML =  cmd.split(":")[2]
+            console.log(document.getElementById("response").value)
+        }
+                         step=2;
 
+                    }
+    else if(cmd.split(":")[0]=="step3"){
+                         step=3;
+                         localStorage.nsc_prompt_ip = document.getElementById("response").value
 
+                          localStorage.firsttime = false;
+                         step=99;
+                    }
+ 
+    
+}
+function wizard () {
+       console.log(localStorage.firsttime)
+    if(step==3){
+       
+    }
+    if(String(localStorage.firsttime) == "true"){
+                step=0;
+               $('#step1').trigger('click');
+                console.log("tes")
+            }
+    else{
+        init_first()
+    }
+    
+    
+}
+function init_first() {
+     console.log("init")
+     switch(step){
+        case 0:
+            $('#step1miss').trigger('click');
+            $('#step1miss').trigger('click');
+            $('#step2').trigger('click');
+            break;
+
+        case 1:
+            $('#step2miss').trigger('click');
+            $('#step2miss').trigger('click');
+            $('#step3').trigger('click');
+            break;
+
+        case 2:
+            $('#step3miss').trigger('click');
+            $('#step3miss').trigger('click');
+            break;
+    }
+        switch(step+1){
+        case 1:
+            ws.send('deamon.init("10","","")\r\n')
+            break;
+
+        case 2:
+            ws.send('deamon.init("20","'+ document.getElementById("ssid").value +'","'+ document.getElementById("pass_ssid").value +'")\r\n')
+            break;
+
+        case 3:
+            ws.send('deamon.init("30","'+ document.getElementById("key").value +'","")\r\n')
+            break;
+    }
+   
 }
 
 
@@ -441,7 +513,6 @@ function loadAddons() {
             var xml_text = data.file;
             var xml = Blockly.Xml.textToDom(xml_text);
             Blockly.Xml.domToWorkspace(workspace, xml);
-            Blockly.Xml.domToWorkspace(workspace, xml);
 
             console.log("Load was success.");
         }).done(function() {
@@ -452,8 +523,10 @@ function loadAddons() {
 };
 
 function connect(url) {
-    ws = new WebSocket(url);
+    ws = new ReconnectingWebSocket(url);
     ws.binaryType = 'arraybuffer';
+    //ws.debug = true;
+    ws.timeoutInterval = 5400;
     ws.onopen = function() {
         term.removeAllListeners('data');
         term.on('data', function(data) {
@@ -472,7 +545,9 @@ function connect(url) {
         ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
+        wizard()
         ws.onmessage = function(event) {
+           
             if(event.data=="$"){
                 if(commandSystem){
                     commandSystem = false
@@ -571,12 +646,14 @@ function connect(url) {
                 cmd=""
                 arrCMD =[] 
             };
+            
             }
 
         }
     };
 };
     ws.onclose = function() {
+        ws.reconnectInterval(5000);
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
@@ -621,7 +698,7 @@ function connect(url) {
     }
 
     function config() {
-
+            wizard()
     }
 
     function restart() {
@@ -668,7 +745,7 @@ function connect(url) {
         }
         // initiate put
         binary_state = 11;
-        console.log('Sending ' + document.getElementById(filename).value + '...');
+        console.log('Sending ' + document.getElementById('filename').value + '...');
         ws.send(rec);
         console.log(rec)
          ws.send('file tranfer successful');

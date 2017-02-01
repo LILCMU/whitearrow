@@ -176,7 +176,7 @@ PROJECT NAME:
       <i class="material-icons">add</i>
     </a>
     <ul>
-      <li><a  class="btn-floating " href="javascript:config();"><i class="material-icons">menu</i></a></li>
+      <li><a  class="btn-floating " href="javascript:wizard();"><i class="material-icons">menu</i></a></li>
       <li><a class="btn-floating  " href="javascript:restart();"><i class="material-icons">refresh</i></a></li>
       <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons">stop</i></a></li>
       <li><a class="btn-floating " href="javascript:run();"><i class="material-icons">play_arrow</i></a></li>
@@ -205,7 +205,8 @@ PROJECT NAME:
                 <div class="row clearfix" id="Prompt">
                     Address : <input type="text" name="webrepl_url" id="url" value="192.168.4.1"><br> 
                     <input type="button" id="button" value="Connnect" onclick="button_click(); return false;"><br>
-                    <div id="term"></div>
+                    <div class="col-md 10">
+                    <div id="term"></div></div>
                 </div>
 
                 <div class="row clearfix" id="Editor1">
@@ -274,7 +275,7 @@ PROJECT NAME:
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <div class="card">
                             <div class="header">
                                 <h2>
@@ -363,8 +364,8 @@ PROJECT NAME:
 
                                 - connect to micropython ap - image of micropython - pass micropythoN -wait response feom micropython to next step
                             </div>
-                            <div class="modal-footer">
-
+                            <div class="modal-footer">  
+                                 <button type="button" id="step1btn" onclick="init_first()"class="btn btn-link waves-effect"> NEXT</button>
                                 <button type="button" id="step1miss" class="btn btn-link waves-effect" data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -377,13 +378,15 @@ PROJECT NAME:
                             <div class="modal-header">
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
                             </div>
-                            <div class="modal-body">
-
+                            <div class="modal-body">SSID : 
+                           <input stype="{color:black}"type="text" id="ssid" value=""><br>
+                           password:
+                            <input type="text" id="pass_ssid" value=""><br>
                                 - set wifi ssid pass - if success return mac of sta and ip
-
+                                <p id="responseStep2"></p>
                             </div>
                             <div class="modal-footer">
-
+                                 <button type="button" id="step2btn"  onclick="init_first()"class="btn btn-link waves-effect">NEXT</button>
                                 <button type="button" id="step2miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -397,10 +400,14 @@ PROJECT NAME:
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
                             </div>
                             <div class="modal-body">
+                            ip address :
+                            <div id="response">wait a minute</div>
+                            access key : 
+                           <input type="text" id="key" value="1234"><br>
                                 - suggect choose wifi as micropython connected now - later system to auto connect to ip now - but auto connect system failed you need to click automed setup and make there again
                             </div>
                             <div class="modal-footer">
-
+                                 <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
                                 <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -413,11 +420,11 @@ PROJECT NAME:
                         <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
                         <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
                         <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
-
+ </div>
                         <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
                                         TOP RIGHT
                                     </button>
-                    </div>
+                   
                 </div>
             </div>
             </div>
@@ -951,6 +958,7 @@ PROJECT NAME:
 <script src="./js/pages/charts/jquery-knob.js"></script>
 <script src="./js/pages/cards/colored.js"></script>
 <script src="./js/pages/ui/notifications.js"></script>
+<script src="./js/reconnecting-websocket.js"></script>
 
 <script type="text/javascript" src="js/term.js"></script>
 

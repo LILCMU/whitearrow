@@ -113,6 +113,7 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                      <li class="pull-right"><a id = "status"><i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect"><p>perm_scan_wifi</p></i></a></li>
+
                 </ul>
             </div>
         </div>
@@ -137,7 +138,7 @@
                 <ul class="list">
 
 
-                    <li class="wave-blocks" onclick="menu1()"><a href="#Prompt">Prompt</a></li>
+                    <li class="tablinks" onclick="menu1()"><a data-toggle="tab" href="#Prompt">Prompt</a></li>
                     <li class="tablinks" onclick="menu2()"><a data-toggle="tab" href="#Editor">Editor</a></li>
                     <li class="tablinks" onclick="menu3()"><a data-toggle="tab" href="#Blockly">Blockly</a></li>
                     <li class="tablinks" onclick="menu4()"><a data-toggle="tab" href="#monitor">monitor</a></li>
@@ -164,7 +165,6 @@
 
 
 
-<script src="js/materialize.js"></script>
 
 
 
@@ -214,7 +214,7 @@ PROJECT NAME:
                     <div id="editor">def main(): 
     print('Hello IOT World')
                     </div>
-                    <button onclick="upload_editor()">upload</button>
+                 
                 </div>
 
 
@@ -802,6 +802,7 @@ PROJECT NAME:
         <block type="mqtt_disconnect"></block>
     </category>
 </xml>
+
 <xml id="blocklyDefault" style="display: none">
     <block type="variables_set">
         <field name="VAR">Count</field>
@@ -920,6 +921,7 @@ PROJECT NAME:
 <!--<script src="toolbox.js"></script>-->
 
 
+<script src="js/materialize.js"></script>
 <!-- Jquery Core Js -->
 <script src="./plugins/jquery/jquery.min.js"></script>
 

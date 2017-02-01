@@ -13,6 +13,9 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
 
 });
 
+
+
+
 if(!localStorage.nsc_prompt_ip){
         document.getElementById('url').value = '192.168.4.1'
         localStorage.nsc_prompt_ip = '192.168.4.1'
@@ -346,10 +349,7 @@ function generateXML() {
 
     }
 
-    console.log(arrXml)
     document.getElementById('code_output').value = xmlText;
-
-
 
 
 }
@@ -542,7 +542,7 @@ function connect(url) {
 
         term.focus();
         term.element.focus();
-        ws.send('1234\r\n')
+        ws.send('12345\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
         wizard()
@@ -653,7 +653,7 @@ function connect(url) {
     };
 };
     ws.onclose = function() {
-        ws.reconnectInterval(5000);
+   
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');

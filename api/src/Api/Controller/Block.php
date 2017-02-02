@@ -84,10 +84,6 @@ class Block extends Controller
 
 		$addons_id   = $this->request->params->aid;
 
-        // $ip          = $_SERVER['SERVER_ADDR'];
-        // $port        = $_SERVER['SERVER_PORT'];
-		// $server_part = $ip.":".$port;
-
 		$table   = "systems";
 		$select  = "user_id, path";
 		$this->db->select($table, $select);
@@ -95,18 +91,11 @@ class Block extends Controller
 		$model   = $this->db->executeReader();
 
 		$path = $model[0]->path;
-		$file    = file_get_contents("$path", FILE_USE_INCLUDE_PATH);
-		// var_dump($file);
+		$file = file_get_contents("$path", FILE_USE_INCLUDE_PATH);
 
-		// $table  = "users";
-		// $select = "facebook_id";
-		// $this->db->select($table, $select);
-		// $this->db->where("id", "=", "$user_id");
-		// $model_user = $this->db->executeReader();
-		
 		$this->response->success(array(
-								"success" => true,
-								"file"    => $file
+									"success" => true,
+									"file"    => $file
 								));
 	}
 

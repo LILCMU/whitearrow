@@ -113,7 +113,6 @@
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                      <li class="pull-right"><a id = "status"><i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect"><p>perm_scan_wifi</p></i></a></li>
-
                 </ul>
             </div>
         </div>
@@ -138,12 +137,12 @@
                 <ul class="list">
 
 
-                    <li class="tablinks" onclick="menu1()"><a data-toggle="tab" href="#Prompt">Prompt</a></li>
-                    <li class="tablinks" onclick="menu2()"><a data-toggle="tab" href="#Editor">Editor</a></li>
-                    <li class="tablinks" onclick="menu3()"><a data-toggle="tab" href="#Blockly">Blockly</a></li>
-                    <li class="tablinks" onclick="menu4()"><a data-toggle="tab" href="#monitor">monitor</a></li>
-                    <li class="tablinks" onclick="menu5()"><a data-toggle="tab" href="#FileManager">File Manager</a></li>
-                    <li class="tablinks" onclick="menu6()"><a data-toggle="tab" href="#Message">Message</a></li>
+                    <li onclick="menu1()"><a  href="#Prompt">Prompt</a></li>
+                    <li  onclick="menu2()"><a  href="#Editor">Editor</a></li>
+                    <li  onclick="menu3()"><a  href="#Blockly">Blockly</a></li>
+                    <li onclick="menu4()"><a href="#monitor">monitor</a></li>
+                    <li  onclick="menu5()"><a  href="#FileManager">File Manager</a></li>
+                    <li onclick="menu6()"><a  href="#Message">Message</a></li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -270,6 +269,7 @@ PROJECT NAME:
                                 <h3>File Manager</h3>
                                 <button type="button" onclick="addFile()">addFile</button>
                                 <button type="button" onclick="refreshFile()">refreshFile</button>
+                                <br>
                             </div>
                             <div class="body" id="listfile">
                             </div>
@@ -802,7 +802,6 @@ PROJECT NAME:
         <block type="mqtt_disconnect"></block>
     </category>
 </xml>
-
 <xml id="blocklyDefault" style="display: none">
     <block type="variables_set">
         <field name="VAR">Count</field>
@@ -880,31 +879,10 @@ PROJECT NAME:
     });
 </script>
 <script type="text/javascript">
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 1; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 1; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
 
 
 
-    function openTab(evt, Tab) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(Tab).style.display = "block";
-        $('#' + Tab).hi
-        evt.currentTarget.className += " active";
-    }
+
     //If serviceWorker supports, then register it.
     if ("serviceWorker" in navigator) {
         //navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw

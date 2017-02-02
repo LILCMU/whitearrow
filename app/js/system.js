@@ -491,9 +491,9 @@ function loadAddons() {
         $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
             console.log(data.file)
                 /*var s = document.createElement("script");
-	s.type = "text/javascript";
-	s.src = data.wifi.files;
-	$("head").append(s);
+    s.type = "text/javascript";
+    s.src = data.wifi.files;
+    $("head").append(s);
   console.log(data.wifi.xml)
   var xmlToolbox = document.getElementById('toolbox');
   console.log(xmlToolbox);

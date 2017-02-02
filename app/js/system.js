@@ -13,6 +13,9 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
 
 });
 
+
+
+
 if(!localStorage.nsc_prompt_ip){
         document.getElementById('url').value = '192.168.4.1'
         localStorage.nsc_prompt_ip = '192.168.4.1'
@@ -346,10 +349,7 @@ function generateXML() {
 
     }
 
-    console.log(arrXml)
     document.getElementById('code_output').value = xmlText;
-
-
 
 
 }
@@ -491,9 +491,9 @@ function loadAddons() {
         $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
             console.log(data.file)
                 /*var s = document.createElement("script");
-	s.type = "text/javascript";
-	s.src = data.wifi.files;
-	$("head").append(s);
+    s.type = "text/javascript";
+    s.src = data.wifi.files;
+    $("head").append(s);
   console.log(data.wifi.xml)
   var xmlToolbox = document.getElementById('toolbox');
   console.log(xmlToolbox);
@@ -542,7 +542,7 @@ function connect(url) {
 
         term.focus();
         term.element.focus();
-        ws.send('1234\r\n')
+        ws.send('12345\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
         wizard()
@@ -653,7 +653,7 @@ function connect(url) {
     };
 };
     ws.onclose = function() {
-        ws.reconnectInterval(5000);
+   
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
@@ -803,3 +803,4 @@ function get_ver() {
     binary_state = 31;
     ws.send(rec);
 }
+

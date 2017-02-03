@@ -79,8 +79,8 @@ class Block extends Controller
     {
         header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: POST");
-		header('Access-Contro	l-Allow-Methods: *');
-		header('Content-Type: application/json');
+		header('Access-Control-Allow-Methods: *');
+		header('Content-Type:application/json');
 
 		$addons_id   = $this->request->params->aid;
 

@@ -16,17 +16,16 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
 
 
 
-if(!localStorage.nsc_prompt_ip){
-        document.getElementById('url').value = '192.168.4.1'
-        localStorage.nsc_prompt_ip = '192.168.4.1'
-      }
-      else if(localStorage.nsc_prompt_ip){
-        document.getElementById('url').value = localStorage.nsc_prompt_ip
-      }
-if(!localStorage.firsttime){
-        localStorage.firsttime = "true";
-        step=0;
-      }
+if (!localStorage.nsc_prompt_ip) {
+    document.getElementById('url').value = '192.168.4.1'
+    localStorage.nsc_prompt_ip = '192.168.4.1'
+} else if (localStorage.nsc_prompt_ip) {
+    document.getElementById('url').value = localStorage.nsc_prompt_ip
+}
+if (!localStorage.firsttime) {
+    localStorage.firsttime = "true";
+    step = 0;
+}
 
 var time = new Date();
 document.getElementById('status').value = "false"
@@ -41,7 +40,7 @@ var connected = false;
 var term;
 var ws;
 
-var step=99;
+var step = 99;
 var commandSystem = false;
 var trigger = false;
 var binary_state = 0;
@@ -60,56 +59,56 @@ setInterval(function() {
 }, 100);
 autoloadBlock();
 
-   function calculate_size(win) {
+function calculate_size(win) {
 
-      var cols = Math.max(60, Math.min(50, (win.innerWidth - 280) / 7)) | 0;
+    var cols = Math.max(60, Math.min(50, (win.innerWidth - 280) / 7)) | 0;
     var rows = Math.max(24, Math.min(32, (win.innerHeight - 180) / 12)) | 0;
-        return [60, 24];
+    return [60, 24];
+}
+
+(function() {
+    window.onload = function() {
+        var size = calculate_size(self);
+        term = new Terminal({
+            cols: size[0],
+            rows: size[1],
+            useStyle: true,
+            screenKeys: true,
+            cursorBlink: false
+        });
+        term.open(document.getElementById("term"));
+
+
+
+    };
+    window.addEventListener('resize', function() {
+        var size = calculate_size(self);
+        term.resize(size[0], size[1]);
+    });
+    if (connected === "false" && trigger) {
+
+        $('#step1').trigger('click');
+
+
+        setTimeout(function() {
+
+
+        }, 15000);
+        setTimeout(function() {
+
+
+        }, 30000);
+        setTimeout(function() {
+            $('#step3miss').trigger('click');
+            $('#step3miss').trigger('click');
+
+        }, 45000);
+
+
+
     }
 
-    (function() {
-        window.onload = function() {
-            var size = calculate_size(self);
-            term = new Terminal({
-                cols: size[0],
-                rows: size[1],
-                useStyle: true,
-                screenKeys: true,
-                cursorBlink: false
-            });
-            term.open(document.getElementById("term"));
-
-
-
-        };
-        window.addEventListener('resize', function() {
-            var size = calculate_size(self);
-            term.resize(size[0], size[1]);
-        });
-        if (connected === "false" && trigger) {
-
-            $('#step1').trigger('click');
-
-
-            setTimeout(function() {
-              
-
-            }, 15000);
-            setTimeout(function() {
-              
-
-            }, 30000);
-            setTimeout(function() {
-                $('#step3miss').trigger('click');
-                $('#step3miss').trigger('click');
-
-            }, 45000);
-
-
-
-        }
-
-    }).call(this);
+}).call(this);
 
 
 
@@ -122,7 +121,7 @@ function button_click() {
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
         connected = true;
-        connect('ws://'+document.getElementById('url').value+':8266/');
+        connect('ws://' + document.getElementById('url').value + ':8266/');
         localStorage.nsc_prompt_ip = document.getElementById('url').value
     }
 }
@@ -131,59 +130,56 @@ function prepare_for_connect() {
     document.getElementById('url').disabled = false;
     document.getElementById('button').value = "Connect";
     document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect">perm_scan_wifi</i>';
- 
+
 }
 
 
-function checkCMD (commandCMD) {
+function checkCMD(commandCMD) {
     console.log(commandCMD)
-    if(cmd.split(":")[1]=="true"){
-                        
-                    }
+    if (cmd.split(":")[1] == "true") {
 
-    else if(cmd.split(":")[0]=="step1"){
-                        step=1;
-    
-                    }
-    else if(cmd.split(":")[0]=="step2"){
-        if(cmd.split(":")[1]=="res"){
-            
+    } else if (cmd.split(":")[0] == "step1") {
+        step = 1;
+
+    } else if (cmd.split(":")[0] == "step2") {
+        if (cmd.split(":")[1] == "res") {
+
             document.getElementById("response").value = cmd.split(":")[2]
-            document.getElementById("response").innerHTML =  cmd.split(":")[2]
+            document.getElementById("response").innerHTML = cmd.split(":")[2]
             console.log(document.getElementById("response").value)
         }
-                         step=2;
+        step = 2;
 
-                    }
-    else if(cmd.split(":")[0]=="step3"){
-                         step=3;
-                         localStorage.nsc_prompt_ip = document.getElementById("response").value
+    } else if (cmd.split(":")[0] == "step3") {
+        step = 3;
+        localStorage.nsc_prompt_ip = document.getElementById("response").value
 
-                          localStorage.firsttime = false;
-                         step=99;
-                    }
- 
-    
-}
-function wizard () {
-       console.log(localStorage.firsttime)
-    if(step==3){
-       
+        localStorage.firsttime = false;
+        step = 99;
     }
-    if(String(localStorage.firsttime) == "true"){
-                step=0;
-               $('#step1').trigger('click');
-                console.log("tes")
-            }
-    else{
+
+
+}
+
+function wizard() {
+    console.log(localStorage.firsttime)
+    if (step == 3) {
+
+    }
+    if (String(localStorage.firsttime) == "true") {
+        step = 0;
+        $('#step1').trigger('click');
+        console.log("tes")
+    } else {
         init_first()
     }
-    
-    
+
+
 }
+
 function init_first() {
-     console.log("init")
-     switch(step){
+    console.log("init")
+    switch (step) {
         case 0:
             $('#step1miss').trigger('click');
             $('#step1miss').trigger('click');
@@ -201,20 +197,20 @@ function init_first() {
             $('#step3miss').trigger('click');
             break;
     }
-        switch(step+1){
+    switch (step + 1) {
         case 1:
             ws.send('deamon.init("10","","")\r\n')
             break;
 
         case 2:
-            ws.send('deamon.init("20","'+ document.getElementById("ssid").value +'","'+ document.getElementById("pass_ssid").value +'")\r\n')
+            ws.send('deamon.init("20","' + document.getElementById("ssid").value + '","' + document.getElementById("pass_ssid").value + '")\r\n')
             break;
 
         case 3:
-            ws.send('deamon.init("30","'+ document.getElementById("key").value +'","")\r\n')
+            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
             break;
     }
-   
+
 }
 
 
@@ -229,7 +225,7 @@ function generate() {
     var newcode = code.split('$')
 
     var execcode = _import + "\n" + _machine + "\n"
-        // var execcode = _import + "\n"
+    // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
@@ -255,6 +251,8 @@ function generateXML() {
     arrXml.push(xmlText.search("I2C"))
     arrXml.push(xmlText.search("ADC"))
     arrXml.push(xmlText.search("time"))
+    arrXml.push(xmlText.search("urequests"))
+    arrXml.push(xmlText.search("json"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -336,17 +334,27 @@ function generateXML() {
 
                     }
                     break;
+
+                case 7:
+                    if (first) {
+                        _import += "import urequests"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "urequests"
+                    }
+                    break;
+                case 8:
+                    if (first) {
+                        _import += "import json"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "json"
+                    }
+                    break;
             }
-            // if (first) {
-            //     first = false;
-            // }
-            // if (!first) {
-            //     _import += ","
-            //     _machine += ","
-            // }
-
         }
-
     }
 
     document.getElementById('code_output').value = xmlText;
@@ -468,7 +476,7 @@ function shareAddons() {
     var str2 = str + "&xml=" + String(xml_text)
     $.post('http://192.168.12.100:100/nsc2017/api/block/addblock', str2).done(function(data) {
         $('#res').append("<br><h3>your id is " + data + "  </h3><br>")
-            // $('#send').hide();
+        // $('#send').hide();
         console.log(data)
     });
 
@@ -490,7 +498,7 @@ function loadAddons() {
     for (var i = 0; i < lenght; i++) {
         $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
             console.log(data.file)
-                /*var s = document.createElement("script");
+            /*var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = data.wifi.files;
     $("head").append(s);
@@ -547,113 +555,115 @@ function connect(url) {
         ws.send('import deamon\r\n')
         wizard()
         ws.onmessage = function(event) {
-           
-            if(event.data=="$"){
-                if(commandSystem){
+
+            if (event.data == "$") {
+                if (commandSystem) {
                     commandSystem = false
-                }else{
+                } else {
                     commandSystem = true
                 }
             }
-            if(!commandSystem){
-            if (event.data instanceof ArrayBuffer) {
-                var data = new Uint8Array(event.data);
-                switch (binary_state) {
-                    case 11:
-                        // first response for put
-                        if (decode_resp(data) == 0) {
-                            // send file data in chunks
-                            for (var offset = 0; offset < put_file_data.length; offset += 1024) {
-                                ws.send(put_file_data.slice(offset, offset + 1024));
+            if (!commandSystem) {
+                if (event.data instanceof ArrayBuffer) {
+                    var data = new Uint8Array(event.data);
+                    switch (binary_state) {
+                        case 11:
+                            // first response for put
+                            if (decode_resp(data) == 0) {
+                                // send file data in chunks
+                                for (var offset = 0; offset < put_file_data.length; offset += 1024) {
+                                    ws.send(put_file_data.slice(offset, offset + 1024));
+                                }
+                                binary_state = 12;
                             }
-                            binary_state = 12;
-                        }
-                        break;
-                    case 12:
-                        // final response for put
-                        if (decode_resp(data) == 0) {
-                            update_file_status('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes');
-                        } else {
-                            update_file_status('Failed sending ' + put_file_name);
-                        }
-                        binary_state = 0;
-                        break;
-
-                    case 21:
-                        // first response for get
-                        if (decode_resp(data) == 0) {
-                            binary_state = 22;
-                            var rec = new Uint8Array(1);
-                            rec[0] = 0;
-                            ws.send(rec);
-                        }
-                        break;
-                    case 22: {
-                        // file data
-                        var sz = data[0] | (data[1] << 8);
-                        if (data.length == 2 + sz) {
-                            // we assume that the data comes in single chunks
-                            if (sz == 0) {
-                                // end of file
-                                binary_state = 23;
+                            break;
+                        case 12:
+                            // final response for put
+                            if (decode_resp(data) == 0) {
+                                update_file_status('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes');
                             } else {
-                                // accumulate incoming data to get_file_data
-                                var new_buf = new Uint8Array(get_file_data.length + sz);
-                                new_buf.set(get_file_data);
-                                new_buf.set(data.slice(2), get_file_data.length);
-                                get_file_data = new_buf;
-                                update_file_status('Getting ' + get_file_name + ', ' + get_file_data.length + ' bytes');
+                                update_file_status('Failed sending ' + put_file_name);
+                            }
+                            binary_state = 0;
+                            break;
 
+                        case 21:
+                            // first response for get
+                            if (decode_resp(data) == 0) {
+                                binary_state = 22;
                                 var rec = new Uint8Array(1);
                                 rec[0] = 0;
                                 ws.send(rec);
                             }
-                        } else {
-                            binary_state = 0;
-                        }
-                        break;
-                    }
-                    case 23:
-                        // final response
-                        if (decode_resp(data) == 0) {
-                            update_file_status('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes');
-                            saveAs(new Blob([get_file_data], {type: "application/octet-stream"}), get_file_name);
-                        } else {
-                            update_file_status('Failed getting ' + get_file_name);
-                        }
-                        binary_state = 0;
-                        break;
-                    case 31:
-                        // first (and last) response for GET_VER
-                        console.log('GET_VER', data);
-                        binary_state = 0;
-                        break;
-                }
-            }
-            term.write(event.data);
-        }
-        else{
-            if(event.data!="$"){
-                arrCMD.push(event.data)
-           
-            if(event.data=="\n" && commandSystem){
-            for (var i = 0 ; i < arrCMD.length-1; i++) {
-               cmd += arrCMD[i]
-               }
-                checkCMD(cmd)
-                log.push(cmd)
-                console.log(cmd)
-                cmd=""
-                arrCMD =[] 
-            };
-            
-            }
+                            break;
+                        case 22:
+                            {
+                                // file data
+                                var sz = data[0] | (data[1] << 8);
+                                if (data.length == 2 + sz) {
+                                    // we assume that the data comes in single chunks
+                                    if (sz == 0) {
+                                        // end of file
+                                        binary_state = 23;
+                                    } else {
+                                        // accumulate incoming data to get_file_data
+                                        var new_buf = new Uint8Array(get_file_data.length + sz);
+                                        new_buf.set(get_file_data);
+                                        new_buf.set(data.slice(2), get_file_data.length);
+                                        get_file_data = new_buf;
+                                        update_file_status('Getting ' + get_file_name + ', ' + get_file_data.length + ' bytes');
 
-        }
+                                        var rec = new Uint8Array(1);
+                                        rec[0] = 0;
+                                        ws.send(rec);
+                                    }
+                                } else {
+                                    binary_state = 0;
+                                }
+                                break;
+                            }
+                        case 23:
+                            // final response
+                            if (decode_resp(data) == 0) {
+                                update_file_status('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes');
+                                saveAs(new Blob([get_file_data], {
+                                    type: "application/octet-stream"
+                                }), get_file_name);
+                            } else {
+                                update_file_status('Failed getting ' + get_file_name);
+                            }
+                            binary_state = 0;
+                            break;
+                        case 31:
+                            // first (and last) response for GET_VER
+                            console.log('GET_VER', data);
+                            binary_state = 0;
+                            break;
+                    }
+                }
+                term.write(event.data);
+            } else {
+                if (event.data != "$") {
+                    arrCMD.push(event.data)
+
+                    if (event.data == "\n" && commandSystem) {
+                        for (var i = 0; i < arrCMD.length - 1; i++) {
+                            cmd += arrCMD[i]
+                        }
+                        checkCMD(cmd)
+                        log.push(cmd)
+                        console.log(cmd)
+                        cmd = ""
+                        arrCMD = []
+                    };
+
+                }
+
+            }
+        };
     };
-};
     ws.onclose = function() {
-   
+
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
@@ -662,119 +672,119 @@ function connect(url) {
     }
 }
 
-    
 
 
-    function str2ab(str) {
-        var buf = new ArrayBuffer(str.length); // 2 bytes for each char
-        var bufView = new Uint8Array(buf);
-        for (var i = 0, strLen = str.length; i < strLen; i++) {
-            bufView[i] = str.charCodeAt(i);
+
+function str2ab(str) {
+    var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+    var bufView = new Uint8Array(buf);
+    for (var i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+    }
+    return bufView;
+}
+
+function upload() {
+    var code = generate()
+    document.getElementById('code_output').value = code;
+    put_file(code)
+}
+
+function upload_editor() {
+    var code = editor.getValue();
+    console.log(code);
+    put_file(code)
+}
+
+function run() {
+
+    ws.send('import ' + document.getElementById('filename').value + '\r\n')
+    ws.send(document.getElementById('filename').value + '.main()' + '\r\n')
+}
+
+function stop() {
+    ws.send(String.fromCharCode(3))
+
+}
+
+function config() {
+    wizard()
+}
+
+function restart() {
+    ws.send(String.fromCharCode(4))
+}
+
+function put_file(code) {
+
+
+
+
+    put_file_data = str2ab(code);
+
+    var dest_fname = document.getElementById('filename').value + '.py';
+    var dest_fsize = put_file_data.length;
+    console.log(dest_fname)
+    // WEBREPL_FILE = "<2sBBQLH64s"
+    var rec = new Uint8Array(2 + 1 + 1 + 8 + 4 + 2 + 64);
+    rec[0] = 'W'.charCodeAt(0);
+    rec[1] = 'A'.charCodeAt(0);
+    rec[2] = 1; // put
+    rec[3] = 0;
+    rec[4] = 0;
+    rec[5] = 0;
+    rec[6] = 0;
+    rec[7] = 0;
+    rec[8] = 0;
+    rec[9] = 0;
+    rec[10] = 0;
+    rec[11] = 0;
+    rec[12] = dest_fsize & 0xff;
+    rec[13] = (dest_fsize >> 8) & 0xff;
+    rec[14] = (dest_fsize >> 16) & 0xff;
+    rec[15] = (dest_fsize >> 24) & 0xff;
+    rec[16] = dest_fname.length & 0xff;
+    rec[17] = (dest_fname.length >> 8) & 0xff;
+    for (var i = 0; i < 64; ++i) {
+        if (i < dest_fname.length) {
+            rec[18 + i] = dest_fname.charCodeAt(i);
+
+        } else {
+            rec[18 + i] = 0;
         }
-        return bufView;
     }
+    // initiate put
+    binary_state = 11;
+    console.log('Sending ' + document.getElementById('filename').value + '...');
+    ws.send(rec);
+    console.log(rec)
+    ws.send('file tranfer successful');
+}
 
-    function upload() {
-        var code = generate()
-        document.getElementById('code_output').value = code;
-        put_file(code)
-    }
-
-    function upload_editor() {
-        var code = editor.getValue();
-        console.log(code);
-        put_file(code)
-    }
-
-    function run() {
-
-        ws.send('import '+document.getElementById('filename').value+'\r\n')
-         ws.send(document.getElementById('filename').value+'.main()'+'\r\n')
-    }
-
-    function stop() {
-        ws.send(String.fromCharCode(3))
-
-    }
-
-    function config() {
-            wizard()
-    }
-
-    function restart() {
-        ws.send(String.fromCharCode(4))
-    }
-
-    function put_file(code) {
+function handle_put_file_select(evt) {
+    // The event holds a FileList object which is a list of File objects,
+    // but we only support single file selection at the moment.
+    var files = evt.target.files;
+    // Get the file info and load its data.
+    var f = files[0];
+    put_file_name = f.name;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        console.log(e.target.result)
+        put_file_data = new Uint8Array(e.target.result);
+        console.log(put_file_data)
+        document.getElementById('put-file-list').innerHTML = '' + escape(put_file_name) + ' - ' + put_file_data.length + ' bytes';
+        document.getElementById('put-file-button').disabled = false;
+    };
+    reader.readAsArrayBuffer(f);
+    console.log(f)
+}
 
 
 
-
-        put_file_data = str2ab(code);
-
-        var dest_fname = document.getElementById('filename').value + '.py';
-        var dest_fsize = put_file_data.length;
-        console.log(dest_fname)
-            // WEBREPL_FILE = "<2sBBQLH64s"
-        var rec = new Uint8Array(2 + 1 + 1 + 8 + 4 + 2 + 64);
-        rec[0] = 'W'.charCodeAt(0);
-        rec[1] = 'A'.charCodeAt(0);
-        rec[2] = 1; // put
-        rec[3] = 0;
-        rec[4] = 0;
-        rec[5] = 0;
-        rec[6] = 0;
-        rec[7] = 0;
-        rec[8] = 0;
-        rec[9] = 0;
-        rec[10] = 0;
-        rec[11] = 0;
-        rec[12] = dest_fsize & 0xff;
-        rec[13] = (dest_fsize >> 8) & 0xff;
-        rec[14] = (dest_fsize >> 16) & 0xff;
-        rec[15] = (dest_fsize >> 24) & 0xff;
-        rec[16] = dest_fname.length & 0xff;
-        rec[17] = (dest_fname.length >> 8) & 0xff;
-        for (var i = 0; i < 64; ++i) {
-            if (i < dest_fname.length) {
-                rec[18 + i] = dest_fname.charCodeAt(i);
-
-            } else {
-                rec[18 + i] = 0;
-            }
-        }
-        // initiate put
-        binary_state = 11;
-        console.log('Sending ' + document.getElementById('filename').value + '...');
-        ws.send(rec);
-        console.log(rec)
-         ws.send('file tranfer successful');
-    }
-
-    function handle_put_file_select(evt) {
-        // The event holds a FileList object which is a list of File objects,
-        // but we only support single file selection at the moment.
-        var files = evt.target.files;
-        // Get the file info and load its data.
-        var f = files[0];
-        put_file_name = f.name;
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            console.log(e.target.result)
-            put_file_data = new Uint8Array(e.target.result);
-            console.log(put_file_data)
-            document.getElementById('put-file-list').innerHTML = '' + escape(put_file_name) + ' - ' + put_file_data.length + ' bytes';
-            document.getElementById('put-file-button').disabled = false;
-        };
-        reader.readAsArrayBuffer(f);
-        console.log(f)
-    }
-
-
- 
 
 function update_file_status(s) {
-    
+
 }
 
 
@@ -803,4 +813,3 @@ function get_ver() {
     binary_state = 31;
     ws.send(rec);
 }
-

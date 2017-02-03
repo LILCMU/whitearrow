@@ -74,11 +74,10 @@
             height: 500px;
             vertical-align: center;
         }
-
     </style>
 
 </head>
-  
+
 <body class="theme-indigo">
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -108,20 +107,19 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="./index.html">NSC2017 - APPLICATION</a>
-                PROJECT NAME:
-             <input type="text" id="filename" name="filename" value="">
+                <a class="navbar-brand" href="./index.html">NSC2017 - APPLICATION</a> PROJECT NAME:
+                <input type="text" id="filename" name="filename" value="">
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
 
                 <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                     <li class="pull-right"><a id = "status"><i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect"><p>perm_scan_wifi</p></i></a></li>
-                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <li class="pull-right"><a id="status"><i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect"><p>perm_scan_wifi</p></i></a></li>
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
                 </ul>
-            
-             
-             </div>
+
+
+            </div>
         </div>
     </nav>
     <!-- #Top Bar -->
@@ -134,7 +132,7 @@
                     <img src="./images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name"  aria-haspopup="true" aria-expanded="false">CPECMU </div>
+                    <div class="name" aria-haspopup="true" aria-expanded="false">CPECMU </div>
 
                 </div>
             </div>
@@ -144,12 +142,12 @@
                 <ul class="list">
 
 
-                    <li onclick="menu1()"><a  href="#Prompt">Prompt</a></li>
-                    <li  onclick="menu2()"><a  href="#Editor">Editor</a></li>
-                    <li  onclick="menu3()"><a  href="#Blockly">Blockly</a></li>
+                    <li onclick="menu1()"><a href="#Prompt">Prompt</a></li>
+                    <li onclick="menu2()"><a href="#Editor">Editor</a></li>
+                    <li onclick="menu3()"><a href="#Blockly">Blockly</a></li>
                     <li onclick="menu4()"><a href="#monitor">monitor</a></li>
-                    <li  onclick="menu5()"><a  href="#FileManager">File Manager</a></li>
-                    <li onclick="menu6()"><a  href="#Message">Message</a></li>
+                    <li onclick="menu5()"><a href="#FileManager">File Manager</a></li>
+                    <li onclick="menu6()"><a href="#Message">Message</a></li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -164,15 +162,15 @@
             </div>
             <!-- #Footer -->
         </aside>
-          <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
+        <div class="search-bar">
+            <div class="search-icon">
+                <i class="material-icons">search</i>
+            </div>
+            <input type="text" placeholder="START TYPING...">
+            <div class="close-search">
+                <i class="material-icons">close</i>
+            </div>
         </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
         <!-- #END# Left Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
@@ -326,21 +324,21 @@
 
             <div class="container-fluid">
 
-<div class="fixed-action-btn horizontal click-to-toggle">
-    <a class="btn-floating btn-large ">
-      <i class="material-icons">add</i>
-    </a>
-    <ul>
-      <li><a  class="btn-floating " href="javascript:wizard();"><i class="material-icons">menu</i></a></li>
-      <li><a class="btn-floating  " href="javascript:restart();"><i class="material-icons">refresh</i></a></li>
-      <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons">stop</i></a></li>
-      <li><a class="btn-floating " href="javascript:run();"><i class="material-icons">play_arrow</i></a></li>
-    </ul>
-  </div>
+                <div class="fixed-action-btn horizontal click-to-toggle">
+                    <a class="btn-floating btn-large ">
+                        <i class="material-icons">add</i>
+                    </a>
+                    <ul>
+                        <li><a class="btn-floating " href="javascript:wizard();"><i class="material-icons">menu</i></a></li>
+                        <li><a class="btn-floating  " href="javascript:restart();"><i class="material-icons">refresh</i></a></li>
+                        <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons">stop</i></a></li>
+                        <li><a class="btn-floating " href="javascript:run();"><i class="material-icons">play_arrow</i></a></li>
+                    </ul>
+                </div>
 
 
                 <div class="row clearfix" id="Blockly">
-                   
+
                     <div id="blocklyDiv" style="height:500px"></div><br>
                     <center>
                         <button onclick="generate()">Generate Python </button>
@@ -349,7 +347,7 @@
                         <button onclick="save()">Save Blocks</button>
                         <button onclick="loadXml()">Open Blocks</button>
                         <button onclick="generateXML()">XML</button>
-                        <button  data-toggle="modal" data-target="#shareconfig">shareAddons</button>
+                        <button data-toggle="modal" data-target="#shareconfig">shareAddons</button>
                         <button onclick="loadAddons()">LoadAddons</button>
                     </center><br>
                     <textarea id="code_output" rows="12" cols="50" readonly style="height: 500px"></textarea>
@@ -358,18 +356,18 @@
                 </div>
 
                 <div class="row clearfix" id="Prompt">
-                    Address : <input type="text" name="webrepl_url" id="url" value="192.168.4.1"><br> 
+                    Address : <input type="text" name="webrepl_url" id="url" value="192.168.4.1"><br>
                     <input type="button" id="button" value="Connnect" onclick="button_click(); return false;"><br>
                     <div class="col-md 10">
-                    <div id="term"></div></div>
+                        <div id="term"></div>
+                    </div>
                 </div>
 
                 <div class="row clearfix" id="Editor1">
 
-                    <div id="editor">def main(): 
-    print('Hello IOT World')
+                    <div id="editor">def main(): print('Hello IOT World')
                     </div>
-                 
+
                 </div>
 
 
@@ -477,38 +475,37 @@
                     </div>
 
                 </div>
-                  <!--////   shareconfig ////-->
-                 <div class="modal fade" id="shareconfig" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Config Addons</h4>
-                        </div>
-                        <div class="modal-body">
-                          <form>
-                          Name:<br>
-                              <input type="text" name="dname" value="">
-                              <br>
-                              Add-on Name:<br>
-                              <input type="text" name="aname" value="Example">
-                              <br>
-                              Description:<br>
-                                       <textarea rows="4" cols="50" name="des"  value=""></textarea>
-                                      <br>
-                             <div id="res">
-                                   
+                <!--////   shareconfig ////-->
+                <div class="modal fade" id="shareconfig" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="defaultModalLabel">Config Addons</h4>
                             </div>
-                                   
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" id ="send" onclick="shareAddons()">SHARE</button>
-                            <button type="button" class="btn btn-link waves-effect" onclick="resetConfig()" data-dismiss="modal">cancle</button>
+                            <div class="modal-body">
+                                <form>
+                                    Name:<br>
+                                    <input type="text" name="dname" value="">
+                                    <br> Add-on Name:<br>
+                                    <input type="text" name="aname" value="Example">
+                                    <br> Description:
+                                    <br>
+                                    <textarea rows="4" cols="50" name="des" value=""></textarea>
+                                    <br>
+                                    <div id="res">
+
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link waves-effect" id="send" onclick="shareAddons()">SHARE</button>
+                                <button type="button" class="btn btn-link waves-effect" onclick="resetConfig()" data-dismiss="modal">cancle</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                  <!--////   end shareconfig ////-->
+                <!--////   end shareconfig ////-->
                 <!--////   wizrd setup ////-->
                 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -520,8 +517,8 @@
 
                                 - connect to micropython ap - image of micropython - pass micropythoN -wait response feom micropython to next step
                             </div>
-                            <div class="modal-footer">  
-                                 <button type="button" id="step1btn" onclick="init_first()"class="btn btn-link waves-effect"> NEXT</button>
+                            <div class="modal-footer">
+                                <button type="button" id="step1btn" onclick="init_first()" class="btn btn-link waves-effect"> NEXT</button>
                                 <button type="button" id="step1miss" class="btn btn-link waves-effect" data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -534,15 +531,13 @@
                             <div class="modal-header">
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
                             </div>
-                            <div class="modal-body">SSID : 
-                           <input stype="{color:black}"type="text" id="ssid" value=""><br>
-                           password:
-                            <input type="text" id="pass_ssid" value=""><br>
-                                - set wifi ssid pass - if success return mac of sta and ip
+                            <div class="modal-body">SSID :
+                                <input stype="{color:black}" type="text" id="ssid" value=""><br> password:
+                                <input type="text" id="pass_ssid" value=""><br> - set wifi ssid pass - if success return mac of sta and ip
                                 <p id="responseStep2"></p>
                             </div>
                             <div class="modal-footer">
-                                 <button type="button" id="step2btn"  onclick="init_first()"class="btn btn-link waves-effect">NEXT</button>
+                                <button type="button" id="step2btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
                                 <button type="button" id="step2miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -556,14 +551,13 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
                             </div>
                             <div class="modal-body">
-                            ip address :
-                            <div id="response">wait a minute</div>
-                            access key : 
-                           <input type="text" id="key" value="1234"><br>
-                                - suggect choose wifi as micropython connected now - later system to auto connect to ip now - but auto connect system failed you need to click automed setup and make there again
+                                ip address :
+                                <div id="response">wait a minute</div>
+                                access key :
+                                <input type="text" id="key" value="1234"><br> - suggect choose wifi as micropython connected now - later system to auto connect to ip now - but auto connect system failed you need to click automed setup and make there again
                             </div>
                             <div class="modal-footer">
-                                 <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
+                                <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
                                 <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -576,29 +570,27 @@
                         <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
                         <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
                         <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
- </div>
-                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
                                         TOP RIGHT
                                     </button>
-                   
+
                 </div>
 
-                    
-                           <div class="row clearfix">
-                                <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
-                                 <a class="btn bg-pink waves-effect m-b-15" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-                               aria-controls="collapseExample">
+
+                <div class="row clearfix">
+                    <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+                        <a class="btn bg-pink waves-effect m-b-15" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                 LINK WITH HREF
                             </a>
-                                   <div class="collapse" id="collapseExample">
-                                <div class="well">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
-                                    craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                                </div>
+                        <div class="collapse" id="collapseExample">
+                            <div class="well">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                             </div>
-                             </div> 
-                   
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
             </div>
@@ -879,11 +871,11 @@
     <category id="catio" colour="160" name="Input Output">
         <block type="ADC_input"></block>
         <block type="Pin_output">
-          <value name="onoff_value">
-              <block type="Pin_hl">
-                  <field name="value">On</field>
-              </block>
-          </value>
+            <value name="onoff_value">
+                <block type="Pin_hl">
+                    <field name="value">On</field>
+                </block>
+            </value>
         </block>
         <block type="Pin_hl"></block>
 
@@ -938,6 +930,19 @@
         <block type="mqtt_connect"></block>
         <block type="mqtt_publish"></block>
         <block type="mqtt_disconnect"></block>
+    </category>
+    <category id="catdatalog" colour="170" name="DataLogging">
+        <block type="urequests_datalog_write"></block>
+        <!-- <block type="urequests_datalog_read"></block> -->
+    </category>
+
+    <category id="catifttt" colour="230" name="IFTTT">
+        <block type="urequests_IFTTT"></block>
+    </category>
+
+    <category id="catnetpie" colour="300" name="NETPIE">
+        <block type="urequests_Netpie_put"></block>
+        <block type="urequests_json_Netpie_get"></block>
     </category>
 </xml>
 <xml id="blocklyDefault" style="display: none">
@@ -1017,10 +1022,6 @@
     });
 </script>
 <script type="text/javascript">
-
-
-
-
     //If serviceWorker supports, then register it.
     if ("serviceWorker" in navigator) {
         //navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw

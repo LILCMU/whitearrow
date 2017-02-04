@@ -61,9 +61,9 @@ autoloadBlock();
 
 function calculate_size(win) {
 
-    var cols = Math.max(60, Math.min(50, (win.innerWidth - 280) / 7)) | 0;
+    var cols =  ((win.innerWidth) / 7 )| 0;
     var rows = Math.max(24, Math.min(32, (win.innerHeight - 180) / 12)) | 0;
-    return [60, 24];
+    return [cols, 12];
 }
 
 (function() {
@@ -231,7 +231,7 @@ function generate() {
     };
     console.log()
 
-    document.getElementById('code_output').value = execcode;
+   
     editor.setValue(execcode);
 
     return execcode
@@ -357,7 +357,7 @@ function generateXML() {
         }
     }
 
-    document.getElementById('code_output').value = xmlText;
+    
 
 
 }

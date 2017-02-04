@@ -211,13 +211,19 @@ function  makeblock(contentp,typeContentp) {
 
 
 
-$('[id^=test]').click(function(){
+$('[id^=GPIO]').click(function(){
+	data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("GPIO")[1]
+ 	id = $(this).attr('id').split("GPIO")[1]
   $(this).toggleClass('btn bg-red waves-effect btn bg-light-green waves-effect');
-  $(this).text(function(i, text){return text === "ON" ? "OFF" : "ON";})
-  data = $(this).text() + ":"+ $(this).attr('id').split("test")[1]
- 
-  ws.send("command:"+ data)
-  ws.send('\r\n')
+  $(this).text(function(i, text){return text === "GPIO"+id+" ON" ? "GPIO"+id+" OFF" : "GPIO"+id+" ON";})
+  if($(this).text() == "GPIO"+id+" ON"){
+	ws.send("deamon.monitor("+'"GPIO",'+id+',1)\r\n')
+  }
+  else{
+	ws.send("deamon.monitor("+'"GPIO",'+id+',0)\r\n')
+  }
+  
+
 
 
  

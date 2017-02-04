@@ -1,23 +1,8 @@
-$('#Prompt').show();
-  $('#Editor1').hide();
-  $('#Blockly').hide();
-  $('.blocklyToolboxDiv').hide();
-  $('#monitor').hide();
-  $('#FileMannger').hide();
-  $('#Message').hide();
 
-function menu1(){
-  $('#Prompt').show();
-  $('#Editor1').hide();
-  $('#Blockly').hide();
-  $('.blocklyToolboxDiv').hide();
-  $('#monitor').hide();
-  $('#FileMannger').hide();
-  $('#Message').hide();
-}
+
 
 function menu2(){
-  $('#Prompt').hide();
+
   $('#Editor1').show();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
@@ -27,7 +12,7 @@ function menu2(){
 }
 
 function menu3(){
-  $('#Prompt').hide();
+
   $('#Editor1').hide();
   $('#Blockly').show();
   $('.blocklyToolboxDiv').show();
@@ -37,7 +22,7 @@ function menu3(){
 }
 
 function menu4(){
-  $('#Prompt').hide();
+
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
@@ -47,7 +32,7 @@ function menu4(){
 }
 
 function menu5(){
-  $('#Prompt').hide();
+
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
@@ -57,7 +42,7 @@ function menu5(){
 }
 
 function menu6(){
-  $('#Prompt').hide();
+
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();

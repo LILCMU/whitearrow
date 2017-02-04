@@ -149,13 +149,14 @@
                     <li>
                         
                     </li>
+                    <li id="init" onclick="menu3()"><a >  <i class="material-icons">extension</i>
+                            <span>Blockly</span>
+                        </a></li>
                     <li  onclick="menu2()"><a >
                             <i class="material-icons">developer_mode</i>
                             <span>Editor</span>
                         </a></li>
-                    <li id="init" onclick="menu3()"><a >  <i class="material-icons">extension</i>
-                            <span>Blockly</span>
-                        </a></li>
+                    
                     <li onclick="menu4()"><a >  <i class="material-icons">dashboard</i>
                             <span>monitor</span>
                         </a></li>
@@ -203,8 +204,7 @@
                             <li> <!-- -->
                                 <span>Address : </span>
                                   <input type="text" class="form-control" placeholder="IP Address" required autofocus name="webrepl_url" id="url" value="192.168.4.1"><br> 
-                            </li>
-                            <li> <!-- -->
+                           
                                 
                     <input type="button" class="btn btn-primary waves-effect"id="button" value="Connnect" onclick="button_click(); return false;"><br>
                             </li>
@@ -318,35 +318,94 @@
 
                 <div class="row clearfix" id="monitor">
                     <div class="row clearfix">
-                        <div class="col-md-8" id="content">
+                        
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="card">
                                     <div class="header bg-cyan">
-                                        <h2>
-                               GPIO
-                            </h2>
+                                        <h2> Motor</h2>
                                     </div>
-                                    <div class="body">
-                                        <button type="button" class="btn bg-light-green waves-effect" id="GPIO4">GPIO4 ON</button>
-                                        <button type="button" class="btn bg-light-green waves-effect" id="GPIO5">GPIO5 ON</button>
-
+                                    <div class="body"><center>
+                                    <div class="row">
+                                        <i class="material-icons md-48">rotate_left</i>
+                                        <i class="material-icons md-48">rotate_right</i></div>
+                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorA">A OFF</button>
+                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorB">B OFF</button>
+</center>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="card">
-                                    <div class="header bg-cyan">
-                                        <h2>
-                               GPIO05
-                            </h2>
+                                    <div class="header bg-red">
+                                        <h2>OLED</h2>
                                     </div>
                                     <div class="body">
-                                        <button type="button" class="btn bg-light-green waves-effect" id="test5">ON</button>
+                                    <input type="text"class="form-control" placeholder="header" required autofocus name="htext" id="htext_olcd" >
+                                    <input type="text" class="form-control" placeholder="Text" required autofocus name="text" id="text_olcd" >
+                                        <button type="button" class="btn bg-light-green waves-effect" id="show_OLED">show</button>
+                                        <button type="button" class="btn bg-light-green waves-effect" id="clear_OLED">clear</button>
+                            </div>
+                            </div>
+                            </div>
+                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-light-blue">
+                                        <h2>Action</h2>
+                                    </div>
+                                    <div class="body">
+                                        <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq" >
+                                        <input type="text" class="form-control" placeholder="Duty" required autofocus name="Duty" id="Duty" >
+                                         <button type="button" class="btn bg-light-green waves-effect" id="start_beeper">start</button>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                            
+
+                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-light-green">
+                                        <h2>I2C read</h2>
+                                    </div>
+                                    <div class="body">
+                                         <input type="text" class="form-control" placeholder="Address" required autofocus name="add_r" id="add_r" >
+                                        <textarea class="form-control" placeholder="text of recieve" required autofocus name="text_rec" id="text_rec" ></textarea>
+                                        <br>
+                                         <button type="button" class="btn bg-light-green waves-effect" id="read_i2c">read</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-amber">
+                                        <h2>I2C write</h2>
+                                    </div>
+                                    <div class="body">
+                                          <input type="text" class="form-control" placeholder="Address" required autofocus name="add_w" id="add_w" >
+                                        <textarea class="form-control" placeholder="text to write" required autofocus name="text_rec" id="writw_rec" ></textarea>
+                                        <br>
+                                         <button type="button" class="btn bg-light-green waves-effect" id="write_i2c">write</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-deep-orange">
+                                        <h2>sensor</h2>
+                                    </div>
+                                    <div class="body">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                       <!--
                         <div class="col-md-4">
                             <select class="show-tick" id="type">
                         <option value="1" >Button</option>
@@ -359,7 +418,7 @@
       </select>
                             <button type="button" onclick="createContent()">Add</button>
                             <button type="button" onclick="clrArr()">clear</button>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="row clearfix" id="FileMannger">
@@ -515,7 +574,7 @@
                 </div>
                 <!--//// end of  wizrd setup ////-->
                 <div class="row clearfix" id="Message">
-
+                        <div id="backservice">
                     <div class="jsdemo-notification-button">
                         <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
                         <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
@@ -523,7 +582,34 @@
  </div>
                         <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
                                         TOP RIGHT
-                                    </button>
+                                    </button></div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-green">
+                                        <h2>subscribe</h2>
+                                    </div>
+                                    <div class="body">
+                                   <input type="text"class="form-control" placeholder="IP address of server" required autofocus name="ipserver_sub" id="ip_server_sub" >
+                                    <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub" >
+                                        <button type="button" class="btn bg-light-green waves-effect" id="subscribe">subscribe</button>
+                            </div>
+                            </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-red">
+                                        <h2>pubish</h2>
+                                    </div>
+                                    <div class="body">
+                                    <input type="text"class="form-control" placeholder="IP address of server" required autofocus name="ipserver_pub" id="ip_server_pub" >
+                                    <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub" >
+                                        <button type="button" class="btn bg-light-green waves-effect" id="publish">publish</button>
+                                       
+                            </div>
+                            </div>
+                            </div>
+
                    
                 </div>
 
@@ -976,6 +1062,7 @@
     });
 </script>
 <script type="text/javascript">
+    $('#backservice').hide();
  $('#Editor1').hide();
   $('#Blockly').show();
   $('.blocklyToolboxDiv').show();

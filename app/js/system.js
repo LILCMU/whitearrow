@@ -10,11 +10,32 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
         scaleSpeed: 1.2,
         trashcan: true
     }
-
 });
 
+var blocklyArea = document.getElementById('Blockly');
+var blocklyDiv = document.getElementById('blocklyDiv');
 
+var onresize = function(e) {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    console.log(blocklyArea)
 
+    var element = blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = x + 'px';
+    blocklyDiv.style.top = y + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+};
+window.addEventListener('resize', onresize, false);
+onresize();
+Blockly.svgResize(workspace);
 
 if (!localStorage.nsc_prompt_ip) {
     document.getElementById('url').value = '192.168.4.1'
@@ -60,8 +81,7 @@ setInterval(function() {
 autoloadBlock();
 
 function calculate_size(win) {
-
-    var cols =  ((win.innerWidth) / 7 )| 0;
+    var cols = ((win.innerWidth) / 7) | 0;
     var rows = Math.max(24, Math.min(32, (win.innerHeight - 180) / 12)) | 0;
     return [cols, 12];
 }
@@ -77,9 +97,6 @@ function calculate_size(win) {
             cursorBlink: false
         });
         term.open(document.getElementById("term"));
-
-
-
     };
     window.addEventListener('resize', function() {
         var size = calculate_size(self);
@@ -88,29 +105,14 @@ function calculate_size(win) {
     if (connected === "false" && trigger) {
 
         $('#step1').trigger('click');
-
-
-        setTimeout(function() {
-
-
-        }, 15000);
-        setTimeout(function() {
-
-
-        }, 30000);
+        setTimeout(function() {}, 15000);
+        setTimeout(function() {}, 30000);
         setTimeout(function() {
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
-
         }, 45000);
-
-
-
     }
-
 }).call(this);
-
-
 
 function button_click() {
     if (connected) {
@@ -157,8 +159,6 @@ function checkCMD(commandCMD) {
         localStorage.firsttime = false;
         step = 99;
     }
-
-
 }
 
 function wizard() {
@@ -173,8 +173,6 @@ function wizard() {
     } else {
         init_first()
     }
-
-
 }
 
 function init_first() {
@@ -213,7 +211,6 @@ function init_first() {
 
 }
 
-
 function generate() {
     _import = ""
     _machine = ""
@@ -231,7 +228,7 @@ function generate() {
     };
     console.log()
 
-   
+
     editor.setValue(execcode);
 
     return execcode
@@ -356,23 +353,15 @@ function generateXML() {
             }
         }
     }
-
-    
-
-
 }
 
 function Savecode() {
     var code = generate()
     var nameInput = document.getElementById('filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
-
-
 }
 
 function save() {
-
-
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
     var nameInput = document.getElementById('filename').value;
@@ -440,7 +429,6 @@ function autosaveBlock() {
 }
 
 function autoloadBlock() {
-
     console.log('-- Loading saved code.')
     var xml = Blockly.Xml.textToDom('<xml><block type="controls_main" x="229" y="170"></block></xml>');
     xml.editable = false;
@@ -469,7 +457,6 @@ function autoloadBlock() {
 }
 
 function shareAddons() {
-
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
     var str = $('form').serialize()
@@ -490,8 +477,6 @@ function resetConfig() {
 }
 
 function loadAddons() {
-
-
     var lenght = $(arraddons).size();
     console.log(lenght)
 
@@ -534,7 +519,7 @@ function connect(url) {
     ws = new ReconnectingWebSocket(url);
     ws.binaryType = 'arraybuffer';
     //ws.debug = true;
-    ws.timeoutInterval = 5400;
+    // ws.timeoutInterval = 5400;
     ws.onopen = function() {
         term.removeAllListeners('data');
         term.on('data', function(data) {
@@ -550,7 +535,7 @@ function connect(url) {
 
         term.focus();
         term.element.focus();
-        ws.send('12345\r\n')
+        ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
         wizard()
@@ -656,14 +641,11 @@ function connect(url) {
                         cmd = ""
                         arrCMD = []
                     };
-
                 }
-
             }
         };
     };
     ws.onclose = function() {
-
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
@@ -671,9 +653,6 @@ function connect(url) {
         prepare_for_connect();
     }
 }
-
-
-
 
 function str2ab(str) {
     var buf = new ArrayBuffer(str.length); // 2 bytes for each char
@@ -697,7 +676,6 @@ function upload_editor() {
 }
 
 function run() {
-
     ws.send('import ' + document.getElementById('filename').value + '\r\n')
     ws.send(document.getElementById('filename').value + '.main()' + '\r\n')
 }
@@ -716,9 +694,6 @@ function restart() {
 }
 
 function put_file(code) {
-
-
-
 
     put_file_data = str2ab(code);
 
@@ -780,14 +755,9 @@ function handle_put_file_select(evt) {
     console.log(f)
 }
 
-
-
-
 function update_file_status(s) {
 
 }
-
-
 
 function decode_resp(data) {
     if (data[0] == 'W'.charCodeAt(0) && data[1] == 'B'.charCodeAt(0)) {
@@ -797,9 +767,6 @@ function decode_resp(data) {
         return -1;
     }
 }
-
-
-
 
 function get_ver() {
     // WEBREPL_REQ_S = "<2sBBQLH64s"

@@ -1,9 +1,8 @@
 
-
-
 function menu2(){
 
   $('#Editor1').show();
+  editor.resize();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
   $('#monitor').hide();

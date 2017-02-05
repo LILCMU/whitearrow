@@ -715,6 +715,7 @@ Terminal.insertStyle = function(document, bg, fg) {
     + '  border: ' + bg + ' solid 5px;\n'
     + '  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;\n'
     + '  font-size: 13px;\n'
+      + '  margin-bottom: 15px;\n'
     + '  color: ' + fg + ';\n'
     + '  background: ' + bg + ';\n'
     + '}\n'

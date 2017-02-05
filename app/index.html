@@ -275,7 +275,7 @@
                     </ul>
                 </div>
 
-                <div class="row clearfix" id="Blockly">
+                <div class="row clearfix" id="Blockly" style="position: absolute;width:80%;height:80%">
                     <div style="position: absolute;right: 15px;">
                         <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect">
                                     <i class="material-icons">screen_share</i>
@@ -311,7 +311,7 @@
 
 
                     <br> <br>
-                    <div id="blocklyDiv" style="height:500px"></div>
+                  <div id="blocklyDiv" ></div>
                 </div>
 
 
@@ -613,15 +613,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
                 <!-- IDE Output content -->
-
-
-
-            </div>
             </div>
 
         </section>
@@ -635,10 +629,10 @@
                     </div>
                     <div class="collapsible-body">
                         <div id="term"></div>
+
                     </div>
-        </div>
-        </li>
-        </ul>
+                </li>
+            </ul>
         </div>
         <div id="ide_output_spacer"></div>
 </body>
@@ -662,11 +656,11 @@
             </value>
         </block>
         <block type="controls_whileUntil">
-          <value name="BOOL">
-              <shadow type="logic_boolean">
-                  <field name="BOOL">True</field>
-              </shadow>
-          </value>
+            <value name="BOOL">
+                <shadow type="logic_boolean">
+                    <field name="BOOL">True</field>
+                </shadow>
+            </value>
         </block>
         <block type="controls_for">
             <value name="FROM">
@@ -990,32 +984,32 @@
     </category>
     <category id="catdatalog" colour="#EF6C00" name="DataLogging">
         <block type="urequests_datalog_write">
-          <value name="logging_write">
-              <shadow type="text">
-                  <field name="TEXT">Message</field>
-              </shadow>
-          </value>
+            <value name="logging_write">
+                <shadow type="text">
+                    <field name="TEXT">Message</field>
+                </shadow>
+            </value>
         </block>
         <!-- <block type="urequests_datalog_read"></block> -->
     </category>
 
     <category id="catifttt" colour="#FF5722" name="IFTTT">
         <block type="urequests_IFTTT">
-          <value name="value1">
-              <shadow type="text">
-                  <field name="TEXT">Message</field>
-              </shadow>
-          </value>
+            <value name="value1">
+                <shadow type="text">
+                    <field name="TEXT">Message</field>
+                </shadow>
+            </value>
         </block>
     </category>
 
     <category id="catnetpie" colour="#795548" name="NETPIE">
         <block type="urequests_Netpie_put">
-          <value name="data_put">
-              <shadow type="text">
-                  <field name="TEXT">Message</field>
-              </shadow>
-          </value>
+            <value name="data_put">
+                <shadow type="text">
+                    <field name="TEXT">Message</field>
+                </shadow>
+            </value>
         </block>
         <block type="urequests_json_Netpie_get"></block>
     </category>

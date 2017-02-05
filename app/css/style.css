@@ -8075,7 +8075,7 @@ button.btn-floating {
 }
 .ide_output_header_normal {
   font-size: 24px;
-  background-color: #61b79a;     /*#006468*//* footer clour*/
+  background-color: #00B0FF;     /*#006468*//* footer clour*/
   color: #ffffff;
    padding-left: 20px;
    padding-bottom: 8px;
@@ -8158,5 +8158,3 @@ button.btn-floating {
     height: 40px;
   }
 }
-
-

@@ -516,7 +516,7 @@ function loadAddons() {
 };
 
 function connect(url) {
-    ws = new ReconnectingWebSocket(url);
+    ws = new WebSocket(url);
     ws.binaryType = 'arraybuffer';
     //ws.debug = true;
     // ws.timeoutInterval = 5400;
@@ -540,6 +540,7 @@ function connect(url) {
         ws.send('import deamon\r\n')
         wizard()
         ws.onmessage = function(event) {
+            // console.log('onmessage')
 
             if (event.data == "$") {
                 if (commandSystem) {
@@ -549,10 +550,16 @@ function connect(url) {
                 }
             }
             if (!commandSystem) {
+                // console.log('not command')
+                // console.log(binary_state)
+                // console.log(event.data)
+                // console.log(event.data instanceof ArrayBuffer)
                 if (event.data instanceof ArrayBuffer) {
                     var data = new Uint8Array(event.data);
+                    // console.log(binary_state);
                     switch (binary_state) {
                         case 11:
+                            // console.log('case 11')
                             // first response for put
                             if (decode_resp(data) == 0) {
                                 // send file data in chunks
@@ -565,8 +572,10 @@ function connect(url) {
                         case 12:
                             // final response for put
                             if (decode_resp(data) == 0) {
+                                term.write('file tranfer successful\r\n');
                                 update_file_status('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes');
                             } else {
+                                term.write('file tranfer failure\r\n');
                                 update_file_status('Failed sending ' + put_file_name);
                             }
                             binary_state = 0;
@@ -624,10 +633,12 @@ function connect(url) {
                             console.log('GET_VER', data);
                             binary_state = 0;
                             break;
+                        default:
                     }
                 }
                 term.write(event.data);
             } else {
+
                 if (event.data != "$") {
                     arrCMD.push(event.data)
 
@@ -637,7 +648,7 @@ function connect(url) {
                         }
                         checkCMD(cmd)
                         log.push(cmd)
-                        console.log(cmd)
+                        // console.log(cmd)
                         cmd = ""
                         arrCMD = []
                     };
@@ -665,13 +676,14 @@ function str2ab(str) {
 
 function upload() {
     var code = generate()
-    document.getElementById('code_output').value = code;
+    term.write("Upload " + document.getElementById('filename').value + ".py\r\n")
+    // console.log(code)
     put_file(code)
 }
 
 function upload_editor() {
     var code = editor.getValue();
-    console.log(code);
+    // console.log(code);
     put_file(code)
 }
 
@@ -699,7 +711,7 @@ function put_file(code) {
 
     var dest_fname = document.getElementById('filename').value + '.py';
     var dest_fsize = put_file_data.length;
-    console.log(dest_fname)
+    // console.log(put_file_data)
     // WEBREPL_FILE = "<2sBBQLH64s"
     var rec = new Uint8Array(2 + 1 + 1 + 8 + 4 + 2 + 64);
     rec[0] = 'W'.charCodeAt(0);
@@ -730,10 +742,11 @@ function put_file(code) {
     }
     // initiate put
     binary_state = 11;
-    console.log('Sending ' + document.getElementById('filename').value + '...');
+    // console.log('Sending ' + document.getElementById('filename').value + '...');
     ws.send(rec);
-    console.log(rec)
-    ws.send('file tranfer successful');
+    // var test = rec;
+    // console.log(rec)
+    // term.write('file tranfer successful\r\n');
 }
 
 function handle_put_file_select(evt) {

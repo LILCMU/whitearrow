@@ -59,7 +59,7 @@ Blockly.Blocks.colour_blend = {
 	}
 };
 Blockly.Blocks.lists = {};
-Blockly.Blocks.lists.HUE = 260;
+Blockly.Blocks.lists.HUE = '#3F51B5';
 Blockly.Blocks.lists_create_empty = {
 	init: function() {
 		this.jsonInit({
@@ -544,7 +544,7 @@ Blockly.Blocks.lists_split = {
 	}
 };
 Blockly.Blocks.logic = {};
-Blockly.Blocks.logic.HUE = 210;
+Blockly.Blocks.logic.HUE = '#F44336';
 Blockly.Blocks.controls_if = {
 	init: function() {
 		this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
@@ -821,7 +821,7 @@ Blockly.Blocks.logic_ternary = {
 	}
 };
 Blockly.Blocks.loops = {};
-Blockly.Blocks.loops.HUE = 120;
+Blockly.Blocks.loops.HUE = '#E91E63';
 Blockly.Blocks.controls_repeat_ext = {
 	init: function() {
 		this.jsonInit({
@@ -995,7 +995,7 @@ Blockly.Blocks.controls_flow_statements = {
 	LOOP_TYPES: ["controls_repeat", "controls_repeat_ext", "controls_forEach", "controls_for", "controls_whileUntil"]
 };
 Blockly.Blocks.math = {};
-Blockly.Blocks.math.HUE = 230;
+Blockly.Blocks.math.HUE = '#9C27B0';
 Blockly.Blocks.math_number = {
 	init: function() {
 		this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
@@ -1363,7 +1363,7 @@ Blockly.Blocks.math_random_float = {
 	}
 };
 Blockly.Blocks.procedures = {};
-Blockly.Blocks.procedures.HUE = 290;
+Blockly.Blocks.procedures.HUE = '#689F38';
 Blockly.Blocks.procedures_defnoreturn = {
 	init: function() {
 		var a = new Blockly.FieldTextInput(Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, Blockly.Procedures.rename);
@@ -1715,7 +1715,7 @@ Blockly.Blocks.procedures_ifreturn = {
 	FUNCTION_TYPES: ["procedures_defnoreturn", "procedures_defreturn"]
 };
 Blockly.Blocks.texts = {};
-Blockly.Blocks.texts.HUE = 160;
+Blockly.Blocks.texts.HUE = '#673AB7';
 Blockly.Blocks.text = {
 	init: function() {
 		this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
@@ -2084,7 +2084,7 @@ Blockly.Blocks.text_prompt = {
 	domToMutation: Blockly.Blocks.text_prompt_ext.domToMutation
 };
 Blockly.Blocks.variables = {};
-Blockly.Blocks.variables.HUE = 330;
+Blockly.Blocks.variables.HUE = '#4CAF50';
 Blockly.Blocks.variables_get = {
 	init: function() {
 		this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);

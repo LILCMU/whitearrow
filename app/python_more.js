@@ -4,7 +4,7 @@ Blockly.Blocks['controls_main'] = {
             .appendField("Main");
         this.appendStatementInput("a")
             .setCheck(null);
-        this.setColour(120);
+        this.setColour('#607D8B');
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
         this.setDeletable(false);
@@ -41,7 +41,7 @@ Blockly.Blocks['mqtt_init'] = {
             .appendField(new Blockly.FieldTextInput("Host"), "hostServer");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(110);
+        this.setColour('#FF8F00');
         this.setTooltip('');
     }
 };
@@ -59,7 +59,7 @@ Blockly.Blocks['mqtt_connect'] = {
             .appendField("MQTT Connect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(110);
+        this.setColour('#FF8F00');
         this.setTooltip('');
     }
 };
@@ -76,7 +76,7 @@ Blockly.Blocks['mqtt_disconnect'] = {
             .appendField("MQTT Disconnect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(110);
+        this.setColour('#FF8F00');
         this.setTooltip('');
     }
 };
@@ -89,26 +89,29 @@ Blockly.Python['mqtt_disconnect'] = function(block) {
 
 Blockly.Blocks['mqtt_publish'] = {
     init: function() {
+        this.appendValueInput("publish")
+            .setCheck(null)
+            .appendField("MQTT Publish ")
+            .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
+            .appendField("  Message :");
         this.appendDummyInput()
-            .appendField("MQTT Publish       ")
-            .appendField(new Blockly.FieldTextInput("topic"), "Topic")
-            .appendField("     Message:   ")
-            .appendField(new Blockly.FieldTextInput("Message"), "Msg")
-            .appendField("     Retain:")
-            .appendField(new Blockly.FieldCheckbox("TRUE"), "retain");
+            .appendField(" Retain :")
+            .appendField(new Blockly.FieldCheckbox("TRUE"), "mqtt_retain");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(110);
+        this.setColour('#FF8F00');
         this.setTooltip('');
+        this.setHelpUrl('');
     }
 };
 
 Blockly.Python['mqtt_publish'] = function(block) {
-    var text_topic = block.getFieldValue('Topic');
-    var text_msg = block.getFieldValue('Msg');
-    var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
-    // TODO: Assemble JavaScript into code variable.
-    var code = "mqtt.publish(\"" + text_topic + "\",\'" + text_msg + "',retain=True)\n";
+    var text_mqtt_topic = block.getFieldValue('mqtt_topic');
+    var value_mqtt_publish = Blockly.Python.valueToCode(block, 'publish', Blockly.Python.ORDER_ATOMIC);
+    var checkbox_mqtt_retain = block.getFieldValue('mqtt_retain') == 'TRUE';
+    // TODO: Assemble Python into code variable.
+    var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')';
+    // TODO: Change ORDER_NONE to the correct strength.
     return code;
 };
 
@@ -124,7 +127,7 @@ Blockly.Blocks['Pin_PWM'] = {
             ]), "port");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(200);
+        this.setColour('#03A9F4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -154,7 +157,7 @@ Blockly.Blocks['Pin_PWMFreq'] = {
             .appendField("0 for show current value");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(200);
+        this.setColour('#03A9F4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -178,7 +181,7 @@ Blockly.Blocks['Pin_PWMDuty'] = {
             .appendField("0 for show current value");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(200);
+        this.setColour('#03A9F4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -198,7 +201,7 @@ Blockly.Blocks['Pin_PWMDeinit'] = {
         this.appendDummyInput()
             .appendField("PWM Deinit");
         this.setPreviousStatement(true, null);
-        this.setColour(200);
+        this.setColour('#03A9F4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -214,7 +217,7 @@ Blockly.Blocks['Pin_I2C_read'] = {
             .appendField("Read I2C from ")
             .appendField(new Blockly.FieldTextInput("address 0x00"), "i2c_addr");
         this.setOutput(true, null);
-        this.setColour(230);
+        this.setColour('#00BCD4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -234,7 +237,7 @@ Blockly.Blocks['Pin_I2C_write'] = {
             .appendField(new Blockly.FieldTextInput("address 0x00"), "i2c_addr");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour('#00BCD4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -265,7 +268,7 @@ Blockly.Blocks['WLAN_setting'] = {
             ]), "State");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(90);
+        this.setColour('#2196F3');
         this.setTooltip('');
     }
 };
@@ -292,7 +295,7 @@ Blockly.Blocks['WLAN_connectwifi'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         // this.setOutput(true,null)
-        this.setColour(90);
+        this.setColour('#2196F3');
         this.setTooltip('');
     }
 };
@@ -315,7 +318,7 @@ Blockly.Blocks['WLAN_checknetwork'] = {
             ]), "Interfaces");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(90);
+        this.setColour('#2196F3');
         this.setTooltip('');
     }
 };
@@ -342,7 +345,7 @@ Blockly.Blocks['Pin_output'] = {
             ]), "turn");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(180);
+        this.setColour('#4FC3F7');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -387,7 +390,7 @@ Blockly.Blocks['Pin_hl'] = {
                 ['Off', '0']
             ]), "value");
         this.setOutput(true, null);
-        this.setColour(180);
+        this.setColour('#4FC3F7');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -406,7 +409,7 @@ Blockly.Blocks['ADC_input'] = {
         this.appendDummyInput()
             .appendField("Read Sensor on analog port")
         this.setOutput(true, null);
-        this.setColour(180);
+        this.setColour('#4FC3F7');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -432,7 +435,7 @@ Blockly.Blocks['time_delay'] = {
             ]), "prefix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(270);
+        this.setColour('#009688');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -457,7 +460,7 @@ Blockly.Blocks['urequests_IFTTT'] = {
         this.appendValueInput("value1")
             .setCheck(null)
             .appendField("IFTTT  Key :")
-            .appendField(new Blockly.FieldTextInput("dWUpJCxH7TIYPIv9eGaP2E"), "key")
+            .appendField(new Blockly.FieldTextInput("Default"), "key")
             .appendField("Event :")
             .appendField(new Blockly.FieldTextInput("Event"), "event")
             .appendField("Value1 :");
@@ -470,7 +473,7 @@ Blockly.Blocks['urequests_IFTTT'] = {
             .appendField("Value3 :");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour('#FF5722');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -500,7 +503,7 @@ Blockly.Blocks['urequests_Netpie_put'] = {
             .appendField(new Blockly.FieldTextInput(""), "api_auth");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(300);
+        this.setColour('#795548');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -527,7 +530,7 @@ Blockly.Blocks['urequests_json_Netpie_get'] = {
             .appendField("REST API auth :")
             .appendField(new Blockly.FieldTextInput(""), "api_auth");
         this.setOutput(true, null);
-        this.setColour(300);
+        this.setColour('#795548');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -548,7 +551,7 @@ Blockly.Blocks['urequests_datalog_write'] = {
         this.appendValueInput("logging_write")
             .setCheck(null)
             .appendField("Data Logging LIL Write  Key :")
-            .appendField(new Blockly.FieldTextInput("default"), "write_key")
+            .appendField(new Blockly.FieldTextInput("Default"), "write_key")
             .appendField(new Blockly.FieldDropdown([
                 ["Field 1", "1"],
                 ["Field 2", "2"],
@@ -561,7 +564,7 @@ Blockly.Blocks['urequests_datalog_write'] = {
             ]), "field_id");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(180);
+        this.setColour('#EF6C00');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -572,6 +575,6 @@ Blockly.Python['urequests_datalog_write'] = function(block) {
     var dropdown_field_id = block.getFieldValue('field_id');
     var value_logging_write = Blockly.Python.valueToCode(block, 'logging_write', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.post(\'https://data.learninginventions.org/update?key='+text_write_key+'&field'+dropdown_field_id+'='+value_logging_write+'\')\n';
+    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + text_write_key + '&field' + dropdown_field_id + '=' + value_logging_write + '\')\n';
     return code;
 };

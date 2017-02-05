@@ -7453,7 +7453,7 @@ fieldset[disabled] .form-control {
   transition: all 0.5s;
   font-family: "Roboto", sans-serif;
   background: #fdfdfd;
-  width: 300px;
+  width: 250px;
   overflow: hidden;
   display: inline-block;
   height: calc(100vh - 70px);
@@ -7495,7 +7495,7 @@ fieldset[disabled] .form-control {
     white-space: nowrap;
     position: relative;
     border-bottom: 1px solid #e9e9e9;
-    background: url("../images/user-img-background.png") no-repeat no-repeat;
+    background: url("../images/170206001846-239k.jpg") no-repeat no-repeat;
     height: 135px; }
     .sidebar .user-info .image {
       margin-right: 12px;
@@ -8011,14 +8011,14 @@ html.ie11 .bs-searchbox .form-control {
   box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
   line-height: 40px;
   padding: 0;
-  background-color: #26a69a;
+  background-color: #1A237E;
   border-radius: 50%;
   transition: .3s;
   cursor: pointer;
   vertical-align: middle
 }
 .btn-floating:hover {
-  background-color: #30d0c1
+  background-color: #3D5AFE
 }
 .btn-floating:before {
   border-radius: 0

@@ -17,7 +17,6 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 
 var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
-    console.log(blocklyArea)
 
     var element = blocklyArea;
     var x = 0;
@@ -123,6 +122,7 @@ function button_click() {
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
         connected = true;
+        $('#ide_output_collapsible_header').trigger('click');
         connect('ws://' + document.getElementById('url').value + ':8266/');
         localStorage.nsc_prompt_ip = document.getElementById('url').value
     }
@@ -356,11 +356,16 @@ function generateXML() {
 }
 
 function Savecode() {
-    var code = generate()
+    var code = editor.getValue()
     var nameInput = document.getElementById('filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
 
+function Savecode_edi() {
+    var code = generate()
+    var nameInput = document.getElementById('filename').value;
+    if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
+}
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);

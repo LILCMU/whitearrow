@@ -132,7 +132,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="./images/user.png" width="48" height="48" alt="User" />
+                    <img src="./images/user.jpg" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" aria-haspopup="true" aria-expanded="false">Archer</div>
@@ -191,19 +191,13 @@
         <!-- #END# Left Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
-                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+                <li role="presentation" ><a href="#advances" data-toggle="tab">ADVANCES</a></li>
+                
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-                    <ul class="demo-choose-skin">
-                        <li data-theme="red" class="active">
-                            <div class="red"></div>
-                            <span>Red</span>
-                        </li>
-                    </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="settings">
+                
+                <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
                     <div class="demo-settings">
                         <p>GENERAL SETTINGS</p>
                         <ul class="setting-list">
@@ -222,7 +216,7 @@
                                 <div class="input-field col s6">
                                     <label class="active" for="first_name2">Project Name:</label>
 
-                                    <input type="text" id="filename" name="filename" class="name" placeholder="project name" required autofocus>
+                                    <input type="text" class="form-control"  id="filename" name="filename" class="name" placeholder="project name" required autofocus>
 
                                 </div>
                             </li>
@@ -233,23 +227,19 @@
                                 </div>
                             </li>
                         </ul>
-                        <p>ACCOUNT SETTINGS</p>
-                        <ul class="setting-list">
-                            <li>
-                                <span>Offline</span>
-                                <div class="switch">
-                                    <label><input type="checkbox"><span class="lever"></span></label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Location Permission</span>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked><span class="lever"></span></label>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
+
+                <div role="tabpanel" class="tab-pane fade " id="advances">
+                    <ul class="demo-choose-skin">
+                        <li data-theme="red" class="active">
+                            <span>Password : </span>
+                                <input type="password" class="form-control"  name="password" id="passwd" >
+                                <input type="button" class="btn btn-primary waves-effect" id="button" value="SAVE" onclick="button_click(); return false;"><br>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
@@ -275,34 +265,34 @@
                     </ul>
                 </div>
 
-                <div class="row clearfix" id="Blockly" style="position: absolute;width:80%;height:80%">
-                    <div style="position: absolute;right: 15px;">
-                        <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect">
-                                    <i class="material-icons">screen_share</i>
-                                </button>
-                        <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect">
+                <div class="row clearfix" id="Blockly" style="position: absolute;width:75%;height:80%">
+                    <div style="position: absolute;">
+                        <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect"data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
                                     <i class="material-icons">extension</i>
                                 </button>
 
-                        <button type="button" onclick="save()" class="btn bg-indigo waves-effect">
+                        <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
-                        <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect">
+                        <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD ADD-ONS">
                                     <i class="material-icons">unarchive</i>
                                 </button>
-                        <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect">
+                        <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right" title="Generate XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
+ </div>
+<div style="position: absolute;right: 15px;">
 
-
-
-                        <button type="button" onclick="Savecode()" class="btn bg-pink waves-effect">
+                        <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
+                                    <i class="material-icons">screen_share</i>
+                                </button>
+                        <button type="button" onclick="Savecode()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="upload()" class="btn bg-pink waves-effect">
+                        <button type="button" onclick="upload()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
                                 </button>
-                        <button type="button" onclick="generate()" class="btn bg-pink waves-effect">
+                        <button type="button" onclick="generate()" class="btn bg-pink waves-effect"data-toggle="tooltip" data-placement="bottom" title="Generate code">
                                     <i class="material-icons">code</i>
                                 </button>
 
@@ -316,7 +306,14 @@
 
 
                 <div class="row clearfix" id="Editor1">
-
+                <div style="position: absolute;right: 15px;">
+                     <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
+                                    <i class="material-icons">save</i>
+                                </button>
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
+                                    <i class="material-icons">file_upload</i>
+                           </button>  </div>   
+                           <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
 

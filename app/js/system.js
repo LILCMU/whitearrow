@@ -522,6 +522,9 @@ function loadAddons() {
 
 function connect(url) {
     ws = new WebSocket(url);
+    // ws.onclose = function(){
+    //   setTimeout(connect(url), 500);
+    // }
     ws.binaryType = 'arraybuffer';
     //ws.debug = true;
     // ws.timeoutInterval = 5400;

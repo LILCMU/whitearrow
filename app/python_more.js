@@ -110,7 +110,7 @@ Blockly.Python['mqtt_publish'] = function(block) {
     var value_mqtt_publish = Blockly.Python.valueToCode(block, 'publish', Blockly.Python.ORDER_ATOMIC);
     var checkbox_mqtt_retain = block.getFieldValue('mqtt_retain') == 'TRUE';
     // TODO: Assemble Python into code variable.
-    var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')';
+    var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
     // TODO: Change ORDER_NONE to the correct strength.
     return code;
 };
@@ -593,6 +593,6 @@ Blockly.Python['urequests_datalog_write'] = function(block) {
     var dropdown_field_id = block.getFieldValue('field_id');
     var value_logging_write = Blockly.Python.valueToCode(block, 'logging_write', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + text_write_key + '&field' + dropdown_field_id + '=' + value_logging_write + '\')\n';
+    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + text_write_key + '&field' + dropdown_field_id + '=\'+str' + value_logging_write + ')\n';
     return code;
 };

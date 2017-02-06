@@ -193,10 +193,10 @@
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
             <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
                 <li role="presentation" ><a href="#advances" data-toggle="tab">ADVANCES</a></li>
-                
+
             </ul>
             <div class="tab-content">
-                
+
                 <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
                     <div class="demo-settings">
                         <p>GENERAL SETTINGS</p>
@@ -312,7 +312,7 @@
                                 </button>
                         <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
-                           </button>  </div>   
+                           </button>  </div>
                            <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
@@ -637,6 +637,7 @@
 <xml id="toolbox" style="display: none">
 
     <category id="catLogic" colour="#F44336" name="Logic">
+        <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>
@@ -950,6 +951,7 @@
                 </shadow>
             </value>
         </block>
+        <block type="Pin_I2C_scan"></block>
     </category>
 
     <category id="catTime" colour="#009688" name="Time">

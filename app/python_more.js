@@ -225,7 +225,7 @@ Blockly.Blocks['Pin_I2C_read'] = {
 
 Blockly.Python['Pin_I2C_read'] = function(block) {
     var ext_i2c_addr = block.getFieldValue('i2c_addr');
-    var code = 'i2c = I2C(scl=Pin(0), sda=Pin(2))\ni2c.readfrom(' + ext_i2c_addr + ', 4)\n';
+    var code = 'I2C(scl=Pin(0), sda=Pin(2)).readfrom(' + ext_i2c_addr + ', 4)';
     return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -250,6 +250,24 @@ Blockly.Python['Pin_I2C_write'] = function(block) {
     var code = 'i2c = I2C(scl=Pin(0), sda=Pin(2))\ni2c.writeto(' + text_i2c_addr + ', ' + value_i2c + ')\n';
     // TODO: Change ORDER_NONE to the correct strength.
     return code;
+};
+
+Blockly.Blocks['Pin_I2C_scan'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Scan I2C Device(s)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#00BCD4');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['Pin_I2C_scan'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'I2C(scl=Pin(0), sda=Pin(2)).scan()\n';
+  return code;
 };
 
 Blockly.Blocks['WLAN_setting'] = {
@@ -417,7 +435,7 @@ Blockly.Blocks['ADC_input'] = {
 
 Blockly.Python['ADC_input'] = function(block) {
     // TODO: Assemble Python into code variable.
-    var code = 'adc = ADC(0)\nadc.read()\n';
+    var code = 'ADC(0).read()';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_NONE];
 };

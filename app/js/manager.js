@@ -1,5 +1,6 @@
 var imac=0
 var iip=0
+var arrfile = [];
 var arrDevice=[]
 	var name_d="";
 	var macD="";
@@ -93,8 +94,24 @@ var arrFile=[];
 var str="";
 var str2="";
 function refreshFile() {
-	ws.send('\r\nimport os\r\n')
-	ws.send('\r\nprint(os.listdir())\r\n')	
+	var  content = document.getElementById('tableFile');
+	content.innerHTML = ""
+	ws.send('deamon.manager("10","","")\r\n')	
+	     setTimeout(function() {
+	     	var resfile = sessionStorage.file 
+            var res = resfile.split("[")
+            var res2 = res[1].split("]")
+            var res3 = res2[0].split(",")
+            var str2 = res3;
+            for (var i =  0; i < str2.length; i++) {
+            	var tmp1 = str2[i].split("'")
+            	console.log(tmp1[1])
+            	arrfile.push(tmp1[1])
+                addFile(tmp1[1],i)
+            }
+            console.log(arrfile)
+	     },500)
+	    	
 }
 /*
 setInterval(function(){
@@ -140,7 +157,7 @@ setInterval(function(){
   
 },100)
 */
-function addFile(nameFile) {
+function addFileold(nameFile) {
 		var  content = document.getElementById('listfile');
 
 		var tmp1 = document.createElement('div')
@@ -160,3 +177,31 @@ function addFile(nameFile) {
 		content.appendChild(tmp1);
 }	
 
+function addFile(nameFile,numfile) {
+		var  content = document.getElementById('tableFile');
+
+		var tr = document.createElement('tr')
+		tr.innerHTML = '<th scope="row">'+(numfile+1)+'</th>'
+
+		var td = document.createElement('td')
+		td.setAttribute('id',numfile)
+		td.innerHTML = nameFile
+		tr.appendChild(td)
+
+		var td2 = document.createElement('td')
+		td2.innerHTML = '<a href="javascript:loadfile('+numfile+');"> <i class="material-icons">cloud_download</i></a> <a href="javascript:editfile('+numfile+');"> <i class="material-icons">mode_edit</i></a> <a href="javascript:rmfile('+numfile+');"><i class="material-icons">delete</i></a> '
+		tr.appendChild(td2)
+
+		content.appendChild(tr);
+}	
+
+
+
+
+
+function  rmfile(num) {
+	var obj =  document.getElementById(num).innerHTML;
+	ws.send('deamon.manager("20","'+obj+'","")\r\n')	
+	
+
+}

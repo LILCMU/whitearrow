@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Little Archer</title>
+    <title>Archer</title>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=description content="This web application will work in offline, has a splash screen add to home screen etc,.">
     <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
@@ -107,7 +107,8 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="./index.html">NSC2017 - LITTLE ARCHER</a>
+                 &nbsp &nbsp &nbsp
+                <a href="./index.html"> <img src="./images/logo.png"  height="64" alt="White Arrow" /></a>
 
             </div>
 
@@ -132,7 +133,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="./images/user.jpg" width="48" height="48" alt="User" />
+                    <img src="./images/user.jpg" width="64" height="64" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" aria-haspopup="true" aria-expanded="false">Archer</div>
@@ -151,7 +152,7 @@
                             <span>Blockly</span>
                         </a>
                     </li>
-                    <li onclick="menu2()">
+                    <li class="pyEdit" onclick="menu2()">
                         <a>
                             <i class="material-icons">developer_mode</i>
                             <span>Editor</span>
@@ -181,9 +182,7 @@
                 <div class="copyright">
                     &copy; 2016 <a href="javascript:void(0);">NSC2017</a>.
                 </div>
-                <div class="version">
-                    <b>Version: </b> 1.0.4
-                </div>
+                
             </div>
             <!-- #Footer -->
         </aside>
@@ -191,8 +190,8 @@
         <!-- #END# Left Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
-                <li role="presentation"><a href="#advances" data-toggle="tab">ADVANCES</a></li>
+            <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+                <li role="presentation" ><a href="#advances" data-toggle="tab">Help</a></li>
 
             </ul>
             <div class="tab-content">
@@ -216,7 +215,7 @@
                                 <div class="input-field col s6">
                                     <label class="active" for="first_name2">Project Name:</label>
 
-                                    <input type="text" class="form-control" id="filename" name="filename" class="name" placeholder="project name" required autofocus>
+                                    <input type="text" class="form-control"  id="filename" name="filename" class="name" placeholder="project name" required autofocus>
 
                                 </div>
                             </li>
@@ -224,6 +223,12 @@
                                 <span>Auto Updates</span>
                                 <div class="switch">
                                     <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                             <li>
+                                <span>Auto Generate</span>
+                                <div class="switch">
+                                    <label><input class = "autogen" type="checkbox" ><span class="lever"></span></label>
                                 </div>
                             </li>
                         </ul>
@@ -234,8 +239,8 @@
                     <ul class="demo-choose-skin">
                         <li data-theme="red" class="active">
                             <span>Password : </span>
-                            <input type="password" class="form-control" name="password" id="passwd">
-                            <input type="button" class="btn btn-primary waves-effect" id="button" value="SAVE" onclick="button_click(); return false;"><br>
+                                <input type="password" class="form-control"  name="password" id="passwd" >
+                                <input type="button" class="btn btn-primary waves-effect" id="button" value="SAVE" onclick="button_click(); return false;"><br>
                         </li>
                     </ul>
                 </div>
@@ -253,7 +258,7 @@
 
             <div class="container-fluid">
 
-                <div class="fixed-action-btn horizontal click-to-toggle">
+         <!--       <div class="fixed-action-btn horizontal click-to-toggle">
                     <a class="btn-floating btn-large ">
                         <i class="material-icons md-24">add</i>
                     </a>
@@ -263,11 +268,11 @@
                         <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons md-24">stop</i></a></li>
                         <li><a class="btn-floating " href="javascript:run();"><i class="material-icons md-24">play_arrow</i></a></li>
                     </ul>
-                </div>
+                </div> -->
 
                 <div class="row clearfix" id="Blockly" style="position: absolute;width:75%;height:80%">
                     <div style="position: absolute;">
-                        <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
+                        <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect"data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
                                     <i class="material-icons">extension</i>
                                 </button>
 
@@ -280,41 +285,59 @@
                         <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right" title="Generate XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
-                    </div>
-                    <div style="position: absolute;right: 15px;">
-
-                        <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
+                            <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
                                     <i class="material-icons">screen_share</i>
                                 </button>
-                        <button type="button" onclick="Savecode()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
+                        
+                                 <button type="button" onclick="restart()" class="btn bg-pink  waves-effect"data-toggle="tooltip" data-placement="bottom" title="refresh">
+                                    <i class="material-icons">refresh</i>
+                                </button>
+
+                         <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect"data-toggle="tooltip" data-placement="bottom" title="Generate code">
+                                    <i class="material-icons">menu</i>
+                                </button>
+
+ </div>
+<div style="position: absolute;right: 15px;">
+                     <button type="button" onclick="run()" class="btn bg-teal  waves-effect"data-toggle="tooltip" data-placement="bottom" title="Run">
+                                    <i class="material-icons">play_arrow</i>
+                                </button>
+                            <button type="button" onclick="stop()" class="btn bg-teal  waves-effect"data-toggle="tooltip" data-placement="bottom" title="stop">
+                                    <i class="material-icons">stop</i>
+                                </button>
+                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="upload()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
+                        <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
                                 </button>
-                        <button type="button" onclick="generate()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="Generate code">
+                        <button type="button" onclick="generate()" class="btn bg-teal waves-effect"data-toggle="tooltip" data-placement="bottom" title="Generate code">
                                     <i class="material-icons">code</i>
                                 </button>
 
+                        
+                        
                     </div>
 
 
 
                     <br> <br>
-                    <div id="blocklyDiv"></div>
+                  <div id="blocklyDiv" ></div>
                 </div>
 
 
                 <div class="row clearfix" id="Editor1">
-                    <input type="text" name="get_filename" id="get_filename" value="" />
-                    <div style="position: absolute;right: 15px;">
-                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
+                
+                <div style="position: absolute;right: 15px;">
+                <span>File name:</span>
+                <input type="text" name="get_filename" id="get_filename" value="" />
+                     <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
                                     <i class="material-icons">save</i>
                                 </button>
                         <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
-                           </button> </div>
-                    <br><br>
+                           </button>  </div>
+                           <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
 
@@ -437,31 +460,31 @@
                                 <br>
                             </div>
                             <div class="body table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>FILE NAME</th>
-                                            <th></th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tableFile">
-
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>FILE NAME</th>
+                                        <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id = "tableFile">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
                         </div>
                     </div>
-
-                    <div class="col-md-2">
+                   
+                   <div class="col-md-2">
                         <div class="card">
                             <div class="body">
-                                <strong>Upload file</strong>
-                                <input type="file" id="put-file-select" />
-                                <div id="put-file-list"></div>
-                                <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
-                            </div>
+                            <strong>Upload file</strong>
+                            <input type="file" id="put-file-select" />
+                            <div id="put-file-list"></div>
+                            <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
+                        </div>
                         </div>
                     </div>
 
@@ -603,7 +626,7 @@
                     <div id="ide_output_collapsible_header" class="collapsible-header ide_output_header_normal">
 
                         <i class="material-icons md-24">cast</i>
-                        <span class="translatable_arduinoOpMainTitle">Console</span>
+                        <span >Console</span>
                     </div>
                     <div class="collapsible-body">
                         <div id="term"></div>

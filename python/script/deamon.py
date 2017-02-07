@@ -1,5 +1,8 @@
-import gc
+import gc,oled,beeper
 gc.enable()
+oled.header('Welcome to ..')
+oled.body('White Arrow 1.0')
+beeper.welcome_beep()
 
 def main():
     print('$')
@@ -9,14 +12,13 @@ def main():
 def monitor(state,value1,value2):
     if(state=="GPIO"):
         from machine import Pin
-        p0 = Pin(value1, Pin.OUT)    
+        p0 = Pin(value1, Pin.OUT)
         p0.value(value2)
     elif(state=="sensor"):
         from machine import Pin
-        p1 = Pin(value1, Pin.OUT)    
+        p1 = Pin(value1, Pin.OUT)
         send('sensor:'+ str(value1) + ":" + str(p1.value()))
 
-    
 def init(state,value1,value2):
     if(state=="10"):
         send('step1:ok')
@@ -53,7 +55,7 @@ def syncdata():
     sta_if = network.WLAN(network.STA_IF)
     sta_if.active(1)
     send("sync:"+str(ubinascii.hexlify(sta_if.config("mac"))))
-    
+
 def send(text):
     print('$')
     print(text)
@@ -73,4 +75,3 @@ def autorun(filename):
 
 def heartbeat():
     send('cmd:true')
-    

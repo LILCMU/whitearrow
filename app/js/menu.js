@@ -1,6 +1,6 @@
 
 function menu2(){
-  
+
   $('#Editor1').show();
   editor.resize();
   $('#Blockly').hide();
@@ -11,7 +11,8 @@ function menu2(){
 }
 
 function menu3(){
-  Blockly.svgResize(workspace);
+  
+  
   $('#Editor1').hide();
   $('#Blockly').show();
   $('.blocklyToolboxDiv').show();

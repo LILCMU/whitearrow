@@ -162,10 +162,10 @@ function checkCMD(commandCMD) {
         localStorage.firsttime = false;
         step = 99;
     } else if (cmd.split(":")[0] == "cmd") {
-       if (cmd.split(":")[1] == "manager"){
-        var resfile = cmd.split(":")[2]
-        sessionStorage.file = resfile;
-       }
+        if (cmd.split(":")[1] == "manager") {
+            var resfile = cmd.split(":")[2]
+            sessionStorage.file = resfile;
+        }
     }
 }
 
@@ -258,6 +258,9 @@ function generateXML() {
     arrXml.push(xmlText.search("time"))
     arrXml.push(xmlText.search("urequests"))
     arrXml.push(xmlText.search("json"))
+    arrXml.push(xmlText.search("oled"))
+    arrXml.push(xmlText.search("beeper"))
+    arrXml.push(xmlText.search("math"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -358,6 +361,35 @@ function generateXML() {
                         _import += "json"
                     }
                     break;
+                case 9:
+                    if (first) {
+                        _import += "import oled"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "oled"
+                    }
+                    break;
+
+                case 10:
+                    if (first) {
+                        _import += "import beeper"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "beeper"
+                    }
+                    break;
+
+                case 11:
+                    if (first) {
+                        _import += "import math"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "math"
+                    }
+                    break;
             }
         }
     }
@@ -374,6 +406,7 @@ function Savecode_edi() {
     var nameInput = document.getElementById('filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
+
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
@@ -592,7 +625,7 @@ function connect(url) {
                                 term.write('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes\r\n');
                             } else {
                                 term.write('file tranfer failure\r\n');
-                                term.write('Failed sending ' + put_file_name +"\r\n");
+                                term.write('Failed sending ' + put_file_name + "\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -636,18 +669,18 @@ function connect(url) {
                             // final response
                             if (decode_resp(data) == 0) {
                                 term.write('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes\r\n');
-                                if(sel){
-                                        document.getElementById('get_filename').value = get_file_name
-                                        editor.setValue(ab2str(get_file_data))
-                                }else{
+                                if (sel) {
+                                    document.getElementById('get_filename').value = get_file_name
+                                    editor.setValue(ab2str(get_file_data))
+                                } else {
                                     saveAs(new Blob([get_file_data], {
-                                    type: "application/octet-stream"
-                                }), get_file_name);    
+                                        type: "application/octet-stream"
+                                    }), get_file_name);
                                 }
-                                
-                                
+
+
                             } else {
-                                term.write('Failed getting ' + get_file_name+"\r\n");
+                                term.write('Failed getting ' + get_file_name + "\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -698,7 +731,7 @@ function str2ab(str) {
 }
 
 function ab2str(buf) {
-  return String.fromCharCode.apply(null, new Uint16Array(buf));
+    return String.fromCharCode.apply(null, new Uint16Array(buf));
 }
 
 function upload() {
@@ -796,9 +829,20 @@ function put_file_manager() {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 1; // put
     rec[3] = 0;
-    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
-    rec[12] = dest_fsize & 0xff; rec[13] = (dest_fsize >> 8) & 0xff; rec[14] = (dest_fsize >> 16) & 0xff; rec[15] = (dest_fsize >> 24) & 0xff;
-    rec[16] = dest_fname.length & 0xff; rec[17] = (dest_fname.length >> 8) & 0xff;
+    rec[4] = 0;
+    rec[5] = 0;
+    rec[6] = 0;
+    rec[7] = 0;
+    rec[8] = 0;
+    rec[9] = 0;
+    rec[10] = 0;
+    rec[11] = 0;
+    rec[12] = dest_fsize & 0xff;
+    rec[13] = (dest_fsize >> 8) & 0xff;
+    rec[14] = (dest_fsize >> 16) & 0xff;
+    rec[15] = (dest_fsize >> 24) & 0xff;
+    rec[16] = dest_fname.length & 0xff;
+    rec[17] = (dest_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < dest_fname.length) {
             rec[18 + i] = dest_fname.charCodeAt(i);
@@ -822,9 +866,20 @@ function get_file(name) {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 2; // get
     rec[3] = 0;
-    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
-    rec[12] = 0; rec[13] = 0; rec[14] = 0; rec[15] = 0;
-    rec[16] = src_fname.length & 0xff; rec[17] = (src_fname.length >> 8) & 0xff;
+    rec[4] = 0;
+    rec[5] = 0;
+    rec[6] = 0;
+    rec[7] = 0;
+    rec[8] = 0;
+    rec[9] = 0;
+    rec[10] = 0;
+    rec[11] = 0;
+    rec[12] = 0;
+    rec[13] = 0;
+    rec[14] = 0;
+    rec[15] = 0;
+    rec[16] = src_fname.length & 0xff;
+    rec[17] = (src_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < src_fname.length) {
             rec[18 + i] = src_fname.charCodeAt(i);
@@ -877,42 +932,42 @@ document.getElementById('put-file-button').disabled = true;
 
 //////
 
-function  loadfile(num) {
+function loadfile(num) {
     sel = false;
     arrfile = []
-    var resfile = sessionStorage.file 
-            var res = resfile.split("[")
-            var res2 = res[1].split("]")
-            var res3 = res2[0].split(",")
-            var str2 = res3;
-            for (var i =  0; i < str2.length; i++) {
-                var tmp1 = str2[i].split("'")
-                console.log(tmp1[1])
-                arrfile.push(tmp1[1])
-                addFile(tmp1[1],i)
-            }
-            console.log(arrfile)
+    var resfile = sessionStorage.file
+    var res = resfile.split("[")
+    var res2 = res[1].split("]")
+    var res3 = res2[0].split(",")
+    var str2 = res3;
+    for (var i = 0; i < str2.length; i++) {
+        var tmp1 = str2[i].split("'")
+        console.log(tmp1[1])
+        arrfile.push(tmp1[1])
+        addFile(tmp1[1], i)
+    }
+    console.log(arrfile)
     console.log(arrfile[num])
     get_file(arrfile[num])
     //
 }
 
 
-function  editfile(num) {
+function editfile(num) {
     sel = true;
     arrfile = []
-    var resfile = sessionStorage.file 
-            var res = resfile.split("[")
-            var res2 = res[1].split("]")
-            var res3 = res2[0].split(",")
-            var str2 = res3;
-            for (var i =  0; i < str2.length; i++) {
-                var tmp1 = str2[i].split("'")
-                console.log(tmp1[1])
-                arrfile.push(tmp1[1])
-                addFile(tmp1[1],i)
-            }
-            console.log(arrfile)
+    var resfile = sessionStorage.file
+    var res = resfile.split("[")
+    var res2 = res[1].split("]")
+    var res3 = res2[0].split(",")
+    var str2 = res3;
+    for (var i = 0; i < str2.length; i++) {
+        var tmp1 = str2[i].split("'")
+        console.log(tmp1[1])
+        arrfile.push(tmp1[1])
+        addFile(tmp1[1], i)
+    }
+    console.log(arrfile)
     get_file(arrfile[num])
 
 }

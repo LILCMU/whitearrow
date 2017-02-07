@@ -253,21 +253,21 @@ Blockly.Python['Pin_I2C_write'] = function(block) {
 };
 
 Blockly.Blocks['Pin_I2C_scan'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Scan I2C Device(s)");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour('#00BCD4');
-    this.setTooltip('');
-    this.setHelpUrl('');
-  }
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Scan I2C Device(s)");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#00BCD4');
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
 };
 
 Blockly.Python['Pin_I2C_scan'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  var code = 'I2C(scl=Pin(0), sda=Pin(2)).scan()\n';
-  return code;
+    // TODO: Assemble Python into code variable.
+    var code = 'I2C(scl=Pin(0), sda=Pin(2)).scan()\n';
+    return code;
 };
 
 Blockly.Blocks['WLAN_setting'] = {
@@ -594,5 +594,56 @@ Blockly.Python['urequests_datalog_write'] = function(block) {
     var value_logging_write = Blockly.Python.valueToCode(block, 'logging_write', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
     var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + text_write_key + '&field' + dropdown_field_id + '=\'+str' + value_logging_write + ')\n';
+    return code;
+};
+
+Blockly.Blocks['oled_clear'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Clear Display");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#1565C0');
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
+};
+
+Blockly.Python['oled_clear'] = function(block) {
+    // TODO: Assemble Python into code variable.
+    var code = 'oled.clear()\n';
+    return code;
+};
+
+Blockly.Blocks['oled_text'] = {
+    init: function() {
+        this.appendValueInput("text")
+            .setCheck(["Number", "String", "Boolean"])
+            .appendField("Show Text");
+        this.appendDummyInput()
+            .appendField("in Line")
+            .appendField(new Blockly.FieldDropdown([
+                ["1", "0"],
+                ["2", "1"],
+                ["3", "2"],
+                ["4", "3"],
+                ["5", "4"],
+                ["6", "5"],
+                ["7", "6"],
+                ["8", "7"]
+            ]), "line_num");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#1565C0');
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
+};
+
+Blockly.Python['oled_text'] = function(block) {
+    var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    var dropdown_line_num = block.getFieldValue('line_num');
+    // TODO: Assemble Python into code variable.
+    var code = 'oled.text(str(' + value_text + '),0,' + dropdown_line_num * 8 + ')\n';
     return code;
 };

@@ -189,7 +189,7 @@ function addFile(nameFile,numfile) {
 		tr.appendChild(td)
 
 		var td2 = document.createElement('td')
-		td2.innerHTML = '<a href="javascript:loadfile('+numfile+');"> <i class="material-icons">cloud_download</i></a> <a href="javascript:editfile('+numfile+');"> <i class="material-icons">mode_edit</i></a> <a href="javascript:rmfile('+numfile+');"><i class="material-icons">delete</i></a> '
+		td2.innerHTML = ' <button type="button" onclick="loadfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="Download"><i class="material-icons">cloud_download</i></button><button type="button" onclick="editfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="material-icons">mode_edit</i></button><button type="button" onclick="rmfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="delete"><i class="material-icons">delete</i></button>'
 		tr.appendChild(td2)
 
 		content.appendChild(tr);
@@ -202,6 +202,6 @@ function addFile(nameFile,numfile) {
 function  rmfile(num) {
 	var obj =  document.getElementById(num).innerHTML;
 	ws.send('deamon.manager("20","'+obj+'","")\r\n')	
-	
+	refreshFile()
 
 }

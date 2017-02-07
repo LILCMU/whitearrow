@@ -32,7 +32,7 @@ var onresize = function(e) {
     blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
     blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
 };
-window.addEventListener('resize', onresize, false);
+window.addEventListener('resize', Blockly.svgResize(workspace), false);
 onresize();
 Blockly.svgResize(workspace);
 
@@ -78,6 +78,7 @@ var arraddons = [];
 console.log(window.localStorage.getItem('addons'))
 //connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
 setInterval(function() {
+    Blockly.svgResize(workspace);
     autosaveBlock();
 }, 100);
 autoloadBlock();
@@ -162,10 +163,10 @@ function checkCMD(commandCMD) {
         localStorage.firsttime = false;
         step = 99;
     } else if (cmd.split(":")[0] == "cmd") {
-        if (cmd.split(":")[1] == "manager") {
-            var resfile = cmd.split(":")[2]
-            sessionStorage.file = resfile;
-        }
+       if (cmd.split(":")[1] == "manager"){
+        var resfile = cmd.split(":")[2]
+        sessionStorage.file = resfile;
+       }
     }
 }
 
@@ -226,7 +227,7 @@ function generate() {
     // Parse the XML into a tree.
     generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
-
+    var autogen = document.querySelector('.autogen');
     var newcode = code.split('$')
 
     var execcode = _import + "\n" + _machine + "\n"
@@ -234,13 +235,16 @@ function generate() {
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
-    console.log()
-
-
-    editor.setValue(execcode);
+    if(document.querySelector('.autogen').checked){
+        console.log("autogen")
+        editor.setValue(execcode);
+        $('.pyEdit').trigger('click');
+    }
+    
 
     return execcode
 }
+
 
 function generateXML() {
     var arrXml = [];
@@ -403,10 +407,9 @@ function Savecode() {
 
 function Savecode_edi() {
     var code = generate()
-    var nameInput = document.getElementById('filename').value;
+    var nameInput = document.getElementById('get_filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
-
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
@@ -625,7 +628,7 @@ function connect(url) {
                                 term.write('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes\r\n');
                             } else {
                                 term.write('file tranfer failure\r\n');
-                                term.write('Failed sending ' + put_file_name + "\r\n");
+                                term.write('Failed sending ' + put_file_name +"\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -669,18 +672,18 @@ function connect(url) {
                             // final response
                             if (decode_resp(data) == 0) {
                                 term.write('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes\r\n');
-                                if (sel) {
-                                    document.getElementById('get_filename').value = get_file_name
-                                    editor.setValue(ab2str(get_file_data))
-                                } else {
+                                if(sel){
+                                        document.getElementById('get_filename').value = get_file_name
+                                        editor.setValue(ab2str(get_file_data))
+                                }else{
                                     saveAs(new Blob([get_file_data], {
-                                        type: "application/octet-stream"
-                                    }), get_file_name);
+                                    type: "application/octet-stream"
+                                }), get_file_name);    
                                 }
-
-
+                                
+                                
                             } else {
-                                term.write('Failed getting ' + get_file_name + "\r\n");
+                                term.write('Failed getting ' + get_file_name+"\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -731,20 +734,23 @@ function str2ab(str) {
 }
 
 function ab2str(buf) {
-    return String.fromCharCode.apply(null, new Uint16Array(buf));
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
 }
 
 function upload() {
     var code = generate()
     term.write("Upload " + document.getElementById('filename').value + ".py\r\n")
+
     // console.log(code)
-    put_file(code)
+    put_file(code,document.getElementById('filename').value + '.py')
 }
 
 function upload_editor() {
     var code = editor.getValue();
-    // console.log(code);
-    put_file(code)
+    var nameInput = document.getElementById('get_filename').value;
+    if (!nameInput) {
+        alert("Please fill name")};
+    put_file(code,nameInput)
 }
 
 function run() {
@@ -765,11 +771,11 @@ function restart() {
     ws.send(String.fromCharCode(4))
 }
 
-function put_file(code) {
+function put_file(code,fname) {
 
     put_file_data = str2ab(code);
-
-    var dest_fname = document.getElementById('filename').value + '.py';
+    put_file_name = fname;
+    var dest_fname = fname 
     var dest_fsize = put_file_data.length;
     // console.log(put_file_data)
     // WEBREPL_FILE = "<2sBBQLH64s"
@@ -829,20 +835,9 @@ function put_file_manager() {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 1; // put
     rec[3] = 0;
-    rec[4] = 0;
-    rec[5] = 0;
-    rec[6] = 0;
-    rec[7] = 0;
-    rec[8] = 0;
-    rec[9] = 0;
-    rec[10] = 0;
-    rec[11] = 0;
-    rec[12] = dest_fsize & 0xff;
-    rec[13] = (dest_fsize >> 8) & 0xff;
-    rec[14] = (dest_fsize >> 16) & 0xff;
-    rec[15] = (dest_fsize >> 24) & 0xff;
-    rec[16] = dest_fname.length & 0xff;
-    rec[17] = (dest_fname.length >> 8) & 0xff;
+    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
+    rec[12] = dest_fsize & 0xff; rec[13] = (dest_fsize >> 8) & 0xff; rec[14] = (dest_fsize >> 16) & 0xff; rec[15] = (dest_fsize >> 24) & 0xff;
+    rec[16] = dest_fname.length & 0xff; rec[17] = (dest_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < dest_fname.length) {
             rec[18 + i] = dest_fname.charCodeAt(i);
@@ -866,20 +861,9 @@ function get_file(name) {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 2; // get
     rec[3] = 0;
-    rec[4] = 0;
-    rec[5] = 0;
-    rec[6] = 0;
-    rec[7] = 0;
-    rec[8] = 0;
-    rec[9] = 0;
-    rec[10] = 0;
-    rec[11] = 0;
-    rec[12] = 0;
-    rec[13] = 0;
-    rec[14] = 0;
-    rec[15] = 0;
-    rec[16] = src_fname.length & 0xff;
-    rec[17] = (src_fname.length >> 8) & 0xff;
+    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
+    rec[12] = 0; rec[13] = 0; rec[14] = 0; rec[15] = 0;
+    rec[16] = src_fname.length & 0xff; rec[17] = (src_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < src_fname.length) {
             rec[18 + i] = src_fname.charCodeAt(i);
@@ -932,42 +916,45 @@ document.getElementById('put-file-button').disabled = true;
 
 //////
 
-function loadfile(num) {
+function  loadfile(num) {
     sel = false;
     arrfile = []
-    var resfile = sessionStorage.file
-    var res = resfile.split("[")
-    var res2 = res[1].split("]")
-    var res3 = res2[0].split(",")
-    var str2 = res3;
-    for (var i = 0; i < str2.length; i++) {
-        var tmp1 = str2[i].split("'")
-        console.log(tmp1[1])
-        arrfile.push(tmp1[1])
-        addFile(tmp1[1], i)
-    }
-    console.log(arrfile)
+    var resfile = sessionStorage.file 
+            var res = resfile.split("[")
+            var res2 = res[1].split("]")
+            var res3 = res2[0].split(",")
+            var str2 = res3;
+            for (var i =  0; i < str2.length; i++) {
+                var tmp1 = str2[i].split("'")
+                console.log(tmp1[1])
+                arrfile.push(tmp1[1])
+                addFile(tmp1[1],i)
+            }
+            console.log(arrfile)
     console.log(arrfile[num])
     get_file(arrfile[num])
+    refreshFile()
     //
 }
 
 
-function editfile(num) {
+function  editfile(num) {
     sel = true;
     arrfile = []
-    var resfile = sessionStorage.file
-    var res = resfile.split("[")
-    var res2 = res[1].split("]")
-    var res3 = res2[0].split(",")
-    var str2 = res3;
-    for (var i = 0; i < str2.length; i++) {
-        var tmp1 = str2[i].split("'")
-        console.log(tmp1[1])
-        arrfile.push(tmp1[1])
-        addFile(tmp1[1], i)
-    }
-    console.log(arrfile)
+    var resfile = sessionStorage.file 
+            var res = resfile.split("[")
+            var res2 = res[1].split("]")
+            var res3 = res2[0].split(",")
+            var str2 = res3;
+            for (var i =  0; i < str2.length; i++) {
+                var tmp1 = str2[i].split("'")
+                console.log(tmp1[1])
+                arrfile.push(tmp1[1])
+                addFile(tmp1[1],i)
+            }
+            console.log(arrfile)
     get_file(arrfile[num])
+    $('.pyEdit').trigger('click');
+    refreshFile()
 
 }

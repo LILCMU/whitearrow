@@ -306,6 +306,7 @@
 
 
                 <div class="row clearfix" id="Editor1">
+                <input type="text" name="get_filename" id="get_filename" value="" />
                 <div style="position: absolute;right: 15px;">
                      <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
                                     <i class="material-icons">save</i>
@@ -435,52 +436,32 @@
                                 <button type="button" onclick="refreshFile()">refreshFile</button>
                                 <br>
                             </div>
-                            <div class="body" id="listfile">
-                            </div>
+                            <div class="body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>FILE NAME</th>
+                                        <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id = "tableFile">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
                         </div>
                     </div>
-                    <div class="col-md-10">
+                   
+                   <div class="col-md-2">
                         <div class="card">
-                            <div class="header">
-                                <h2>
-                                 <h3>Device Manager</h3>
-                                  <button type="button" onclick='fetchdata()'>addDevice</button>
-                                   <button type="button" onclick='arrDevice = [];window.localStorage.setItem("device", "");'>clr</button>
-                            </h2>
-                            </div>
-                            <div class="body" id="listDevice">
-
-                                <div class="card">
-                                    <div class="header bg-light-green">
-                                        <h2>
-                                Micropython <small>testmini 1</small>
-                            </h2>
-                                        <ul class="header-dropdown m-r--5">
-                                            <li>
-                                                <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="rotation" data-loading-color="lightGreen">
-                                                    <i class="material-icons md-24">loop</i>
-                                                </a>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="material-icons md-24">more_vert</i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="body">
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-
+                            <div class="body">
+                            <strong>Upload file</strong>
+                            <input type="file" id="put-file-select" />
+                            <div id="put-file-list"></div>
+                            <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
+                        </div>
                         </div>
                     </div>
 
@@ -1157,7 +1138,7 @@
 <script src="./js/reconnecting-websocket.js"></script>
 
 <script type="text/javascript" src="js/term.js"></script>
-
+<script type="text/javascript" src="js/FileSaver.js"></script>
 <script src="./js/monitor.js"></script>
 <script src="./js/manager.js"></script>
 

@@ -482,7 +482,7 @@ Blockly.Blocks['urequests_IFTTT_start'] = {
         .appendField(new Blockly.FieldTextInput("Event"), "event");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour('#FF5722');
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -504,7 +504,7 @@ Blockly.Blocks['urequests_IFTTT_sent'] = {
         .appendField("IFTTT SENT  Value :");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour('#FF5722');
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -516,7 +516,7 @@ Blockly.Python['urequests_IFTTT_sent'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['urequests_json_netpie_start'] = {
+Blockly.Blocks['urequests_netpie_start'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(" NETPIE START")
@@ -534,7 +534,7 @@ Blockly.Blocks['urequests_json_netpie_start'] = {
 };
 
 var url = "";
-Blockly.Python['urequests_json_netpie_start'] = function(block) {
+Blockly.Python['urequests_netpie_start'] = function(block) {
   var text_app = block.getFieldValue('app');
   var text_app_key = block.getFieldValue('app_key');
   var text_rest_auth = block.getFieldValue('rest_auth');

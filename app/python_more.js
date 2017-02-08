@@ -473,52 +473,83 @@ Blockly.Python['time_delay'] = function(block) {
     return code;
 };
 
-Blockly.Blocks['urequests_IFTTT'] = {
-    init: function() {
-        this.appendValueInput("value1")
-            .setCheck(null)
-            .appendField("IFTTT  Key :")
-            .appendField(new Blockly.FieldTextInput("Default"), "key")
-            .appendField("Event :")
-            .appendField(new Blockly.FieldTextInput("Event"), "event")
-            .appendField("Value1 :");
-        this.appendDummyInput();
-        this.appendValueInput("value2")
-            .setCheck(null)
-            .appendField("Value2 :");
-        this.appendValueInput("value3")
-            .setCheck(null)
-            .appendField("Value3 :");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour('#FF5722');
-        this.setTooltip('');
-        this.setHelpUrl('');
-    }
+Blockly.Blocks['urequests_IFTTT_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("IFTTT START ")
+        .appendField(new Blockly.FieldTextInput("Key"), "key")
+        .appendField(", ")
+        .appendField(new Blockly.FieldTextInput("Event"), "event");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['urequests_IFTTT_start'] = function(block) {
+  var text_key = block.getFieldValue('key');
+  var text_event = block.getFieldValue('event');
+//   key = text_key;
+//   event = text_event;
+  // TODO: Assemble Python into code variable.
+  var code = 'urequests.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
+  return code;
 };
 
-Blockly.Python['urequests_IFTTT'] = function(block) {
-    var text_key = block.getFieldValue('key');
-    var text_event = block.getFieldValue('event');
-    var value_value1 = Blockly.Python.valueToCode(block, 'value1', Blockly.Python.ORDER_ATOMIC);
-    var value_value2 = Blockly.Python.valueToCode(block, 'value2', Blockly.Python.ORDER_ATOMIC);
-    var value_value3 = Blockly.Python.valueToCode(block, 'value3', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    var code = 'urequests.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key + '\', json = {\'value1\':' + value_value1 + ',\'value2\':' + value_value2 + ',\'value3\':' + value_value3 + '})\n';
-    // console.log(code)
-    return code;
+Blockly.Blocks['urequests_IFTTT_sent'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("IFTTT SENT  Value :");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['urequests_IFTTT_sent'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '\', json = {\'value1\':' + value_name +'})\n';
+  return code;
+};
+
+Blockly.Blocks['urequests_json_netpie_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(" NETPIE START")
+        .appendField(new Blockly.FieldTextInput("Application"), "app")
+        .appendField(", ")
+        .appendField(new Blockly.FieldTextInput("Application Key"), "app_key")
+        .appendField(", ")
+        .appendField(new Blockly.FieldTextInput("Rest API auth"), "rest_auth");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#795548');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+var url = "";
+Blockly.Python['urequests_json_netpie_start'] = function(block) {
+  var text_app = block.getFieldValue('app');
+  var text_app_key = block.getFieldValue('app_key');
+  var text_rest_auth = block.getFieldValue('rest_auth');
+
+  // TODO: Assemble Python into code variable.
+  var code = 'key = \'https://api.netpie.io/topic/' + text_app + '/' + text_app_key + '?retain&auth=' + text_rest_auth + '\'';
+  url = '\'https://api.netpie.io/topic/' + text_app + '/' + text_app_key + '?retain&auth=' + text_rest_auth + '\'';
+  return code + '\n';
 };
 
 Blockly.Blocks['urequests_Netpie_put'] = {
     init: function() {
         this.appendValueInput("data_put")
             .setCheck(null)
-            .appendField("NETPIE PUT  Application :")
-            .appendField(new Blockly.FieldTextInput(""), "application")
-            .appendField("Application Key :")
-            .appendField(new Blockly.FieldTextInput(""), "application_key")
-            .appendField("REST API auth :")
-            .appendField(new Blockly.FieldTextInput(""), "api_auth");
+            .appendField("NETPIE PUT")
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#795548');
@@ -526,14 +557,10 @@ Blockly.Blocks['urequests_Netpie_put'] = {
         this.setHelpUrl('');
     }
 };
-
 Blockly.Python['urequests_Netpie_put'] = function(block) {
-    var text_application = block.getFieldValue('application');
-    var text_application_key = block.getFieldValue('application_key');
-    var text_api_auth = block.getFieldValue('api_auth');
     var value_data_put = Blockly.Python.valueToCode(block, 'data_put', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.put(\'https://api.netpie.io/topic/' + text_application + '/' + text_application_key + '?retain&auth=' + text_api_auth + '\',data=' + value_data_put + ')\n';
+    var code = 'urequests.put('+ url +',data=' + value_data_put + ')\n';
     return code;
 };
 
@@ -541,12 +568,7 @@ Blockly.Blocks['urequests_json_Netpie_get'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("NETPIE GET  Application :")
-            .appendField(new Blockly.FieldTextInput(""), "application")
-            .appendField("Application Key :")
-            .appendField(new Blockly.FieldTextInput(""), "application_key")
-            .appendField("REST API auth :")
-            .appendField(new Blockly.FieldTextInput(""), "api_auth");
+            .appendField("NETPIE GET")
         this.setOutput(true, null);
         this.setColour('#795548');
         this.setTooltip('');
@@ -555,11 +577,8 @@ Blockly.Blocks['urequests_json_Netpie_get'] = {
 };
 
 Blockly.Python['urequests_json_Netpie_get'] = function(block) {
-    var text_application = block.getFieldValue('application');
-    var text_application_key = block.getFieldValue('application_key');
-    var text_api_auth = block.getFieldValue('api_auth');
     // TODO: Assemble Python into code variable.
-    var code = 'json.loads(urequests.get(\'https://api.netpie.io/topic/' + text_application + '/' + text_application_key + '?auth=' + text_api_auth + '\').text)[0][\'payload\']';
+    var code = 'json.loads(urequests.get('+ url +').text)[0][\'payload\']';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_NONE];
 };

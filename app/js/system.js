@@ -80,8 +80,8 @@ var arrfile = [];
 var log = [];
 console.log(document.getElementById('status').value)
 var arraddons = [];
-//var arraddons = JSON.parse(window.localStorage.getItem('addons'));
-console.log(window.localStorage.getItem('addons'))
+arraddons = JSON.parse(window.localStorage.getItem('addons'));
+console.log(arraddons)
 //connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
 setInterval(function() {
     Blockly.svgResize(workspace);
@@ -245,6 +245,8 @@ function generate() {
         console.log("autogen")
         editor.setValue(execcode);
         $('.pyEdit').trigger('click');
+    }else{
+        editor.setValue(execcode);
     }
     
 

@@ -127,7 +127,8 @@ class Block extends Controller
 		$file_mid1 	 = '<div class="col-xs-6 col-sm-6 col-md-4 portfolio-item Cloud ">
 						<div class="wrapper"><div class="card radius shadowDepth1"><div class="card__image border-tlr-radius">
                   		<img src="images/blockly.jpg"  alt="image" class="border-tlr-radius"></div>
-						<div class="card__content card__padding"><div class="card__share"><div class="card__social"> </div><a id="share" class="share-toggle share-icon" href="javascript:console.log(\'test\');"></a></div><div class="card__meta">
+						<div class="card__content card__padding"><div class="card__share"><div class="card__social"> </div><a id="share" class="share-toggle share-icon" href="javascript:addons(\'';
+		$file_mid1_5 = '\');"></a></div><div class="card__meta">
                     	<a >5.0/5.0</a><time>';
 		$file_mid2 	= '</time></div>
                        <article class="card__article"><h2>';
@@ -147,7 +148,7 @@ class Block extends Controller
 			$dname = (string)$model[$key]->first_name; 
 			$aname = (string)$model[$key]->name;
 			$date  = (string)$datetime[0];
-			$file_all .= $file_mid1 .$date. $file_mid2 .'<a id="Addons'. $id .'">' .$aname. $file_mid3 .$dname. $file_mid4;
+			$file_all .= $file_mid1 .$id. $file_mid1_5 .$date. $file_mid2 .'<a id="Addons'. $id .'">' .$aname. $file_mid3 .$dname. $file_mid4;
 		}
 		
 		$file_all .= $file_bottom;           

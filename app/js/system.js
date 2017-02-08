@@ -17,19 +17,12 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 
 var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
-    if(window.innerWidth < 1024){
-        
-        $('#init').hide();
-        $('.pyEdit').hide();
-        $('.mobile').trigger('click');
-    }
-    else if(window.innerWidth <= 1169){
+    
+    if(window.innerWidth < 1169){
         $('.resizeBlockly').width((100*window.innerWidth)/100)
     }
     else{
         $('.resizeBlockly').width((75*window.innerWidth)/100)
-        $('#init').show();
-        $('.pyEdit').show();
     }
     var element = blocklyArea;
     var x = 0;

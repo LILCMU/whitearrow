@@ -1,145 +1,141 @@
-(function (window) {
-  'use strict';
+'use strict';
 
-  //Push notification button
-  var fabPushElement = document.querySelector('.fab__push');
-  var fabPushImgElement = document.querySelector('.fab__image');
-  
-  //To check `push notification` is supported or not
-  function isPushSupported() {
-    //To check `push notification` permission is denied by user
-    if (Notification.permission === 'denied') {
-      console.warn('User has blocked push notification.');
-      return;
-    }
+const applicationServerPublicKey = 'BNYug4SIAbwcEeMkCV8toLAV6hRkMvaQ6_42bEhXT-2Ui8KR5rp6UV1AECD_DwzgAvOrJ2ipJbv592U2Q5jQ29w';
 
-    //Check `push notification` is supported or not
-    if (!('PushManager' in window)) {
-      console.error('Push notification isn\'t supported in your browser.');
-      return;
-    }
+const pushButton = document.querySelector('.js-push-btn');
 
-    //Get `push notification` subscription
-    //If `serviceWorker` is registered and ready
-    navigator.serviceWorker.ready
-      .then(function (registration) {
-        registration.pushManager.getSubscription()
-        .then(function (subscription) {
-          //If already access granted, enable push button status
-          if (subscription) {
-            changePushStatus(true);
-          }
-          else {
-            changePushStatus(false);
-          }
-        })
-        .catch(function (error) {
-          console.error('Error occurred while enabling push ', error);
-        });
-      });
+let isSubscribed = false;
+let swRegistration = null;
+
+function urlB64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+function updateBtn() {
+  if (Notification.permission === 'denied') {
+    pushButton.textContent = 'Push Messaging Blocked.';
+    pushButton.disabled = true;
+    updateSubscriptionOnServer(null);
+    return;
   }
 
-  //To subscribe `push notification`
-  function subscribePush() {
-    navigator.serviceWorker.ready.then(function(registration) {
-      if (!registration.pushManager) {
-        alert('Your browser doesn\'t support push notification.');
-        return false;
-      }
-
-      //To subscribe `push notification` from push manager
-      registration.pushManager.subscribe({
-        userVisibleOnly: true //Always show notification when received
-      })
-      .then(function (subscription) {
-        toast('Subscribed successfully.');
-        console.info('Push notification subscribed.');
-        changePushStatus(true);
-        sendPushNotification();
-      })
-      .catch(function (error) {
-        changePushStatus(false);
-        console.error('Push notification subscription error: ', error);
-      });
-    })
+  if (isSubscribed) {
+    pushButton.textContent = 'Disable Push Messaging';
+  } else {
+    pushButton.textContent = 'Enable Push Messaging';
   }
 
-  //To unsubscribe `push notification`
-  function unsubscribePush() {
-    navigator.serviceWorker.ready
-    .then(function(registration) {
-      //Get `push subscription`
-      registration.pushManager.getSubscription()
-      .then(function (subscription) {
-        //If no `push subscription`, then return
-        if(!subscription) {
-          console.error('Unable to unregister push notification.');
-          return;
-        }
+  pushButton.disabled = false;
+}
 
-        //Unsubscribe `push notification`
-        subscription.unsubscribe()
-          .then(function () {
-            toast('Unsubscribed successfully.');
-            console.info('Push notification unsubscribed.');
-            changePushStatus(false);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      })
-      .catch(function (error) {
-        console.error('Failed to unsubscribe push notification.');
-      });
-    })
+function updateSubscriptionOnServer(subscription) {
+  // TODO: Send subscription to application server
+
+  const subscriptionJson = document.querySelector('.js-subscription-json');
+  const subscriptionDetails =
+    document.querySelector('.js-subscription-details');
+
+  if (subscription) {
+    subscriptionJson.textContent = JSON.stringify(subscription);
+    subscriptionDetails.classList.remove('is-invisible');
+  } else {
+    subscriptionDetails.classList.add('is-invisible');
   }
+}
 
-  //To change status
-  function changePushStatus(status) {
-    fabPushElement.dataset.checked = status;
-    fabPushElement.checked = status;
-    if (status) {
-      fabPushElement.classList.add('active');
-      fabPushImgElement.src = '../images/push-on.png';
+function subscribeUser() {
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  swRegistration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: applicationServerKey
+  })
+  .then(function(subscription) {
+    console.log('User is subscribed.');
+
+    updateSubscriptionOnServer(subscription);
+
+    isSubscribed = true;
+
+    updateBtn();
+  })
+  .catch(function(err) {
+    console.log('Failed to subscribe the user: ', err);
+    updateBtn();
+  });
+}
+
+function unsubscribeUser() {
+  swRegistration.pushManager.getSubscription()
+  .then(function(subscription) {
+    if (subscription) {
+      return subscription.unsubscribe();
     }
-    else {
-     fabPushElement.classList.remove('active');
-     fabPushImgElement.src = '../images/push-off.png';
-    }
-  }
+  })
+  .catch(function(error) {
+    console.log('Error unsubscribing', error);
+  })
+  .then(function() {
+    updateSubscriptionOnServer(null);
 
-  //Click event for subscribe push
-  fabPushElement.addEventListener('click', function () {
-    var isSubscribed = (fabPushElement.dataset.checked === 'true');
+    console.log('User is unsubscribed.');
+    isSubscribed = false;
+
+    updateBtn();
+  });
+}
+
+function initialiseUI() {
+  pushButton.addEventListener('click', function() {
+    pushButton.disabled = true;
     if (isSubscribed) {
-      unsubscribePush();
-    }
-    else {
-      subscribePush();
+      unsubscribeUser();
+    } else {
+      subscribeUser();
     }
   });
 
-  //Form data with info to send to server
-  function sendPushNotification() {
-    navigator.serviceWorker.ready
-      .then(function(registration) {
-        //Get `push subscription`
-        registration.pushManager.getSubscription().then(function (subscription) {
-          //Send `push notification` - source for below url `server.js`
-          fetch('https://progressive-web-application.herokuapp.com/send_notification', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(subscription)
-          })
-          .then(function(response) {
-            return response.json();
-          })
-        })
-      })
-  }
+  // Set the initial subscription value
+  swRegistration.pushManager.getSubscription()
+  .then(function(subscription) {
+    isSubscribed = !(subscription === null);
 
-  isPushSupported(); //Check for push notification support
-})(window);
+    updateSubscriptionOnServer(subscription);
+
+    if (isSubscribed) {
+      console.log('User IS subscribed.');
+    } else {
+      console.log('User is NOT subscribed.');
+    }
+
+    updateBtn();
+  });
+}
+/*
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+  console.log('Service Worker and Push is supported');
+
+  navigator.serviceWorker.register('./serviceWorker.js')
+  .then(function(swReg) {
+    console.log('Service Worker is registered', swReg);
+
+    swRegistration = swReg;
+    initialiseUI();
+  })
+  .catch(function(error) {
+    console.error('Service Worker Error', error);
+  });
+} else {
+  console.warn('Push messaging is not supported');
+  pushButton.textContent = 'Push Not Supported';
+}*/

@@ -232,17 +232,17 @@
                                     <label><input class = "autogen" type="checkbox" ><span class="lever"></span></label>
                                 </div>
                             </li>
+                             <li>
+                             <button disabled class="js-push-btn btn btn-primary waves-effect ">
+        Enable Push Messaging
+      </button> </li>
                         </ul>
                     </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade " id="advances">
                     <ul class="demo-choose-skin">
-                        <li data-theme="red" class="active">
-                            <span>Password : </span>
-                                <input type="password" class="form-control"  name="password" id="passwd" >
-                                <input type="button" class="btn btn-primary waves-effect" id="button" value="SAVE" onclick="button_click(); return false;"><br>
-                        </li>
+                        
                     </ul>
                 </div>
 
@@ -621,6 +621,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header bg-red">
+                                        <h2>push</h2>
+                                    </div>
+                                    <div class="body">
+                                    <section class="subscription-details js-subscription-details is-invisible">
+                                <pre><code class="js-subscription-json"></code></pre>
+                            </section>
+                                       
+                            </div>
+                            </div>
+                            </div>
+                            
                 </div>
 
                 <!-- IDE Output content -->
@@ -1120,16 +1135,7 @@
     $('#Message').hide();
 
 
-    //If serviceWorker supports, then register it.
-    if ("serviceWorker" in navigator) {
-        //navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw
-        //.then(function (registration) {
-        //  console.info('Service worker is registered!');
-        // })
-        //.catch(function (error) {
-        //   console.error('Service worker failed ', error);
-        // });
-    }
+   
 </script>
 
 

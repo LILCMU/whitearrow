@@ -3,18 +3,44 @@
 //Cache polyfil to support cacheAPI in all browsers
 importScripts('./cache-polyfill.js');
 
-var cacheName = 'cache-v1';
+var cacheName = 'cache-v094';
 
 //Files to save in cache
 var files = [
   './',
   './index.html',
   './index.html?utm=homescreen', //SW treats query string as new page
-  './css/styles.css',
+  './css/style.css',
+  './css/materialize.css',
+   './css/blockly-demo.css',
   'https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700', //caching 3rd party content
+  'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', //caching 3rd party content
+  'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', //caching 3rd party content
+  'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', //caching 3rd party content
   './images/icons/android-chrome-192x192.png',
-  './images/push-on.png',
-  './images/push-off.png',
+  './blockly_compressed.js',
+  './blocks_compressed.js',
+  './python_compressed.js',
+  './python_more.js',
+    './msg/js/en.js',
+      './js/storage.js',
+        './python_more.js',
+
+    './js/ace/ace.js',
+      './js/materialize.js',
+  './js/admin.js',
+  './js/pages/ui/range-sliders.js',
+  './js/pages/charts/jquery-knob.js',
+  './js/pages/cards/colored.js',
+  './js/pages/ui/notifications.js',   
+  './js/reconnecting-websocket.js',   
+  './js/term.js',   
+  './js/monitor.js',   
+  './js/manager.js',   
+  './js/system.js',   
+  './js/prompt.js', 
+  './images/user-img-background.png',  
+  './images/user.jpg',
   './images/icons/favicon-16x16.png',
   './images/icons/favicon-32x32.png',
   './js/app.js',
@@ -94,7 +120,7 @@ self.addEventListener('activate', function (event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cache) {
-          if (cache !== cacheName) {     //cacheName = 'cache-v1'
+          if (cache !== cacheName) {     //cacheName = 'cache-v094'
             return caches.delete(cache); //Deleting the cache
           }
         })
@@ -107,25 +133,6 @@ self.addEventListener('activate', function (event) {
   PUSH EVENT: triggered everytime, when a push notification is received.
 */
 
-//Adding `push` event listener
-self.addEventListener('push', function(event) {
-  console.info('Event: Push');
-
-  var title = 'Push notification demo';
-  var body = {
-    'body': 'click to return to application',
-    'tag': 'demo',
-    'icon': './images/icons/apple-touch-icon.png',
-    'badge': './images/icons/apple-touch-icon.png',
-    //Custom actions buttons
-    'actions': [
-      { "action": "yes", "title": "I ♥ this app!"},
-      { "action": "no", "title": "I don\'t like this app"}
-    ]
-  };
-
-  event.waitUntil(self.registration.showNotification(title, body));
-});
 
 /*
   BACKGROUND SYNC EVENT: triggers after `bg sync` registration and page has network connection.
@@ -156,41 +163,60 @@ self.addEventListener('sync', function(event) {
   NOTIFICATION EVENT: triggered when user click the notification.
 */
 
-//Adding `notification` click event listener
+const applicationServerPublicKey = 'BNYug4SIAbwcEeMkCV8toLAV6hRkMvaQ6_42bEhXT-2Ui8KR5rp6UV1AECD_DwzgAvOrJ2ipJbv592U2Q5jQ29w';
+
+/* eslint-enable max-len */
+
+function urlB64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+self.addEventListener('push', function(event) {
+  console.log('[Service Worker] Push Received.');
+  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+
+  const title = 'Push Codelab';
+  const options = {
+    body: event.data.text(),
+    icon: 'images/icon.png',
+    badge: 'images/badge.png'
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
 self.addEventListener('notificationclick', function(event) {
-  var url = 'https://demopwa.in';
+  console.log('[Service Worker] Notification click Received.');
 
-  //Listen to custom action buttons in push notification
-  if (event.action === 'yes') {
-    console.log('I ♥ this app!');
-  }
-  else if (event.action === 'no') {
-    console.warn('I don\'t like this app');
-  }
+  event.notification.close();
 
-  event.notification.close(); //Close the notification
-
-  //To open the app after clicking notification
   event.waitUntil(
-    clients.matchAll({
-      type: 'window'
-    })
-    .then(function(clients) {
-      for (var i = 0; i < clients.length; i++) {
-        var client = clients[i];
-        //If site is opened, focus to the site
-        if (client.url === url && 'focus' in client) {
-          return client.focus();
-        }
-      }
+    clients.openWindow('https://developers.google.com/web/')
+  );
+});
 
-      //If site is cannot be opened, open in new window
-      if (clients.openWindow) {
-        return clients.openWindow('/');
-      }
+self.addEventListener('pushsubscriptionchange', function(event) {
+  console.log('[Service Worker]: \'pushsubscriptionchange\' event fired.');
+  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  event.waitUntil(
+    self.registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: applicationServerKey
     })
-    .catch(function (error) {
-      console.error(error);
+    .then(function(newSubscription) {
+      // TODO: Send to application server
+      console.log('[Service Worker] New subscription: ', newSubscription);
     })
   );
 });

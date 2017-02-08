@@ -107,8 +107,8 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                 &nbsp &nbsp &nbsp
-                <a href="./index.html"> <img src="./images/logo.png"  height="64" alt="White Arrow" /></a>
+                &nbsp &nbsp &nbsp
+                <a href="./index.html"> <img src="./images/logo.png" height="64" alt="White Arrow" /></a>
 
 
             </div>
@@ -160,7 +160,7 @@
                         </a>
                     </li>
 
-                    <li class="mobile"onclick="menu4()">
+                    <li class="mobile" onclick="menu4()">
                         <a> <i class="material-icons">dashboard</i>
                             <span>monitor</span>
                         </a>
@@ -183,7 +183,7 @@
                 <div class="copyright">
                     &copy; 2016 <a href="javascript:void(0);">NSC2017</a>.
                 </div>
-                
+
             </div>
             <!-- #Footer -->
         </aside>
@@ -191,8 +191,8 @@
         <!-- #END# Left Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-            <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
-                <li role="presentation" ><a href="#advances" data-toggle="tab">Help</a></li>
+                <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+                <li role="presentation"><a href="#advances" data-toggle="tab">Help</a></li>
 
             </ul>
             <div class="tab-content">
@@ -216,7 +216,7 @@
                                 <div class="input-field col s6">
                                     <label class="active" for="first_name2">Project Name:</label>
 
-                                    <input type="text" class="form-control"  id="filename" name="filename" class="name" placeholder="project name" required autofocus>
+                                    <input type="text" class="form-control" id="filename" name="filename" class="name" placeholder="project name" required autofocus>
 
                                 </div>
                             </li>
@@ -226,14 +226,14 @@
                                     <label><input type="checkbox" checked><span class="lever"></span></label>
                                 </div>
                             </li>
-                             <li>
+                            <li>
                                 <span>Auto Generate</span>
                                 <div class="switch">
                                     <label><input class = "autogen" type="checkbox" ><span class="lever"></span></label>
                                 </div>
                             </li>
-                             <li>
-                             <button disabled class="js-push-btn btn btn-primary waves-effect ">
+                            <li>
+                                <button disabled class="js-push-btn btn btn-primary waves-effect ">
         Enable Push Messaging
       </button> </li>
                         </ul>
@@ -242,7 +242,7 @@
 
                 <div role="tabpanel" class="tab-pane fade " id="advances">
                     <ul class="demo-choose-skin">
-                        
+
                     </ul>
                 </div>
 
@@ -259,7 +259,7 @@
 
             <div class="container-fluid">
 
-         <!--       <div class="fixed-action-btn horizontal click-to-toggle">
+                <!--       <div class="fixed-action-btn horizontal click-to-toggle">
                     <a class="btn-floating btn-large ">
                         <i class="material-icons md-24">add</i>
                     </a>
@@ -272,79 +272,79 @@
                 </div> -->
 
                 <div class="row clearfix resizeBlockly" id="Blockly" style="position: absolute;width:100%;height:80%">
-                <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect"data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
                                     <i class="material-icons">extension</i>
                                 </button>
 
-                        <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
+                                <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
-                        <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD ADD-ONS">
+                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD ADD-ONS">
                                     <i class="material-icons">unarchive</i>
                                 </button>
-                        <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right" title="Generate XML">
+                                <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right" title="Generate XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
-                            <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
+                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
                                     <i class="material-icons">screen_share</i>
                                 </button>
-                        
-                                 <button type="button" onclick="restart()" class="btn bg-pink  waves-effect"data-toggle="tooltip" data-placement="bottom" title="refresh">
+
+                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="refresh">
                                     <i class="material-icons">refresh</i>
                                 </button>
 
-                         <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect"data-toggle="tooltip" data-placement="bottom" title="Generate code">
+                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="Generate code">
                                     <i class="material-icons">menu</i>
                                 </button>
 
- </div>
- 
-<div class="col-md-6 text-right">
-                     <button type="button" onclick="run()" class="btn bg-teal  waves-effect"data-toggle="tooltip" data-placement="bottom" title="Run">
+                            </div>
+
+                            <div class="col-md-6 text-right">
+                                <button type="button" onclick="run()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
                                     <i class="material-icons">play_arrow</i>
                                 </button>
-                            <button type="button" onclick="stop()" class="btn bg-teal  waves-effect"data-toggle="tooltip" data-placement="bottom" title="stop">
+                                <button type="button" onclick="stop()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="stop">
                                     <i class="material-icons">stop</i>
                                 </button>
-                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
+                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
+                                <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
                                 </button>
-                        <button type="button" onclick="generate()" class="btn bg-teal waves-effect"data-toggle="tooltip" data-placement="bottom" title="Generate code">
+                                <button type="button" onclick="generate()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="Generate code">
                                     <i class="material-icons">code</i>
                                 </button>
 
-                        
-                        
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div id="blocklyDiv"></div>
+                        </div>
                     </div>
-
-</div>
-
-                   
-                    <div class="row">
-                  <div id="blocklyDiv" ></div>
-                  </div>
-                  </div>
                 </div>
 
 
                 <div class="row clearfix" id="Editor1">
-                
-                <div style="position: absolute;right: 15px;">
-                <span>File name:</span>
-                <input type="text" name="get_filename" id="get_filename" value="" />
-                     <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file" >
+
+                    <div style="position: absolute;right: 15px;">
+                        <span>File name:</span>
+                        <input type="text" name="get_filename" id="get_filename" value="" />
+                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
                                     <i class="material-icons">save</i>
                                 </button>
                         <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
-                           </button>  </div>
-                           <br><br>
+                           </button> </div>
+                    <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
 
@@ -467,31 +467,31 @@
                                 <br>
                             </div>
                             <div class="body table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>FILE NAME</th>
-                                        <th></th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody id = "tableFile">
-                                   
-                                </tbody>
-                            </table>
-                        </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>FILE NAME</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableFile">
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                   
-                   <div class="col-md-2">
+
+                    <div class="col-md-2">
                         <div class="card">
                             <div class="body">
-                            <strong>Upload file</strong>
-                            <input type="file" id="put-file-select" />
-                            <div id="put-file-list"></div>
-                            <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
-                        </div>
+                                <strong>Upload file</strong>
+                                <input type="file" id="put-file-select" />
+                                <div id="put-file-list"></div>
+                                <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
+                            </div>
                         </div>
                     </div>
 
@@ -623,19 +623,19 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                <div class="card">
-                                    <div class="header bg-red">
-                                        <h2>push</h2>
-                                    </div>
-                                    <div class="body">
-                                    <section class="subscription-details js-subscription-details is-invisible">
-                                <pre><code class="js-subscription-json"></code></pre>
-                            </section>
-                                       
+                        <div class="card">
+                            <div class="header bg-red">
+                                <h2>push</h2>
                             </div>
+                            <div class="body">
+                                <section class="subscription-details js-subscription-details is-invisible">
+                                    <pre><code class="js-subscription-json"></code></pre>
+                                </section>
+
                             </div>
-                            </div>
-                            
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- IDE Output content -->
@@ -648,7 +648,7 @@
                     <div id="ide_output_collapsible_header" class="collapsible-header ide_output_header_normal">
 
                         <i class="material-icons md-24">cast</i>
-                        <span >Console</span>
+                        <span>Console</span>
                     </div>
                     <div class="collapsible-body">
                         <div id="term"></div>
@@ -1029,16 +1029,12 @@
     </category>
 
     <category id="catifttt" colour="#FF5722" name="IFTTT">
-        <block type="urequests_IFTTT">
-            <value name="value1">
-                <shadow type="text">
-                    <field name="TEXT">Message</field>
-                </shadow>
-            </value>
-        </block>
+        <block type="urequests_IFTTT_start"></block>
+        <block type="urequests_IFTTT_sent"></block>
     </category>
 
     <category id="catnetpie" colour="#795548" name="NETPIE">
+        <block type="urequests_netpie_start"></block>
         <block type="urequests_Netpie_put">
             <value name="data_put">
                 <shadow type="text">
@@ -1133,9 +1129,6 @@
     $('#monitor').hide();
     $('#FileMannger').hide();
     $('#Message').hide();
-
-
-   
 </script>
 
 

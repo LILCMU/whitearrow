@@ -587,8 +587,8 @@ Blockly.Blocks['urequests_datalog_write'] = {
     init: function() {
         this.appendValueInput("logging_write")
             .setCheck(null)
-            .appendField("Data Logging LIL Write  Key :")
-            .appendField(new Blockly.FieldTextInput("Default"), "write_key")
+            .appendField("ThingSpeak Write")
+            .appendField(new Blockly.FieldTextInput("Key"), "write_key")
             .appendField(new Blockly.FieldDropdown([
                 ["Field 1", "1"],
                 ["Field 2", "2"],

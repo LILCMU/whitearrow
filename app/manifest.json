@@ -1,12 +1,12 @@
 {
-  "name": "Application of NSC2017",
-  "short_name": "NSC2017",
+  "name": "ARCHER of NSC2017",
+  "short_name": "ARCHER",
   "description": "",
-  "start_url": "./index.html?utm=homescreen",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f5f5f5",
-  "theme_color": "#f5f5f5",
+  "theme_color": "#2980b9",
   "icons": [{
       "src": "./images/icons/android-chrome-192x192.png",
       "type": "image/png",

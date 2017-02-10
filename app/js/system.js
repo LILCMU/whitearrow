@@ -52,10 +52,20 @@ if (!localStorage.firsttime) {
     localStorage.firsttime = "true";
     step = 0;
 }
+var isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
+var isiDevice = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
+if(isAndroid || isiDevice)
+{
+   console.log('You are using a mobile device!');
+}
+else
+{
+   console.log('You are not using a mobile device!');
+}
 
 var time = new Date();
 document.getElementById('status').value = "false"
-document.getElementById('filename').value = "NameofProject" + String(time.getMonth() + 1) + String(time.getDate());
+document.getElementById('filename').value = "NameofProject" ;
 var _import = ""
 var _machine = ""
 var sel = false;
@@ -184,9 +194,9 @@ function wizard() {
     if (String(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
-        console.log("tes")
     } else {
         init_first()
+        step=0;
     }
 }
 
@@ -194,18 +204,23 @@ function init_first() {
     console.log("init")
     switch (step) {
         case 0:
+            $('#step1').trigger('click');
+            ws.send('deamon.init("10","","")\r\n')
+             break;
+        case 1:
             $('#step1miss').trigger('click');
             $('#step1miss').trigger('click');
+            $('#step2miss').hide();
             $('#step2').trigger('click');
             break;
 
-        case 1:
+        case 2:
             $('#step2miss').trigger('click');
             $('#step2miss').trigger('click');
             $('#step3').trigger('click');
             break;
 
-        case 2:
+        case 3:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
             break;
@@ -233,23 +248,14 @@ function generate() {
     // Parse the XML into a tree.
     generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
-    var autogen = document.querySelector('.autogen');
     var newcode = code.split('$')
-
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
-    if(document.querySelector('.autogen').checked){
-        console.log("autogen")
-        editor.setValue(execcode);
-        $('.pyEdit').trigger('click');
-    }else{
-        editor.setValue(execcode);
-    }
-    
-
+   
+    editor.setValue(execcode);
     return execcode
 }
 
@@ -762,8 +768,17 @@ function upload_editor() {
 }
 
 function run() {
-    ws.send('import ' + document.getElementById('filename').value + '\r\n')
-    ws.send(document.getElementById('filename').value + '.main()' + '\r\n')
+    var timenow = new Date();
+     ws.send("os.chdir('tmp')"+"\r\n")
+    var code = generate();
+    var nameInput = "current"+ String(timenow.getHours() + 1) + String(timenow.getMinutes()) +  String(timenow.getSeconds())
+    put_file(code,nameInput+ ".py")
+    setTimeout(function () {
+            ws.send('import ' + nameInput + '\r\n')
+            ws.send(nameInput + '.main()' + '\r\n')
+            ws.send("os.chdir('..')"+"\r\n")
+    },1000)
+     
 }
 
 function stop() {
@@ -777,6 +792,10 @@ function config() {
 
 function restart() {
     ws.send(String.fromCharCode(4))
+    setTimeout(function () {
+       window.location.reload();
+    },500)
+    
 }
 
 function put_file(code,fname) {
@@ -965,4 +984,11 @@ function  editfile(num) {
     $('.pyEdit').trigger('click');
     refreshFile()
 
+}
+
+function smartConfig () {
+    var ssid = document.getElementById('ssidconfig').value
+    var pass = document.getElementById('passconfig').value
+console.log(ssid,pass)
+    //#!make deamon
 }

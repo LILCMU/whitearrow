@@ -1,6 +1,6 @@
 
 function menu2(){
-
+generate();
   $('#Editor1').show();
   editor.resize();
   $('#Blockly').hide();
@@ -32,7 +32,7 @@ function menu4(){
 }
 
 function menu5(){
-
+  refreshFile()
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();

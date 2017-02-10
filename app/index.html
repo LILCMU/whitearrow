@@ -162,7 +162,7 @@
 
                     <li class="mobile" onclick="menu4()">
                         <a> <i class="material-icons">dashboard</i>
-                            <span>monitor</span>
+                            <span>Monitor</span>
                         </a>
                     </li>
                     <li onclick="menu5()">
@@ -172,7 +172,7 @@
                     </li>
                     <li onclick="menu6()">
                         <a> <i class="material-icons">question_answer</i>
-                            <span>Message</span>
+                            <span>MQTT Message</span>
                         </a>
                     </li>
                 </ul>
@@ -226,12 +226,7 @@
                                     <label><input type="checkbox" checked><span class="lever"></span></label>
                                 </div>
                             </li>
-                            <li>
-                                <span>Auto Generate</span>
-                                <div class="switch">
-                                    <label><input class = "autogen" type="checkbox" ><span class="lever"></span></label>
-                                </div>
-                            </li>
+                            
                             <li>
                                 <button disabled class="js-push-btn btn btn-primary waves-effect ">
         Enable Push Messaging
@@ -242,7 +237,12 @@
 
                 <div role="tabpanel" class="tab-pane fade " id="advances">
                     <ul class="demo-choose-skin">
+                            <input type="text" class="form-control" id="ssidconfig" name="ssidconfig" class="name" placeholder="SSID" required autofocus>
 
+                            <input type="password" class="form-control" id="passconfig" name="passconfig" class="name" placeholder="PASSWORD" required autofocus>
+
+                            <button onclick="smartConfig()" class=" btn btn-primary waves-effect ">Config</button>
+                            <p id ="responseConfig"></p>
                     </ul>
                 </div>
 
@@ -259,17 +259,17 @@
 
             <div class="container-fluid">
 
-                <!--       <div class="fixed-action-btn horizontal click-to-toggle">
-                    <a class="btn-floating btn-large ">
-                        <i class="material-icons md-24">add</i>
+                       <div class="fixed-action-btn horizontal click-to-toggle">
+                    <a class="btn-floating btn-large " href="javascript:restart();">
+                        <i class="material-icons md-24">refresh</i>
                     </a>
-                    <ul>
+                   <!-- <ul>
                         <li><a class="btn-floating " href="javascript:wizard();"><i class="material-icons md-24">menu</i></a></li>
                         <li><a class="btn-floating  " href="javascript:restart();"><i class="material-icons md-24">refresh</i></a></li>
                         <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons md-24">stop</i></a></li>
-                        <li><a class="btn-floating " href="javascript:run();"><i class="material-icons md-24">play_arrow</i></a></li>
+                        <li><a class="btn-floating " href="javascript:run();"><i class="material-icons md-24">play_arrow</i></a></li>-->
                     </ul>
-                </div> -->
+                </div> 
 
                 <div class="row clearfix resizeBlockly" id="Blockly" style="position: absolute;width:100%;height:80%">
                     <div class="col-md-12">
@@ -296,7 +296,7 @@
                                     <i class="material-icons">refresh</i>
                                 </button>
 
-                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="Generate code">
+                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="open wizard">
                                     <i class="material-icons">menu</i>
                                 </button>
 
@@ -315,9 +315,7 @@
                                 <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
                                 </button>
-                                <button type="button" onclick="generate()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="Generate code">
-                                    <i class="material-icons">code</i>
-                                </button>
+                            
 
 
 
@@ -462,8 +460,9 @@
                         <div class="card">
                             <div class="header ">
                                 <h3>File Manager</h3>
-                                <button type="button" onclick="addFile()">addFile</button>
-                                <button type="button" onclick="refreshFile()">refreshFile</button>
+                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right" title="list file">
+                                    <i class="material-icons">sort</i>
+                                </button>
                                 <br>
                             </div>
                             <div class="body table-responsive">
@@ -532,12 +531,14 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="largeModalLabel">Automade step 1</h4>
+                                <h4 class="modal-title" id="largeModalLabel">Automade STEP 1</h4>
                             </div>
                             <div class="modal-body">
 
-                                - connect to micropython ap - image of micropython - pass micropythoN -wait response feom micropython to next step
-                            </div>
+                                <h3>Connect to <big>"micropython - xxxxxx"</big> access point </h3><br>
+                                <h3>Password: <big>"micropythoN"</big> </h3><br>
+
+                                </div>
                             <div class="modal-footer">
                                 <button type="button" id="step1btn" onclick="init_first()" class="btn btn-link waves-effect"> NEXT</button>
                                 <button type="button" id="step1miss" class="btn btn-link waves-effect" data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
@@ -553,9 +554,12 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
                             </div>
                             <div class="modal-body">SSID :
-                                <input stype="{color:black}" type="text" id="ssid" value=""><br> password:
-                                <input type="text" id="pass_ssid" value=""><br> - set wifi ssid pass - if success return mac of sta and ip
-                                <p id="responseStep2"></p>
+                             
+                                <input  type="text" class="form-control" id="ssid" placeholder="SSID"  value=""><br> password:
+                                <input type="password" class="form-control" id="pass_ssid" placeholder="PASSWORD"  value=""><br> 
+                                <p id="responseStep2"></p><br>
+                                <h4>Set a new SSID and Password</h4><br>
+                                <h4>Press "Next" when finished fill</h4>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="step2btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
@@ -572,13 +576,13 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
                             </div>
                             <div class="modal-body">
-                                ip address :
-                                <div id="response">wait a minute</div>
+                                <h4>ip address :
+                                &nbsp&nbsp<div id="response">wait a minute</div>
                                 access key :
-                                <input type="text" id="key" value="1234"><br> - suggect choose wifi as micropython connected now - later system to auto connect to ip now - but auto connect system failed you need to click automed setup and make there again
+                                <input type="password" class="form-control" id="key" placeholder=""  value="1234"><br><br></h4> <h5>Default key : 1234 </h5>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
+                                
                                 <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>

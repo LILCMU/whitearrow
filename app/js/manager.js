@@ -94,6 +94,7 @@ var arrFile=[];
 var str="";
 var str2="";
 function refreshFile() {
+	arrfile = [];
 	var  content = document.getElementById('tableFile');
 	content.innerHTML = ""
 	ws.send('deamon.manager("10","","")\r\n')	
@@ -105,11 +106,10 @@ function refreshFile() {
             var str2 = res3;
             for (var i =  0; i < str2.length; i++) {
             	var tmp1 = str2[i].split("'")
-            	console.log(tmp1[1])
             	arrfile.push(tmp1[1])
                 addFile(tmp1[1],i)
             }
-            console.log(arrfile)
+            
 	     },500)
 	    	
 }
@@ -178,6 +178,7 @@ function addFileold(nameFile) {
 }	
 
 function addFile(nameFile,numfile) {
+	
 		var  content = document.getElementById('tableFile');
 
 		var tr = document.createElement('tr')
@@ -189,7 +190,9 @@ function addFile(nameFile,numfile) {
 		tr.appendChild(td)
 
 		var td2 = document.createElement('td')
+		if(nameFile.indexOf(".py")>0 && nameFile != "boot.py" && nameFile != "webrepl_cfg.py"){
 		td2.innerHTML = ' <button type="button" onclick="loadfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="Download"><i class="material-icons">cloud_download</i></button><button type="button" onclick="editfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="material-icons">mode_edit</i></button><button type="button" onclick="rmfile('+numfile+')" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="delete"><i class="material-icons">delete</i></button>'
+	}
 		tr.appendChild(td2)
 
 		content.appendChild(tr);

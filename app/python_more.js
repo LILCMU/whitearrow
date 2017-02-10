@@ -583,12 +583,31 @@ Blockly.Python['urequests_json_Netpie_get'] = function(block) {
     return [code, Blockly.Python.ORDER_NONE];
 };
 
+var key_datalog = "";
+Blockly.Blocks['urequests_datalog_write_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Record data to ")
+        .appendField(new Blockly.FieldTextInput("Key"), "key");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#EF6C00');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['urequests_datalog_write_key'] = function(block) {
+  var text_key = block.getFieldValue('key');
+  // TODO: Assemble Python into code variable.
+  key_datalog = text_key;
+  var code = 'key_datalog = "' + text_key + '"\n';
+  return code;
+};
+
 Blockly.Blocks['urequests_datalog_write'] = {
     init: function() {
         this.appendValueInput("logging_write")
             .setCheck(null)
-            .appendField("ThingSpeak Write")
-            .appendField(new Blockly.FieldTextInput("Key"), "write_key")
             .appendField(new Blockly.FieldDropdown([
                 ["Field 1", "1"],
                 ["Field 2", "2"],
@@ -606,13 +625,11 @@ Blockly.Blocks['urequests_datalog_write'] = {
         this.setHelpUrl('');
     }
 };
-
 Blockly.Python['urequests_datalog_write'] = function(block) {
-    var text_write_key = block.getFieldValue('write_key');
     var dropdown_field_id = block.getFieldValue('field_id');
     var value_logging_write = Blockly.Python.valueToCode(block, 'logging_write', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + text_write_key + '&field' + dropdown_field_id + '=\'+str' + value_logging_write + ')\n';
+    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + key_datalog + '&field' + dropdown_field_id + '=\'+str' + value_logging_write + ')\n';
     return code;
 };
 

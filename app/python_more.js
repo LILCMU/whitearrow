@@ -37,7 +37,7 @@ Blockly.Python['controls_main'] = function(block) {
 Blockly.Blocks['mqtt_init'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("MQTT START")
+            .appendField("START")
             .appendField(new Blockly.FieldTextInput("Host"), "hostServer");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -56,7 +56,7 @@ Blockly.Python['mqtt_init'] = function(block) {
 Blockly.Blocks['mqtt_connect'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("MQTT Connect");
+            .appendField("Connect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#FF8F00');
@@ -73,7 +73,7 @@ Blockly.Python['mqtt_connect'] = function(block) {
 Blockly.Blocks['mqtt_disconnect'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("MQTT Disconnect");
+            .appendField("Disconnect");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#FF8F00');
@@ -91,7 +91,7 @@ Blockly.Blocks['mqtt_publish'] = {
     init: function() {
         this.appendValueInput("publish")
             .setCheck(null)
-            .appendField("MQTT Publish ")
+            .appendField("Publish ")
             .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
             .appendField("  Message :");
         this.appendDummyInput()
@@ -476,7 +476,7 @@ Blockly.Python['time_delay'] = function(block) {
 Blockly.Blocks['urequests_IFTTT_start'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("IFTTT START ")
+        .appendField("START ")
         .appendField(new Blockly.FieldTextInput("Key"), "key")
         .appendField(", ")
         .appendField(new Blockly.FieldTextInput("Event"), "event");
@@ -501,7 +501,7 @@ Blockly.Blocks['urequests_IFTTT_sent'] = {
   init: function() {
     this.appendValueInput("NAME")
         .setCheck(null)
-        .appendField("IFTTT SENT  Value :");
+        .appendField("SENT  Value :");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('#FF5722');
@@ -519,7 +519,7 @@ Blockly.Python['urequests_IFTTT_sent'] = function(block) {
 Blockly.Blocks['urequests_netpie_start'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(" NETPIE START")
+        .appendField("START")
         .appendField(new Blockly.FieldTextInput("Application"), "app")
         .appendField(", ")
         .appendField(new Blockly.FieldTextInput("Application Key"), "app_key")
@@ -549,7 +549,7 @@ Blockly.Blocks['urequests_Netpie_put'] = {
     init: function() {
         this.appendValueInput("data_put")
             .setCheck(null)
-            .appendField("NETPIE PUT")
+            .appendField("PUT")
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#795548');
@@ -568,7 +568,7 @@ Blockly.Blocks['urequests_json_Netpie_get'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("NETPIE GET")
+            .appendField("GET")
         this.setOutput(true, null);
         this.setColour('#795548');
         this.setTooltip('');
@@ -587,7 +587,7 @@ var key_datalog = "";
 Blockly.Blocks['urequests_datalog_write_key'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Record data to ")
+        .appendField("Setting channel ")
         .appendField(new Blockly.FieldTextInput("Key"), "key");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -607,6 +607,7 @@ Blockly.Python['urequests_datalog_write_key'] = function(block) {
 Blockly.Blocks['urequests_datalog_write'] = {
     init: function() {
         this.appendValueInput("logging_write")
+            .appendField("Record Data to")
             .setCheck(null)
             .appendField(new Blockly.FieldDropdown([
                 ["Field 1", "1"],

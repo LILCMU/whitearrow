@@ -418,15 +418,15 @@ Blockly.Python['Pin_motor_output'] = function(block) { // Motor Control
     if (value_onoff_value == '(1)') {
         if (dropdown_turn == 'left') {
             if (pin_motor == '1') {
-                var code = 'pin1.value(0)\npin2.value(1)\n'
-            } else {
-                var code = 'pin3.value(0)\npin4.value(1)\n'
-            }
-        } else if (dropdown_turn == 'right') {
-            if (pin_motor == '1') {
                 var code = 'pin1.value(1)\npin2.value(0)\n'
             } else {
                 var code = 'pin3.value(1)\npin4.value(0)\n'
+            }
+        } else if (dropdown_turn == 'right') {
+            if (pin_motor == '1') {
+                var code = 'pin1.value(0)\npin2.value(1)\n'
+            } else {
+                var code = 'pin3.value(0)\npin4.value(1)\n'
             }
         }
     } else {
@@ -478,8 +478,8 @@ Blockly.Python['Pin_PWM_servo_heading'] = function(block) {
   sensor_servo = number_sensor_value;
   if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
-  } 
-  else {   
+  }
+  else {
     var code = 'servo2.duty('+ sensor_servo +')\n';
   }
   return code;
@@ -500,17 +500,17 @@ Blockly.Blocks['Pin_PWM_servo_left'] = {
 Blockly.Python['Pin_PWM_servo_left'] = function(block) {
   var number_sensor_value = parseInt(block.getFieldValue('sensor_value_l'));
 //   console.log(number_sensor_value);
-  sensor_servo -= number_sensor_value;
-  if (sensor_servo < 30)
-    sensor_servo = 30;
+  sensor_servo += number_sensor_value;
+  if (sensor_servo > 122)
+    sensor_servo = 122;
   if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
-  } 
-  else {   
+  }
+  else {
     var code = 'servo2.duty('+ sensor_servo +')\n';
 }
   return code;
-}; 
+};
 
 Blockly.Blocks['Pin_PWM_servo_right'] = {
   init: function() {
@@ -526,17 +526,35 @@ Blockly.Blocks['Pin_PWM_servo_right'] = {
 };
 Blockly.Python['Pin_PWM_servo_right'] = function(block) {
   var number_sensor_value_r = parseInt(block.getFieldValue('sensor_value_r'));
-  console.log(sensor_servo)
-  console.log("eiei " + number_sensor_value_r);
-  console.log(sensor_servo + number_sensor_value_r)
-  sensor_servo += number_sensor_value_r;
-  if (sensor_servo > 122)
-    sensor_servo = 122;
+  sensor_servo -= number_sensor_value_r;
+  if (sensor_servo < 30)
+    sensor_servo = 30;
   if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
-  } 
-  else {   
+  }
+  else {
     var code = 'servo2.duty('+ sensor_servo +')\n';
+}
+  return code;
+};
+
+Blockly.Blocks['Pin_PWM_servo_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off servo")
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#03A9F4');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['Pin_PWM_servo_stop'] = function(block) {
+  if (pin_servo == '1') {
+    var code = 'servo1.deinit()\n';
+  }
+  else {
+    var code = 'servo2.deinit()\n';
 }
   return code;
 };

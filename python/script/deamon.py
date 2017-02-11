@@ -1,7 +1,11 @@
-import gc,oled,beeper
+import gc,WA_lib
 gc.enable()
+oled = WA_lib.oled()
+beeper = WA_lib.beeper()
 oled.header('Welcome to ..')
 oled.body('White Arrow 1.0')
+oled.text('based on',0,40)
+oled.text('Micropython',0,56)
 beeper.welcome_beep()
 
 def main():
@@ -31,6 +35,7 @@ def init(state,value1,value2):
             pass
         send('step2:ok')
         send('step2:res:'+ str(sta_if.ifconfig()[0]))
+        oled.text(str(sta_if.ifconfig()[0]),0,48)
     elif(state=="30"):
         with open('./webrepl_cfg.py', "w") as f:
             f.write("PASS = %r\n" % value1)

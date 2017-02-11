@@ -953,16 +953,20 @@
 
     <category id="catio" colour="#03A9F4" name="Input Output">
         <block type="ADC_input"></block>
-        <block type="Pin_output">
+        <block type="Pin_PWM_output">
             <value name="onoff_value">
                 <block type="Pin_hl">
                     <field name="value">On</field>
                 </block>
             </value>
         </block>
+        <block type="Pin_motor_output"></block>
         <block type="Pin_hl"></block>
+        <block type="Pin_PWM_servo_heading"></block>
+        <block type="Pin_PWM_servo_left"></block>
+        <block type="Pin_PWM_servo_right"></block>
 
-        <block type="Pin_PWM"></block>
+        <!--<block type="Pin_PWM"></block>
 
         <block type="Pin_PWMFreq">
             <value name="freq">
@@ -978,7 +982,7 @@
                 </block>
             </value>
         </block>
-        <block type="Pin_PWMDeinit"></block>
+        <block type="Pin_PWMDeinit"></block>-->
 
     </category>
 

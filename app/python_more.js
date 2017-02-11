@@ -347,12 +347,12 @@ Blockly.Python['WLAN_checknetwork'] = function(block) {
     return code;
 };
 
-var pin_port = 0;
-Blockly.Blocks['Pin_PWM_output'] = {
+var pin_motor = 0;
+Blockly.Blocks['Pin_output'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Talk to")
-        .appendField(new Blockly.FieldDropdown([["MotorA / Servo1","1"], ["MotorB / Servo2","2"]]), "pin");
+        .appendField(new Blockly.FieldDropdown([["MotorA","1"], ["MotorB","2"]]), "pin");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('#4FC3F7');
@@ -360,13 +360,37 @@ Blockly.Blocks['Pin_PWM_output'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['Pin_PWM_output'] = function(block) {
+Blockly.Python['Pin_output'] = function(block) {
   var dropdown_pin = block.getFieldValue('pin');
-  pin_port = dropdown_pin;
-  if (pin_port == '1') {
-    var code = 'pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\nservo1 = PWM(Pin(4), freq=50, duty=77)\n';
+  pin_motor = dropdown_pin;
+  if (pin_motor == '1') {
+    var code = 'pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\n';
   } else {
-    var code = 'pin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\nservo2 = PWM(Pin(14), freq=50, duty=77)\n';
+    var code = 'pin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n';
+  }
+  return code;
+};
+
+var pin_servo = 0;
+Blockly.Blocks['Pin_PWM_output'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Talk to")
+        .appendField(new Blockly.FieldDropdown([["Servo1","1"], ["Servo2","2"]]), "pin_pwm");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#03A9F4');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['Pin_PWM_output'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin_pwm');
+  pin_servo = dropdown_pin;
+  if (pin_servo == '1') {
+    var code = 'servo1 = PWM(Pin(4), freq=50, duty=77)\n';
+  } else {
+    var code = 'servo2 = PWM(Pin(14), freq=50, duty=77)\n';
   }
   sensor_servo = 77;
   return code;
@@ -393,20 +417,20 @@ Blockly.Python['Pin_motor_output'] = function(block) { // Motor Control
     var value_onoff_value = Blockly.Python.valueToCode(block, 'onoff_value', Blockly.Python.ORDER_ATOMIC);
     if (value_onoff_value == '(1)') {
         if (dropdown_turn == 'left') {
-            if (pin_port == '1') {
+            if (pin_motor == '1') {
                 var code = 'pin1.value(0)\npin2.value(1)\n'
             } else {
                 var code = 'pin3.value(0)\npin4.value(1)\n'
             }
         } else if (dropdown_turn == 'right') {
-            if (pin_port == '1') {
+            if (pin_motor == '1') {
                 var code = 'pin1.value(1)\npin2.value(0)\n'
             } else {
                 var code = 'pin3.value(1)\npin4.value(0)\n'
             }
         }
     } else {
-        if (pin_port == '1') {
+        if (pin_motor == '1') {
             var code = 'pin1.value(0)\npin2.value(0)\n'
         } else {
             var code = 'pin3.value(0)\npin4.value(0)\n'
@@ -452,7 +476,7 @@ Blockly.Blocks['Pin_PWM_servo_heading'] = {
 Blockly.Python['Pin_PWM_servo_heading'] = function(block) {
   var number_sensor_value = block.getFieldValue('sensor_value');
   sensor_servo = number_sensor_value;
-  if (pin_port == '1') {
+  if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
   } 
   else {   
@@ -479,7 +503,7 @@ Blockly.Python['Pin_PWM_servo_left'] = function(block) {
   sensor_servo -= number_sensor_value;
   if (sensor_servo < 30)
     sensor_servo = 30;
-  if (pin_port == '1') {
+  if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
   } 
   else {   
@@ -508,7 +532,7 @@ Blockly.Python['Pin_PWM_servo_right'] = function(block) {
   sensor_servo += number_sensor_value_r;
   if (sensor_servo > 122)
     sensor_servo = 122;
-  if (pin_port == '1') {
+  if (pin_servo == '1') {
     var code = 'servo1.duty('+ sensor_servo +')\n';
   } 
   else {   

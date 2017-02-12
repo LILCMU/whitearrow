@@ -154,52 +154,56 @@ function prepare_for_connect() {
 
 
 function checkCMD(commandCMD) {
-    console.log(commandCMD);
-    if (cmd.split(":")[1] == "true") {
+    console.log(commandCMD.split(":"))
+    if (commandCMD.split(":")[1] == "true") {
 
-    } else if (cmd.split(":")[0] == "step1") {
+    } else if (commandCMD.split(":")[0] == "step1") {
         step = 1;
 
-    } else if (cmd.split(":")[0] == "step2") {
-        if (cmd.split(":")[1] == "res") {
+    } else if (commandCMD.split(":")[0] == "step2") {
+        if (commandCMD.split(":")[1] == "res") {
 
-            document.getElementById("response").value = cmd.split(":")[2];
-            document.getElementById("response").innerHTML = cmd.split(":")[2];
-            console.log(document.getElementById("response").value);
+            document.getElementById("response").value = cmd.split(":")[2]
+            document.getElementById("response").innerHTML = cmd.split(":")[2]
+            console.log(document.getElementById("response").value)
         }
         step = 2;
 
-    } else if (cmd.split(":")[0] == "step3") {
+    } else if (commandCMD.split(":")[0] == "step3") {
         step = 3;
-        localStorage.nsc_prompt_ip = document.getElementById("response").value;
+        localStorage.nsc_prompt_ip = document.getElementById("response").value
         localStorage.firsttime = false;
 
-    } else if (cmd.split(":")[0] == "cmd") {
-        if (cmd.split(":")[1] == "manager") {
-            var resfile = cmd.split(":")[2];
-            sessionStorage.file = resfile;
-        }
-    } else if (cmd.split(":")[0] == "cmd") {
-        if (cmd.split(":")[1] == "managertmp") {
-            var resfile = cmd.split(":")[2];
-            var res = resfile.split("[");
-            var res2 = res[1].split("]");
-            var res3 = res2[0].split(",");
-            var str2 = res3;
-            var arrtmp = str2;
-            console.log(arrtmp);
-            for (var i = 0; i < arrtmp.length - 1; i++) {
-                var tmp1 = arrtmp[i].split("'");
-                console.log(tmp1[i][1]);
-                ws.send("os.chdir('tmp')" + "\r\n");
-                ws.send('deamon.manager("20","' + tmp1[i][1] + '","")\r\n');
-                ws.send("os.chdir('..')" + "\r\n");
+    } else if (commandCMD.split(":")[1] == "manager") {
+      
+        var resfile = cmd.split(":")[2]
+        sessionStorage.file = resfile;
+      
+    }
 
-            }
-            var tmp = arrtmp[arrtmp.length - 1].split("'");
-            ws.send('deamon.manager("30","' + tmp[1] + '","lastest.py")\r\n');
+    else if (commandCMD.split(":")[1] == "managertmp") {
 
-        }
+   
+        var resfile1 = commandCMD.split(":")[2]
+            var res1 = resfile1.split("[")
+            var res21 = res1[1].split("]")
+            var res31 = res21[0].split(",")
+            var str21 = res31;
+            console.log(str21,str21.length)
+       for (var i =  0; i < str21.length-1; i++) {
+
+           var tmp11 = str21[i].split("'")
+            console.log(tmp11[1])
+           ws.send("os.chdir('tmp')"+"\r\n")
+            ws.send('deamon.manager("20","'+tmp11[1]+'","")\r\n')
+            ws.send("os.chdir('..')"+"\r\n")
+    
+       };
+       var latest = str21[str21.length-1].split("'")
+       ws.send("os.chdir('tmp')"+"\r\n")
+       ws.send('deamon.manager("30","'+latest[1]+'","lastest.py")\r\n')
+        ws.send("os.chdir('..')"+"\r\n")
+       
     }
 }
 
@@ -803,8 +807,10 @@ function run() {
 
 }
 
-function cleartmp(argument) {
-    ws.send('deamon.manager("40","","")\r\n');
+function cleartmp (argument) {
+     ws.send('import os\r\n')    
+    ws.send('deamon.manager("40","","")\r\n')
+   
 }
 
 function stop() {

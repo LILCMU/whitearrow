@@ -76,7 +76,9 @@ def manager(state,value1,value2):
         os.rename(value1,value2)
     elif(state=="40"):
         import os
+        os.chdir('tmp')
         send("cmd:managertmp:" + str(os.listdir()))
+        os.chdir('..')
 
 def syncdata():
     import ubinascii

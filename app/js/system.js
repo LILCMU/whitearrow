@@ -17,11 +17,12 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 
 var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
-
-    if (window.innerWidth < 1169) {
-        $('.resizeBlockly').width((100 * window.innerWidth) / 100);
-    } else {
-        $('.resizeBlockly').width((75 * window.innerWidth) / 100);
+    
+    if(window.innerWidth < 1169){
+        $('.resizeBlockly').width((100*window.innerWidth)/100)
+    }
+    else{
+        $('.resizeBlockly').width((75*window.innerWidth)/100)
     }
     var element = blocklyArea;
     var x = 0;
@@ -42,10 +43,10 @@ onresize();
 Blockly.svgResize(workspace);
 
 if (!localStorage.nsc_prompt_ip) {
-    document.getElementById('url').value = '192.168.4.1';
-    localStorage.nsc_prompt_ip = '192.168.4.1';
+    document.getElementById('url').value = '192.168.4.1'
+    localStorage.nsc_prompt_ip = '192.168.4.1'
 } else if (localStorage.nsc_prompt_ip) {
-    document.getElementById('url').value = localStorage.nsc_prompt_ip;
+    document.getElementById('url').value = localStorage.nsc_prompt_ip
 }
 if (!localStorage.firsttime) {
     localStorage.firsttime = "true";
@@ -53,18 +54,20 @@ if (!localStorage.firsttime) {
 }
 var isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
 var isiDevice = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
-if (isAndroid || isiDevice) {
-    console.log('You are using a mobile device!');
-} else {
-    console.log('You are not using a mobile device!');
+if(isAndroid || isiDevice)
+{
+   console.log('You are using a mobile device!');
+}
+else
+{
+   console.log('You are not using a mobile device!');
 }
 
 var time = new Date();
-document.getElementById('status').value = "false";
-document.getElementById('filename').value = "NameofProject";
-var _import = "";
-var _machine = "";
-var _WAlib = "";
+document.getElementById('status').value = "false"
+document.getElementById('filename').value = "NameofProject" ;
+var _import = ""
+var _machine = ""
 var sel = false;
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -85,10 +88,10 @@ var cmd = "";
 var arrCMD = [];
 var arrfile = [];
 var log = [];
-console.log(document.getElementById('status').value);
+console.log(document.getElementById('status').value)
 var arraddons = [];
 arraddons = JSON.parse(window.localStorage.getItem('addons'));
-console.log(arraddons);
+console.log(arraddons)
 //connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
 setInterval(function() {
     Blockly.svgResize(workspace);
@@ -132,7 +135,7 @@ function calculate_size(win) {
 
 function button_click() {
     if (connected) {
-        ws.send(String.fromCharCode(4));
+        ws.send(String.fromCharCode(4))
         ws.close();
     } else {
         document.getElementById('url').disabled = true;
@@ -141,7 +144,7 @@ function button_click() {
         connected = true;
         $('#ide_output_collapsible_header').trigger('click');
         connect('ws://' + document.getElementById('url').value + ':8266/');
-        localStorage.nsc_prompt_ip = document.getElementById('url').value;
+        localStorage.nsc_prompt_ip = document.getElementById('url').value
     }
 }
 
@@ -190,6 +193,7 @@ function checkCMD(commandCMD) {
             var res31 = res21[0].split(",")
             var str21 = res31;
             console.log(str21,str21.length)
+            
        for (var i =  0; i < str21.length-1; i++) {
 
            var tmp11 = str21[i].split("'")
@@ -199,30 +203,38 @@ function checkCMD(commandCMD) {
             ws.send("os.chdir('..')"+"\r\n")
     
        };
+
        var latest = str21[str21.length-1].split("'")
-       ws.send("os.chdir('tmp')"+"\r\n")
+       if(latest[1] != "latest.py" && latest[1]){ ws.send("os.chdir('tmp')"+"\r\n")
        ws.send('deamon.manager("30","'+latest[1]+'","lastest.py")\r\n')
-        ws.send("os.chdir('..')"+"\r\n")
+        ws.send("os.chdir('..')"+"\r\n")}
+      
        
+    }
+        
+    else if (commandCMD.split(":")[1] == "sensor"){
+        var value = commandCMD.split(":")[2]
+        document.getElementById('sensorbar').style.width = (value/1024)*100 + "%"
+        document.getElementById('numsensor').innerHTML = value
     }
 }
 
 function wizard() {
-    console.log(localStorage.firsttime);
+    console.log(localStorage.firsttime)
     if (step == 3) {
 
     }
     if (String(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
-        console.log("tes");
+        console.log("tes")
     } else {
-        init_first();
+        init_first()
     }
 }
 
 function init_first() {
-    console.log("init");
+    console.log("init")
     switch (step) {
         case 0:
             $('#step1miss').trigger('click');
@@ -238,7 +250,7 @@ function init_first() {
         case 2:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
-
+            
             break;
         case 3:
             $('#step3miss').trigger('click');
@@ -248,15 +260,15 @@ function init_first() {
     }
     switch (step + 1) {
         case 1:
-            ws.send('deamon.init("10","","")\r\n');
+            ws.send('deamon.init("10","","")\r\n')
             break;
 
         case 2:
-            ws.send('deamon.init("20","' + document.getElementById("ssid").value + '","' + document.getElementById("pass_ssid").value + '")\r\n');
+            ws.send('deamon.init("20","' + document.getElementById("ssid").value + '","' + document.getElementById("pass_ssid").value + '")\r\n')
             break;
 
         case 3:
-            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n');
+            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
             break;
     }
 
@@ -264,22 +276,21 @@ function init_first() {
 
 
 function generate() {
-    _import = "";
-    _machine = "";
-    _WAlib = "";
+    _import = ""
+    _machine = ""
 
     // Parse the XML into a tree.
-    generateXML();
+    generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
-    var newcode = code.split('$');
-    var execcode = _import + "\n" + _machine + "\n" + _WAlib + "\n";
+    var newcode = code.split('$')
+    var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
-        execcode += newcode[i];
-    }
-
+        execcode += newcode[i]
+    };
+   
     editor.setValue(execcode);
-    return execcode;
+    return execcode
 }
 
 
@@ -287,22 +298,21 @@ function generateXML() {
     var arrXml = [];
     var first = true;
     var first_sublib = true;
-    var first_WA = true;
     var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
-    arrXml.push(xmlText.search("Pin"));
-    arrXml.push(xmlText.search("WLAN"));
-    arrXml.push(xmlText.search("mqtt"));
-    arrXml.push(xmlText.search("PWM"));
-    arrXml.push(xmlText.search("I2C"));
-    arrXml.push(xmlText.search("ADC"));
-    arrXml.push(xmlText.search("time"));
-    arrXml.push(xmlText.search("urequests"));
-    arrXml.push(xmlText.search("json"));
-    arrXml.push(xmlText.search("oled"));
-    arrXml.push(xmlText.search("beeper"));
-    arrXml.push(xmlText.search("math"));
+    arrXml.push(xmlText.search("Pin"))
+    arrXml.push(xmlText.search("WLAN"))
+    arrXml.push(xmlText.search("mqtt"))
+    arrXml.push(xmlText.search("PWM"))
+    arrXml.push(xmlText.search("I2C"))
+    arrXml.push(xmlText.search("ADC"))
+    arrXml.push(xmlText.search("time"))
+    arrXml.push(xmlText.search("urequests"))
+    arrXml.push(xmlText.search("json"))
+    arrXml.push(xmlText.search("oled"))
+    arrXml.push(xmlText.search("beeper"))
+    arrXml.push(xmlText.search("math"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -311,124 +321,125 @@ function generateXML() {
                 case 0:
                     if (first_sublib) {
                         // console.log(first)
-                        _machine += "from machine import Pin";
+                        _machine += "from machine import Pin"
                         first_sublib = false;
                     } else if (!first_sublib) {
-                        _machine += ",";
-                        _machine += "Pin";
+                        _machine += ","
+                        _machine += "Pin"
 
                     }
                     break;
                 case 1:
                     if (first) {
-                        _import += "import network";
+                        _import += "import network"
                         first = false;
                     } else if (!first) {
-                        _import += ",";
-                        _import += "network";
+                        _import += ","
+                        _import += "network"
 
                     }
                     break;
                 case 2:
 
                     if (first) {
-                        _import += "import mqtt";
+                        _import += "import mqtt"
                         first = false;
                     } else if (!first) {
-                        _import += ",";
-                        _import += "mqtt";
+                        _import += ","
+                        _import += "mqtt"
 
                     }
                     break;
                 case 3:
 
                     if (first_sublib) {
-                        _machine += "from machine import PWM";
+                        _machine += "from machine import PWM"
                         first_sublib = false;
                     } else if (!first_sublib) {
-                        _machine += ",";
-                        _machine += "PWM";
+                        _machine += ","
+                        _machine += "PWM"
 
                     }
                     break;
                 case 4:
 
                     if (first_sublib) {
-                        _machine += "from machine import I2C";
+                        _machine += "from machine import I2C"
                         first_sublib = false;
                     } else if (!first_sublib) {
-                        _machine += ",";
-                        _machine += "I2C";
+                        _machine += ","
+                        _machine += "I2C"
 
                     }
                     break;
                 case 5:
 
                     if (first_sublib) {
-                        _machine += "from machine import ADC";
+                        _machine += "from machine import ADC"
                         first_sublib = false;
                     } else if (!first_sublib) {
-                        _machine += ",";
-                        _machine += "ADC";
+                        _machine += ","
+                        _machine += "ADC"
 
                     }
                     break;
                 case 6:
 
                     if (first) {
-                        _import += "import time";
+                        _import += "import time"
                         first = false;
                     } else if (!first) {
-                        _import += ",";
-                        _import += "time";
+                        _import += ","
+                        _import += "time"
 
                     }
                     break;
 
                 case 7:
-                    if (first_WA) {
-                        _WAlib += "import WA_lib\nurequests = WA_lib.httplib()\n";
-                        first_WA = false;
-                    } else if (!first_WA) {
-                        _WAlib += "urequests = WA_lib.httplib()\n";
-                    }
-                    break;
-
-                case 8:
                     if (first) {
-                        _import += "import json";
+                        _import += "import urequests"
                         first = false;
                     } else if (!first) {
-                        _import += ",";
-                        _import += "json";
+                        _import += ","
+                        _import += "urequests"
                     }
                     break;
-
+                case 8:
+                    if (first) {
+                        _import += "import json"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "json"
+                    }
+                    break;
                 case 9:
-                    if (first_WA) {
-                        _WAlib += "import WA_lib\noled = WA_lib.oled()\n";
-                        first_WA = false;
-                    } else if (!first_WA) {
-                        _WAlib += "oled = WA_lib.oled()\n";
+                    if (first) {
+                        _import += "import oled"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "oled"
                     }
                     break;
 
                 case 10:
-                if (first_WA) {
-                    _WAlib += "import WA_lib\nbeeper = WA_lib.beeper()\n";
-                    first_WA = false;
-                } else if (!first_WA) {
-                    _WAlib += "beeper = WA_lib.beeper()\n";
-                }
-                break;
+                    if (first) {
+                        _import += "import beeper"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "beeper"
+                    }
+                    break;
 
                 case 11:
                     if (first) {
-                        _import += "import math";
+                        _import += "import math"
                         first = false;
                     } else if (!first) {
-                        _import += ",";
-                        _import += "math";
+                        _import += ","
+                        _import += "math"
                     }
                     break;
             }
@@ -437,17 +448,16 @@ function generateXML() {
 }
 
 function Savecode() {
-    var code = editor.getValue();
+    var code = editor.getValue()
     var nameInput = document.getElementById('filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
 
 function Savecode_edi() {
-    var code = generate();
+    var code = generate()
     var nameInput = document.getElementById('get_filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
-
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
@@ -516,17 +526,17 @@ function autosaveBlock() {
 }
 
 function autoloadBlock() {
-    console.log('-- Loading saved code.');
+    console.log('-- Loading saved code.')
     var xml = Blockly.Xml.textToDom('<xml><block type="controls_main" x="229" y="170"></block></xml>');
     xml.editable = false;
     xml.deletable = false;
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml);
 
-    generate();
+    generate()
 
     var loadedBlock = window.localStorage.getItem('autoSaveBlock');
-    console.log(loadedBlock);
+    console.log(loadedBlock)
 
     if (!loadedBlock) return;
     if (!(loadedBlock.split('<block type="controls_main"')[1])) {
@@ -538,7 +548,7 @@ function autoloadBlock() {
 
         return;
     }
-    if (xml.childElementCount === 0) return;
+    if (xml.childElementCount == 0) return;
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml);
 }
@@ -546,30 +556,30 @@ function autoloadBlock() {
 function shareAddons() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
-    var str = $('form').serialize();
-    var str2 = str + "&xml=" + String(xml_text);
+    var str = $('form').serialize()
+    var str2 = str + "&xml=" + String(xml_text)
     $.post('http://192.168.12.100:100/nsc2017/api/block/addblock', str2).done(function(data) {
-        $('#res').append("<br><h3>your id is " + data + "  </h3><br>");
+        $('#res').append("<br><h3>your id is " + data + "  </h3><br>")
         // $('#send').hide();
-        console.log(data);
+        console.log(data)
     });
 
-    console.log(str2);
+    console.log(str2)
 
 }
 
 function resetConfig() {
-    $('#res').innerHTML = "";
+    $('#res').innerHTML = ""
     $('#send').show();
 }
 
 function loadAddons() {
     var lenght = $(arraddons).size();
-    console.log(lenght);
+    console.log(lenght)
 
     for (var i = 0; i < lenght; i++) {
         $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
-            console.log(data.file);
+            console.log(data.file)
             /*var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = data.wifi.files;
@@ -600,7 +610,7 @@ function loadAddons() {
         });
 
     }
-}
+};
 
 function connect(url) {
     ws = new WebSocket(url);
@@ -625,19 +635,19 @@ function connect(url) {
 
         term.focus();
         term.element.focus();
-        ws.send('1234\r\n');
+        ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
-        ws.send('import deamon\r\n');
-        wizard();
-        cleartmp();
+        ws.send('import deamon\r\n')
+        wizard()
+        cleartmp()
         ws.onmessage = function(event) {
             // console.log('onmessage')
 
             if (event.data == "$") {
                 if (commandSystem) {
-                    commandSystem = false;
+                    commandSystem = false
                 } else {
-                    commandSystem = true;
+                    commandSystem = true
                 }
             }
             if (!commandSystem) {
@@ -652,7 +662,7 @@ function connect(url) {
                         case 11:
                             // console.log('case 11')
                             // first response for put
-                            if (decode_resp(data) === 0) {
+                            if (decode_resp(data) == 0) {
                                 // send file data in chunks
                                 for (var offset = 0; offset < put_file_data.length; offset += 1024) {
                                     ws.send(put_file_data.slice(offset, offset + 1024));
@@ -662,19 +672,19 @@ function connect(url) {
                             break;
                         case 12:
                             // final response for put
-                            if (decode_resp(data) === 0) {
+                            if (decode_resp(data) == 0) {
                                 term.write('file tranfer successful\r\n');
                                 term.write('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes\r\n');
                             } else {
                                 term.write('file tranfer failure\r\n');
-                                term.write('Failed sending ' + put_file_name + "\r\n");
+                                term.write('Failed sending ' + put_file_name +"\r\n");
                             }
                             binary_state = 0;
                             break;
 
                         case 21:
                             // first response for get
-                            if (decode_resp(data) === 0) {
+                            if (decode_resp(data) == 0) {
                                 binary_state = 22;
                                 var rec = new Uint8Array(1);
                                 rec[0] = 0;
@@ -687,7 +697,7 @@ function connect(url) {
                                 var sz = data[0] | (data[1] << 8);
                                 if (data.length == 2 + sz) {
                                     // we assume that the data comes in single chunks
-                                    if (sz === 0) {
+                                    if (sz == 0) {
                                         // end of file
                                         binary_state = 23;
                                     } else {
@@ -709,20 +719,20 @@ function connect(url) {
                             }
                         case 23:
                             // final response
-                            if (decode_resp(data) === 0) {
+                            if (decode_resp(data) == 0) {
                                 term.write('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes\r\n');
-                                if (sel) {
-                                    document.getElementById('get_filename').value = get_file_name;
-                                    editor.setValue(ab2str(get_file_data));
-                                } else {
+                                if(sel){
+                                        document.getElementById('get_filename').value = get_file_name
+                                        editor.setValue(ab2str(get_file_data))
+                                }else{
                                     saveAs(new Blob([get_file_data], {
-                                        type: "application/octet-stream"
-                                    }), get_file_name);
+                                    type: "application/octet-stream"
+                                }), get_file_name);    
                                 }
-
-
+                                
+                                
                             } else {
-                                term.write('Failed getting ' + get_file_name + "\r\n");
+                                term.write('Failed getting ' + get_file_name+"\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -738,18 +748,18 @@ function connect(url) {
             } else {
 
                 if (event.data != "$") {
-                    arrCMD.push(event.data);
+                    arrCMD.push(event.data)
 
                     if (event.data == "\n" && commandSystem) {
                         for (var i = 0; i < arrCMD.length - 1; i++) {
-                            cmd += arrCMD[i];
+                            cmd += arrCMD[i]
                         }
-                        checkCMD(cmd);
-                        log.push(cmd);
+                        checkCMD(cmd)
+                        log.push(cmd)
                         // console.log(cmd)
-                        cmd = "";
-                        arrCMD = [];
-                    }
+                        cmd = ""
+                        arrCMD = []
+                    };
                 }
             }
         };
@@ -760,7 +770,7 @@ function connect(url) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
         }
         prepare_for_connect();
-    };
+    }
 }
 
 function str2ab(str) {
@@ -773,40 +783,39 @@ function str2ab(str) {
 }
 
 function ab2str(buf) {
-    return String.fromCharCode.apply(null, new Uint16Array(buf));
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
 }
 
 function upload() {
-    var code = generate();
-    term.write("Upload " + document.getElementById('filename').value + ".py\r\n");
+    var code = generate()
+    term.write("Upload " + document.getElementById('filename').value + ".py\r\n")
 
     // console.log(code)
-    put_file(code, document.getElementById('filename').value + '.py');
+    put_file(code,document.getElementById('filename').value + '.py')
 }
 
 function upload_editor() {
     var code = editor.getValue();
     var nameInput = document.getElementById('get_filename').value;
     if (!nameInput) {
-        alert("Please fill name");
-    }
-    put_file(code, nameInput);
+        alert("Please fill name")};
+    put_file(code,nameInput)
 }
 
 function run() {
     var timenow = new Date();
-    ws.send("os.chdir('tmp')" + "\r\n");
+     ws.send("os.chdir('tmp')"+"\r\n")
     var code = generate();
-    var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds());
-    put_file(code, nameInput + ".py");
-    setTimeout(function() {
-        ws.send('import ' + nameInput + '\r\n');
-        ws.send(nameInput + '.main()' + '\r\n');
-        ws.send("os.chdir('..')" + "\r\n");
-    }, 1000);
-
+    var nameInput = "current"+ String(timenow.getHours() + 1) + String(timenow.getMinutes()) +  String(timenow.getSeconds())
+    put_file(code,nameInput+ ".py")
+    setTimeout(function () {
+            ws.send('import ' + nameInput + '\r\n')
+            ws.send(nameInput + '.main()' + '\r\n')
+            ws.send("os.chdir('..')"+"\r\n")
+    },1000)
+    
+     
 }
-
 function cleartmp (argument) {
      ws.send('import os\r\n')    
     ws.send('deamon.manager("40","","")\r\n')
@@ -814,27 +823,28 @@ function cleartmp (argument) {
 }
 
 function stop() {
-    ws.send(String.fromCharCode(3));
+    ws.send(String.fromCharCode(3))
 
 }
 
 function config() {
-    wizard();
+    wizard()
 }
 
 function restart() {
-    ws.send(String.fromCharCode(4));
-    setTimeout(function() {
-        window.location.reload();
-    }, 500);
-
+    ws.send("import machine\r\n")
+    ws.send("machine.reset()\r\n")
+    setTimeout(function () {
+       window.location.reload();
+    },800)
+    
 }
 
-function put_file(code, fname) {
+function put_file(code,fname) {
 
     put_file_data = str2ab(code);
     put_file_name = fname;
-    var dest_fname = fname;
+    var dest_fname = fname 
     var dest_fsize = put_file_data.length;
     // console.log(put_file_data)
     // WEBREPL_FILE = "<2sBBQLH64s"
@@ -894,20 +904,9 @@ function put_file_manager() {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 1; // put
     rec[3] = 0;
-    rec[4] = 0;
-    rec[5] = 0;
-    rec[6] = 0;
-    rec[7] = 0;
-    rec[8] = 0;
-    rec[9] = 0;
-    rec[10] = 0;
-    rec[11] = 0;
-    rec[12] = dest_fsize & 0xff;
-    rec[13] = (dest_fsize >> 8) & 0xff;
-    rec[14] = (dest_fsize >> 16) & 0xff;
-    rec[15] = (dest_fsize >> 24) & 0xff;
-    rec[16] = dest_fname.length & 0xff;
-    rec[17] = (dest_fname.length >> 8) & 0xff;
+    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
+    rec[12] = dest_fsize & 0xff; rec[13] = (dest_fsize >> 8) & 0xff; rec[14] = (dest_fsize >> 16) & 0xff; rec[15] = (dest_fsize >> 24) & 0xff;
+    rec[16] = dest_fname.length & 0xff; rec[17] = (dest_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < dest_fname.length) {
             rec[18 + i] = dest_fname.charCodeAt(i);
@@ -923,7 +922,7 @@ function put_file_manager() {
 }
 
 function get_file(name) {
-    var src_fname = name;
+    var src_fname = name
 
     // WEBREPL_FILE = "<2sBBQLH64s"
     var rec = new Uint8Array(2 + 1 + 1 + 8 + 4 + 2 + 64);
@@ -931,20 +930,9 @@ function get_file(name) {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 2; // get
     rec[3] = 0;
-    rec[4] = 0;
-    rec[5] = 0;
-    rec[6] = 0;
-    rec[7] = 0;
-    rec[8] = 0;
-    rec[9] = 0;
-    rec[10] = 0;
-    rec[11] = 0;
-    rec[12] = 0;
-    rec[13] = 0;
-    rec[14] = 0;
-    rec[15] = 0;
-    rec[16] = src_fname.length & 0xff;
-    rec[17] = (src_fname.length >> 8) & 0xff;
+    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
+    rec[12] = 0; rec[13] = 0; rec[14] = 0; rec[15] = 0;
+    rec[16] = src_fname.length & 0xff; rec[17] = (src_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < src_fname.length) {
             rec[18 + i] = src_fname.charCodeAt(i);
@@ -997,52 +985,136 @@ document.getElementById('put-file-button').disabled = true;
 
 //////
 
-function loadfile(num) {
+function  loadfile(num) {
     sel = false;
-    arrfile = [];
-    var resfile = sessionStorage.file;
-    var res = resfile.split("[");
-    var res2 = res[1].split("]");
-    var res3 = res2[0].split(",");
-    var str2 = res3;
-    for (var i = 0; i < str2.length; i++) {
-        var tmp1 = str2[i].split("'");
-        console.log(tmp1[1]);
-        arrfile.push(tmp1[1]);
-        addFile(tmp1[1], i);
-    }
-    console.log(arrfile);
-    console.log(arrfile[num]);
-    get_file(arrfile[num]);
-    refreshFile();
+    arrfile = []
+    var resfile = sessionStorage.file 
+            var res = resfile.split("[")
+            var res2 = res[1].split("]")
+            var res3 = res2[0].split(",")
+            var str2 = res3;
+            for (var i =  0; i < str2.length; i++) {
+                var tmp1 = str2[i].split("'")
+                console.log(tmp1[1])
+                arrfile.push(tmp1[1])
+                addFile(tmp1[1],i)
+            }
+            console.log(arrfile)
+    console.log(arrfile[num])
+    get_file(arrfile[num])
+    refreshFile()
     //
 }
 
 
-function editfile(num) {
+function  editfile(num) {
     sel = true;
-    arrfile = [];
-    var resfile = sessionStorage.file;
-    var res = resfile.split("[");
-    var res2 = res[1].split("]");
-    var res3 = res2[0].split(",");
-    var str2 = res3;
-    for (var i = 0; i < str2.length; i++) {
-        var tmp1 = str2[i].split("'");
-        console.log(tmp1[1]);
-        arrfile.push(tmp1[1]);
-        addFile(tmp1[1], i);
-    }
-    console.log(arrfile);
-    get_file(arrfile[num]);
+    arrfile = []
+    var resfile = sessionStorage.file 
+            var res = resfile.split("[")
+            var res2 = res[1].split("]")
+            var res3 = res2[0].split(",")
+            var str2 = res3;
+            for (var i =  0; i < str2.length; i++) {
+                var tmp1 = str2[i].split("'")
+                console.log(tmp1[1])
+                arrfile.push(tmp1[1])
+                addFile(tmp1[1],i)
+            }
+            console.log(arrfile)
+    get_file(arrfile[num])
     $('.pyEdit').trigger('click');
-    refreshFile();
+    refreshFile()
 
 }
 
-function smartConfig() {
-    var ssid = document.getElementById('ssidconfig').value;
-    var pass = document.getElementById('passconfig').value;
-    console.log(ssid, pass);
+function smartConfig () {
+    var ssid = document.getElementById('ssidconfig').value
+    var pass = document.getElementById('passconfig').value
+console.log(ssid,pass)
     //#!make deamon
 }
+
+
+
+
+var motorwayjson = {"A":"1", "B":"1"}
+
+$('[id^=motorway]').click(function(){
+    data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("motorway")[1]
+    id = $(this).attr('id').split("motorway")[1]
+  $(this).text(function(i, text){return text === "rotate_right" ? "rotate_left" : "rotate_right";})
+  if($(this).text() == "rotate_right"){
+    motorwayjson[id] =  1
+  }
+  else{
+    motorwayjson[id] =  2
+    
+  }
+
+})
+
+
+$('[id^=Motor]').click(function(){
+    data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("Motor")[1]
+    id = $(this).attr('id').split("Motor")[1]
+  $(this).toggleClass('btn bg-light-green waves-effect btn bg-red waves-effect ');
+  $(this).text(function(i, text){return text === "Motor"+id+" ON" ? "Motor"+id+" OFF" : "Motor"+id+" ON";})
+  if($(this).text() == "Motor"+id+" ON"){
+    ws.send("deamon.monitor("+'"motor","'+id+'","'+motorwayjson[id]+'")\r\n')
+  }
+  else{
+    ws.send("deamon.monitor("+'"motor","'+id+'","0")\r\n')
+  }
+  
+
+
+
+ 
+
+});
+var sel = true;
+$('#read').click(function() {
+    if(sel){
+        ws.send('deamon.monitor("sensor","","")\r\n')
+        sel =false;
+    }else{
+        ws.send(String.fromCharCode(3))
+        sel=true
+    }
+    
+
+})
+
+$('#show_OLED').click(function() {
+    var h = document.getElementById('htext_olcd').value
+    var b = document.getElementById('text_olcd').value
+    ws.send('deamon.monitor("oled","'+h+'","'+b+'")\r\n')
+    ws.send("oled.show()\r\n")
+})
+
+
+$('#clear_OLED').click(function() {
+    document.getElementById('htext_olcd').value = ""
+    document.getElementById('text_olcd').value = ""
+    ws.send('oled.clear()\r\n')
+})
+
+$('#start_beeper').click(function() {
+    var f = document.getElementById('Freq').value
+    var d = document.getElementById('Duty').value
+    ws.send('deamon.monitor("beep",'+f+','+d+')\r\n')
+})
+
+$('#read_i2c').click(function() {                               //response
+    var a = document.getElementById('add_r').value
+    var t = document.getElementById('text_rec').value
+    ws.send('damon.monitor("read,"'+id+'",0)\r\n')
+})
+
+
+$('#write_i2c').click(function() {
+    var a = document.getElementById('add_w').value
+    var r = document.getElementById('writw_rec').value
+    ws.send('deamon.monitor("write",'+id+'",0)\r\n')
+})

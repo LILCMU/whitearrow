@@ -211,26 +211,6 @@ function  makeblock(contentp,typeContentp) {
 
 
 
-$('[id^=GPIO]').click(function(){
-	data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("GPIO")[1]
- 	id = $(this).attr('id').split("GPIO")[1]
-  $(this).toggleClass('btn bg-red waves-effect btn bg-light-green waves-effect');
-  $(this).text(function(i, text){return text === "GPIO"+id+" ON" ? "GPIO"+id+" OFF" : "GPIO"+id+" ON";})
-  if($(this).text() == "GPIO"+id+" ON"){
-	ws.send("deamon.monitor("+'"GPIO",'+id+',1)\r\n')
-  }
-  else{
-	ws.send("deamon.monitor("+'"GPIO",'+id+',0)\r\n')
-  }
-  
-
-
-
- 
-
-});
-
-
 ///////handle-recive-sensor//////////
 /*
  setInterval(function(){

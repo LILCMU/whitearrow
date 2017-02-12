@@ -4,24 +4,15 @@ Micro Python driver for SD cards using SPI bus.
 Requires an SPI bus and a CS pin.  Provides readblocks and writeblocks
 methods so the device can be mounted as a filesystem.
 
-Example usage on pyboard:
+Example usage:
 
     import pyb, sdcard, os
     sd = sdcard.SDCard(pyb.SPI(1), pyb.Pin.board.X5)
     pyb.mount(sd, '/sd2')
     os.listdir('/')
 
-Example usage on ESP8266:
-
-    import machine, sdcard, os
-    sd = sdcard.SDCard(machine.SPI(0), machine.Pin(15))
-    os.umount()
-    os.VfsFat(sd, "")
-    os.listdir()
-
 """
 
-from micropython import const
 import time
 
 
@@ -34,9 +25,9 @@ _R1_ILLEGAL_COMMAND = const(1 << 2)
 #R1_ERASE_SEQUENCE_ERROR = const(1 << 4)
 #R1_ADDRESS_ERROR = const(1 << 5)
 #R1_PARAMETER_ERROR = const(1 << 6)
-_TOKEN_CMD25 = const(0xfc)
-_TOKEN_STOP_TRAN = const(0xfd)
-_TOKEN_DATA = const(0xfe)
+_TOKEN_CMD25 = b'\xfc'
+_TOKEN_STOP_TRAN = b'\xfd'
+_TOKEN_DATA = b'\xfe'
 
 
 class SDCard:
@@ -53,22 +44,12 @@ class SDCard:
         # initialise the card
         self.init_card()
 
-    def init_spi(self, baudrate):
-        try:
-            master = self.spi.MASTER
-        except AttributeError:
-            # on ESP8266
-            self.spi.init(baudrate=baudrate, phase=0, polarity=0)
-        else:
-            # on pyboard
-            self.spi.init(master, baudrate=baudrate, phase=0, polarity=0)
-
     def init_card(self):
         # init CS pin
-        self.cs.init(self.cs.OUT, value=1)
+        self.cs.init(self.cs.OUT, 1)
 
         # init SPI bus; use low data rate for initialisation
-        self.init_spi(100000)
+        self.spi.init(baudrate=100000, phase=0, polarity=0)
 
         # clock card at least 100 cycles with cs high
         for i in range(16):
@@ -106,7 +87,7 @@ class SDCard:
             raise OSError("can't set 512 block size")
 
         # set to high data rate now that it's initialised
-        self.init_spi(1320000)
+        self.spi.init(baudrate=1320000, phase=0, polarity=0)
 
     def init_card_v1(self):
         for i in range(_CMD_TIMEOUT):
@@ -142,7 +123,7 @@ class SDCard:
         buf[5] = crc
         self.spi.write(buf)
 
-        # wait for the response (response[7] == 0)
+        # wait for the repsonse (response[7] == 0)
         for i in range(_CMD_TIMEOUT):
             response = self.spi.read(1, 0xff)[0]
             if not (response & 0x80):
@@ -160,7 +141,7 @@ class SDCard:
         return -1
 
     def cmd_nodata(self, cmd):
-        self.spi.write(cmd)
+        self.spi.write(bytearray([cmd]))
         self.spi.read(1, 0xff) # ignore stuff byte
         for _ in range(_CMD_TIMEOUT):
             if self.spi.read(1, 0xff)[0] == 0xff:
@@ -193,7 +174,7 @@ class SDCard:
         self.cs.low()
 
         # send: start of block, data, checksum
-        self.spi.read(1, token)
+        self.spi.write(token)
         self.spi.write(buf)
         self.spi.write(b'\xff')
         self.spi.write(b'\xff')
@@ -213,7 +194,7 @@ class SDCard:
 
     def write_token(self, token):
         self.cs.low()
-        self.spi.read(1, token)
+        self.spi.write(token)
         self.spi.write(b'\xff')
         # wait for write to finish
         while self.spi.read(1, 0xff)[0] == 0x00:
@@ -244,7 +225,7 @@ class SDCard:
                 self.readinto(mv[offset : offset + 512])
                 offset += 512
                 nblocks -= 1
-            return self.cmd_nodata(b'\x0c') # cmd 12
+            return self.cmd_nodata(12)
         return 0
 
     def writeblocks(self, block_num, buf):
@@ -270,3 +251,12 @@ class SDCard:
                 nblocks -= 1
             self.write_token(_TOKEN_STOP_TRAN)
         return 0
+
+
+def esp8266_mount():
+    from machine import Pin, SPI
+    import sdcard
+    import uos
+    spi = SPI(-1, miso=Pin(7), mosi=Pin(8), sck=Pin(6))
+    sd = sdcard.SDCard(spi, Pin(11))
+    return uos.VfsFat(sd, "")

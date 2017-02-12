@@ -27,7 +27,6 @@ class beeper:
         self.duty_low = 0
 
     def welcome_beep(self):
-
         beeper = machine.PWM(machine.Pin(self.pin), freq=self.freq, duty=self.duty_high)
         time.sleep_ms(100)
         beeper.duty(self.duty_low)
@@ -195,18 +194,42 @@ class httplib:
         s.connect(addr)
         if proto == "https:":
             s = ussl.wrap_socket(s)
-        s.write(b'%s /%s HTTP/1.0\r\nHost: %s\r\n\r\n' %(method,path,host))
+        s.write(b'%s /%s HTTP/1.0\r\nHost: %s\r\n' %(method,path,host))
         if json is not None:
             assert data is None
             import ujson
             data = ujson.dumps(json)
         if data:
-            s.write(b"Content-Length: %d\r\n" % len(data))
+            s.write(b"Content-Length: %s\r\n" % str(len(data)))
+        if json is not None:
+            s.write(b"Content-Type: application/json\r\n")
+            # print('json')
+            pass
+        elif data is not None:
+            s.write(b"Content-Type: text/plain\r\n")
+            # print('plain')
         s.write(b"\r\n")
         if data:
             s.write(data)
+        # print(data)
+        # l = s.readline()
+        # protover, status, msg = l.split(None, 2)
+        # status = int(status)
+        # # print(protover, status, msg)
+        # while True:
+        #     l = s.readline()
+        #     if not l or l == b"\r\n":
+        #         break
+        #     #print(l)
+        #     if l.startswith(b"Transfer-Encoding:"):
+        #         if b"chunked" in l:
+        #             raise ValueError("Unsupported " + l)
+        #     elif l.startswith(b"Location:"):
+        #         raise NotImplementedError("Redirects not yet supported")
         time.sleep_ms(1)
         s.close()
+        return s
+
 
     def get(self,url, **kw):
         return self.request("GET", url, **kw)

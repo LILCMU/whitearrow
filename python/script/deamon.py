@@ -1,5 +1,6 @@
-import gc,WA_lib
+import gc,WA_lib,machine
 gc.enable()
+machine.Pin(15,machine.Pin.OUT,value=0)
 oled = WA_lib.oled()
 beeper = WA_lib.beeper()
 oled.header('Welcome to ..')
@@ -14,14 +15,34 @@ def main():
     print('$')
 
 def monitor(state,value1,value2):
-    if(state=="GPIO"):
-        from machine import Pin
-        p0 = Pin(value1, Pin.OUT)
-        p0.value(value2)
+    if(state=="motor"):
+        if(value1=="A"):
+            if(value2):
+                machine.Pin(4,machine.Pin.OUT,value=1)
+                machine.Pin(15,machine.Pin.OUT,value=0)
+            else:
+                machine.Pin(4,machine.Pin.OUT,value=0)
+                machine.Pin(15,machine.Pin.OUT,value=1)
+        elif(value1=="B"):
+            if(value2):
+                machine.Pin(14,machine.Pin.OUT,value=1)
+                machine.Pin(12,machine.Pin.OUT,value=0)
+            else:
+                machine.Pin(14,machine.Pin.OUT,value=0)
+                machine.Pin(12,machine.Pin.OUT,value=1)
+    elif(state=="oled"):
+        oled.clear()
+        oled.header(value1)
+        oled.body(value2)
+        oled.show()
+    elif(state=="beep"):
+        beeper.speaker(int(value1),int(value2))
     elif(state=="sensor"):
-        from machine import Pin
-        p1 = Pin(value1, Pin.OUT)
-        send('sensor:'+ str(value1) + ":" + str(p1.value()))
+        print("")
+
+ #   elif(state=="i2cRead"):
+
+ #   elif(state=="i2cWrite"):
 
 def init(state,value1,value2):
     if(state=="10"):
@@ -53,6 +74,9 @@ def manager(state,value1,value2):
     elif(state=="30"):
         import os
         os.rename(value1,value2)
+    elif(state=="40"):
+        import os
+        send("cmd:managertmp:" + str(os.listdir()))
 
 def syncdata():
     import ubinascii

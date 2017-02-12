@@ -175,13 +175,27 @@ function checkCMD(commandCMD) {
     } else if (cmd.split(":")[0] == "step3") {
         step = 3;
         localStorage.nsc_prompt_ip = document.getElementById("response").value
-
         localStorage.firsttime = false;
-        step = 99;
+
     } else if (cmd.split(":")[0] == "cmd") {
        if (cmd.split(":")[1] == "manager"){
         var resfile = cmd.split(":")[2]
         sessionStorage.file = resfile;
+       }
+    }
+    else if (cmd.split(":")[0] == "cmd") {
+       if (cmd.split(":")[1] == "managertmp"){
+        var resfile = cmd.split(":")[2]
+       var arrtmp = resfile
+       for (var i =  0; i < arrtmp.length-1; i++) {
+           
+           ws.send("os.chdir('tmp')"+"\r\n")
+            ws.send('deamon.manager("20","'+arrtmp[i]+'","")\r\n')
+            ws.send("os.chdir('..')"+"\r\n")
+    
+       };
+       ws.send('deamon.manager("30","'+arrtmp[arrtmp.length]+'","lasted.py")\r\n')
+
        }
     }
 }
@@ -194,9 +208,9 @@ function wizard() {
     if (String(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
+        console.log("tes")
     } else {
         init_first()
-        step=0;
     }
 }
 
@@ -204,25 +218,25 @@ function init_first() {
     console.log("init")
     switch (step) {
         case 0:
-            $('#step1').trigger('click');
-            ws.send('deamon.init("10","","")\r\n')
-             break;
-        case 1:
             $('#step1miss').trigger('click');
             $('#step1miss').trigger('click');
-            $('#step2miss').hide();
             $('#step2').trigger('click');
             break;
 
-        case 2:
+        case 1:
             $('#step2miss').trigger('click');
             $('#step2miss').trigger('click');
             $('#step3').trigger('click');
             break;
-
+        case 2:
+            $('#step3miss').trigger('click');
+            $('#step3miss').trigger('click');
+            
+            break;
         case 3:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
+            step = 99;
             break;
     }
     switch (step + 1) {
@@ -240,6 +254,7 @@ function init_first() {
     }
 
 }
+
 
 function generate() {
     _import = ""
@@ -605,6 +620,7 @@ function connect(url) {
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
         wizard()
+        cleartmp()
         ws.onmessage = function(event) {
             // console.log('onmessage')
 
@@ -775,10 +791,13 @@ function run() {
     put_file(code,nameInput+ ".py")
     setTimeout(function () {
             ws.send('import ' + nameInput + '\r\n')
-            ws.send(nameInput + '.main()' + '\r\n')
             ws.send("os.chdir('..')"+"\r\n")
     },1000)
+    ws.send(nameInput + '.main()' + '\r\n')
      
+}
+function cleartmp (argument) {
+    ws.send('deamon.manager("40","","")\r\n')
 }
 
 function stop() {

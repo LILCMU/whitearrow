@@ -610,7 +610,7 @@ Blockly.Python['time_delay'] = function(block) {
     return code;
 };
 
-Blockly.Blocks['urequests_IFTTT_start'] = {
+Blockly.Blocks['httplib_IFTTT_start'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("START ")
@@ -624,17 +624,17 @@ Blockly.Blocks['urequests_IFTTT_start'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['urequests_IFTTT_start'] = function(block) {
+Blockly.Python['httplib_IFTTT_start'] = function(block) {
   var text_key = block.getFieldValue('key');
   var text_event = block.getFieldValue('event');
 //   key = text_key;
 //   event = text_event;
   // TODO: Assemble Python into code variable.
-  var code = 'urequests.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
+  var code = 'httplib.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
   return code;
 };
 
-Blockly.Blocks['urequests_IFTTT_sent'] = {
+Blockly.Blocks['httplib_IFTTT_sent'] = {
   init: function() {
     this.appendValueInput("NAME")
         .setCheck(null)
@@ -646,14 +646,14 @@ Blockly.Blocks['urequests_IFTTT_sent'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['urequests_IFTTT_sent'] = function(block) {
+Blockly.Python['httplib_IFTTT_sent'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var code = '\', json = {\'value1\':' + value_name +'})\n';
   return code;
 };
 
-Blockly.Blocks['urequests_netpie_start'] = {
+Blockly.Blocks['httplib_netpie_start'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("START")
@@ -671,7 +671,7 @@ Blockly.Blocks['urequests_netpie_start'] = {
 };
 
 var url = "";
-Blockly.Python['urequests_netpie_start'] = function(block) {
+Blockly.Python['httplib_netpie_start'] = function(block) {
   var text_app = block.getFieldValue('app');
   var text_app_key = block.getFieldValue('app_key');
   var text_rest_auth = block.getFieldValue('rest_auth');
@@ -682,7 +682,7 @@ Blockly.Python['urequests_netpie_start'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['urequests_Netpie_put'] = {
+Blockly.Blocks['httplib_Netpie_put'] = {
     init: function() {
         this.appendValueInput("data_put")
             .setCheck(null)
@@ -694,14 +694,14 @@ Blockly.Blocks['urequests_Netpie_put'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['urequests_Netpie_put'] = function(block) {
+Blockly.Python['httplib_Netpie_put'] = function(block) {
     var value_data_put = Blockly.Python.valueToCode(block, 'data_put', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.put('+ url +',data=' + value_data_put + ')\n';
+    var code = 'httplib.put('+ url +',data=' + value_data_put + ')\n';
     return code;
 };
 
-Blockly.Blocks['urequests_json_Netpie_get'] = {
+Blockly.Blocks['httplib_json_Netpie_get'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
@@ -713,15 +713,15 @@ Blockly.Blocks['urequests_json_Netpie_get'] = {
     }
 };
 
-Blockly.Python['urequests_json_Netpie_get'] = function(block) {
+Blockly.Python['httplib_json_Netpie_get'] = function(block) {
     // TODO: Assemble Python into code variable.
-    var code = 'json.loads(urequests.get('+ url +').text)[0][\'payload\']';
+    var code = 'json.loads(httplib.get('+ url +').text)[0][\'payload\']';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_NONE];
 };
 
 var key_datalog = "";
-Blockly.Blocks['urequests_datalog_write_key'] = {
+Blockly.Blocks['httplib_datalog_write_key'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Setting channel ")
@@ -733,7 +733,7 @@ Blockly.Blocks['urequests_datalog_write_key'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['urequests_datalog_write_key'] = function(block) {
+Blockly.Python['httplib_datalog_write_key'] = function(block) {
   var text_key = block.getFieldValue('key');
   // TODO: Assemble Python into code variable.
   key_datalog = text_key;
@@ -741,7 +741,7 @@ Blockly.Python['urequests_datalog_write_key'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['urequests_datalog_write'] = {
+Blockly.Blocks['httplib_datalog_write'] = {
     init: function() {
         this.appendValueInput("logging_write")
             .appendField("Record Data to")
@@ -763,11 +763,11 @@ Blockly.Blocks['urequests_datalog_write'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['urequests_datalog_write'] = function(block) {
+Blockly.Python['httplib_datalog_write'] = function(block) {
     var dropdown_field_id = block.getFieldValue('field_id');
     var value_logging_write = Blockly.Python.valueToCode(block, 'logging_write', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'urequests.post(\'https://data.learninginventions.org/update?key=' + key_datalog + '&field' + dropdown_field_id + '=\'+str(' + value_logging_write + '))\n';
+    var code = 'httplib.post(\'https://data.learninginventions.org/update?key=' + key_datalog + '&field' + dropdown_field_id + '=\'+str(' + value_logging_write + '))\n';
     return code;
 };
 

@@ -1039,8 +1039,8 @@
         <block type="mqtt_disconnect"></block>
     </category>
     <category id="catdatalog" colour="#EF6C00" name="DataLogging">
-        <block type="urequests_datalog_write_key"></block>
-        <block type="urequests_datalog_write">
+        <block type="httplib_datalog_write_key"></block>
+        <block type="httplib_datalog_write">
             <value name="logging_write">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
@@ -1048,24 +1048,24 @@
             </value>
         </block>
 
-        <!-- <block type="urequests_datalog_read"></block> -->
+        <!-- <block type="httplib_datalog_read"></block> -->
     </category>
 
     <category id="catifttt" colour="#FF5722" name="IFTTT">
-        <block type="urequests_IFTTT_start"></block>
-        <block type="urequests_IFTTT_sent"></block>
+        <block type="httplib_IFTTT_start"></block>
+        <block type="httplib_IFTTT_sent"></block>
     </category>
 
     <category id="catnetpie" colour="#795548" name="NETPIE">
-        <block type="urequests_netpie_start"></block>
-        <block type="urequests_Netpie_put">
+        <block type="httplib_netpie_start"></block>
+        <block type="httplib_Netpie_put">
             <value name="data_put">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
                 </shadow>
             </value>
         </block>
-        <block type="urequests_json_Netpie_get"></block>
+        <block type="httplib_json_Netpie_get"></block>
     </category>
 </xml>
 <xml id="blocklyDefault" style="display: none">

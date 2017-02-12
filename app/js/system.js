@@ -62,9 +62,8 @@ if (isAndroid || isiDevice) {
 var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "NameofProject";
-var _import = "";
-var _machine = "";
-var _WAlib = "";
+var _import = ""
+var _machine = ""
 var sel = false;
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -271,15 +270,14 @@ function init_first() {
 
 
 function generate() {
-    _import = "";
-    _machine = "";
-    _WAlib = "";
+    _import = ""
+    _machine = ""
 
     // Parse the XML into a tree.
     generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
-    var execcode = _import + "\n" + _machine + "\n" + _WAlib + "\n";
+    var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
@@ -294,7 +292,6 @@ function generateXML() {
     var arrXml = [];
     var first = true;
     var first_sublib = true;
-    var first_WA = true;
     var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
@@ -305,7 +302,7 @@ function generateXML() {
     arrXml.push(xmlText.search("I2C"))
     arrXml.push(xmlText.search("ADC"))
     arrXml.push(xmlText.search("time"))
-    arrXml.push(xmlText.search("urequests"))
+    arrXml.push(xmlText.search("httplib"))
     arrXml.push(xmlText.search("json"))
     arrXml.push(xmlText.search("oled"))
     arrXml.push(xmlText.search("beeper"))
@@ -393,14 +390,14 @@ function generateXML() {
                     break;
 
                 case 7:
-                    if (first_WA) {
-                        _WAlib += "import WA_lib\nurequests = WA_lib.httplib()\n";
-                        first_WA = false;
-                    } else if (!first_WA) {
-                        _WAlib += "urequests = WA_lib.httplib()\n";
+                    if (first) {
+                        _import += "import httplib"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "httplib"
                     }
                     break;
-
                 case 8:
                     if (first) {
                         _import += "import json"
@@ -411,20 +408,22 @@ function generateXML() {
                     }
                     break;
                 case 9:
-                    if (first_WA) {
-                        _WAlib += "import WA_lib\noled = WA_lib.oled()\n";
-                        first_WA = false;
-                    } else if (!first_WA) {
-                        _WAlib += "oled = WA_lib.oled()\n";
+                    if (first) {
+                        _import += "import oled"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "oled"
                     }
                     break;
 
                 case 10:
-                    if (first_WA) {
-                        _WAlib += "import WA_lib\nbeeper = WA_lib.beeper()\n";
-                        first_WA = false;
-                    } else if (!first_WA) {
-                        _WAlib += "beeper = WA_lib.beeper()\n";
+                    if (first) {
+                        _import += "import beeper"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "beeper"
                     }
                     break;
 
@@ -801,14 +800,14 @@ function upload_editor() {
 
 function run() {
     var timenow = new Date();
-    ws.send("os.chdir('tmp')" + "\r\n")
+    ws.send("os.chdir('tmp')\r\n")
     var code = generate();
     var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
     put_file(code, nameInput + ".py")
     setTimeout(function() {
-        ws.send('import ' + nameInput + '\r\n')
-        ws.send(nameInput + '.main()' + '\r\n')
-        ws.send("os.chdir('..')" + "\r\n")
+        ws.send('import oled, ' + nameInput + '\r\n')
+        ws.send(nameInput + '.main()\r\n')
+        ws.send("os.chdir('..')\r\noled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\n")
     }, 1000)
 
 

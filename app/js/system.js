@@ -17,12 +17,11 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 
 var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
-    
-    if(window.innerWidth < 1169){
-        $('.resizeBlockly').width((100*window.innerWidth)/100)
-    }
-    else{
-        $('.resizeBlockly').width((75*window.innerWidth)/100)
+
+    if (window.innerWidth < 1169) {
+        $('.resizeBlockly').width((100 * window.innerWidth) / 100)
+    } else {
+        $('.resizeBlockly').width((75 * window.innerWidth) / 100)
     }
     var element = blocklyArea;
     var x = 0;
@@ -54,20 +53,18 @@ if (!localStorage.firsttime) {
 }
 var isAndroid = /android/i.test(navigator.userAgent.toLowerCase());
 var isiDevice = /ipad|iphone|ipod/i.test(navigator.userAgent.toLowerCase());
-if(isAndroid || isiDevice)
-{
-   console.log('You are using a mobile device!');
-}
-else
-{
-   console.log('You are not using a mobile device!');
+if (isAndroid || isiDevice) {
+    console.log('You are using a mobile device!');
+} else {
+    console.log('You are not using a mobile device!');
 }
 
 var time = new Date();
 document.getElementById('status').value = "false"
-document.getElementById('filename').value = "NameofProject" ;
-var _import = ""
-var _machine = ""
+document.getElementById('filename').value = "NameofProject";
+var _import = "";
+var _machine = "";
+var _WAlib = "";
 var sel = false;
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -178,43 +175,41 @@ function checkCMD(commandCMD) {
         localStorage.firsttime = false;
 
     } else if (commandCMD.split(":")[1] == "manager") {
-      
+
         var resfile = cmd.split(":")[2]
         sessionStorage.file = resfile;
-      
-    }
 
-    else if (commandCMD.split(":")[1] == "managertmp") {
+    } else if (commandCMD.split(":")[1] == "managertmp") {
 
-   
+
         var resfile1 = commandCMD.split(":")[2]
-            var res1 = resfile1.split("[")
-            var res21 = res1[1].split("]")
-            var res31 = res21[0].split(",")
-            var str21 = res31;
-            console.log(str21,str21.length)
-            
-       for (var i =  0; i < str21.length-1; i++) {
+        var res1 = resfile1.split("[")
+        var res21 = res1[1].split("]")
+        var res31 = res21[0].split(",")
+        var str21 = res31;
+        console.log(str21, str21.length)
 
-           var tmp11 = str21[i].split("'")
+        for (var i = 0; i < str21.length - 1; i++) {
+
+            var tmp11 = str21[i].split("'")
             console.log(tmp11[1])
-           ws.send("os.chdir('tmp')"+"\r\n")
-            ws.send('deamon.manager("20","'+tmp11[1]+'","")\r\n')
-            ws.send("os.chdir('..')"+"\r\n")
-    
-       };
+            ws.send("os.chdir('tmp')" + "\r\n")
+            ws.send('deamon.manager("20","' + tmp11[1] + '","")\r\n')
+            ws.send("os.chdir('..')" + "\r\n")
 
-       var latest = str21[str21.length-1].split("'")
-       if(latest[1] != "latest.py" && latest[1]){ ws.send("os.chdir('tmp')"+"\r\n")
-       ws.send('deamon.manager("30","'+latest[1]+'","lastest.py")\r\n')
-        ws.send("os.chdir('..')"+"\r\n")}
-      
-       
-    }
-        
-    else if (commandCMD.split(":")[1] == "sensor"){
+        };
+
+        var latest = str21[str21.length - 1].split("'")
+        if (latest[1] != "latest.py" && latest[1]) {
+            ws.send("os.chdir('tmp')" + "\r\n")
+            ws.send('deamon.manager("30","' + latest[1] + '","lastest.py")\r\n')
+            ws.send("os.chdir('..')" + "\r\n")
+        }
+
+
+    } else if (commandCMD.split(":")[1] == "sensor") {
         var value = commandCMD.split(":")[2]
-        document.getElementById('sensorbar').style.width = (value/1024)*100 + "%"
+        document.getElementById('sensorbar').style.width = (value / 1024) * 100 + "%"
         document.getElementById('numsensor').innerHTML = value
     }
 }
@@ -250,7 +245,7 @@ function init_first() {
         case 2:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
-            
+
             break;
         case 3:
             $('#step3miss').trigger('click');
@@ -276,19 +271,20 @@ function init_first() {
 
 
 function generate() {
-    _import = ""
-    _machine = ""
+    _import = "";
+    _machine = "";
+    _WAlib = "";
 
     // Parse the XML into a tree.
     generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
-    var execcode = _import + "\n" + _machine + "\n"
+    var execcode = _import + "\n" + _machine + "\n" + _WAlib + "\n";
     // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
-   
+
     editor.setValue(execcode);
     return execcode
 }
@@ -298,6 +294,7 @@ function generateXML() {
     var arrXml = [];
     var first = true;
     var first_sublib = true;
+    var first_WA = true;
     var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
@@ -396,14 +393,14 @@ function generateXML() {
                     break;
 
                 case 7:
-                    if (first) {
-                        _import += "import urequests"
-                        first = false;
-                    } else if (!first) {
-                        _import += ","
-                        _import += "urequests"
+                    if (first_WA) {
+                        _WAlib += "import WA_lib\nurequests = WA_lib.httplib()\n";
+                        first_WA = false;
+                    } else if (!first_WA) {
+                        _WAlib += "urequests = WA_lib.httplib()\n";
                     }
                     break;
+
                 case 8:
                     if (first) {
                         _import += "import json"
@@ -414,22 +411,20 @@ function generateXML() {
                     }
                     break;
                 case 9:
-                    if (first) {
-                        _import += "import oled"
-                        first = false;
-                    } else if (!first) {
-                        _import += ","
-                        _import += "oled"
+                    if (first_WA) {
+                        _WAlib += "import WA_lib\noled = WA_lib.oled()\n";
+                        first_WA = false;
+                    } else if (!first_WA) {
+                        _WAlib += "oled = WA_lib.oled()\n";
                     }
                     break;
 
                 case 10:
-                    if (first) {
-                        _import += "import beeper"
-                        first = false;
-                    } else if (!first) {
-                        _import += ","
-                        _import += "beeper"
+                    if (first_WA) {
+                        _WAlib += "import WA_lib\nbeeper = WA_lib.beeper()\n";
+                        first_WA = false;
+                    } else if (!first_WA) {
+                        _WAlib += "beeper = WA_lib.beeper()\n";
                     }
                     break;
 
@@ -458,6 +453,7 @@ function Savecode_edi() {
     var nameInput = document.getElementById('get_filename').value;
     if (!nameInput ? alert("Please fill name") : download(nameInput + '.py', code));
 }
+
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
@@ -677,7 +673,7 @@ function connect(url) {
                                 term.write('Sent ' + put_file_name + ', ' + put_file_data.length + ' bytes\r\n');
                             } else {
                                 term.write('file tranfer failure\r\n');
-                                term.write('Failed sending ' + put_file_name +"\r\n");
+                                term.write('Failed sending ' + put_file_name + "\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -721,18 +717,18 @@ function connect(url) {
                             // final response
                             if (decode_resp(data) == 0) {
                                 term.write('Got ' + get_file_name + ', ' + get_file_data.length + ' bytes\r\n');
-                                if(sel){
-                                        document.getElementById('get_filename').value = get_file_name
-                                        editor.setValue(ab2str(get_file_data))
-                                }else{
+                                if (sel) {
+                                    document.getElementById('get_filename').value = get_file_name
+                                    editor.setValue(ab2str(get_file_data))
+                                } else {
                                     saveAs(new Blob([get_file_data], {
-                                    type: "application/octet-stream"
-                                }), get_file_name);    
+                                        type: "application/octet-stream"
+                                    }), get_file_name);
                                 }
-                                
-                                
+
+
                             } else {
-                                term.write('Failed getting ' + get_file_name+"\r\n");
+                                term.write('Failed getting ' + get_file_name + "\r\n");
                             }
                             binary_state = 0;
                             break;
@@ -783,7 +779,7 @@ function str2ab(str) {
 }
 
 function ab2str(buf) {
-  return String.fromCharCode.apply(null, new Uint16Array(buf));
+    return String.fromCharCode.apply(null, new Uint16Array(buf));
 }
 
 function upload() {
@@ -791,35 +787,37 @@ function upload() {
     term.write("Upload " + document.getElementById('filename').value + ".py\r\n")
 
     // console.log(code)
-    put_file(code,document.getElementById('filename').value + '.py')
+    put_file(code, document.getElementById('filename').value + '.py')
 }
 
 function upload_editor() {
     var code = editor.getValue();
     var nameInput = document.getElementById('get_filename').value;
     if (!nameInput) {
-        alert("Please fill name")};
-    put_file(code,nameInput)
+        alert("Please fill name")
+    };
+    put_file(code, nameInput)
 }
 
 function run() {
     var timenow = new Date();
-     ws.send("os.chdir('tmp')"+"\r\n")
+    ws.send("os.chdir('tmp')" + "\r\n")
     var code = generate();
-    var nameInput = "current"+ String(timenow.getHours() + 1) + String(timenow.getMinutes()) +  String(timenow.getSeconds())
-    put_file(code,nameInput+ ".py")
-    setTimeout(function () {
-            ws.send('import ' + nameInput + '\r\n')
-            ws.send(nameInput + '.main()' + '\r\n')
-            ws.send("os.chdir('..')"+"\r\n")
-    },1000)
-    
-     
+    var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
+    put_file(code, nameInput + ".py")
+    setTimeout(function() {
+        ws.send('import ' + nameInput + '\r\n')
+        ws.send(nameInput + '.main()' + '\r\n')
+        ws.send("os.chdir('..')" + "\r\n")
+    }, 1000)
+
+
 }
-function cleartmp (argument) {
-     ws.send('import os\r\n')    
+
+function cleartmp(argument) {
+    ws.send('import os\r\n')
     ws.send('deamon.manager("40","","")\r\n')
-   
+
 }
 
 function stop() {
@@ -834,17 +832,17 @@ function config() {
 function restart() {
     ws.send("import machine\r\n")
     ws.send("machine.reset()\r\n")
-    setTimeout(function () {
-       window.location.reload();
-    },800)
-    
+    setTimeout(function() {
+        window.location.reload();
+    }, 800)
+
 }
 
-function put_file(code,fname) {
+function put_file(code, fname) {
 
     put_file_data = str2ab(code);
     put_file_name = fname;
-    var dest_fname = fname 
+    var dest_fname = fname
     var dest_fsize = put_file_data.length;
     // console.log(put_file_data)
     // WEBREPL_FILE = "<2sBBQLH64s"
@@ -904,9 +902,20 @@ function put_file_manager() {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 1; // put
     rec[3] = 0;
-    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
-    rec[12] = dest_fsize & 0xff; rec[13] = (dest_fsize >> 8) & 0xff; rec[14] = (dest_fsize >> 16) & 0xff; rec[15] = (dest_fsize >> 24) & 0xff;
-    rec[16] = dest_fname.length & 0xff; rec[17] = (dest_fname.length >> 8) & 0xff;
+    rec[4] = 0;
+    rec[5] = 0;
+    rec[6] = 0;
+    rec[7] = 0;
+    rec[8] = 0;
+    rec[9] = 0;
+    rec[10] = 0;
+    rec[11] = 0;
+    rec[12] = dest_fsize & 0xff;
+    rec[13] = (dest_fsize >> 8) & 0xff;
+    rec[14] = (dest_fsize >> 16) & 0xff;
+    rec[15] = (dest_fsize >> 24) & 0xff;
+    rec[16] = dest_fname.length & 0xff;
+    rec[17] = (dest_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < dest_fname.length) {
             rec[18 + i] = dest_fname.charCodeAt(i);
@@ -930,9 +939,20 @@ function get_file(name) {
     rec[1] = 'A'.charCodeAt(0);
     rec[2] = 2; // get
     rec[3] = 0;
-    rec[4] = 0; rec[5] = 0; rec[6] = 0; rec[7] = 0; rec[8] = 0; rec[9] = 0; rec[10] = 0; rec[11] = 0;
-    rec[12] = 0; rec[13] = 0; rec[14] = 0; rec[15] = 0;
-    rec[16] = src_fname.length & 0xff; rec[17] = (src_fname.length >> 8) & 0xff;
+    rec[4] = 0;
+    rec[5] = 0;
+    rec[6] = 0;
+    rec[7] = 0;
+    rec[8] = 0;
+    rec[9] = 0;
+    rec[10] = 0;
+    rec[11] = 0;
+    rec[12] = 0;
+    rec[13] = 0;
+    rec[14] = 0;
+    rec[15] = 0;
+    rec[16] = src_fname.length & 0xff;
+    rec[17] = (src_fname.length >> 8) & 0xff;
     for (var i = 0; i < 64; ++i) {
         if (i < src_fname.length) {
             rec[18 + i] = src_fname.charCodeAt(i);
@@ -985,21 +1005,21 @@ document.getElementById('put-file-button').disabled = true;
 
 //////
 
-function  loadfile(num) {
+function loadfile(num) {
     sel = false;
     arrfile = []
-    var resfile = sessionStorage.file 
-            var res = resfile.split("[")
-            var res2 = res[1].split("]")
-            var res3 = res2[0].split(",")
-            var str2 = res3;
-            for (var i =  0; i < str2.length; i++) {
-                var tmp1 = str2[i].split("'")
-                console.log(tmp1[1])
-                arrfile.push(tmp1[1])
-                addFile(tmp1[1],i)
-            }
-            console.log(arrfile)
+    var resfile = sessionStorage.file
+    var res = resfile.split("[")
+    var res2 = res[1].split("]")
+    var res3 = res2[0].split(",")
+    var str2 = res3;
+    for (var i = 0; i < str2.length; i++) {
+        var tmp1 = str2[i].split("'")
+        console.log(tmp1[1])
+        arrfile.push(tmp1[1])
+        addFile(tmp1[1], i)
+    }
+    console.log(arrfile)
     console.log(arrfile[num])
     get_file(arrfile[num])
     refreshFile()
@@ -1007,89 +1027,94 @@ function  loadfile(num) {
 }
 
 
-function  editfile(num) {
+function editfile(num) {
     sel = true;
     arrfile = []
-    var resfile = sessionStorage.file 
-            var res = resfile.split("[")
-            var res2 = res[1].split("]")
-            var res3 = res2[0].split(",")
-            var str2 = res3;
-            for (var i =  0; i < str2.length; i++) {
-                var tmp1 = str2[i].split("'")
-                console.log(tmp1[1])
-                arrfile.push(tmp1[1])
-                addFile(tmp1[1],i)
-            }
-            console.log(arrfile)
+    var resfile = sessionStorage.file
+    var res = resfile.split("[")
+    var res2 = res[1].split("]")
+    var res3 = res2[0].split(",")
+    var str2 = res3;
+    for (var i = 0; i < str2.length; i++) {
+        var tmp1 = str2[i].split("'")
+        console.log(tmp1[1])
+        arrfile.push(tmp1[1])
+        addFile(tmp1[1], i)
+    }
+    console.log(arrfile)
     get_file(arrfile[num])
     $('.pyEdit').trigger('click');
     refreshFile()
 
 }
 
-function smartConfig () {
+function smartConfig() {
     var ssid = document.getElementById('ssidconfig').value
     var pass = document.getElementById('passconfig').value
-console.log(ssid,pass)
+    console.log(ssid, pass)
     //#!make deamon
 }
 
 
 
 
-var motorwayjson = {"A":"1", "B":"1"}
+var motorwayjson = {
+    "A": "1",
+    "B": "1"
+}
 
-$('[id^=motorway]').click(function(){
-    data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("motorway")[1]
+$('[id^=motorway]').click(function() {
+    data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("motorway")[1]
     id = $(this).attr('id').split("motorway")[1]
-  $(this).text(function(i, text){return text === "rotate_right" ? "rotate_left" : "rotate_right";})
-  if($(this).text() == "rotate_right"){
-    motorwayjson[id] =  1
-  }
-  else{
-    motorwayjson[id] =  2
-    
-  }
+    $(this).text(function(i, text) {
+        return text === "rotate_right" ? "rotate_left" : "rotate_right";
+    })
+    if ($(this).text() == "rotate_right") {
+        motorwayjson[id] = 1
+    } else {
+        motorwayjson[id] = 2
+
+    }
 
 })
 
 
-$('[id^=Motor]').click(function(){
-    data = $(this).text().split("")[0] + ":"+ $(this).attr('id').split("Motor")[1]
+$('[id^=Motor]').click(function() {
+    data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("Motor")[1]
     id = $(this).attr('id').split("Motor")[1]
-  $(this).toggleClass('btn bg-light-green waves-effect btn bg-red waves-effect ');
-  $(this).text(function(i, text){return text === "Motor"+id+" ON" ? "Motor"+id+" OFF" : "Motor"+id+" ON";})
-  if($(this).text() == "Motor"+id+" ON"){
-    ws.send("deamon.monitor("+'"motor","'+id+'","'+motorwayjson[id]+'")\r\n')
-  }
-  else{
-    ws.send("deamon.monitor("+'"motor","'+id+'","0")\r\n')
-  }
-  
+    $(this).toggleClass('btn bg-light-green waves-effect btn bg-red waves-effect ');
+    $(this).text(function(i, text) {
+        return text === "Motor" + id + " ON" ? "Motor" + id + " OFF" : "Motor" + id + " ON";
+    })
+    if ($(this).text() == "Motor" + id + " ON") {
+        ws.send("deamon.monitor(" + '"motor","' + id + '","' + motorwayjson[id] + '")\r\n')
+    } else {
+        ws.send("deamon.monitor(" + '"motor","' + id + '","0")\r\n')
+    }
 
 
 
- 
+
+
 
 });
 var sel = true;
 $('#read').click(function() {
-    if(sel){
+    if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
-        sel =false;
-    }else{
+        sel = false;
+    } else {
         ws.send(String.fromCharCode(3))
-        sel=true
+        sel = true
     }
-    
+
 
 })
 
 $('#show_OLED').click(function() {
     var h = document.getElementById('htext_olcd').value
     var b = document.getElementById('text_olcd').value
-    ws.send('deamon.monitor("oled","'+h+'","'+b+'")\r\n')
+    ws.send('deamon.monitor("oled","' + h + '","' + b + '")\r\n')
     ws.send("oled.show()\r\n")
 })
 
@@ -1103,18 +1128,18 @@ $('#clear_OLED').click(function() {
 $('#start_beeper').click(function() {
     var f = document.getElementById('Freq').value
     var d = document.getElementById('Duty').value
-    ws.send('deamon.monitor("beep",'+f+','+d+')\r\n')
+    ws.send('deamon.monitor("beep",' + f + ',' + d + ')\r\n')
 })
 
-$('#read_i2c').click(function() {                               //response
+$('#read_i2c').click(function() { //response
     var a = document.getElementById('add_r').value
     var t = document.getElementById('text_rec').value
-    ws.send('damon.monitor("read,"'+id+'",0)\r\n')
+    ws.send('damon.monitor("read,"' + id + '",0)\r\n')
 })
 
 
 $('#write_i2c').click(function() {
     var a = document.getElementById('add_w').value
     var r = document.getElementById('writw_rec').value
-    ws.send('deamon.monitor("write",'+id+'",0)\r\n')
+    ws.send('deamon.monitor("write",' + id + '",0)\r\n')
 })

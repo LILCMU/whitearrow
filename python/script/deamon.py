@@ -1,13 +1,16 @@
-import gc,WA_lib,machine
+import gc,WA_lib,machine,time
 gc.enable()
-machine.Pin(15,machine.Pin.OUT,value=0)
+
 oled = WA_lib.oled()
 beeper = WA_lib.beeper()
-oled.header('Welcome to ..')
-oled.body('White Arrow 1.0')
-oled.text('based on',0,40)
-oled.text('Micropython',0,56)
+oled.header('Connected !')
 beeper.welcome_beep()
+time.sleep_ms(300)
+oled.clear()
+oled.body('Hello there !')
+oled.text('Archer',0,32)
+oled.text('Heap: '+str(gc.mem_free()),0,48)
+
 
 def main():
     print('$')

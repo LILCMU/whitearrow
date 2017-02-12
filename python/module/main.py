@@ -1,5 +1,5 @@
-import WA_lib,gc
-
+import WA_lib,gc,machine
+machine.Pin(15,machine.Pin.OUT,value=0)
 oled = WA_lib.oled()
 beeper = WA_lib.beeper()
 oled.text('Welcome to ..',0,0)

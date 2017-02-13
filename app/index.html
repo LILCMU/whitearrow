@@ -188,10 +188,10 @@
         </aside>
 
         <!-- #END# Left Sidebar -->
-        <aside id="rightsidebar" class="right-sidebar">
+<aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
                 <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
-                <li role="presentation"><a href="#advances" data-toggle="tab">Help</a></li>
+                <li role="presentation"><a href="#settings1" data-toggle="tab">Config</a></li>
 
             </ul>
             <div class="tab-content">
@@ -206,7 +206,7 @@
                                 <input type="text" class="form-control" placeholder="IP Address" required autofocus name="webrepl_url" id="url" value="192.168.4.1"><br>
 
 
-                                <input type="button" class="btn btn-primary waves-effect" id="button" value="Connnect" onclick="button_click(); return false;"><br>
+                                <input type="button" class="btn btn-primary waves-effect" id="button" value="Connect" onclick="button_click(); return false;"><br>
                             </li>
                         </ul>
                         <p>PROJECT SETTINGS</p>
@@ -234,19 +234,37 @@
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane fade " id="advances">
-                    <ul class="demo-choose-skin">
-                            <input type="text" class="form-control" id="ssidconfig" name="ssidconfig" class="name" placeholder="SSID" required autofocus>
+                <div role="tabpanel" class="tab-pane fade in active " id="settings1">
+                   <div class="demo-settings">
+                        <p>STATION SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <!-- -->
+                                
+                                <input type="text" class="form-control" placeholder="Wifi name" required autofocus name="sta_ssid" id="sta_ssid" value=""><br>
+                               
+                                <input type="password" class="form-control" placeholder="password" required autofocus name="sta_pass" id="sta_pass" value=""><br>
 
-                            <input type="password" class="form-control" id="passconfig" name="passconfig" class="name" placeholder="PASSWORD" required autofocus>
+                                <input type="button" class="btn btn-primary waves-effect" id="button1" value="Connect" onclick="smart_Sta(); return false;"><br>
+                            </li>
+                        </ul>
+                        <p>ACCESS POINT SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                
+                                <input type="text" class="form-control" placeholder="Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid" value=""><br>
+                                
+                                <input type="password" class="form-control" placeholder="micropythoN" required autofocus name="ap_pass" id="ap_pass" value=""><br>
 
-                            <button onclick="smartConfig()" class=" btn btn-primary waves-effect ">Config</button>
-                            <p id ="responseConfig"></p>
-                    </ul>
+                                <input type="button" class="btn btn-primary waves-effect" id="button2" value="Create" onclick="smart_ap(); return false;"><br></li>
+                        </ul>
+                    </div>
+                </div>
                 </div>
 
             </div>
         </aside>
+        <!-- #END# Right Sidebar -->
         <!-- #END# Right Sidebar -->
 
         <section class="content">

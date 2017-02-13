@@ -77,6 +77,7 @@ def init(state,value1,value2):
 def manager(state,value1,value2):
     if(state=="10"):
         import os
+        os.chdir('..')
         send("cmd:manager:" + str(os.listdir()))
         del os
     elif(state=="20"):

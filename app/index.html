@@ -694,7 +694,7 @@
 
 <xml id="toolbox" style="display: none">
 
-    <category id="catLogic" colour="#F44336" name="Logic">
+    <category id="catLogic" colour="#e74c3c" name="Logic">
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
@@ -703,7 +703,7 @@
         <block type="logic_null"></block>
         <block type="logic_ternary"></block>
     </category>
-    <category id="catLoops" colour="#E91E63" name="Loops">
+    <category id="catLoops" colour="#c0392b" name="Loops">
         <block type="controls_repeat_ext">
             <value name="TIMES">
                 <shadow type="math_number">
@@ -738,7 +738,7 @@
         <block type="controls_forEach"></block>
         <block type="controls_flow_statements"></block>
     </category>
-    <category id="catMath" colour="#9C27B0" name="Math">
+    <category id="catMath" colour="#9b59b6" name="Math">
         <block type="math_number"></block>
         <block type="math_arithmetic">
             <value name="A">
@@ -832,7 +832,7 @@
         </block>
         <block type="math_random_float"></block>
     </category>
-    <category id="catText" colour="#673AB7" name="Text">
+    <category id="catText" colour="#8e44ad" name="Text">
         <block type="text"></block>
         <block type="text_join"></block>
         <block type="text_append">
@@ -909,7 +909,7 @@
             </value>
         </block>
     </category>
-    <category id="catLists" colour="#3F51B5" name="Lists">
+    <category id="catLists" colour="#2980b9" name="Lists">
         <block type="lists_create_with">
             <mutation items="0"></mutation>
         </block>
@@ -962,7 +962,7 @@
     </category>
 
     <sep></sep>
-    <category id="Display" colour="#1565C0" name="Display">
+    <category id="Display" colour="#3498db" name="Display">
         <block type="oled_text">
             <value name="text">
                 <shadow type="text">
@@ -972,14 +972,14 @@
         </block>
         <block type="oled_clear"></block>
     </category>
-    <category id="catWifi" colour="#2196F3" name="Wifi">
+    <category id="catWifi" colour="#16a085" name="Wifi">
         <!-- <block type="wlan_import"></block> -->
         <block type="WLAN_setting"></block>
         <block type="WLAN_connectwifi"></block>
         <block type="WLAN_checknetwork"></block>
     </category>
 
-    <category id="catio" colour="#03A9F4" name="Input Output">
+    <category id="catio" colour="#1abc9c" name="Input Output">
         <block type="ADC_input"></block>
         <block type="Pin_output">
             <value name="onoff_value">
@@ -1016,7 +1016,7 @@
 
     </category>
 
-    <category id="i2c" colour="#00BCD4" name="I2C">
+    <category id="i2c" colour="#27ae60" name="I2C">
         <block type="Pin_I2C_read"></block>
         <block type="Pin_I2C_write">
             <value name="i2c">
@@ -1028,7 +1028,7 @@
         <block type="Pin_I2C_scan"></block>
     </category>
 
-    <category id="catTime" colour="#009688" name="Time">
+    <category id="catTime" colour="#2ecc71" name="Time">
         <block type="time_delay">
             <value name="in_value">
                 <block type="math_number">
@@ -1039,17 +1039,17 @@
 
     </category>
 
-    <category id="beeper" colour="#795548" name="Beeper">
+    <category id="beeper" colour="#f1c40f" name="Beeper">
         <block type="beeper_start"></block>
         <block type="beeper_deinit"></block>
     </category>
 
     <sep></sep>
-    <category id="catVariables" colour="#4CAF50" custom="VARIABLE" name="Variables"></category>
-    <category id="catFunctions" colour="#689F38" custom="PROCEDURE" name="Functions"></category>
+    <category id="catVariables" colour="#f39c12" custom="VARIABLE" name="Variables"></category>
+    <category id="catFunctions" colour="#e67e22" custom="PROCEDURE" name="Functions"></category>
     <sep></sep>
-    <category id="catmqtt" colour="#FF8F00" name="MQTT">
-        <block type="mqtt_init"></block>
+    <category id="catmqtt" colour="#d35400" name="MQTT">
+        <block type="uniqueid_mqtt_init"></block>
         <block type="mqtt_connect"></block>
         <block type="mqtt_publish">
             <value name="publish">
@@ -1060,7 +1060,7 @@
         </block>
         <block type="mqtt_disconnect"></block>
     </category>
-    <category id="catdatalog" colour="#EF6C00" name="DataLogging">
+    <category id="catdatalog" colour="#2c3e50" name="DataLogging">
         <block type="httplib_datalog_write_key"></block>
         <block type="httplib_datalog_write">
             <value name="logging_write">
@@ -1073,12 +1073,12 @@
         <!-- <block type="httplib_datalog_read"></block> -->
     </category>
 
-    <category id="catifttt" colour="#FF5722" name="IFTTT">
+    <category id="catifttt" colour="#34495e" name="IFTTT">
         <block type="httplib_IFTTT_start"></block>
         <block type="httplib_IFTTT_sent"></block>
     </category>
 
-    <category id="catnetpie" colour="#795548" name="NETPIE">
+    <category id="catnetpie" colour="#7f8c8d" name="NETPIE">
         <block type="httplib_netpie_start"></block>
         <block type="httplib_Netpie_put">
             <value name="data_put">

@@ -712,7 +712,7 @@ Blockly.Blocks['httplib_Netpie_put'] = {
 Blockly.Python['httplib_Netpie_put'] = function(block) {
     var value_data_put = Blockly.Python.valueToCode(block, 'data_put', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'httplib.put('+ url +',data=' + value_data_put + ')\n';
+    var code = 'httplib.put('+ url +',data=str(' + value_data_put + '))\n';
     return code;
 };
 

@@ -402,7 +402,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-blue">
-                                    <h2>Action</h2>
+                                    <h2>Beeper</h2>
                                 </div>
                                 <div class="body">
                                     <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq">
@@ -1040,8 +1040,8 @@
     </category>
 
     <category id="beeper" colour="#f1c40f" name="Beeper">
-        <block type="beeper_start"></block>
-        <block type="beeper_deinit"></block>
+        <block type="Pin_PWM_beeper_start"></block>
+        <block type="Pin_PWM_beeper_deinit"></block>
     </category>
 
     <sep></sep>
@@ -1088,7 +1088,7 @@
                 </shadow>
             </value>
         </block>
-        <block type="httplib_json_Netpie_get"></block>
+        <!-- <block type="httplib_json_Netpie_get"></block> -->
     </category>
 </xml>
 <xml id="blocklyDefault" style="display: none">
@@ -1226,6 +1226,7 @@
 <script type="text/javascript" src="js/FileSaver.js"></script>
 <script src="./js/monitor.js"></script>
 <script src="./js/manager.js"></script>
+<script src="./js/mqttws31.js"></script>
 
 <script src="js/system.js"></script>
 <script src="js/prompt.js"></script>

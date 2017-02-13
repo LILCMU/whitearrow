@@ -7,7 +7,7 @@ Blockly.Blocks['controls_main'] = {
         this.setColour('#607D8B');
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
-        this.setDeletable(false);
+        this.setDeletable(true);
     }
 };
 
@@ -48,7 +48,7 @@ Blockly.Blocks['uniqueid_mqtt_init'] = {
 
 Blockly.Python['uniqueid_mqtt_init'] = function(block) {
     var text_hostserver = block.getFieldValue('hostServer');
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
+    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
     return code;
 };
 
@@ -107,6 +107,11 @@ Blockly.Python['mqtt_publish'] = function(block) {
     var text_mqtt_topic = block.getFieldValue('mqtt_topic');
     var value_mqtt_publish = Blockly.Python.valueToCode(block, 'publish', Blockly.Python.ORDER_ATOMIC);
     var checkbox_mqtt_retain = block.getFieldValue('mqtt_retain') == 'TRUE';
+    if(checkbox_mqtt_retain){
+        checkbox_mqtt_retain = "True"
+    }else{
+        checkbox_mqtt_retain = "False"
+    }
     // TODO: Assemble Python into code variable.
     var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
     // TODO: Change ORDER_NONE to the correct strength.
@@ -640,7 +645,7 @@ Blockly.Python['httplib_IFTTT_start'] = function(block) {
 //   key = text_key;
 //   event = text_event;
   // TODO: Assemble Python into code variable.
-  var code = 'httplib.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
+  var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
   return code;
 };
 
@@ -659,7 +664,7 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
 Blockly.Python['httplib_IFTTT_sent'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '\', json = {\'value1\':' + value_name +'})\n';
+  var code = '\', json = {\'value1\':str(' + value_name +')})\n';
   return code;
 };
 
@@ -707,7 +712,7 @@ Blockly.Blocks['httplib_Netpie_put'] = {
 Blockly.Python['httplib_Netpie_put'] = function(block) {
     var value_data_put = Blockly.Python.valueToCode(block, 'data_put', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'httplib.put('+ url +',data=' + value_data_put + ')\n';
+    var code = 'httplib.put('+ url +',data=str(' + value_data_put + '))\n';
     return code;
 };
 
@@ -832,7 +837,7 @@ Blockly.Python['oled_text'] = function(block) {
     return code;
 };
 
-Blockly.Blocks['beeper_start'] = {
+Blockly.Blocks['Pin_PWM_beeper_start'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Beeper start frequency :")
@@ -846,14 +851,14 @@ Blockly.Blocks['beeper_start'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['beeper_start'] = function(block) {
+Blockly.Python['Pin_PWM_beeper_start'] = function(block) {
   var number_beeper_freq = block.getFieldValue('beeper_freq');
   var number_beeper_duty = block.getFieldValue('beeper_duty');
   var code = "beeper = PWM(Pin(2), freq="+ number_beeper_freq +", duty="+ number_beeper_duty +")\n";
   return code;
 };
 
-Blockly.Blocks['beeper_deinit'] = {
+Blockly.Blocks['Pin_PWM_beeper_deinit'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Turn off Beeper");
@@ -864,7 +869,7 @@ Blockly.Blocks['beeper_deinit'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['beeper_deinit'] = function(block) {
+Blockly.Python['Pin_PWM_beeper_deinit'] = function(block) {
   var code = 'beeper.deinit()\n';
   return code;
 };

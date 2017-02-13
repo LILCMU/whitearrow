@@ -45,8 +45,25 @@ def request(method,url,data=None,json=None):
     protover, status, msg = l.split(None, 2)
     status = int(status)
     print(protover, status, msg)
+    # while True:
+    #     l = s.readline()
+    #     if not l or l == b"\r\n":
+    #         break
+    #     #print(l)
+    #     if l.startswith(b"Transfer-Encoding:"):
+    #         if b"chunked" in l:
+    #             raise ValueError("Unsupported " + l)
+    #     elif l.startswith(b"Location:"):
+    #         raise NotImplementedError("Redirects not yet supported")
+    #
+    # resp = Response(s)
+    # resp.status_code = status
+    # resp.reason = msg.rstrip()
     time.sleep_ms(1)
     s.close()
+    # s.close()
+    # return resp
+
 
 def get(url, **kw):
     return request("GET", url, **kw)

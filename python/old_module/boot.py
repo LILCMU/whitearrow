@@ -7,7 +7,7 @@ webrepl.start()
 gc.collect()
 machine.Pin(15,machine.Pin.OUT,value=0)
 oled.greeting()
-time.sleep(5)
+time.sleep(4)
 oled.clear()
 ap = network.WLAN(network.AP_IF)
 wlan = network.WLAN(network.STA_IF)
@@ -18,4 +18,4 @@ oled.text(str(ap.ifconfig()[0]),0,24)
 oled.text('WLAN IP:',0,40)
 oled.text(str(wlan.ifconfig()[0]),0,48)
 
-del oled,beeper,machine,gc,network,ap,wlan,f_name,id_name
+del oled,beeper,machine,gc,network,ap,wlan,f_name,id_name,time

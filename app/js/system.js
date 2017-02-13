@@ -441,7 +441,7 @@ function generateXML() {
                     break;
 
                 case 12:
-                   if (first_sublib) {
+                    if (first_sublib) {
                         _machine += "from machine import unique_id"
                         first_sublib = false;
                     } else if (!first_sublib) {
@@ -805,6 +805,7 @@ function upload() {
 
     // console.log(code)
     put_file(code, document.getElementById('filename').value + '.py')
+
 }
 
 function upload_editor() {
@@ -1165,22 +1166,54 @@ $('#write_i2c').click(function() {
 })
 
 
-function smart_ap() {
+function smart_Sta() {
     var a = document.getElementById('sta_ssid').value
     var r = document.getElementById('sta_pass').value
     ws.send('import network' + '\r\n')
     ws.send('sta = network.WLAN(network.STA_IF)' + '\r\n')
     ws.send('sta.active(1)' + '\r\n')
-    ws.send('sta_if.connect("' + a + '","' + r + '")' + '\r\n')
+    ws.send('sta.connect("' + a + '","' + r + '")' + '\r\n')
     ws.send('del network' + '\r\n')
 }
 
-function smart_Sta() {
+function smart_ap() {
     var a = document.getElementById('ap_ssid').value
     var r = document.getElementById('ap_pass').value
     ws.send('import network' + '\r\n')
-    ws.send('ap = network.WLAN(network.STA_IF)' + '\r\n')
+    ws.send('ap = network.WLAN(network.STA_AP)' + '\r\n')
     ws.send('ap.active(1)' + '\r\n')
     ws.send('ap.config(essid="' + a + '", channel=11,password="' + r + '")' + '\r\n')
     ws.send('del network' + '\r\n')
 }
+
+
+
+
+var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf" + parseInt(Math.random() * 100, 10));
+
+client.onMessageArrived = function(message) {
+    //Do something with the push message you received
+    console.log(message.destinationName, message.payloadString)
+};
+var options = {
+
+    //connection attempt timeout in seconds
+    timeout: 3,
+    //Gets Called if the connection has successfully been established
+    onSuccess: function() {
+        alert("Connected");
+    },
+    //Gets Called if the connection could not be established
+    onFailure: function(message) {
+        alert("Connection failed: " + message.errorMessage);
+    }
+
+};
+
+//Attempt to connect
+client.connect(options);
+setTimeout(function() {
+    client.subscribe('NSC2017/#', {
+        qos: 2
+    });
+}, 500)

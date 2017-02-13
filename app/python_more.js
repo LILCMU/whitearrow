@@ -832,7 +832,7 @@ Blockly.Python['oled_text'] = function(block) {
     return code;
 };
 
-Blockly.Blocks['beeper_start'] = {
+Blockly.Blocks['Pin_PWM_beeper_start'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Beeper start frequency :")
@@ -846,14 +846,14 @@ Blockly.Blocks['beeper_start'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['beeper_start'] = function(block) {
+Blockly.Python['Pin_PWM_beeper_start'] = function(block) {
   var number_beeper_freq = block.getFieldValue('beeper_freq');
   var number_beeper_duty = block.getFieldValue('beeper_duty');
   var code = "beeper = PWM(Pin(2), freq="+ number_beeper_freq +", duty="+ number_beeper_duty +")\n";
   return code;
 };
 
-Blockly.Blocks['beeper_deinit'] = {
+Blockly.Blocks['Pin_PWM_beeper_deinit'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Turn off Beeper");
@@ -864,7 +864,7 @@ Blockly.Blocks['beeper_deinit'] = {
     this.setHelpUrl('');
   }
 };
-Blockly.Python['beeper_deinit'] = function(block) {
+Blockly.Python['Pin_PWM_beeper_deinit'] = function(block) {
   var code = 'beeper.deinit()\n';
   return code;
 };

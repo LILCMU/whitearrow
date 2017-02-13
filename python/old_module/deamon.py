@@ -58,12 +58,12 @@ def monitor(state,value1,value2):
         beeper.speaker(int(value1),int(value2))
         del beeper
     elif(state=="sensor"):
-        import machine
+        import machine,time
         adc = machine.ADC(0)
         while(True):
             send("monitor:sensor:"+str(adc.read()))
             time.sleep_ms(500)
-        del machine
+        del machine,time
 
 def init(state,value1,value2):
     if(state=="10"):

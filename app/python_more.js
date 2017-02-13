@@ -110,7 +110,7 @@ Blockly.Python['mqtt_publish'] = function(block) {
     if(checkbox_mqtt_retain){
         checkbox_mqtt_retain = "True"
     }else{
-        checkbox_mqtt_retain = "False"    
+        checkbox_mqtt_retain = "False"
     }
     // TODO: Assemble Python into code variable.
     var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
@@ -664,7 +664,7 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
 Blockly.Python['httplib_IFTTT_sent'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '\', json = {\'value1\':' + value_name +'})\n';
+  var code = '\', json = {\'value1\':str(' + value_name +')})\n';
   return code;
 };
 

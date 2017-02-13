@@ -835,6 +835,7 @@
     <category id="catText" colour="#8e44ad" name="Text">
         <block type="text"></block>
         <block type="text_join"></block>
+         <block type="text_binary"></block>
         <block type="text_append">
             <value name="TEXT">
                 <shadow type="text"></shadow>
@@ -1059,7 +1060,9 @@
             </value>
         </block>
         <block type="mqtt_subscribe"></block>
+        <block type="mqtt_onmessage"></block>
         <block type="mqtt_disconnect"></block>
+        
     </category>
     <category id="catdatalog" colour="#2c3e50" name="DataLogging">
         <block type="httplib_datalog_write_key"></block>

@@ -7,7 +7,7 @@ Blockly.Blocks['controls_main'] = {
         this.setColour('#607D8B');
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
-        this.setDeletable(false);
+        this.setDeletable(true);
     }
 };
 
@@ -645,7 +645,7 @@ Blockly.Python['httplib_IFTTT_start'] = function(block) {
 //   key = text_key;
 //   event = text_event;
   // TODO: Assemble Python into code variable.
-  var code = 'httplib.post(\'https://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
+  var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
   return code;
 };
 

@@ -338,11 +338,11 @@ function generateXML() {
                 case 2:
 
                     if (first) {
-                        _import += "import mqtt"
+                        _import += "import ubinascii,umqtt.simple as MQTTClient"
                         first = false;
                     } else if (!first) {
-                        _import += ","
-                        _import += "mqtt"
+                        _import += ",ubinascii,"
+                        _import += "umqtt.simple as MQTTClient"
 
                     }
                     break;

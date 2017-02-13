@@ -181,7 +181,7 @@ def finished(f_program):
     oled.text(f_program,0,16)
     oled.show()
     time.sleep(1)
-    oled.fill(0)
+    # oled.fill(0)
     oled.text('White--Arrow >>',0,32)
     oled.text('Status: Ready',0,48)
     oled.show()

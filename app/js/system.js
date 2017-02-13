@@ -309,6 +309,7 @@ function generateXML() {
     arrXml.push(xmlText.search("oled"))
     arrXml.push(xmlText.search("beeper"))
     arrXml.push(xmlText.search("math"))
+    arrXml.push(xmlText.search("uniqueid"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -436,6 +437,17 @@ function generateXML() {
                     } else if (!first) {
                         _import += ","
                         _import += "math"
+                    }
+                    break;
+
+                case 12:
+                   if (first_sublib) {
+                        _machine += "from machine import unique_id"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "unique_id"
+
                     }
                     break;
             }

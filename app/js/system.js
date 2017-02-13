@@ -1149,3 +1149,23 @@ $('#write_i2c').click(function() {
     var r = document.getElementById('writw_rec').value
     ws.send('deamon.monitor("write",' + id + '",0)\r\n')
 })
+
+
+    function smart_ap () {
+    var a = document.getElementById('sta_ssid').value
+    var r = document.getElementById('sta_pass').value
+    ws.send('import network'+'\r\n')
+    ws.send('sta = network.WLAN(network.STA_IF)'+'\r\n')
+    ws.send('sta.active(1)'+'\r\n')
+    ws.send('sta_if.connect("'+a+'","'+r+'")'+'\r\n')
+    ws.send('del network'+'\r\n')
+}
+function smart_Sta () {
+    var a = document.getElementById('ap_ssid').value
+    var r = document.getElementById('ap_pass').value
+    ws.send('import network'+'\r\n')
+    ws.send('ap = network.WLAN(network.STA_IF)'+'\r\n')
+    ws.send('ap.active(1)'+'\r\n')
+    ws.send('ap.config(essid="'+a+'", channel=11,password="'+r+'")'+'\r\n')
+    ws.send('del network'+'\r\n')
+}

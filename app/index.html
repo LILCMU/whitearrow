@@ -15,7 +15,6 @@
     <meta name="apple-mobile-web-app-title" content="Application">
     <meta name="application-name" content="Application">
     <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="./images/icons/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="./images/icons/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="./manifest.json">
 
@@ -336,11 +335,11 @@
                     <div style="position: absolute;right: 15px;">
                         <span>File name:</span>
                         <input type="text" name="get_filename" id="get_filename" value="" />
-                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
-                                    <i class="material-icons">file_upload</i>
+                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="download file ">
+                                    <i class="material-icons">file_download</i>
                            </button> </div>
                     <br><br>
                     <div id="editor">def main(): print('Hello IOT World')

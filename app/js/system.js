@@ -12,6 +12,8 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
     }
 });
 
+sessionStorage.file = []
+
 var blocklyArea = document.getElementById('Blockly');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
@@ -632,9 +634,13 @@ function connect(url) {
         term.element.focus();
         ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
-        ws.send('import deamon\r\n')
+         ws.send('import deamon\r\n')
+        setTimeout(function () {
+           
         wizard()
         cleartmp()
+        },500);
+        
         ws.onmessage = function(event) {
             // console.log('onmessage')
 
@@ -800,12 +806,13 @@ function upload_editor() {
 
 function run() {
     var timenow = new Date();
+    ws.send("import oled\r\n")
     ws.send("os.chdir('tmp')\r\n")
     var code = generate();
     var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
     put_file(code, nameInput + ".py")
     setTimeout(function() {
-        ws.send('import oled, ' + nameInput + '\r\n')
+        ws.send('import ' + nameInput + '\r\n')
         ws.send(nameInput + '.main()\r\n')
         ws.send("os.chdir('..')\r\noled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\n")
     }, 1000)
@@ -964,7 +971,7 @@ function get_file(name) {
     binary_state = 21;
     get_file_name = src_fname;
     get_file_data = new Uint8Array(0);
-    term.write('Getting ' + get_file_name + '...');
+    term.write('Getting ' + get_file_name + '...\r\n');
     ws.send(rec);
 }
 

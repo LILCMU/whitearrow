@@ -329,11 +329,7 @@ Blockly.Python['WLAN_connectwifi'] = function(block) {
 Blockly.Blocks['WLAN_checknetwork'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("Check Network Status ")
-            .appendField(new Blockly.FieldDropdown([
-                ["Access Point", "AP_IF"],
-                ["Station", "STA_IF"]
-            ]), "Interfaces");
+            .appendField("Check Network Status")
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#2196F3');
@@ -342,7 +338,6 @@ Blockly.Blocks['WLAN_checknetwork'] = {
 };
 
 Blockly.Python['WLAN_checknetwork'] = function(block) {
-    var dropdown_interfaces = block.getFieldValue('Interfaces');
     var code = '$nwlan.ifconfig()';
     return code;
 };
@@ -613,7 +608,7 @@ Blockly.Python['time_delay'] = function(block) {
 Blockly.Blocks['httplib_IFTTT_start'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("START ")
+        .appendField("Start")
         .appendField(new Blockly.FieldTextInput("Key"), "key")
         .appendField(", ")
         .appendField(new Blockly.FieldTextInput("Event"), "event");
@@ -638,7 +633,7 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
   init: function() {
     this.appendValueInput("NAME")
         .setCheck(null)
-        .appendField("SENT  Value :");
+        .appendField("Send Value :");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('#FF5722');
@@ -656,7 +651,7 @@ Blockly.Python['httplib_IFTTT_sent'] = function(block) {
 Blockly.Blocks['httplib_netpie_start'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("START")
+        .appendField("Start")
         .appendField(new Blockly.FieldTextInput("Application"), "app")
         .appendField(", ")
         .appendField(new Blockly.FieldTextInput("Application Key"), "app_key")
@@ -686,7 +681,7 @@ Blockly.Blocks['httplib_Netpie_put'] = {
     init: function() {
         this.appendValueInput("data_put")
             .setCheck(null)
-            .appendField("PUT")
+            .appendField("Send data")
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#795548');
@@ -705,7 +700,7 @@ Blockly.Blocks['httplib_json_Netpie_get'] = {
     init: function() {
         this.appendDummyInput()
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("GET")
+            .appendField("Recieve data")
         this.setOutput(true, null);
         this.setColour('#795548');
         this.setTooltip('');
@@ -820,4 +815,41 @@ Blockly.Python['oled_text'] = function(block) {
     // TODO: Assemble Python into code variable.
     var code = 'oled.text(str(' + value_text + '),0,' + dropdown_line_num * 8 + ')\n';
     return code;
+};
+
+Blockly.Blocks['beeper_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Beeper start frequency :")
+        .appendField(new Blockly.FieldNumber(0, 0, 1000), "beeper_freq")
+        .appendField(" volume :")
+        .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['beeper_start'] = function(block) {
+  var number_beeper_freq = block.getFieldValue('beeper_freq');
+  var number_beeper_duty = block.getFieldValue('beeper_duty');
+  var code = "beeper.set_value("+ number_beeper_freq + "," + number_beeper_duty +")\n";
+  return code;
+};
+
+Blockly.Blocks['beeper_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off Beeper");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['beeper_deinit'] = function(block) {
+  var code = 'beeper.deinit()\n';
+  return code;
 };

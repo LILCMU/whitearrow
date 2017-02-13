@@ -701,7 +701,7 @@ Blockly.Blocks['httplib_json_Netpie_get'] = {
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField("Recieve data")
         this.setOutput(true, null);
-        this.setColour('##2c3e50');
+        this.setColour('#7f8c8d');
         this.setTooltip('');
         this.setHelpUrl('');
     }

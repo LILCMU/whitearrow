@@ -16,38 +16,54 @@ def main():
 def monitor(state,value1,value2):
     if(state=="motor"):
         import machine
+        a1 = machine.Pin(4,machine.Pin.OUT,value=0)
+        a2 = machine.Pin(15,machine.Pin.OUT,value=0)
+        b1 = machine.Pin(14,machine.Pin.OUT,value=0)
+        b2 = machine.Pin(12,machine.Pin.OUT,value=0)
         if(value1=="A"):
-            if(value2):
-                machine.Pin(4,machine.Pin.OUT,value=1)
-                machine.Pin(15,machine.Pin.OUT,value=0)
+            if(value2 == "1"):
+                a1.value(0)
+                a2.value(1)
+            elif(value2 == "2"):
+                a1.value(1)
+                a2.value(0)
             else:
-                machine.Pin(4,machine.Pin.OUT,value=0)
-                machine.Pin(15,machine.Pin.OUT,value=1)
+                a1.value(0)
+                a2.value(0)
         elif(value1=="B"):
-            if(value2):
-                machine.Pin(14,machine.Pin.OUT,value=1)
-                machine.Pin(12,machine.Pin.OUT,value=0)
+            if(value2 == "1"):
+                b1.value(0)
+                b2.value(1)
+            elif(value2 =="2" ):
+                b1.value(1)
+                b2.value(0)
             else:
-                machine.Pin(14,machine.Pin.OUT,value=0)
-                machine.Pin(12,machine.Pin.OUT,value=1)
-        del machine
+                b1.value(0)
+                b2.value(0)
+        del machine,a1,a2,b1,b2
     elif(state=="oled"):
         import oled
-        oled.clear()
-        oled.header(value1)
-        oled.body(value2)
-        oled.show()
-        del oled
+        if value1 != '' or value2 != '':
+            oled.clear()
+            oled.header(value1)
+            oled.body(value2)
+            oled.show()
+            del oled
+        else:
+            oled.clear()
+            oled.finished('OLED Monitor')
+            del oled
     elif(state=="beep"):
         import beeper
         beeper.speaker(int(value1),int(value2))
         del beeper
     elif(state=="sensor"):
-        print("")
-
- #   elif(state=="i2cRead"):
-
- #   elif(state=="i2cWrite"):
+        import machine
+        adc = machine.ADC(0)
+        while(True):
+            send("monitor:sensor:"+str(adc.read()))
+            time.sleep_ms(500)
+        del machine
 
 def init(state,value1,value2):
     if(state=="10"):

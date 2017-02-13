@@ -5,7 +5,7 @@ gc.enable()
 beeper.welcome_beep()
 oled.clear()
 oled.connected()
-oled.text('Heap: '+str(gc.mem_free()),0,48)
+# oled.text('Heap: '+str(gc.mem_free()),0,48)
 del oled,beeper,gc
 
 def main():

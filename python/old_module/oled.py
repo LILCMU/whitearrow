@@ -172,6 +172,7 @@ def connected():
     oled.fill(0)
     oled.text('Hello there !',0,16)
     oled.text('Archer',0,32)
+    oled.text('White--Arrow >>',0,56)
     oled.show()
 
 def finished(f_program):

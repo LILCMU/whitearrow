@@ -805,6 +805,7 @@ function upload() {
 
     // console.log(code)
     put_file(code, document.getElementById('filename').value + '.py')
+
 }
 
 function upload_editor() {
@@ -1184,3 +1185,33 @@ function smart_ap() {
     ws.send('ap.config(essid="' + a + '", channel=11,password="' + r + '")' + '\r\n')
     ws.send('del network' + '\r\n')
 }
+
+
+
+
+var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf"+ parseInt(Math.random() * 100, 10));
+
+client.onMessageArrived = function (message) {
+     //Do something with the push message you received
+     console.log(message.destinationName,message.payloadString) 
+ };
+var options = {
+ 
+     //connection attempt timeout in seconds
+     timeout: 3,
+     //Gets Called if the connection has successfully been established
+     onSuccess: function () {
+         alert("Connected");
+     },
+     //Gets Called if the connection could not be established
+     onFailure: function (message) {
+         alert("Connection failed: " + message.errorMessage);
+     }
+ 
+ };
+ 
+//Attempt to connect
+client.connect(options);
+setTimeout(function() {
+   client.subscribe('NSC2017/#', {qos: 2});
+},500)

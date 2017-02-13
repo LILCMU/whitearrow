@@ -402,7 +402,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-blue">
-                                    <h2>Action</h2>
+                                    <h2>Beeper</h2>
                                 </div>
                                 <div class="body">
                                     <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq">
@@ -1040,8 +1040,8 @@
     </category>
 
     <category id="beeper" colour="#f1c40f" name="Beeper">
-        <block type="beeper_start"></block>
-        <block type="beeper_deinit"></block>
+        <block type="Pin_PWM_beeper_start"></block>
+        <block type="Pin_PWM_beeper_deinit"></block>
     </category>
 
     <sep></sep>
@@ -1058,6 +1058,7 @@
                 </shadow>
             </value>
         </block>
+        <block type="mqtt_subscribe"></block>
         <block type="mqtt_disconnect"></block>
     </category>
     <category id="catdatalog" colour="#2c3e50" name="DataLogging">

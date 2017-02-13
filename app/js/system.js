@@ -818,8 +818,9 @@ function upload_editor() {
 
 function run() {
     var timenow = new Date();
-    ws.send("import oled\r\n")
+
     ws.send("os.chdir('tmp')\r\n")
+    ws.send("import oled\r\n")
     var code = generate();
     var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
     put_file(code, nameInput + ".py")
@@ -827,7 +828,7 @@ function run() {
         ws.send('import ' + nameInput + '\r\n')
         setTimeout(function() {
             ws.send(nameInput + '.main()\r\n')
-            ws.send("os.chdir('..')\r\noled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\n")
+            ws.send("oled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\nos.chdir('..')\r\n")
         }, 500)
     }, 2000)
 
@@ -1135,14 +1136,13 @@ $('#show_OLED').click(function() {
     var h = document.getElementById('htext_olcd').value
     var b = document.getElementById('text_olcd').value
     ws.send('deamon.monitor("oled","' + h + '","' + b + '")\r\n')
-    ws.send("oled.show()\r\n")
 })
 
 
 $('#clear_OLED').click(function() {
     document.getElementById('htext_olcd').value = ""
     document.getElementById('text_olcd').value = ""
-    ws.send('oled.clear()\r\n')
+    ws.send('deamon.monitor("oled","","")\r\n')
 })
 
 $('#start_beeper').click(function() {

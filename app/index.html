@@ -234,15 +234,15 @@
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane fade in active " id="settings1">
+                <div role="tabpanel" class="tab-pane fade" id="settings1">
                    <div class="demo-settings">
                         <p>STATION SETTINGS</p>
                         <ul class="setting-list">
                             <li>
                                 <!-- -->
-                                
+
                                 <input type="text" class="form-control" placeholder="Wifi name" required autofocus name="sta_ssid" id="sta_ssid" value=""><br>
-                               
+
                                 <input type="password" class="form-control" placeholder="password" required autofocus name="sta_pass" id="sta_pass" value=""><br>
 
                                 <input type="button" class="btn btn-primary waves-effect" id="button1" value="Connect" onclick="smart_Sta(); return false;"><br>
@@ -251,9 +251,9 @@
                         <p>ACCESS POINT SETTINGS</p>
                         <ul class="setting-list">
                             <li>
-                                
+
                                 <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid" value=""><br>
-                                
+
                                 <input type="password" class="form-control" placeholder="micropythoN" required autofocus name="ap_pass" id="ap_pass" value=""><br>
 
                                 <input type="button" class="btn btn-primary waves-effect" id="button2" value="Create" onclick="smart_ap(); return false;"><br></li>
@@ -379,8 +379,8 @@
                                         <div class="row">
                                             <i id="motorwayA"  class="material-icons md-48">rotate_right</i>
                                             <i id="motorwayB"  class="material-icons md-48">rotate_right</i></div>
-                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorA">A OFF</button>
-                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorB">B OFF</button>
+                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorA">MotorA OFF</button>
+                                        <button type="button" class="btn bg-light-green waves-effect" id="MotorB">MotorB OFF</button>
                                     </center>
                                 </div>
                             </div>
@@ -392,7 +392,7 @@
                                     <h2>OLED</h2>
                                 </div>
                                 <div class="body">
-                                    <input type="text" class="form-control" placeholder="header" required autofocus name="htext" id="htext_olcd">
+                                    <input type="text" class="form-control" placeholder="Header" required autofocus name="htext" id="htext_olcd">
                                     <input type="text" class="form-control" placeholder="Text" required autofocus name="text" id="text_olcd">
                                     <button type="button" class="btn bg-light-green waves-effect" id="show_OLED">show</button>
                                     <button type="button" class="btn bg-light-green waves-effect" id="clear_OLED">clear</button>

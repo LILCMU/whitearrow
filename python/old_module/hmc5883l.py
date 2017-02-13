@@ -1,6 +1,6 @@
 # HMC5883L Magnetometer (Digital Compass) wrapper class
 # Based on https://github.com/rm-hull/hmc5883l
-
+from machine import Pin,I2C
 import math
 from array import array
 
@@ -16,7 +16,7 @@ class HMC5883L():
         "5.6": [6, 3.03],
         "8.1": [7, 4.35]}
 
-    def __init__(self, i2c=None, address=30, gauss="1.3", declination=(0,0)):
+    def __init__(self, i2c=I2C(scl=Pin(13),sda=Pin(5)), address=30, gauss="1.3", declination=(0,0)):
         self.i2c = i2c
         self.address = address
         degrees, minutes = declination
@@ -47,7 +47,7 @@ class HMC5883L():
     def axes(self):
         data = array('B', [0]*6)
         self.i2c.readfrom_mem_into(self.address, 0x03, data)
-        print(data)
+        # print(data)
         x = self.__convert(data, 0)
         y = self.__convert(data, 4)
         z = self.__convert(data, 2)

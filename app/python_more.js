@@ -48,7 +48,7 @@ Blockly.Blocks['uniqueid_mqtt_init'] = {
 
 Blockly.Python['uniqueid_mqtt_init'] = function(block) {
     var text_hostserver = block.getFieldValue('hostServer');
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
+    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
     return code;
 };
 
@@ -107,6 +107,11 @@ Blockly.Python['mqtt_publish'] = function(block) {
     var text_mqtt_topic = block.getFieldValue('mqtt_topic');
     var value_mqtt_publish = Blockly.Python.valueToCode(block, 'publish', Blockly.Python.ORDER_ATOMIC);
     var checkbox_mqtt_retain = block.getFieldValue('mqtt_retain') == 'TRUE';
+    if(checkbox_mqtt_retain){
+        checkbox_mqtt_retain = "True"
+    }else{
+        checkbox_mqtt_retain = "False"    
+    }
     // TODO: Assemble Python into code variable.
     var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
     // TODO: Change ORDER_NONE to the correct strength.

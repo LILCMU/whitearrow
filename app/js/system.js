@@ -309,6 +309,7 @@ function generateXML() {
     arrXml.push(xmlText.search("oled"))
     arrXml.push(xmlText.search("beeper"))
     arrXml.push(xmlText.search("math"))
+    arrXml.push(xmlText.search("uniqueid"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -436,6 +437,17 @@ function generateXML() {
                     } else if (!first) {
                         _import += ","
                         _import += "math"
+                    }
+                    break;
+
+                case 12:
+                   if (first_sublib) {
+                        _machine += "from machine import unique_id"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "unique_id"
+
                     }
                     break;
             }
@@ -634,12 +646,12 @@ function connect(url) {
         term.element.focus();
         ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
-         ws.send('import deamon\r\n')
-        setTimeout(function () {
+        ws.send('import deamon\r\n')
+        setTimeout(function() {
 
-        wizard()
-        cleartmp()
-        },500);
+            wizard()
+            cleartmp()
+        }, 500);
 
         ws.onmessage = function(event) {
             // console.log('onmessage')
@@ -813,9 +825,11 @@ function run() {
     put_file(code, nameInput + ".py")
     setTimeout(function() {
         ws.send('import ' + nameInput + '\r\n')
-        ws.send(nameInput + '.main()\r\n')
-        ws.send("os.chdir('..')\r\noled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\n")
-    }, 1000)
+        setTimeout(function() {
+            ws.send(nameInput + '.main()\r\n')
+            ws.send("os.chdir('..')\r\noled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\n")
+        }, 500)
+    }, 2000)
 
 
 }
@@ -1151,21 +1165,22 @@ $('#write_i2c').click(function() {
 })
 
 
-    function smart_ap () {
+function smart_ap() {
     var a = document.getElementById('sta_ssid').value
     var r = document.getElementById('sta_pass').value
-    ws.send('import network'+'\r\n')
-    ws.send('sta = network.WLAN(network.STA_IF)'+'\r\n')
-    ws.send('sta.active(1)'+'\r\n')
-    ws.send('sta_if.connect("'+a+'","'+r+'")'+'\r\n')
-    ws.send('del network'+'\r\n')
+    ws.send('import network' + '\r\n')
+    ws.send('sta = network.WLAN(network.STA_IF)' + '\r\n')
+    ws.send('sta.active(1)' + '\r\n')
+    ws.send('sta_if.connect("' + a + '","' + r + '")' + '\r\n')
+    ws.send('del network' + '\r\n')
 }
-function smart_Sta () {
+
+function smart_Sta() {
     var a = document.getElementById('ap_ssid').value
     var r = document.getElementById('ap_pass').value
-    ws.send('import network'+'\r\n')
-    ws.send('ap = network.WLAN(network.STA_IF)'+'\r\n')
-    ws.send('ap.active(1)'+'\r\n')
-    ws.send('ap.config(essid="'+a+'", channel=11,password="'+r+'")'+'\r\n')
-    ws.send('del network'+'\r\n')
+    ws.send('import network' + '\r\n')
+    ws.send('ap = network.WLAN(network.STA_IF)' + '\r\n')
+    ws.send('ap.active(1)' + '\r\n')
+    ws.send('ap.config(essid="' + a + '", channel=11,password="' + r + '")' + '\r\n')
+    ws.send('del network' + '\r\n')
 }

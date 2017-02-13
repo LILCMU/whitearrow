@@ -160,7 +160,7 @@ def greeting():
     oled.text('Welcome to ..',0,0)
     oled.text('White Arrow 1.0',0,16)
     oled.text('based on',0,32)
-    oled.text('Micropython',0,40)
+    oled.text('     Micropython',0,48)
     oled.show()
 
 def connected():

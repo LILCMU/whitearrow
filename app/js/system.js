@@ -264,7 +264,7 @@ function init_first() {
             break;
 
         case 3:
-            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
+            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\nimport machine\r\nmachine.reset()\r\n')
             break;
     }
 
@@ -636,11 +636,11 @@ function connect(url) {
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
          ws.send('import deamon\r\n')
         setTimeout(function () {
-           
+
         wizard()
         cleartmp()
         },500);
-        
+
         ws.onmessage = function(event) {
             // console.log('onmessage')
 

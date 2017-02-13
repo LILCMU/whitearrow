@@ -49,7 +49,7 @@ Blockly.Blocks['mqtt_init'] = {
 Blockly.Python['mqtt_init'] = function(block) {
     var text_hostserver = block.getFieldValue('hostServer');
     // TODO: Assemble JavaScript into code variable.
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
+    var code = 'CLIENT_ID = ubi nascii.hexlify(unique_id())\nmqtt = MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
     return code;
 };
 
@@ -225,7 +225,7 @@ Blockly.Blocks['Pin_I2C_read'] = {
 
 Blockly.Python['Pin_I2C_read'] = function(block) {
     var ext_i2c_addr = block.getFieldValue('i2c_addr');
-    var code = 'I2C(scl=Pin(0), sda=Pin(2)).readfrom(' + ext_i2c_addr + ', 4)';
+    var code = 'I2C(scl=Pin(13), sda=Pin(5)).readfrom(' + ext_i2c_addr + ', 4)';
     return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -247,7 +247,7 @@ Blockly.Python['Pin_I2C_write'] = function(block) {
     var text_i2c_addr = block.getFieldValue('i2c_addr');
     var value_i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'i2c = I2C(scl=Pin(0), sda=Pin(2))\ni2c.writeto(' + text_i2c_addr + ', ' + value_i2c + ')\n';
+    var code = 'i2c = I2C(scl=Pin(13), sda=Pin(5))\ni2c.writeto(' + text_i2c_addr + ', ' + value_i2c + ')\n';
     // TODO: Change ORDER_NONE to the correct strength.
     return code;
 };
@@ -256,8 +256,7 @@ Blockly.Blocks['Pin_I2C_scan'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("Scan I2C Device(s)");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+        this.setOutput(true, null);
         this.setColour('#00BCD4');
         this.setTooltip('');
         this.setHelpUrl('');
@@ -266,8 +265,8 @@ Blockly.Blocks['Pin_I2C_scan'] = {
 
 Blockly.Python['Pin_I2C_scan'] = function(block) {
     // TODO: Assemble Python into code variable.
-    var code = 'I2C(scl=Pin(0), sda=Pin(2)).scan()\n';
-    return code;
+    var code = 'I2C(scl=Pin(13), sda=Pin(5)).scan()';
+    return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Blocks['WLAN_setting'] = {
@@ -834,7 +833,7 @@ Blockly.Blocks['beeper_start'] = {
 Blockly.Python['beeper_start'] = function(block) {
   var number_beeper_freq = block.getFieldValue('beeper_freq');
   var number_beeper_duty = block.getFieldValue('beeper_duty');
-  var code = "beeper.set_value("+ number_beeper_freq + "," + number_beeper_duty +")\n";
+  var code = "beeper = PWM(Pin(2), freq="+ number_beeper_freq +", duty="+ number_beeper_duty +")\n";
   return code;
 };
 

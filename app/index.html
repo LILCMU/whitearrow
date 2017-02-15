@@ -17,42 +17,26 @@
     <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="./images/icons/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="./manifest.json">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-
-
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <script src="blockly_compressed.js"></script>
     <script src="blocks_compressed.js"></script>
     <script src="python_compressed.js"></script>
     <script src="python_more.js"></script>
-
-
-
-
     <script src="msg/js/en.js"></script>
     <script src="js/storage.js"></script>
-
-
-
-
     <!-- Bootstrap Select Css -->
     <link href="./plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
     <!-- Bootstrap Core Css -->
     <link href="./plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-
     <!-- Waves Effect Css -->
     <link href="./plugins/node-waves/waves.css" rel="stylesheet" />
-
     <!-- Animation Css -->
     <link href="./plugins/animate-css/animate.css" rel="stylesheet" />
-
     <!-- Range Slider Css -->
     <link href="./plugins/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
     <link href="./plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
@@ -61,20 +45,15 @@
     <link href="./css/materialize.css" rel="stylesheet">
     <!-- Custom Css -->
     <link href="./css/style.css" rel="stylesheet">
-
-
     <!-- NSC2017 Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="./css/themes/all-themes.css" rel="stylesheet" />
-
     <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
-
     <style type="text/css" media="screen">
         #editor {
             width: 100%;
             height: 400px;
         }
     </style>
-
 </head>
 
 <body class="theme-indigo">
@@ -98,7 +77,6 @@
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
-
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
     <nav class="navbar">
@@ -108,21 +86,12 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 &nbsp &nbsp &nbsp
                 <a href="./index.html"> <img src="./images/logo.png" height="64" alt="White Arrow" /></a>
-
-
             </div>
-
             <div class="collapse navbar-collapse" id="navbar-collapse">
-
-
                 <ul class="nav navbar-nav navbar-right">
-
-
                     <li class="pull-right"><a id="status"><i class="material-icons md-24" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect"><p>perm_scan_wifi</p></i></a></li>
                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons md-24">settings</i></a></li>
                 </ul>
-
-
             </div>
         </div>
     </nav>
@@ -137,7 +106,6 @@
                 </div>
                 <div class="info-container">
                     <div class="name" aria-haspopup="true" aria-expanded="false">Archer</div>
-
                 </div>
             </div>
             <!-- #User Info -->
@@ -145,7 +113,6 @@
             <div class="menu">
                 <ul class="list">
                     <li>
-
                     </li>
                     <li id="init" onclick="menu3()" disabled="disabled">
                         <a> <i class="material-icons">extension</i>
@@ -158,7 +125,6 @@
                             <span>Editor</span>
                         </a>
                     </li>
-
                     <li class="mobile" onclick="menu4()">
                         <a> <i class="material-icons">dashboard</i>
                             <span>Monitor</span>
@@ -182,20 +148,16 @@
                 <div class="copyright">
                     &copy; 2016 <a href="javascript:void(0);">NSC2017</a>.
                 </div>
-
             </div>
             <!-- #Footer -->
         </aside>
-
         <!-- #END# Left Sidebar -->
-<aside id="rightsidebar" class="right-sidebar">
+        <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs tab-nav-right" role="tablist">
                 <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
                 <li role="presentation"><a href="#settings1" data-toggle="tab">CONFIG</a></li>
-
             </ul>
             <div class="tab-content">
-
                 <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
                     <div class="demo-settings">
                         <p>GENERAL SETTINGS</p>
@@ -204,8 +166,6 @@
                                 <!-- -->
                                 <span>Address : </span>
                                 <input type="text" class="form-control" placeholder="IP Address" required autofocus name="webrepl_url" id="url" value="192.168.4.1"><br>
-
-
                                 <input type="button" class="btn btn-primary waves-effect" id="button" value="Connect" onclick="button_click(); return false;"><br>
                             </li>
                         </ul>
@@ -214,9 +174,7 @@
                             <li>
                                 <div class="input-field col s6">
                                     <label class="active" for="first_name2">Project Name:</label>
-
                                     <input type="text" class="form-control" id="filename" name="filename" class="name" placeholder="project name" required autofocus>
-
                                 </div>
                             </li>
                             <li>
@@ -225,7 +183,6 @@
                                     <label><input type="checkbox" checked><span class="lever"></span></label>
                                 </div>
                             </li>
-
                             <li>
                                 <button disabled class="js-push-btn btn btn-primary waves-effect ">
         Enable Push Messaging
@@ -233,92 +190,77 @@
                         </ul>
                     </div>
                 </div>
-
                 <div role="tabpanel" class="tab-pane fade" id="settings1">
-                   <div class="demo-settings">
+                    <div class="demo-settings">
                         <p>STATION SETTINGS</p>
                         <ul class="setting-list">
                             <li>
                                 <!-- -->
-
                                 <input type="text" class="form-control" placeholder="Wifi name" required autofocus name="sta_ssid" id="sta_ssid" value=""><br>
-
                                 <input type="password" class="form-control" placeholder="password" required autofocus name="sta_pass" id="sta_pass" value=""><br>
-
                                 <input type="button" class="btn btn-primary waves-effect" id="button1" value="Connect" onclick="smart_Sta(); return false;"><br>
                             </li>
                         </ul>
                         <p>ACCESS POINT SETTINGS</p>
                         <ul class="setting-list">
                             <li>
-
-                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid" value=""><br>
-
+                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid"
+                                    value=""><br>
                                 <input type="password" class="form-control" placeholder="micropythoN" required autofocus name="ap_pass" id="ap_pass" value=""><br>
-
                                 <input type="button" class="btn btn-primary waves-effect" id="button2" value="Create" onclick="smart_ap(); return false;"><br></li>
                         </ul>
                     </div>
                 </div>
-                </div>
-
+            </div>
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
         <!-- #END# Right Sidebar -->
-
         <section class="content">
-
-
-
-
-
-
             <div class="container-fluid">
-
-                       <div class="fixed-action-btn horizontal click-to-toggle">
+                <div class="fixed-action-btn horizontal click-to-toggle">
                     <a class="btn-floating btn-large " href="javascript:restart();">
                         <i class="material-icons md-24">refresh</i>
                     </a>
-                   <!-- <ul>
+                    <!-- <ul>
                         <li><a class="btn-floating " href="javascript:wizard();"><i class="material-icons md-24">menu</i></a></li>
                         <li><a class="btn-floating  " href="javascript:restart();"><i class="material-icons md-24">refresh</i></a></li>
                         <li><a class="btn-floating " href="javascript:stop();"><i class="material-icons md-24">stop</i></a></li>
                         <li><a class="btn-floating " href="javascript:run();"><i class="material-icons md-24">play_arrow</i></a></li>-->
                     </ul>
                 </div>
-
                 <div class="row clearfix resizeBlockly" id="Blockly" style="position: absolute;width:100%;height:80%">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
+                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="Load Add-ons">
                                     <i class="material-icons">extension</i>
                                 </button>
-
                                 <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
-                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD ADD-ONS">
+                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="LOAD ADD-ONS">
                                     <i class="material-icons">unarchive</i>
                                 </button>
-                                <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right" title="Generate XML">
+                                <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right"
+                                    title="Generate XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
-                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">
+                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip"
+                                    data-placement="bottom" title="SHARE!!">
                                     <i class="material-icons">screen_share</i>
                                 </button>
-
-                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="refresh">
+                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="refresh">
                                     <i class="material-icons">refresh</i>
                                 </button>
-
-                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="open wizard">
+                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="open wizard">
                                     <i class="material-icons">menu</i>
                                 </button>
-
                             </div>
-
                             <div class="col-md-6 text-right">
                                 <button type="button" onclick="run()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
                                     <i class="material-icons">play_arrow</i>
@@ -326,49 +268,38 @@
                                 <button type="button" onclick="stop()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="stop">
                                     <i class="material-icons">stop</i>
                                 </button>
-                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="save file">
+                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="save file">
                                     <i class="material-icons">save</i>
                                 </button>
                                 <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
                                     <i class="material-icons">file_upload</i>
                                 </button>
-
-
-
-
                             </div>
-
                         </div>
-
-
                         <div class="row">
                             <div id="blocklyDiv"></div>
                         </div>
                     </div>
                 </div>
-
-
                 <div class="row clearfix" id="Editor1">
-
                     <div style="position: absolute;right: 15px;">
                         <span>File name:</span>
                         <input type="text" name="get_filename" id="get_filename" value="" />
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
+                            title="save to Device">
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="download file ">
+                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
+                            title="download file ">
                                     <i class="material-icons">file_download</i>
                            </button> </div>
                     <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
-
                 </div>
-
-
                 <div class="row clearfix" id="monitor">
                     <div class="row clearfix">
-
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-cyan">
@@ -377,15 +308,14 @@
                                 <div class="body">
                                     <center>
                                         <div class="row">
-                                            <i id="motorwayA"  class="material-icons md-48">rotate_right</i>
-                                            <i id="motorwayB"  class="material-icons md-48">rotate_right</i></div>
+                                            <i id="motorwayA" class="material-icons md-48">rotate_right</i>
+                                            <i id="motorwayB" class="material-icons md-48">rotate_right</i></div>
                                         <button type="button" class="btn bg-light-green waves-effect" id="MotorA">MotorA OFF</button>
                                         <button type="button" class="btn bg-light-green waves-effect" id="MotorB">MotorB OFF</button>
                                     </center>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-red">
@@ -408,13 +338,9 @@
                                     <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq">
                                     <input type="text" class="form-control" placeholder="0-1024" required autofocus name="Duty" id="Duty">
                                     <button type="button" class="btn bg-light-green waves-effect" id="start_beeper">start</button>
-
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-green">
@@ -428,7 +354,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-amber">
@@ -442,31 +367,25 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
                             <div class="card">
                                 <div class="header bg-deep-orange">
                                     <h2>sensor</h2>
-                                    <button type="button" class="btn bg-light-blue waves-effect" id="read" >Read sensor</button>
+                                    <button type="button" class="btn bg-light-blue waves-effect" id="read">Read sensor</button>
                                 </div>
                                 <div class="body">
-                                        <div class="progress">
-                                <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1024"
-                                     style="width: 90%">
-                                    Analog sensor
-                                </div>
-
-
-                            </div>
-                            <div class="row center">
-                                    <h4 id="numsensor">0</h4>
-                                </div>
+                                    <div class="progress">
+                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                            aria-valuemax="1024" style="width: 90%">
+                                            Analog sensor
+                                        </div>
+                                    </div>
+                                    <div class="row center">
+                                        <h4 id="numsensor">0</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-
                         <!--
                         <div class="col-md-4">
                             <select class="show-tick" id="type">
@@ -488,7 +407,8 @@
                         <div class="card">
                             <div class="header ">
                                 <h3>File Manager</h3>
-                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right" title="list file">
+                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right"
+                                    title="list file">
                                     <i class="material-icons">sort</i>
                                 </button>
                                 <br>
@@ -500,17 +420,14 @@
                                             <th>#</th>
                                             <th>FILE NAME</th>
                                             <th></th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="tableFile">
-
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-2">
                         <div class="card">
                             <div class="body">
@@ -521,7 +438,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!--////   shareconfig ////-->
                 <div class="modal fade" id="shareconfig" tabindex="-1" role="dialog">
@@ -541,9 +457,7 @@
                                     <textarea rows="4" cols="50" name="des" value=""></textarea>
                                     <br>
                                     <div id="res">
-
                                     </div>
-
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -562,11 +476,9 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade STEP 1</h4>
                             </div>
                             <div class="modal-body">
-
                                 <h3>Connect to <big>"micropython - xxxxxx"</big> access point </h3><br>
                                 <h3>Password: <big>"micropythoN"</big> </h3><br>
-
-                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" id="step1btn" onclick="init_first()" class="btn btn-link waves-effect"> NEXT</button>
                                 <button type="button" id="step1miss" class="btn btn-link waves-effect" data-target="#largeModal2" data-dismiss="modal">CLOSE</button>
@@ -574,7 +486,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal fade" id="largeModal2" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
@@ -582,9 +493,8 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
                             </div>
                             <div class="modal-body">SSID :
-
-                                <input  type="text" class="form-control" id="ssid" placeholder="SSID"  value=""><br> password:
-                                <input type="password" class="form-control" id="pass_ssid" placeholder="PASSWORD"  value=""><br>
+                                <input type="text" class="form-control" id="ssid" placeholder="SSID" value=""><br> password:
+                                <input type="password" class="form-control" id="pass_ssid" placeholder="PASSWORD" value=""><br>
                                 <p id="responseStep2"></p><br>
                                 <h4>Set a new SSID and Password</h4><br>
                                 <h4>Press "Next" when finished fill</h4>
@@ -596,7 +506,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal fade" id="largeModal3" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
@@ -604,13 +513,14 @@
                                 <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
                             </div>
                             <div class="modal-body">
-                                <h4>ip address :
-                                &nbsp&nbsp<div id="response">wait a minute</div>
-                                access key :
-                                <input type="password" class="form-control" id="key" placeholder=""  value="1234"><br><br></h4> <h5>Default key : 1234 </h5>
+                                <h4>ip address : &nbsp&nbsp
+                                    <div id="response">wait a minute</div>
+                                    access key :
+                                    <input type="password" class="form-control" id="key" placeholder="" value="1234"><br><br></h4>
+                                <h5>Default key : 1234 </h5>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
+                                <button type="button" id="step3btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
                                 <button type="button" id="step3miss" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
@@ -624,7 +534,9 @@
                             <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
                             <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
                         </div>
-                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
+                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right"
+                            data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit=""
+                            data-color-name="bg-red">
                                         TOP RIGHT
                                     </button></div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -639,7 +551,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header bg-red">
@@ -649,11 +560,9 @@
                                 <input type="text" class="form-control" placeholder="IP address of server" required autofocus name="ipserver_pub" id="ip_server_pub">
                                 <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub">
                                 <button type="button" class="btn bg-light-green waves-effect" id="publish">publish</button>
-
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="card">
                             <div class="header bg-red">
@@ -663,37 +572,29 @@
                                 <section class="subscription-details js-subscription-details is-invisible">
                                     <pre><code class="js-subscription-json"></code></pre>
                                 </section>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
-
                 <!-- IDE Output content -->
             </div>
-
         </section>
         <div class="ide_output_wrapper">
             <ul class="collapsible ide_output_collapsible">
                 <li>
                     <div id="ide_output_collapsible_header" class="collapsible-header ide_output_header_normal">
-
                         <i class="material-icons md-24">cast</i>
                         <span>Console</span>
                     </div>
                     <div class="collapsible-body">
                         <div id="term"></div>
-
                     </div>
                 </li>
             </ul>
         </div>
         <div id="ide_output_spacer"></div>
 </body>
-
 <xml id="toolbox" style="display: none">
-
     <category id="catLogic" colour="#e74c3c" name="Logic">
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
@@ -835,7 +736,7 @@
     <category id="catText" colour="#8e44ad" name="Text">
         <block type="text"></block>
         <block type="text_join"></block>
-         <block type="text_binary"></block>
+        <block type="text_binary"></block>
         <block type="text_append">
             <value name="TEXT">
                 <shadow type="text"></shadow>
@@ -961,7 +862,6 @@
         </block>
         <block type="lists_sort"></block>
     </category>
-
     <sep></sep>
     <category id="Display" colour="#3498db" name="Display">
         <block type="oled_text">
@@ -979,7 +879,6 @@
         <block type="WLAN_connectwifi"></block>
         <block type="WLAN_checknetwork"></block>
     </category>
-
     <category id="catio" colour="#1abc9c" name="Input Output">
         <block type="ADC_input"></block>
         <block type="Pin_output">
@@ -996,7 +895,6 @@
         <block type="Pin_PWM_servo_left"></block>
         <block type="Pin_PWM_servo_right"></block>
         <block type="Pin_PWM_servo_stop"></block>
-
         <!--<block type="Pin_PWM"></block>
 
         <block type="Pin_PWMFreq">
@@ -1014,9 +912,7 @@
             </value>
         </block>
         <block type="Pin_PWMDeinit"></block>-->
-
     </category>
-
     <category id="i2c" colour="#27ae60" name="I2C">
         <block type="Pin_I2C_read"></block>
         <block type="Pin_I2C_write">
@@ -1028,7 +924,6 @@
         </block>
         <block type="Pin_I2C_scan"></block>
     </category>
-
     <category id="catTime" colour="#2ecc71" name="Time">
         <block type="time_delay">
             <value name="in_value">
@@ -1037,14 +932,11 @@
                 </block>
             </value>
         </block>
-
     </category>
-
     <category id="beeper" colour="#f1c40f" name="Beeper">
         <block type="Pin_PWM_beeper_start"></block>
         <block type="Pin_PWM_beeper_deinit"></block>
     </category>
-
     <sep></sep>
     <category id="catVariables" colour="#f39c12" custom="VARIABLE" name="Variables"></category>
     <category id="catFunctions" colour="#e67e22" custom="PROCEDURE" name="Functions"></category>
@@ -1062,7 +954,6 @@
         <block type="mqtt_subscribe"></block>
         <block type="mqtt_onmessage"></block>
         <block type="mqtt_disconnect"></block>
-        
     </category>
     <category id="catdatalog" colour="#2c3e50" name="DataLogging">
         <block type="httplib_datalog_write_key"></block>
@@ -1073,15 +964,12 @@
                 </shadow>
             </value>
         </block>
-
         <!-- <block type="httplib_datalog_read"></block> -->
     </category>
-
     <category id="catifttt" colour="#34495e" name="IFTTT">
         <block type="httplib_IFTTT_start"></block>
         <block type="httplib_IFTTT_sent"></block>
     </category>
-
     <category id="catnetpie" colour="#7f8c8d" name="NETPIE">
         <block type="httplib_netpie_start"></block>
         <block type="httplib_Netpie_put">
@@ -1152,7 +1040,6 @@
             </block>
     </block>
 </xml>
-
 <!-- JS Files  -->
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -1165,7 +1052,7 @@
             win: 'Ctrl-S',
             mac: 'Command-S'
         },
-        exec: function(editor) {
+        exec: function (editor) {
             alert("Save Done!!!");
         },
     });
@@ -1179,27 +1066,18 @@
     $('#FileMannger').hide();
     $('#Message').hide();
 </script>
-
-
 <!--<script src="toolbox.js"></script>-->
-
-
 <script src="js/materialize.js"></script>
 <!-- Jquery Core Js -->
 <script src="./plugins/jquery/jquery.min.js"></script>
-
 <!-- Bootstrap Core Js -->
 <script src="./plugins/bootstrap/js/bootstrap.js"></script>
-
 <!-- Select Plugin Js -->
 <script src="./plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
 <!-- Slimscroll Plugin Js -->
 <script src="./plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
 <!-- Bootstrap Notify Plugin Js -->
 <script src="./plugins/bootstrap-notify/bootstrap-notify.js"></script>
-
 <!-- Waves Effect Plugin Js -->
 <script src="./plugins/node-waves/waves.js"></script>
 <!-- RangeSlider Plugin Js -->
@@ -1213,10 +1091,6 @@
 <script src="./js/pages/ui/tooltips-popovers.js"></script>
 <!-- Waves Effect Plugin Js -->
 <script src="./plugins/node-waves/waves.js"></script>
-
-
-
-
 <!-- Custom Js -->
 <script src="./js/admin.js"></script>
 <script src="./js/pages/ui/range-sliders.js"></script>
@@ -1224,20 +1098,13 @@
 <script src="./js/pages/cards/colored.js"></script>
 <script src="./js/pages/ui/notifications.js"></script>
 <script src="./js/reconnecting-websocket.js"></script>
-
 <script type="text/javascript" src="js/term.js"></script>
 <script type="text/javascript" src="js/FileSaver.js"></script>
 <script src="./js/monitor.js"></script>
 <script src="./js/manager.js"></script>
 <script src="./js/mqttws31.js"></script>
-
 <script src="js/system.js"></script>
 <script src="js/prompt.js"></script>
-
-
-
-
-
 <script src="./js/toast.js"></script>
 <script src="./js/offline.js"></script>
 <script src="./js/app.js"></script>
@@ -1246,7 +1113,5 @@
 <script src="./js/share.js"></script>
 <script src="./js/menu.js"></script>
 </body>
-
-
 
 </html>

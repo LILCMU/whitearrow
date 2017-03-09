@@ -57,6 +57,8 @@ p0.irq(trigger=machine.Pin.IRQ_FALLING, handler=callback)
 def run(p):
     global state
     if state==1:
+        __import__('oled').running('latest')
+        __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=0)
         __import__('tmp/latest').main()
     else:
         pass

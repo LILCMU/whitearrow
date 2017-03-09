@@ -63,7 +63,7 @@ def monitor(state,value1,value2):
         while(True):
             send("monitor:sensor:"+str(adc.read()))
             time.sleep_ms(500)
-        del machine,time
+        del machine,time,adc
 
 def init(state,value1,value2):
     if(state=="10"):
@@ -123,11 +123,14 @@ def send(text):
 
 def run(filename):
     __import__('oled').running(filename)
+    __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=0)
     try:
         __import__(filename).main()
     except:
         send('Sorry!!:can\'t find file or read data')
+    __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)
     __import__('oled').finished(filename)
+    
 
 def autorun(filename):
     f = open('main.py', 'w')

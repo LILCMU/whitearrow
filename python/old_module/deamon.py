@@ -122,12 +122,12 @@ def send(text):
     print('$')
 
 def run(filename):
-    
+    __import__('oled').running(filename)
     try:
-        mod = __import__(filename)
-        mod.main()
+        __import__(filename).main()
     except:
         send('Sorry!!:can\'t find file or read data')
+    __import__('oled').finished(filename)
 
 def autorun(filename):
     f = open('main.py', 'w')

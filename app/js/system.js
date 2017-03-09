@@ -310,6 +310,7 @@ function generateXML() {
     arrXml.push(xmlText.search("beeper"))
     arrXml.push(xmlText.search("math"))
     arrXml.push(xmlText.search("uniqueid"))
+    arrXml.push(xmlText.search("ujson"))
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -448,6 +449,15 @@ function generateXML() {
                         _machine += ","
                         _machine += "unique_id"
 
+                    }
+                    break;
+                case 13:
+                    if (first) {
+                        _import += "import ujson"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "ujson"
                     }
                     break;
             }
@@ -650,7 +660,7 @@ function connect(url) {
         setTimeout(function() {
 
             wizard()
-            cleartmp()
+            //cleartmp()
         }, 500);
 
         ws.onmessage = function(event) {

@@ -94,6 +94,7 @@ Blockly.Blocks['mqtt_publish'] = {
             .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
             .appendField("  Message :");
         this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["Plain text","1"], ["JSON","2"]]), "dropdown")
             .appendField(" Retain :")
             .appendField(new Blockly.FieldCheckbox("TRUE"), "mqtt_retain");
         this.setPreviousStatement(true, null);
@@ -107,14 +108,18 @@ Blockly.Python['mqtt_publish'] = function(block) {
     var text_mqtt_topic = block.getFieldValue('mqtt_topic');
     var value_mqtt_publish = Blockly.Python.valueToCode(block, 'publish', Blockly.Python.ORDER_ATOMIC);
     var checkbox_mqtt_retain = block.getFieldValue('mqtt_retain') == 'TRUE';
+    var dropdown_name = block.getFieldValue('dropdown');
+
     if(checkbox_mqtt_retain){
         checkbox_mqtt_retain = "True"
     }else{
         checkbox_mqtt_retain = "False"
     }
-    // TODO: Assemble Python into code variable.
-    var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
-    // TODO: Change ORDER_NONE to the correct strength.
+    
+    if (dropdown_name == 1)
+        var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',' + value_mqtt_publish + ',retain=' + checkbox_mqtt_retain + ')\n';
+    else
+        var code = 'mqtt.publish(\'' + text_mqtt_topic + '\',ujson.dumps(' + value_mqtt_publish + '),retain=' + checkbox_mqtt_retain + ')\n';
     return code;
 };
 
@@ -910,6 +915,75 @@ Blockly.Python['text_binary'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var code = "b"+String(value_name);
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['init_gyro'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("import Gyro sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#f1c40f');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['init_gyro'] = function(block) {
+  var code = 'import hmc5883l\nsensor = hmc5883l.HMC5883L()\n';
+  return code;
+};
+
+Blockly.Blocks['eiei'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Gyro sensor  axis :")
+        .appendField(new Blockly.FieldTextInput("x"), "axis");
+    this.setOutput(true, null);
+    this.setColour('#f1c40f');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['eiei'] = function(block) {
+  var text_axis = block.getFieldValue('axis');
+  var code = '';
+  if (text_axis == "x")
+    code += 'sensor.axes()[0]';
+  else if (text_axis == "y")
+    code += 'sensor.axes()[1]';
+  else if (text_axis == "z")
+    code += 'sensor.axes()[2]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['ujson_json'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("JSON Key :")
+        .appendField(new Blockly.FieldTextInput("key"), "key1")
+        .appendField("  value :");
+    this.appendDummyInput();
+    this.appendValueInput("NAME2")
+        .setCheck(null)
+        .appendField("Key :")
+        .appendField(new Blockly.FieldTextInput("key"), "key2")
+        .appendField("  value :");
+    this.setOutput(true, null);
+    this.setColour('#8e44ad');
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Python['ujson_json'] = function(block) {
+  var text_key1 = block.getFieldValue('key1');
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  var text_key2 = block.getFieldValue('key2');
+  var value_name2 = Blockly.Python.valueToCode(block, 'NAME2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = "{'" + text_key1 + "': " + value_name + ", '" + text_key2 + "': " + value_name2 + "}";
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };

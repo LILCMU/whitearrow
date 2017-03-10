@@ -74,7 +74,7 @@ var connected = false;
 var term;
 var ws;
 
-var step = 99;
+var step = 0;
 var commandSystem = false;
 var trigger = false;
 var binary_state = 0;
@@ -215,22 +215,37 @@ function checkCMD(commandCMD) {
     }
 }
 
-function wizard() {
-    console.log(localStorage.firsttime)
-    if (step == 3) {
+// function wizard() {
+//     console.log(localStorage.firsttime)
+//     if (step == 3) {
 
-    }
-    if (String(localStorage.firsttime) == "true") {
+//     }
+//     if (String(localStorage.firsttime) == "true") {
+//         step = 0;
+//         $('#step1').trigger('click');
+//         console.log("tes")
+//     } else {
+//         init_first()
+//     }
+// }
+
+function autowizard() {
+    console.log(localStorage.firsttime)
+    if (string(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
-        console.log("tes")
+        init_first(step);
     } else {
-        init_first()
+        // step = 0;
+        // init_first();
     }
+
 }
 
 function init_first() {
     console.log("init")
+    console.log(step)
+    
     switch (step) {
         case 0:
             $('#step1miss').trigger('click');
@@ -251,7 +266,7 @@ function init_first() {
         case 3:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
-            step = 99;
+            step = 0;
             break;
     }
     switch (step + 1) {
@@ -660,7 +675,7 @@ function connect(url) {
         ws.send('import deamon\r\n')
         setTimeout(function() {
 
-            wizard()
+            autowizard()
         }, 500);
 
         ws.onmessage = function(event) {
@@ -1076,9 +1091,6 @@ function smartConfig() {
     console.log(ssid, pass)
     //#!make deamon
 }
-
-
-
 
 var motorwayjson = {
     "A": "1",

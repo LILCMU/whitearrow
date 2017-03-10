@@ -73,6 +73,7 @@ var t_space = Blockly.Python.INDENT + Blockly.Python.INDENT + Blockly.Python.IND
 var connected = false;
 var term;
 var ws;
+var run_status = 0;
 
 var step = 0;
 var commandSystem = false;
@@ -230,7 +231,7 @@ function checkCMD(commandCMD) {
 // }
 
 function autowizard() {
-    console.log(localStorage.firsttime)
+    // console.log(localStorage.firsttime)
     if (string(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
@@ -243,8 +244,8 @@ function autowizard() {
 }
 
 function init_first() {
-    console.log("init")
-    console.log(step)
+    // console.log("init")
+    // console.log(step)
     
     switch (step) {
         case 0:
@@ -674,8 +675,8 @@ function connect(url) {
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
         setTimeout(function() {
-
             autowizard()
+
         }, 500);
 
         ws.onmessage = function(event) {
@@ -843,22 +844,27 @@ function upload_editor() {
 }
 
 function run() {
-    var timenow = new Date();
-
-    ws.send("os.chdir('tmp')\r\n")
-    var code = generate();
-    var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
-    put_file(code, nameInput + ".py")      
-    setTimeout(function() {
+    if (run_status == 1) {
+        term.write('Still running code..\r\n')
+    } else {
+        run_status = 1
+        var timenow = new Date();
+        ws.send("os.chdir('tmp')\r\n")
+        var code = generate();
+        var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
+        put_file(code, nameInput + ".py")      
         setTimeout(function() {
-            ws.send("deamon.run('" + nameInput + "')\r\n")
-            // ws.send(nameInput + '.main()\r\n')
-            ws.send("os.chdir('..')\r\n")
-        }, 500)
-    }, 1000)
+            setTimeout(function() {
+                ws.send("deamon.run('" + nameInput + "')\r\n")
+                // ws.send(nameInput + '.main()\r\n')
+                ws.send("os.chdir('..')\r\n")
+            }, 500)
+        }, 1000)
+    }
 }
 
 function stop() {
+    run_status = 0;
     ws.send(String.fromCharCode(3))
 
 }
@@ -1193,8 +1199,6 @@ function smart_ap() {
 }
 
 
-
-
 var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf" + parseInt(Math.random() * 100, 10));
 
 client.onMessageArrived = function(message) {
@@ -1207,11 +1211,11 @@ var options = {
     timeout: 3,
     //Gets Called if the connection has successfully been established
     onSuccess: function() {
-        alert("Connected");
+        console.log("Connected");
     },
     //Gets Called if the connection could not be established
     onFailure: function(message) {
-        alert("Connection failed: " + message.errorMessage);
+        console.log("Connection failed: " + message.errorMessage);
     }
 
 };

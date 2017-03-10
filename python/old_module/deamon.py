@@ -132,10 +132,10 @@ def run(filename):
     __import__('oled').finished(filename)
     
 
-def autorun(filename):
-    f = open('main.py', 'w')
-    f.write('import '+ filename+'\r\n'+filename+'.main()\r\n'+'main()\r\n')
-    f.close()
+# def autorun(filename):
+#     f = open('main.py', 'w')
+#     f.write('import '+ filename+'\r\n'+filename+'.main()\r\n'+'main()\r\n')
+#     f.close()
 
 def heartbeat():
     send('cmd:true')

@@ -874,24 +874,24 @@
         </block>
         <block type="oled_clear"></block>
     </category>
-    <category id="catWifi" colour="#16a085" name="Wifi">
+    <category id="catWifi" colour="#16a085" name="Wifi">    
         <!-- <block type="wlan_import"></block> -->
         <block type="WLAN_setting"></block>
         <block type="WLAN_connectwifi"></block>
         <block type="WLAN_checknetwork"></block>
     </category>
-    <category id="catio" colour="#1abc9c" name="Input Output">
+    <category id="catio" colour="<div id="27ae60"></div>" name="Input Output">
         <block type="ADC_input"></block>
-        <block type="Pin_output">
+        <block type="Pin_output"></block>
+        <block type="init_gyro"></block>
+        <block type="eiei"></block>
+        <block type="Pin_motor_output">
             <value name="onoff_value">
                 <block type="Pin_hl">
                     <field name="value">On</field>
                 </block>
             </value>
         </block>
-        <block type="init_gyro"></block>
-        <block type="eiei"></block>
-        <block type="Pin_motor_output"></block>
         <block type="Pin_hl"></block>
         <block type="Pin_PWM_output"></block>
         <block type="Pin_PWM_servo_heading"></block>
@@ -916,7 +916,7 @@
         </block>
         <block type="Pin_PWMDeinit"></block>-->
     </category>
-    <category id="i2c" colour="#27ae60" name="I2C">
+    <category id="i2c" colour="#1abc9c" name="I2C">
         <block type="Pin_I2C_read"></block>
         <block type="Pin_I2C_write">
             <value name="i2c">

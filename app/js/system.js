@@ -264,7 +264,8 @@ function init_first() {
             break;
 
         case 3:
-            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\nimport machine\r\nmachine.reset()\r\n')
+            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
+            ws.send("__import__('machine').reset()\r\n")
             break;
     }
 
@@ -1110,12 +1111,6 @@ $('[id^=Motor]').click(function() {
     } else {
         ws.send("deamon.monitor(" + '"motor","' + id + '","0")\r\n')
     }
-
-
-
-
-
-
 });
 var sel = true;
 $('#read').click(function() {

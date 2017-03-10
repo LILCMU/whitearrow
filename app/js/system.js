@@ -232,7 +232,7 @@ function checkCMD(commandCMD) {
 
 function autowizard() {
     // console.log(localStorage.firsttime)
-    if (string(localStorage.firsttime) == "true") {
+    if (String(localStorage.firsttime) == "true") {
         step = 0;
         $('#step1').trigger('click');
         init_first(step);

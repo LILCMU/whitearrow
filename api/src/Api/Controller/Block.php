@@ -2,12 +2,13 @@
 namespace Api\Controller;
 
 use MrMe\Web\Controller;
+use MrMe\Web\Validate as WebValidate;
 use MrMe\Database\MySql\MySqlConnection as MySqlConnection;
 use MrMe\Database\MySql\MySqlCommand as MySqlCommand;
 
 class Block extends Controller
 {
-	public function addblock()
+	public function addaddon()
 	{
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: POST");
@@ -18,7 +19,7 @@ class Block extends Controller
 		$dname    = $this->request->body->dname;
 		$xml      = $this->request->body->xml;
 		$des      = $this->request->body->des;
-		$path     = "add-ons/" .$dname. "/" .$aname. ".eiei";
+		$path     = "add-ons/" .$dname. "/" .$aname. ".wa";
 		$patterns = '/(^\s*)|(\s+$)/';
 
 		$aname    = preg_replace($patterns, '', $aname);
@@ -56,7 +57,7 @@ class Block extends Controller
 				{
 					$select = "id";
 					$this->db->select($table, $select);
-					$this->db->and("user_id", "=", 1)
+					$this->db->and("user_id", "=", 1) // TODO : 1 is system don't forget to change it
 							->and("name", "LIKE", "'$aname'")
 							->and("description", "LIKE", "'$des'");
 					$model = $this->db->executeReader();
@@ -75,7 +76,7 @@ class Block extends Controller
 										 "error"   => "Add-on is already has in system"));
 	}
 
-    public function getblock()
+    public function getaddon()
     {
         header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: POST");
@@ -84,19 +85,83 @@ class Block extends Controller
 
 		$addons_id   = $this->request->params->aid;
 
+		WebValidate::isNumber($addons_id, "addons_id must be number.");
+
 		$table   = "systems";
-		$select  = "user_id, path";
-		$this->db->select($table, $select);
-		$this->db->where("id", "=", "$addons_id");
+		$select  = "user_id, path, popular_point";
+		$this->db->select($table, $select)
+				 ->where("id", "=", "$addons_id");
+		$this->db->bindParam("@a_id", $addons_id);
 		$model   = $this->db->executeReader();
 
 		$path = $model[0]->path;
 		$file = file_get_contents("$path", FILE_USE_INCLUDE_PATH);
 
-		$this->response->success(array(
-									"success" => true,
-									"file"    => $file
-								));
+		$new_pop = $model[0]->popular_point+1;
+        $sets  = ["popular_point = @new_pop"];
+		$this->db->update("`systems`", ["popular_point = @new_pop"], "WHERE id = @a_id");
+		$this->db->bindParam("@new_pop", $new_pop);
+		$this->db->bindParam("@a_id", $addons_id);
+		$err = $this->db->execute();
+
+		if ($err)
+			$this->response->error(array("success" => false,
+										"error" => $err));	
+		else
+			$this->response->success(array(
+										"success" => true,
+										"xml"    => $file
+									));
+	}
+
+	public function searchaddon()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: POST");
+		header('Access-Control-Allow-Methods: *');
+		header('Content-Type: application/json');
+
+		$key_search = $this->request->body->key;
+		WebValidate::isEmpty ($key_search, "key cannot empty.");
+
+		$table  = "systems";
+		$select = "id, name, description";
+		$this->db->select($table, $select)
+		         ->where("name", "LIKE @key");
+		$this->db->bindParam("@key", "$key_search%");
+		$model = $this->db->executeReader();
+
+		if ($model)
+			$this->response->success(array("success" => true,
+										   "addons" => $model));
+
+		else 
+			$this->response->success(array("success" => false,
+								   		   "message" => "add-on not found!"));
+		
+	}
+
+	public function getpopularaddon()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: POST");
+		header('Access-Control-Allow-Methods: *');
+		header('Content-Type: application/json');
+
+		$table  = "systems";
+		$select = "id, name, description";
+		$this->db->select($table, $select);
+		$this->db->order('`popular_point`', 'DESC')
+                 ->limit(0, 6);
+		$model = $this->db->executeReader();
+
+		if ($model)
+			$this->response->success(array("success" => true,
+										   "addons" => $model));
+
+		else 
+			$this->response->success(array("success" => false,
+								   		   "message" => "add-on not found!"));
 	}
 
 	public function getlistblock()

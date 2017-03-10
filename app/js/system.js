@@ -264,7 +264,8 @@ function init_first() {
             break;
 
         case 3:
-            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\nimport machine\r\nmachine.reset()\r\n')
+            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
+            ws.send("__import__('machine').reset()\r\n")
             break;
     }
 
@@ -660,7 +661,6 @@ function connect(url) {
         setTimeout(function() {
 
             wizard()
-            //cleartmp()
         }, 500);
 
         ws.onmessage = function(event) {
@@ -831,25 +831,14 @@ function run() {
     var timenow = new Date();
 
     ws.send("os.chdir('tmp')\r\n")
-    ws.send("import oled\r\n")
     var code = generate();
     var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
-    put_file(code, nameInput + ".py")
+    put_file(code, nameInput + ".py")      
     setTimeout(function() {
-        ws.send('import ' + nameInput + '\r\n')
-        setTimeout(function() {
-            ws.send(nameInput + '.main()\r\n')
-            ws.send("oled.finished('" + nameInput + "')\r\ndel oled, " + nameInput + "\r\nos.chdir('..')\r\n")
-        }, 500)
-    }, 2000)
-
-
-}
-
-function cleartmp(argument) {
-    ws.send('import os\r\n')
-    ws.send('deamon.manager("40","","")\r\n')
-
+        ws.send("deamon.run('" + nameInput + "')\r\n")
+        // ws.send(nameInput + '.main()\r\n')
+        ws.send("os.chdir('..')\r\n")
+    }, 500)
 }
 
 function stop() {
@@ -862,8 +851,7 @@ function config() {
 }
 
 function restart() {
-    ws.send("import machine\r\n")
-    ws.send("machine.reset()\r\n")
+    ws.send("__import__('machine').reset()\r\n")
     setTimeout(function() {
         window.location.reload();
     }, 800)
@@ -1123,12 +1111,6 @@ $('[id^=Motor]').click(function() {
     } else {
         ws.send("deamon.monitor(" + '"motor","' + id + '","0")\r\n')
     }
-
-
-
-
-
-
 });
 var sel = true;
 $('#read').click(function() {

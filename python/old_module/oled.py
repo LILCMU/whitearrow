@@ -169,10 +169,16 @@ def connected():
     oled.text('Connected !',0,0)
     oled.show()
     time.sleep(1)
-    oled.fill(0)
-    oled.text('Hello there !',0,16)
-    oled.text('Archer',0,32)
+    oled.text('Hello there !',0,24)
     oled.text('White--Arrow >>',0,56)
+    oled.show()
+
+def running(r_program):
+    oled.fill(0)
+    oled.show()
+    oled.text('Running..',0,0)
+    oled.text(r_program,0,16)
+    oled.text('White--Arrow >>',0,40)
     oled.show()
 
 def finished(f_program):

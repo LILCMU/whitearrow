@@ -835,10 +835,12 @@ function run() {
     var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
     put_file(code, nameInput + ".py")      
     setTimeout(function() {
-        ws.send("deamon.run('" + nameInput + "')\r\n")
-        // ws.send(nameInput + '.main()\r\n')
-        ws.send("os.chdir('..')\r\n")
-    }, 500)
+        setTimeout(function() {
+            ws.send("deamon.run('" + nameInput + "')\r\n")
+            // ws.send(nameInput + '.main()\r\n')
+            ws.send("os.chdir('..')\r\n")
+        }, 500)
+    }, 1000)
 }
 
 function stop() {

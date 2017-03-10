@@ -127,9 +127,9 @@ def run(filename):
     try:
         __import__(filename).main()
     except:
-        send('Sorry!!:can\'t find file or read data')
-    __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)
-    __import__('oled').finished(filename)
+        send('Finished running..'+ filename)
+        __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)
+        __import__('oled').finished(filename)
     
 
 # def autorun(filename):

@@ -63,7 +63,7 @@ if (isAndroid || isiDevice) {
 
 var time = new Date();
 document.getElementById('status').value = "false"
-document.getElementById('filename').value = "NameofProject";
+document.getElementById('filename').value = "Untitled";
 var _import = ""
 var _machine = ""
 var sel = false;
@@ -91,7 +91,7 @@ console.log(document.getElementById('status').value)
 var arraddons = [];
 arraddons = JSON.parse(window.localStorage.getItem('addons'));
 console.log(arraddons)
-//connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
+    //connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
 setInterval(function() {
     Blockly.svgResize(workspace);
     autosaveBlock();
@@ -246,7 +246,7 @@ function autowizard() {
 function init_first() {
     // console.log("init")
     // console.log(step)
-    
+
     switch (step) {
         case 0:
             $('#step1miss').trigger('click');
@@ -297,7 +297,7 @@ function generate() {
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
     var execcode = _import + "\n" + _machine + "\n"
-    // var execcode = _import + "\n"
+        // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
@@ -596,7 +596,7 @@ function shareAddons() {
     var str2 = str + "&xml=" + String(xml_text)
     $.post('http://192.168.12.100:100/nsc2017/api/block/addblock', str2).done(function(data) {
         $('#res').append("<br><h3>your id is " + data + "  </h3><br>")
-        // $('#send').hide();
+            // $('#send').hide();
         console.log(data)
     });
 
@@ -616,7 +616,7 @@ function loadAddons() {
     for (var i = 0; i < lenght; i++) {
         $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
             console.log(data.file)
-            /*var s = document.createElement("script");
+                /*var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = data.wifi.files;
     $("head").append(s);
@@ -795,7 +795,7 @@ function connect(url) {
                         }
                         checkCMD(cmd)
                         log.push(cmd)
-                        // console.log(cmd)
+                            // console.log(cmd)
                         cmd = ""
                         arrCMD = []
                     };
@@ -851,11 +851,11 @@ function run() {
         ws.send("os.chdir('tmp')\r\n")
         var code = generate();
         var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
-        put_file(code, nameInput + ".py")      
+        put_file(code, nameInput + ".py")
         setTimeout(function() {
             setTimeout(function() {
                 ws.send("deamon.run('" + nameInput + "')\r\n")
-                // ws.send(nameInput + '.main()\r\n')
+                    // ws.send(nameInput + '.main()\r\n')
                 ws.send("os.chdir('..')\r\n")
             }, 500)
         }, 1000)
@@ -1063,7 +1063,7 @@ function loadfile(num) {
     console.log(arrfile[num])
     get_file(arrfile[num])
     refreshFile()
-    //
+        //
 }
 
 
@@ -1092,7 +1092,7 @@ function smartConfig() {
     var ssid = document.getElementById('ssidconfig').value
     var pass = document.getElementById('passconfig').value
     console.log(ssid, pass)
-    //#!make deamon
+        //#!make deamon
 }
 
 var motorwayjson = {
@@ -1130,13 +1130,15 @@ $('[id^=Motor]').click(function() {
     }
 });
 var sel = true;
-$('#read').click(function() {
+$('#read').click(function() { //read sensor
     if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
         sel = false;
+        $(this).text("stop")
     } else {
         ws.send(String.fromCharCode(3))
         sel = true
+        $(this).text("streaming")
     }
 
 
@@ -1157,22 +1159,10 @@ $('#clear_OLED').click(function() {
 
 $('#start_beeper').click(function() {
     var f = document.getElementById('Freq').value
-    var d = document.getElementById('Duty').value
+    var d = 512
     ws.send('deamon.monitor("beep",' + f + ',' + d + ')\r\n')
 })
 
-$('#read_i2c').click(function() { //response
-    var a = document.getElementById('add_r').value
-    var t = document.getElementById('text_rec').value
-    ws.send('damon.monitor("read,"' + id + '",0)\r\n')
-})
-
-
-$('#write_i2c').click(function() {
-    var a = document.getElementById('add_w').value
-    var r = document.getElementById('writw_rec').value
-    ws.send('deamon.monitor("write",' + id + '",0)\r\n')
-})
 
 
 function smart_Sta() {
@@ -1223,4 +1213,3 @@ setTimeout(function() {
         qos: 2
     });
 }, 500)
-

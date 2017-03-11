@@ -20,6 +20,7 @@
     <!-- Google Fonts -->
     <link href="./resource/roboto.css" rel="stylesheet" type="text/css">
     <link href="./resource/icon.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <link rel="stylesheet" href="./resource/bootstrap.min.css">
     <script src="./resource/jquery.min.js"></script>
     <script src="./resource/bootstrap.min.js"></script>
@@ -85,7 +86,7 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 &nbsp &nbsp &nbsp
-                <a href="./index.html"> <img src="./images/logo.png" height="64" alt="White Arrow" /></a>
+                <a href="./index.html"> <img src="./images/WA_logo_2.png" height="64" alt="White Arrow" /></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -101,12 +102,7 @@
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
             <div class="user-info">
-                <div class="image">
-                    <img src="./images/user.jpg" width="64" height="64" alt="User" />
-                </div>
-                <div class="info-container">
-                    <div class="name" aria-haspopup="true" aria-expanded="false">Archer</div>
-                </div>
+
             </div>
             <!-- #User Info -->
             <!-- Menu -->
@@ -137,7 +133,7 @@
                     </li>
                     <li onclick="menu6()">
                         <a> <i class="material-icons">question_answer</i>
-                            <span>MQTT Message</span>
+                            <span>Viewer</span>
                         </a>
                     </li>
                 </ul>
@@ -174,7 +170,7 @@
                             <li>
                                 <div class="input-field col s6">
                                     <label class="active" for="first_name2">Project Name:</label>
-                                    <input type="text" class="form-control" id="filename" name="filename" class="name" placeholder="project name" required autofocus>
+
                                 </div>
                             </li>
                             <li>
@@ -204,8 +200,7 @@
                         <p>ACCESS POINT SETTINGS</p>
                         <ul class="setting-list">
                             <li>
-                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid"
-                                    value=""><br>
+                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid" value=""><br>
                                 <input type="password" class="form-control" placeholder="micropythoN" required autofocus name="ap_pass" id="ap_pass" value=""><br>
                                 <input type="button" class="btn btn-primary waves-effect" id="button2" value="Create" onclick="smart_ap(); return false;"><br></li>
                         </ul>
@@ -233,48 +228,54 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom"
-                                    title="Load Add-ons">
+                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
                                     <i class="material-icons">extension</i>
                                 </button>
                                 <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
-                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom"
-                                    title="LOAD ADD-ONS">
+                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD XML">
                                     <i class="material-icons">unarchive</i>
                                 </button>
-                                <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="right"
-                                    title="Generate XML">
+                                <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="GENERATE XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
-                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect" data-toggle="tooltip"
-                                    data-placement="bottom" title="SHARE!!">
-                                    <i class="material-icons">screen_share</i>
+                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect">
+                                    <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">screen_share</i>
                                 </button>
-                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom"
-                                    title="refresh">
+                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Refresh">
                                     <i class="material-icons">refresh</i>
                                 </button>
-                                <button type="button" onclick="wizard()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom"
-                                    title="open wizard">
+                                <button type="button" onclick="init_first()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="Open Wizard">
                                     <i class="material-icons">menu</i>
                                 </button>
                             </div>
                             <div class="col-md-6 text-right">
-                                <button type="button" onclick="run()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
-                                    <i class="material-icons">play_arrow</i>
-                                </button>
-                                <button type="button" onclick="stop()" class="btn bg-teal  waves-effect" data-toggle="tooltip" data-placement="bottom" title="stop">
-                                    <i class="material-icons">stop</i>
-                                </button>
-                                <button type="button" onclick="Savecode()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom"
-                                    title="save file">
+
+                                <input type="text" id="filename" name="filename" class="name" placeholder="Untitled" required autofocus>
+
+
+                                <button type="button" onclick="Savecode()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Save File">
+                                    
                                     <i class="material-icons">save</i>
+                                   <b> SAVE </b>
                                 </button>
-                                <button type="button" onclick="upload()" class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="bottom" title="send to Device">
+                                <button type="button" onclick="upload()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Send to Device">
+                                    
                                     <i class="material-icons">file_upload</i>
+                                   <b> UPLOAD </b>
                                 </button>
+
+
+                                <button type="button" onclick="run()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                    <i class="material-icons">play_arrow</i>
+                                    <b>PLAY</b>
+                                </button>
+                                <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
+                                    <i class="material-icons">stop</i>
+                                   <b> STOP </b>
+                                </button>
+
                             </div>
                         </div>
                         <div class="row">
@@ -286,12 +287,10 @@
                     <div style="position: absolute;right: 15px;">
                         <span>File name:</span>
                         <input type="text" name="get_filename" id="get_filename" value="" />
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
-                            title="save to Device">
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
                                     <i class="material-icons">save</i>
                                 </button>
-                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
-                            title="download file ">
+                        <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="download file ">
                                     <i class="material-icons">file_download</i>
                            </button> </div>
                     <br><br>
@@ -303,13 +302,17 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-cyan">
-                                    <h2> Motor</h2>
+                                    <center>
+                                        <h2> Motor</h2>
+                                    </center>
                                 </div>
                                 <div class="body">
                                     <center>
+                                        <br>
                                         <div class="row">
-                                            <i id="motorwayA" class="material-icons md-48">rotate_right</i>
-                                            <i id="motorwayB" class="material-icons md-48">rotate_right</i></div>
+                                            <button type="button" class="btn bg-teal btn-large waves-effect"><i id="motorwayA" class="material-icons md-96">rotate_right</i></button>
+                                            <button type="button" class="btn bg-teal btn-large  waves-effect"><i id="motorwayB" class="material-icons md-96">rotate_right</i></button></div>
+                                        <br>
                                         <button type="button" class="btn bg-light-green waves-effect" id="MotorA">MotorA OFF</button>
                                         <button type="button" class="btn bg-light-green waves-effect" id="MotorB">MotorB OFF</button>
                                     </center>
@@ -319,7 +322,9 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-red">
-                                    <h2>OLED</h2>
+                                    <center>
+                                        <h2>OLED</h2>
+                                    </center>
                                 </div>
                                 <div class="body">
                                     <input type="text" class="form-control" placeholder="Header" required autofocus name="htext" id="htext_olcd">
@@ -332,56 +337,34 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-blue">
-                                    <h2>Beeper</h2>
+                                    <center>
+                                        <h2>Beeper</h2>
+                                    </center>
                                 </div>
                                 <div class="body">
                                     <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq">
-                                    <input type="text" class="form-control" placeholder="0-1024" required autofocus name="Duty" id="Duty">
                                     <button type="button" class="btn bg-light-green waves-effect" id="start_beeper">start</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="header bg-light-green">
-                                    <h2>I2C read</h2>
-                                </div>
-                                <div class="body">
-                                    <input type="text" class="form-control" placeholder="Address" required autofocus name="add_r" id="add_r">
-                                    <textarea class="form-control" placeholder="text of recieve" required autofocus name="text_rec" id="text_rec"></textarea>
-                                    <br>
-                                    <button type="button" class="btn bg-light-green waves-effect" id="read_i2c">read</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="header bg-amber">
-                                    <h2>I2C write</h2>
-                                </div>
-                                <div class="body">
-                                    <input type="text" class="form-control" placeholder="Address" required autofocus name="add_w" id="add_w">
-                                    <textarea class="form-control" placeholder="text to write" required autofocus name="text_rec" id="writw_rec"></textarea>
-                                    <br>
-                                    <button type="button" class="btn bg-light-green waves-effect" id="write_i2c">write</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
                             <div class="card">
                                 <div class="header bg-deep-orange">
-                                    <h2>sensor</h2>
-                                    <button type="button" class="btn bg-light-blue waves-effect" id="read">Read sensor</button>
+                                    <center>
+                                        <h2>sensor</h2>
+
+                                        <button type="button" class="btn bg-light-blue waves-effect" id="read">streaming</button></center>
                                 </div>
                                 <div class="body">
                                     <div class="progress">
-                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                                            aria-valuemax="1024" style="width: 90%">
+                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1024" style="width: 90%">
                                             Analog sensor
                                         </div>
                                     </div>
-                                    <div class="row center">
-                                        <h4 id="numsensor">0</h4>
+                                    <div class="row">
+                                        <center>
+                                            <h4 id="numsensor">0</h4>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
@@ -407,8 +390,7 @@
                         <div class="card">
                             <div class="header ">
                                 <h3>File Manager</h3>
-                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right"
-                                    title="list file">
+                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right" title="list file">
                                     <i class="material-icons">sort</i>
                                 </button>
                                 <br>
@@ -534,9 +516,7 @@
                             <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
                             <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
                         </div>
-                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right"
-                            data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit=""
-                            data-color-name="bg-red">
+                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
                                         TOP RIGHT
                                     </button></div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -874,7 +854,7 @@
         </block>
         <block type="oled_clear"></block>
     </category>
-    <category id="catWifi" colour="#16a085" name="Wifi">    
+    <category id="catWifi" colour="#16a085" name="Wifi">
         <!-- <block type="wlan_import"></block> -->
         <block type="WLAN_setting"></block>
         <block type="WLAN_connectwifi"></block>
@@ -1055,7 +1035,7 @@
             win: 'Ctrl-S',
             mac: 'Command-S'
         },
-        exec: function (editor) {
+        exec: function(editor) {
             alert("Save Done!!!");
         },
     });
@@ -1116,4 +1096,5 @@
 <script src="./js/share.js"></script>
 <script src="./js/menu.js"></script>
 </body>
+
 </html>

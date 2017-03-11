@@ -831,7 +831,6 @@ function upload() {
 
     // console.log(code)
     put_file(code, document.getElementById('filename').value + '.py')
-
 }
 
 function upload_editor() {
@@ -866,7 +865,6 @@ function run() {
 function stop() {
     run_status = 0;
     ws.send(String.fromCharCode(3))
-
 }
 
 function config() {
@@ -878,7 +876,6 @@ function restart() {
     setTimeout(function() {
         window.location.reload();
     }, 800)
-
 }
 
 function put_file(code, fname) {
@@ -1217,7 +1214,6 @@ var options = {
     onFailure: function(message) {
         console.log("Connection failed: " + message.errorMessage);
     }
-
 };
 
 //Attempt to connect
@@ -1227,3 +1223,4 @@ setTimeout(function() {
         qos: 2
     });
 }, 500)
+

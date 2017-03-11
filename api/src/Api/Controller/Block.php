@@ -88,7 +88,7 @@ class Block extends Controller
 		WebValidate::isNumber($addons_id, "addons_id must be number.");
 
 		$table   = "systems";
-		$select  = "user_id, path, popular_point";
+		$select  = "user_id, path, popular_point, name";
 		$this->db->select($table, $select)
 				 ->where("id", "=", "$addons_id");
 		$this->db->bindParam("@a_id", $addons_id);
@@ -110,7 +110,8 @@ class Block extends Controller
 		else
 			$this->response->success(array(
 										"success" => true,
-										"xml"    => $file
+										"name"    => $model[0]->name, 
+										"xml"     => $file
 									));
 	}
 

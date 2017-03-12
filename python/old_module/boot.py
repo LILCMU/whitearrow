@@ -38,7 +38,7 @@ except OSError:
     os.chdir('..')
 os.chdir('..')
 
-del oled,beeper,gc,network,ap,wlan,f_name,id_name,time,tmp
+del oled,beeper,network,ap,wlan,f_name,id_name,time,tmp
 
 # import micropython,sys
 # micropython.alloc_emergency_exception_buf(100)
@@ -65,3 +65,5 @@ def run(p):
 
 tim = machine.Timer(-1)
 tim.init(period=500,mode=machine.Timer.PERIODIC,callback=run)
+gc.collect()
+del gc

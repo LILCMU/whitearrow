@@ -248,6 +248,9 @@
                                 <button type="button" data-toggle="modal" class="btn bg-light-blue waves-effect" data-target="#listaddons">
                                     <i class="material-icons">extension</i>
                                 </button>
+                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect">
+                                    <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">screen_share</i>
+                                </button>
                                 <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
@@ -256,9 +259,6 @@
                                 </button>
                                 <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="GENERATE XML">
                                     <i class="material-icons">assignment_turned_in</i>
-                                </button>
-                                <button type="button" data-toggle="modal" data-target="#shareconfig" class="btn bg-light-blue waves-effect">
-                                    <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="SHARE!!">screen_share</i>
                                 </button>
                                 <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Refresh">
                                     <i class="material-icons">refresh</i>
@@ -284,9 +284,9 @@
                                 </button>
 
 
-                                <button type="button" onclick="run()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                <button type="button" onclick="run()" class="btn bg-green  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
                                     <i class="material-icons">play_arrow</i>
-                                    <b>PLAY</b>
+                                    <b>RUN</b>
                                 </button>
                                 <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
                                     <i class="material-icons">stop</i>
@@ -303,7 +303,6 @@
                 <div class="row clearfix" id="Editor1">
 
                     <div style="position: absolute;right: 15px;">
-                        <span>File name:</span>
                         <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
                         <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
                                     <i class="material-icons">file_upload</i>
@@ -313,11 +312,11 @@
                                     <i class="material-icons">save</i>
                                      <b> SAVE </b>
                            </button>
-                        <button type="button" onclick="run_code()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                        <button type="button" onclick="run_code()" class="btn bg-green waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
                                     <i class="material-icons">play_arrow</i>
-                                    <b>PLAY</b>
+                                    <b>RUN</b>
                                 </button>
-                        <button type="button" onclick="stop_code()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
+                        <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
                                     <i class="material-icons">stop</i>
                                    <b> STOP </b>
                                 </button>

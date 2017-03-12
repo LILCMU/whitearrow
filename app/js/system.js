@@ -172,6 +172,7 @@ function checkCMD(commandCMD) {
         step = 2;
 
     } else if (commandCMD.split(":")[0] == "step3") {
+        console.log('hello')
         step = 3;
         localStorage.nsc_prompt_ip = document.getElementById("response").value
         localStorage.firsttime = false;
@@ -281,7 +282,7 @@ function init_first() {
 
         case 3:
             ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
-            ws.send("__import__('machine').reset()\r\n")
+            // ws.send("__import__('machine').reset()\r\n")
             break;
     }
 
@@ -594,7 +595,7 @@ function shareAddons() {
     var xml_text = Blockly.Xml.domToText(xml);
     var str = $('form').serialize()
     var str2 = str + "&xml=" + String(xml_text)
-    $.post('http://192.168.0.110:100/nsc2017/api/block/addaddon', str2).done(function(data) {
+    $.post('http://192.168.0.146/nsc2017/api/block/addaddon', str2).done(function(data) {
         $('#res').append("<br><h3>your id is " + data.model[0].id + "  </h3><br>")
             // $('#send').hide();
         console.log(data.model[0].id)
@@ -610,7 +611,7 @@ function resetConfig() {
 }
 
 //get popular
-$.get("http://192.168.0.110:100/nsc2017/api/block/getpopularaddon", function(data) {
+$.get("http://192.168.0.146/nsc2017/api/block/getpopularaddon", function(data) {
     var poppop = data.addons
     for (var i = 0; i < data.addons.length; i++) {
         $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
@@ -620,7 +621,7 @@ $.get("http://192.168.0.110:100/nsc2017/api/block/getpopularaddon", function(dat
 
 function searchAddons() {
     console.log("key=" + $("#searshQeury").val())
-    $.post("http://192.168.0.110:100/nsc2017/api/block/searchaddon?key=G", function(data) {
+    $.post("http://192.168.0.146/nsc2017/api/block/searchaddon?key=G", function(data) {
         // var poppop = data.addons
         console.log(data)
             /* for (var i = 0; i < data.addons.length; i++) {
@@ -636,7 +637,7 @@ function loadAddons(nameID) {
     console.log(nameID)
 
 
-    $.get("http://192.168.0.110:100/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
+    $.get("http://192.168.0.146/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
         console.log(data)
             /*        var s = document.createElement("script");
     s.type = "text/javascript";

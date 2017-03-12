@@ -904,8 +904,8 @@ Blockly.Blocks['Pin_PWM_beeper_start'] = {
             .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
             .appendField("Beeper start frequency :")
             .appendField(new Blockly.FieldNumber(0, 0, 1000), "beeper_freq")
-            .appendField(" volume :")
-            .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
+            // .appendField(" volume :")
+            // .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#f1c40f');
@@ -915,8 +915,8 @@ Blockly.Blocks['Pin_PWM_beeper_start'] = {
 };
 Blockly.Python['Pin_PWM_beeper_start'] = function(block) {
     var number_beeper_freq = block.getFieldValue('beeper_freq');
-    var number_beeper_duty = block.getFieldValue('beeper_duty');
-    var code = "beeper = PWM(Pin(2), freq=" + number_beeper_freq + ", duty=" + number_beeper_duty + ")\n";
+    // var number_beeper_duty = block.getFieldValue('beeper_duty');
+    var code = "beeper = PWM(Pin(2), freq=" + number_beeper_freq + ", duty=512)\n";
     return code;
 };
 

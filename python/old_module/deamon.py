@@ -82,9 +82,11 @@ def init(state,value1,value2):
         oled.text(str(sta_if.ifconfig()[0]),0,48)
         del network,sta_if,oled
     elif(state=="30"):
+        send('step3:ok')
         with open('./webrepl_cfg.py', "w") as f:
             f.write("PASS = %r\n" % value1)
-        send('step3:ok')
+        
+        # __import__('machine').reset()
     elif(state=="40"):
         send('step4:ok')
 

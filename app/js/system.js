@@ -13,7 +13,7 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
 });
 
 sessionStorage.file = []
-
+var database = "192.168.0.110"
 var blocklyArea = document.getElementById('Blockly');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
@@ -282,7 +282,7 @@ function init_first() {
 
         case 3:
             ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
-            // ws.send("__import__('machine').reset()\r\n")
+                // ws.send("__import__('machine').reset()\r\n")
             break;
     }
 
@@ -595,11 +595,14 @@ function shareAddons() {
     var xml_text = Blockly.Xml.domToText(xml);
     var str = $('form').serialize()
     var str2 = str + "&xml=" + String(xml_text)
-    $.post('http://192.168.0.146/nsc2017/api/block/addaddon', str2).done(function(data) {
-        $('#res').append("<br><h3>your id is " + data.model[0].id + "  </h3><br>")
-            // $('#send').hide();
-        console.log(data.model[0].id)
-    });
+    $.post('http://' + database + ':100/nsc2017/api/block/addaddon', str2).done(function(data) {
+            $('#res').append("<br><h3>your id is " + data.model[0].id + "  </h3><br>")
+                // $('#send').hide();
+            console.log(data.model[0].id)
+        })
+        .fail(function() {
+            alert("error");
+        });
 
     console.log(str2)
 
@@ -611,24 +614,36 @@ function resetConfig() {
 }
 
 //get popular
-$.get("http://192.168.0.146/nsc2017/api/block/getpopularaddon", function(data) {
-    var poppop = data.addons
-    for (var i = 0; i < data.addons.length; i++) {
-        $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
+getPopular()
 
-    }
-})
+function getPopular() {
+    $.get("http://" + database + ":100/nsc2017/api/block/getpopularaddon", function(data) {
+        var poppop = data.addons
+        for (var i = 0; i < data.addons.length; i++) {
+            $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
+
+        }
+    })
+}
 
 function searchAddons() {
-    console.log("key=" + $("#searshQeury").val())
-    $.post("http://192.168.0.146/nsc2017/api/block/searchaddon?key=G", function(data) {
-        // var poppop = data.addons
-        console.log(data)
-            /* for (var i = 0; i < data.addons.length; i++) {
-                 $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\">Click to Add</button>")))
+    console.log("key=" + $('#searchquery').val())
+    if ($('#searchquery').val() != "") {
+        $.post("http://" + database + ":100/nsc2017/api/block/searchaddon", "key=" + $('#searchquery').val()).done(function(data) {
+            var poppop = data.addons
+                //console.log(data, "key=" + $('#searchquery').val())
+            for (var i = 0; i < 6; i++) {
+                document.getElementById("pop" + String(i)).innerHTML = ""
+                if (i < data.addons.length) {
+                    $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
+                }
+            } /**/
+        });
+    } else {
+        getPopular()
+    }
 
-             }*/
-    });
+
 }
 
 
@@ -637,7 +652,7 @@ function loadAddons(nameID) {
     console.log(nameID)
 
 
-    $.get("http://192.168.0.146/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
+    $.get("http://" + database + ":100/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
         console.log(data)
             /*        var s = document.createElement("script");
     s.type = "text/javascript";
@@ -985,6 +1000,7 @@ function decode_resp(data) {
         return -1;
     }
 }
+
 
 function put_file_manager() {
     var dest_fname = put_file_name;

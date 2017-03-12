@@ -1,18 +1,18 @@
 // ------------------------------------------------------------------------
 // Bubble Shooter Game Tutorial With HTML5 And JavaScript
 // Copyright (c) 2015 Rembound.com
-// 
-// This program is free software: you can redistribute it and/or modify  
-// it under the terms of the GNU General Public License as published by  
-// the Free Software Foundation, either version 3 of the License, or  
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,  
-// but WITHOUT ANY WARRANTY; without even the implied warranty of  
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
-// GNU General Public License for more details.  
-// 
-// You should have received a copy of the GNU General Public License  
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 // http://rembound.com/articles/bubble-shooter-game-tutorial-with-html5-and-javascript
@@ -1094,7 +1094,7 @@ window.onload = function () {
         else if (shoot == 0)
             chk = true;
     },100)
-    
+
 };
 
 var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "myclientid_" + parseInt(Math.random() * 100, 10));
@@ -1110,13 +1110,34 @@ var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "myclientid_
         //Do something with the push message you received
         // console.log(message.destinationName, message.payloadString)
         var json = JSON.parse(message.payloadString);
-        //   console.log(json.value1); 
-        angle = ((parseInt(json.value1) / 240) * (-50)) + 90;
+        var sensor = parseFloat(json.value1);
+
+        // LIL's TV 
+        var center = -350;
+        var m_left = -1.28571;
+        var c_left = -360;
+        var m_right = -0.3;
+        var c_right = -15;
+
+        // Sun's monitor 
+        // var center = 80;
+        // var c_left = 111.2;
+        // var m_left = -0.265;
+        // var c_right = 180;
+        // var m_right = -1.125;
+
+        if (sensor < center)
+            angle = (m_left*sensor)+c_left;
+        else
+            angle = (m_right*sensor)+c_right;
+        
+        // angle = ((parseInt(json.value1) / 240) * (-50)) + 90;
+        // angle = ((parseInt(json.value1) / 180) * (-180)) + 110;
         // console.log(angle);
 
-        
+
         if (parseInt(json.value2) > 800)
-           {shoot = 1;} 
+           {shoot = 1;}
         else
             {shoot = 0;}
 

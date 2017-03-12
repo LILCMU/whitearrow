@@ -54,6 +54,23 @@
             width: 100%;
             height: 400px;
         }
+        
+        .style-1 {
+            padding: 10px;
+            border: solid 1px gainsboro;
+            -webkit-transition: box-shadow 0.3s, border 0.3s;
+            -moz-transition: box-shadow 0.3s, border 0.3s;
+            -o-transition: box-shadow 0.3s, border 0.3s;
+            transition: box-shadow 0.3s, border 0.3s;
+        }
+        
+        .style-1:focus,
+        .style-1.focus {
+            border: solid 1px #707070;
+            -webkit-box-shadow: 0 0 5px 1px #969696;
+            -moz-box-shadow: 0 0 5px 1px #969696;
+            box-shadow: 0 0 5px 1px #969696;
+        }
     </style>
 </head>
 
@@ -228,7 +245,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" onclick="loadAddons()" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="bottom" title="Load Add-ons">
+                                <button type="button" data-toggle="modal" class="btn bg-light-blue waves-effect" data-target="#listaddons">
                                     <i class="material-icons">extension</i>
                                 </button>
                                 <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
@@ -252,7 +269,7 @@
                             </div>
                             <div class="col-md-6 text-right">
 
-                                <input type="text" id="filename" name="filename" class="name" placeholder="Untitled" required autofocus>
+                                <input type="text" class="style-1 name" id="filename" name="filename" placeholder="Untitled" required autofocus>
 
 
                                 <button type="button" onclick="Savecode()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Save File">
@@ -284,15 +301,27 @@
                     </div>
                 </div>
                 <div class="row clearfix" id="Editor1">
+
                     <div style="position: absolute;right: 15px;">
                         <span>File name:</span>
-                        <input type="text" name="get_filename" id="get_filename" value="" />
+                        <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
                         <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
-                                    <i class="material-icons">save</i>
+                                    <i class="material-icons">file_upload</i>
+                                     <b> UPLOAD </b>
                                 </button>
                         <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="download file ">
-                                    <i class="material-icons">file_download</i>
-                           </button> </div>
+                                    <i class="material-icons">save</i>
+                                     <b> SAVE </b>
+                           </button>
+                        <button type="button" onclick="run_code()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                    <i class="material-icons">play_arrow</i>
+                                    <b>PLAY</b>
+                                </button>
+                        <button type="button" onclick="stop_code()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
+                                    <i class="material-icons">stop</i>
+                                   <b> STOP </b>
+                                </button>
+                    </div>
                     <br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
@@ -431,7 +460,7 @@
                             <div class="modal-body">
                                 <form>
                                     Name:<br>
-                                    <input type="text" name="dname" value="">
+                                    <input type="text" name="dname" value="system">
                                     <br> Add-on Name:<br>
                                     <input type="text" name="aname" value="Example">
                                     <br> Description:
@@ -450,6 +479,46 @@
                     </div>
                 </div>
                 <!--////   end shareconfig ////-->
+                <!--////   listaddons ////-->
+                <div class="modal fade" id="listaddons" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="defaultModalLabel">Add-ons</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="style-1" id="searshQeury" placeholder="nameID" value="">
+                                <button type="button" onclick="searchAddons()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                    <i class="material-icons">search</i>
+                                </button>
+                                <div class="row">
+                                    <div class="col-md-6" id="pop0"></div>
+                                    <div class="col-md-6" id="pop1"></div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" id="pop2"></div>
+                                    <div class="col-md-6" id="pop3"></div>
+                                    <div class="col-md-6" id="pop4"></div>
+                                    <div class="col-md-6" id="pop5"></div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6" id="pop4"></div>
+                                    <div class="col-md-6" id="pop5"></div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--////   end listaddons ////-->
                 <!--////   wizrd setup ////-->
                 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
@@ -511,53 +580,49 @@
                 <!--//// end of  wizrd setup ////-->
                 <div class="row clearfix" id="Message">
                     <div id="backservice">
-                        <div class="jsdemo-notification-button">
-                            <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
-                            <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
-                            <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-placement-text="Disconneced !!!! Please connect internet" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
-                                        TOP RIGHT
-                                    </button></div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="header bg-green">
-                                <h2>subscribe</h2>
-                            </div>
-                            <div class="body">
-                                <input type="text" class="form-control" placeholder="IP address of server" required autofocus name="ipserver_sub" id="ip_server_sub">
-                                <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub">
-                                <button type="button" class="btn bg-light-green waves-effect" id="subscribe">subscribe</button>
+
+                        <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
+                        <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
+                        <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button> /div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-green">
+                                    <h2>subscribe</h2>
+                                </div>
+                                <div class="body">
+                                    <input type="text" class="form-control" placeholder="IP address of server" required autofocus name="ipserver_sub" id="ip_server_sub">
+                                    <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub">
+                                    <button type="button" class="btn bg-light-green waves-effect" id="subscribe">subscribe</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="header bg-red">
-                                <h2>pubish</h2>
-                            </div>
-                            <div class="body">
-                                <input type="text" class="form-control" placeholder="IP address of server" required autofocus name="ipserver_pub" id="ip_server_pub">
-                                <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub">
-                                <button type="button" class="btn bg-light-green waves-effect" id="publish">publish</button>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>pubish</h2>
+                                </div>
+                                <div class="body">
+                                    <input type="text" class="form-control" placeholder="IP address of server" required autofocus name="ipserver_pub" id="ip_server_pub">
+                                    <input type="text" class="form-control" placeholder="Topic" required autofocus name="tpub" id="topic_pub">
+                                    <button type="button" class="btn bg-light-green waves-effect" id="publish">publish</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="card">
-                            <div class="header bg-red">
-                                <h2>push</h2>
-                            </div>
-                            <div class="body">
-                                <section class="subscription-details js-subscription-details is-invisible">
-                                    <pre><code class="js-subscription-json"></code></pre>
-                                </section>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>push</h2>
+                                </div>
+                                <div class="body">
+                                    <section class="subscription-details js-subscription-details is-invisible">
+                                        <pre><code class="js-subscription-json"></code></pre>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- IDE Output content -->
                 </div>
-                <!-- IDE Output content -->
-            </div>
         </section>
         <div class="ide_output_wrapper">
             <ul class="collapsible ide_output_collapsible">
@@ -964,6 +1029,7 @@
         </block>
         <!-- <block type="httplib_json_Netpie_get"></block> -->
     </category>
+    <sep></sep>
 </xml>
 <xml id="blocklyDefault" style="display: none">
     <block type="variables_set">
@@ -1020,6 +1086,7 @@
                         </next>
                     </block>
                 </statement>
+
             </block>
     </block>
 </xml>

@@ -10476,7 +10476,7 @@ fieldset[disabled] .form-control {
     height: calc(100vh - 70px);
     position: fixed;
     right: -300px;
-    top: 80px;
+    top: 70px;
     background: #fdfdfd;
     z-index: 11 !important;
     -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);

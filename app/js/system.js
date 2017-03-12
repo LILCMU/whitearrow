@@ -594,10 +594,10 @@ function shareAddons() {
     var xml_text = Blockly.Xml.domToText(xml);
     var str = $('form').serialize()
     var str2 = str + "&xml=" + String(xml_text)
-    $.post('http://192.168.12.100:100/nsc2017/api/block/addblock', str2).done(function(data) {
-        $('#res').append("<br><h3>your id is " + data + "  </h3><br>")
+    $.post('http://192.168.0.110:100/nsc2017/api/block/addaddon', str2).done(function(data) {
+        $('#res').append("<br><h3>your id is " + data.model[0].id + "  </h3><br>")
             // $('#send').hide();
-        console.log(data)
+        console.log(data.model[0].id)
     });
 
     console.log(str2)
@@ -609,43 +609,75 @@ function resetConfig() {
     $('#send').show();
 }
 
-function loadAddons() {
-    var lenght = $(arraddons).size();
-    console.log(lenght)
+//get popular
+$.get("http://192.168.0.110:100/nsc2017/api/block/getpopularaddon", function(data) {
+    var poppop = data.addons
+    for (var i = 0; i < data.addons.length; i++) {
+        $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
 
-    for (var i = 0; i < lenght; i++) {
-        $.get("http://192.168.12.100:100/nsc2017/api/block/getblock/aid/" + String(arraddons[i]), function(data) {
-            console.log(data.file)
-                /*var s = document.createElement("script");
+    }
+})
+
+function searchAddons() {
+    console.log("key=" + $("#searshQeury").val())
+    $.post("http://192.168.0.110:100/nsc2017/api/block/searchaddon?key=G", function(data) {
+        // var poppop = data.addons
+        console.log(data)
+            /* for (var i = 0; i < data.addons.length; i++) {
+                 $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\">Click to Add</button>")))
+
+             }*/
+    });
+}
+
+
+function loadAddons(nameID) {
+
+    console.log(nameID)
+
+
+    $.get("http://192.168.0.110:100/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
+        console.log(data)
+            /*        var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = data.wifi.files;
     $("head").append(s);
-  console.log(data.wifi.xml)
-  var xmlToolbox = document.getElementById('toolbox');
-  console.log(xmlToolbox);
-  var addons = document.createElement('category');
-  var categoryTitle ='Addons';
-  addons.id = 'catnetwork'
-  addons.setAttribute('colour', 210);
-  addons.setAttribute('name', "Add-ons");
-      for(var i = 0;i < data.wifi.xml.length ; i++){
-            var b1 = document.createElement('block')
-            b1.setAttribute('type',data.wifi.xml[i])
-            addons.appendChild(b1)
-      }
-  xmlToolbox.appendChild(addons);
-  workspace.updateToolbox(xmlToolbox);
-*/
-            var xml_text = data.file;
-            var xml = Blockly.Xml.textToDom(xml_text);
-            Blockly.Xml.domToWorkspace(workspace, xml);
+  console.log(data.wifi.xml)*/
+        var parser, xmlDoc;;
+        parser = new DOMParser();
+        xmlDoc = parser.parseFromString(data.xml, "text/xml");
+        var xmlString = (new XMLSerializer()).serializeToString(xmlDoc.getElementsByTagName("block")[1]);
 
-            console.log("Load was success.");
-        }).done(function() {
+        var xmlToolbox = document.getElementById('toolbox');
+        console.log(xmlToolbox);
+        var addons = document.createElement('category');
+        var categoryTitle = 'Addons';
 
-        });
+        addons.id = 'cat' + data.name
+        addons.setAttribute('colour', Math.floor((Math.random() * 100) + 100));
+        addons.setAttribute('name', data.name);
 
-    }
+        var xml_t = Blockly.Xml.textToDom(String(xmlString.replace('xmlns="http://www.w3.org/1999/xhtml"', '')));
+        addons.append(xml_t)
+
+        xmlToolbox.appendChild(addons);
+        workspace.updateToolbox(xmlToolbox);
+
+        var xml_text = '<xml xmlns="http://www.w3.org/1999/xhtml">' + String(xmlString.replace('xmlns="http://www.w3.org/1999/xhtml"', '')) + '</xml>';
+        var xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(workspace, xml);
+
+
+
+
+
+
+        console.log(String(xmlString.replace('xmlns="http://www.w3.org/1999/xhtml"', '')));
+    }).done(function() {
+
+    });
+
+
 };
 
 function connect(url) {
@@ -866,6 +898,27 @@ function stop() {
     run_status = 0;
     ws.send(String.fromCharCode(3))
 }
+
+function run_code() {
+    if (run_status == 1) {
+        term.write('Still running code..\r\n')
+    } else {
+        run_status = 1
+        var timenow = new Date();
+        ws.send("os.chdir('tmp')\r\n")
+        var code = editor.getValue();
+        var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
+        put_file(code, nameInput + ".py")
+        setTimeout(function() {
+            setTimeout(function() {
+                ws.send("deamon.run('" + nameInput + "')\r\n")
+                    // ws.send(nameInput + '.main()\r\n')
+                ws.send("os.chdir('..')\r\n")
+            }, 500)
+        }, 1000)
+    }
+}
+
 
 function config() {
     wizard()

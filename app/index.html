@@ -442,9 +442,9 @@
                         <div class="card">
                             <div class="body">
                                 <strong>Upload file</strong>
-                                <input type="file" id="put-file-select" />
+                                <div> <input type="file" id="put-file-select" /> </div>
                                 <div id="put-file-list"></div>
-                                <input type="button" value="Send to device" id="put-file-button" onclick="put_file_manager(); return false;" />
+                                <input type="button" value="Send to device" class="btn bg-orange  waves-effect" id="put-file-button" onclick="put_file_manager(); return false;" />
                             </div>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
                                 <h4 class="modal-title" id="defaultModalLabel">Add-ons</h4>
                             </div>
                             <div class="modal-body">
-                                <input type="text" class="style-1" id="searshQeury" placeholder="nameID" value="">
+                                <input type="text" class="style-1" id="searchquery" placeholder="nameID" value="">
                                 <button type="button" onclick="searchAddons()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
                                     <i class="material-icons">search</i>
                                 </button>

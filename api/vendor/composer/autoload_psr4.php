@@ -8,9 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'Tests\\' => array($baseDir . '/src/Tests'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
-    'MrMe\\' => array($baseDir . '/src/MrMe'),
-    'MrMe/Database\\' => array($baseDir . '/src/MrMe/Database'),
-    'MrMe/Database/MySql\\' => array($baseDir . '/src/MrMe/Database/MySql'),
+    'MrMe\\' => array($vendorDir . '/php-mrme/php-mrme/src/MrMe'),
+    'MrMe/Database\\' => array($vendorDir . '/php-mrme/php-mrme/src/MrMe/Database'),
+    'MrMe/Database/MySql\\' => array($vendorDir . '/php-mrme/php-mrme/src/MrMe/Database/MySql'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Api\\' => array($baseDir . '/src/Api'),
 );

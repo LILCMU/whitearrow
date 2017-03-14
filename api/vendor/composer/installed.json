@@ -17,7 +17,7 @@
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2016-10-10 12:19:37",
+        "time": "2016-10-10T12:19:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -96,7 +96,7 @@
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
             "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2016-11-26 00:15:39",
+        "time": "2016-11-26T00:15:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -126,6 +126,118 @@
             "log",
             "logging",
             "psr-3"
+        ]
+    },
+    {
+        "name": "phpoffice/phpexcel",
+        "version": "1.8.1",
+        "version_normalized": "1.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPOffice/PHPExcel.git",
+            "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+            "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+            "shasum": ""
+        },
+        "require": {
+            "ext-xml": "*",
+            "ext-xmlwriter": "*",
+            "php": ">=5.2.0"
+        },
+        "time": "2015-05-01T07:00:55+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PHPExcel": "Classes/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL"
+        ],
+        "authors": [
+            {
+                "name": "Maarten Balliauw",
+                "homepage": "http://blog.maartenballiauw.be"
+            },
+            {
+                "name": "Mark Baker"
+            },
+            {
+                "name": "Franck Lefevre",
+                "homepage": "http://blog.rootslabs.net"
+            },
+            {
+                "name": "Erik Tilt"
+            }
+        ],
+        "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+        "homepage": "http://phpexcel.codeplex.com",
+        "keywords": [
+            "OpenXML",
+            "excel",
+            "php",
+            "spreadsheet",
+            "xls",
+            "xlsx"
+        ]
+    },
+    {
+        "name": "php-mrme/php-mrme",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/supanut-pgs/php-mrme.git",
+            "reference": "aa74181197847925e963b771725dbf941a326f46"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/supanut-pgs/php-mrme/zipball/aa74181197847925e963b771725dbf941a326f46",
+            "reference": "aa74181197847925e963b771725dbf941a326f46",
+            "shasum": ""
+        },
+        "require": {
+            "monolog/monolog": "^1.22",
+            "php": ">=5.3.0",
+            "phpoffice/phpexcel": "^1.8.0"
+        },
+        "time": "2017-02-20T06:40:57+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "MrMe\\": "src/MrMe",
+                "MrMe/Database\\": "src/MrMe/Database",
+                "MrMe/Database/MySql\\": "src/MrMe/Database/MySql"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Supanut Panyagosa",
+                "email": "supanut.pgs@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Tananut Panyagosa",
+                "email": "tongtananut@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Api framework for PHP 5.3",
+        "homepage": "https://github.com/supanut-pgs/php-mrme",
+        "keywords": [
+            "api",
+            "framework"
         ]
     }
 ]

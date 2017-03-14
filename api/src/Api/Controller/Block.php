@@ -128,7 +128,7 @@ class Block extends Controller
 		$table  = "systems";
 		$select = "id, name, description";
 		$this->db->select($table, $select)
-		         ->where("name", "LIKE @key");
+		         ->where("name", "LIKE", "@key");
 		$this->db->bindParam("@key", "$key_search%");
 		$model = $this->db->executeReader();
 

@@ -1,5 +1,5 @@
 {
-    "name": "",
+    "name": "NSC2017",
     "authors": [
         {
             "name": "Tananut Panyagosa",
@@ -7,13 +7,11 @@
         }
     ],
     "require": {
-        "monolog/monolog": "^1.22"
+        "monolog/monolog": "^1.22",
+        "php-mrme/php-mrme":"dev-master"
     },
     "autoload":{
     	"psr-4": {
-            "MrMe\\":"src/MrMe",
-            "MrMe/Database\\":"src/MrMe/Database",
-            "MrMe/Database/MySql\\":"src/MrMe/Database/MySql",
             "Api\\":"src/Api",
             "Tests\\":"src/Tests"
         }

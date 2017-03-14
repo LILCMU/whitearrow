@@ -32,4 +32,5 @@ $router->route("user/{F}", new User());
 // $router->route("subscribe/{F}", new Subscribe());
 //$router->begin();
 
+$router->start();
 ?>

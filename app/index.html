@@ -257,13 +257,16 @@
                                 <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD XML">
                                     <i class="material-icons">unarchive</i>
                                 </button>
+                                <!--
                                 <button type="button" onclick="generateXML()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="GENERATE XML">
                                     <i class="material-icons">assignment_turned_in</i>
                                 </button>
-                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Refresh">
+                                
+                                <button type="button" onclick="restart()" class="btn bg-pink  waves-effect" data-toggle="tooltip" data-placement="bottom" title="RESET">
                                     <i class="material-icons">refresh</i>
                                 </button>
-                                <button type="button" onclick="init_first()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="Open Wizard">
+                                -->
+                                <button type="button" onclick="init_first()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="WIRELESS SETUP">
                                     <i class="material-icons">menu</i>
                                 </button>
                             </div>
@@ -271,26 +274,27 @@
 
                                 <input type="text" class="style-1 name" id="filename" name="filename" placeholder="Untitled" required autofocus>
 
-
-                                <button type="button" onclick="Savecode()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Save File">
+                                <!--
+                              <button type="button" onclick="Savecode()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Save File">
                                     
                                     <i class="material-icons">save</i>
                                    <b> SAVE </b>
                                 </button>
-                                <button type="button" onclick="upload()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="Send to Device">
+                                -->
+                                <button type="button" onclick="upload()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="SEND TO WHITE ARROW">
                                     
                                     <i class="material-icons">file_upload</i>
-                                   <b> UPLOAD </b>
+                                   <b> SEND TO BOARD </b>
                                 </button>
 
 
-                                <button type="button" onclick="run()" class="btn bg-green  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                <button type="button" onclick="run()" class="btn bg-green  waves-effect" data-toggle="tooltip" data-placement="bottom" title="RUN FILE">
                                     <i class="material-icons">play_arrow</i>
                                     <b>RUN</b>
                                 </button>
-                                <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
+                                <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="STOP FILE">
                                     <i class="material-icons">stop</i>
-                                   <b> STOP </b>
+                                   <b> STOP</b>
                                 </button>
 
                             </div>
@@ -304,19 +308,21 @@
 
                     <div style="position: absolute;right: 15px;">
                         <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="save to Device">
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="SEND TO WHITE ARROW">
                                     <i class="material-icons">file_upload</i>
-                                     <b> UPLOAD </b>
+                                    <b> SEND TO BOARD </b>
                                 </button>
+                        <!--
                         <button type="button" onclick="Savecode_edi()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="download file ">
                                     <i class="material-icons">save</i>
                                      <b> SAVE </b>
                            </button>
-                        <button type="button" onclick="run_code()" class="btn bg-green waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                           -->
+                        <button type="button" onclick="run_code()" class="btn bg-green waves-effect" data-toggle="tooltip" data-placement="bottom" title="RUN FILE">
                                     <i class="material-icons">play_arrow</i>
                                     <b>RUN</b>
                                 </button>
-                        <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Stop">
+                        <button type="button" onclick="stop()" class="btn bg-red  waves-effect" data-toggle="tooltip" data-placement="bottom" title="STOP FILE">
                                     <i class="material-icons">stop</i>
                                    <b> STOP </b>
                                 </button>

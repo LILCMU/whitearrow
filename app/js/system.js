@@ -142,7 +142,7 @@ function button_click() {
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
         connected = true;
         $('#ide_output_collapsible_header').trigger('click');
-        connect('ws://' + document.getElementById('url').value + ':8266/');
+        connect('wss://' + document.getElementById('url').value + ':8266/');
         localStorage.nsc_prompt_ip = document.getElementById('url').value
     }
 }

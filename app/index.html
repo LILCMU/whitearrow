@@ -54,7 +54,7 @@
             width: 100%;
             height: 400px;
         }
-        
+
         .style-1 {
             padding: 10px;
             border: solid 1px gainsboro;
@@ -63,7 +63,7 @@
             -o-transition: box-shadow 0.3s, border 0.3s;
             transition: box-shadow 0.3s, border 0.3s;
         }
-        
+
         .style-1:focus,
         .style-1.focus {
             border: solid 1px #707070;
@@ -101,8 +101,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                &nbsp &nbsp &nbsp
+                <a href="javascript:void(0);" class="bars"></a> &nbsp &nbsp &nbsp
                 <a href="./index.html"> <img src="./images/WA_logo_2.png" height="64" alt="White Arrow" /></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -217,7 +216,8 @@
                         <p>ACCESS POINT SETTINGS</p>
                         <ul class="setting-list">
                             <li>
-                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid" value=""><br>
+                                <input type="text" class="form-control" placeholder="ex. Micropython-xxxx" required autofocus name="ap_ssid" id="ap_ssid"
+                                    value=""><br>
                                 <input type="password" class="form-control" placeholder="micropythoN" required autofocus name="ap_pass" id="ap_pass" value=""><br>
                                 <input type="button" class="btn btn-primary waves-effect" id="button2" value="Create" onclick="smart_ap(); return false;"><br></li>
                         </ul>
@@ -254,7 +254,8 @@
                                 <button type="button" onclick="save()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="SAVE XML">
                                     <i class="material-icons">archive</i>
                                 </button>
-                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom" title="LOAD XML">
+                                <button type="button" onclick="loadXml()" class="btn bg-indigo waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="LOAD XML">
                                     <i class="material-icons">unarchive</i>
                                 </button>
                                 <!--
@@ -266,7 +267,8 @@
                                     <i class="material-icons">refresh</i>
                                 </button>
                                 -->
-                                <button type="button" onclick="init_first()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom" title="WIRELESS SETUP">
+                                <button type="button" onclick="init_first()" class="btn bg-pink   waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="WIRELESS SETUP">
                                     <i class="material-icons">menu</i>
                                 </button>
                             </div>
@@ -281,7 +283,8 @@
                                    <b> SAVE </b>
                                 </button>
                                 -->
-                                <button type="button" onclick="upload()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom" title="SEND TO WHITE ARROW">
+                                <button type="button" onclick="upload()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="SEND TO WHITE ARROW">
                                     
                                     <i class="material-icons">file_upload</i>
                                    <b> SEND TO BOARD </b>
@@ -308,7 +311,8 @@
 
                     <div style="position: absolute;right: 15px;">
                         <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom" title="SEND TO WHITE ARROW">
+                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
+                            title="SEND TO WHITE ARROW">
                                     <i class="material-icons">file_upload</i>
                                     <b> SEND TO BOARD </b>
                                 </button>
@@ -318,7 +322,8 @@
                                      <b> SAVE </b>
                            </button>
                            -->
-                        <button type="button" onclick="run_code()" class="btn bg-green waves-effect" data-toggle="tooltip" data-placement="bottom" title="RUN FILE">
+                        <button type="button" onclick="run_code()" class="btn bg-green waves-effect" data-toggle="tooltip" data-placement="bottom"
+                            title="RUN FILE">
                                     <i class="material-icons">play_arrow</i>
                                     <b>RUN</b>
                                 </button>
@@ -391,7 +396,8 @@
                                 </div>
                                 <div class="body">
                                     <div class="progress">
-                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1024" style="width: 90%">
+                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                            aria-valuemax="1024" style="width: 90%">
                                             Analog sensor
                                         </div>
                                     </div>
@@ -424,7 +430,8 @@
                         <div class="card">
                             <div class="header ">
                                 <h3>File Manager</h3>
-                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right" title="list file">
+                                <button type="button" onclick="refreshFile()" class="btn bg-green   waves-effect" data-toggle="tooltip" data-placement="right"
+                                    title="list file">
                                     <i class="material-icons">sort</i>
                                 </button>
                                 <br>
@@ -450,7 +457,8 @@
                                 <strong>Upload file</strong>
                                 <div> <input type="file" id="put-file-select" /> </div>
                                 <div id="put-file-list"></div>
-                                <input type="button" value="Send to device" class="btn bg-orange  waves-effect" id="put-file-button" onclick="put_file_manager(); return false;" />
+                                <input type="button" value="Send to device" class="btn bg-orange  waves-effect" id="put-file-button" onclick="put_file_manager(); return false;"
+                                />
                             </div>
                         </div>
                     </div>
@@ -493,7 +501,8 @@
                             </div>
                             <div class="modal-body">
                                 <input type="text" class="style-1" id="searchquery" placeholder="nameID" value="">
-                                <button type="button" onclick="searchAddons()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom" title="Run">
+                                <button type="button" onclick="searchAddons()" class="btn btn-success  waves-effect" data-toggle="tooltip" data-placement="bottom"
+                                    title="Run">
                                     <i class="material-icons">search</i>
                                 </button>
                                 <div class="row">
@@ -529,7 +538,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="largeModalLabel">Automade STEP 1</h4>
+                                <h4 class="modal-title" id="largeModalLabel">Connect your device to White-Arrow</h4>
                             </div>
                             <div class="modal-body">
                                 <h3>Connect to <big>"micropython - xxxxxx"</big> access point </h3><br>
@@ -546,14 +555,14 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="largeModalLabel">Automade step 2</h4>
+                                <h4 class="modal-title" id="largeModalLabel">White-Arrow Wi-Fi Setting</h4>
                             </div>
                             <div class="modal-body">SSID :
-                                <input type="text" class="form-control" id="ssid" placeholder="SSID" value=""><br> password:
-                                <input type="password" class="form-control" id="pass_ssid" placeholder="PASSWORD" value=""><br>
+                                <input type="text" class="form-control" id="ssid" placeholder="Wi-Fi Name" value=""><br>                                Password:
+                                <input type="password" class="form-control" id="pass_ssid" placeholder="Password" value=""><br>
                                 <p id="responseStep2"></p><br>
-                                <h4>Set a new SSID and Password</h4><br>
-                                <h4>Press "Next" when finished fill</h4>
+                                <h4>Connect to SSID and Password</h4><br>
+                                <h4>Press "Next" when completed form</h4>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="step2btn" onclick="init_first()" class="btn btn-link waves-effect">NEXT</button>
@@ -566,7 +575,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content modal-col-grey">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="largeModalLabel">Automade step 3</h4>
+                                <h4 class="modal-title" id="largeModalLabel">Websocket Password Setting</h4>
                             </div>
                             <div class="modal-body">
                                 <h4>ip address : &nbsp&nbsp
@@ -588,7 +597,7 @@
 
                         <button type="button" id="step1" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal">AMBER</button>
                         <button type="button" id="step2" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal2">AMBER</button>
-                        <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button> /div>
+                        <button type="button" id="step3" data-color="amber" class="btn bg-amber waves-effect" data-toggle="modal" data-target="#largeModal3">AMBER</button>                        /div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="header bg-green">
@@ -1107,7 +1116,7 @@
             win: 'Ctrl-S',
             mac: 'Command-S'
         },
-        exec: function(editor) {
+        exec: function (editor) {
             alert("Save Done!!!");
         },
     });

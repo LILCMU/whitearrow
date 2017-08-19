@@ -368,6 +368,7 @@
                                 <div class="body">
                                     <input type="text" class="form-control" placeholder="Header" required autofocus name="htext" id="htext_olcd">
                                     <input type="text" class="form-control" placeholder="Text" required autofocus name="text" id="text_olcd">
+                                    <br>
                                     <button type="button" class="btn bg-light-green waves-effect" id="show_OLED">show</button>
                                     <button type="button" class="btn bg-light-green waves-effect" id="clear_OLED">clear</button>
                                 </div>
@@ -381,7 +382,8 @@
                                     </center>
                                 </div>
                                 <div class="body">
-                                    <input type="text" class="form-control" placeholder="Frequency" required autofocus name="Freq" id="Freq">
+                                    <input type="text" class="form-control" placeholder="Frequency ( 0 - 1024 )" required autofocus name="Freq" id="Freq">
+                                    <br>
                                     <button type="button" class="btn bg-light-green waves-effect" id="start_beeper">start</button>
                                 </div>
                             </div>
@@ -390,15 +392,15 @@
                             <div class="card">
                                 <div class="header bg-deep-orange">
                                     <center>
-                                        <h2>sensor</h2>
-
-                                        <button type="button" class="btn bg-light-blue waves-effect" id="read">streaming</button></center>
+                                        <h2>Sensor</h2>
+                                    </center>
                                 </div>
                                 <div class="body">
+                                    <center><button type="button" class="btn bg-light-blue waves-effect" id="read">Start</button></center>
+                                    <br>
                                     <div class="progress">
-                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                                            aria-valuemax="1024" style="width: 90%">
-                                            Analog sensor
+                                        <div id="sensorbar" class="progress-bar bg-orange progress-bar-striped" role="progressbar" aria-valuenow="1024" aria-valuemin="0" aria-valuemax="1024" style="width: 100%">
+                                            Analog Sensor
                                         </div>
                                     </div>
                                     <div class="row">

@@ -892,7 +892,9 @@ function upload_editor() {
 
 function run() {
     if (run_status == 1) {
-        term.write('Still running code..\r\n')
+        // term.write('Still running code..\r\n')
+        stop()
+        run()
     } else {
         run_status = 1
         var timenow = new Date();
@@ -917,7 +919,9 @@ function stop() {
 
 function run_code() {
     if (run_status == 1) {
-        term.write('Still running code..\r\n')
+        // term.write('Still running code..\r\n')
+        stop()
+        run()
     } else {
         run_status = 1
         var timenow = new Date();

@@ -51,8 +51,9 @@
     <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
     <style type="text/css" media="screen">
         #editor {
-            width: 100%;
-            height: 400px;
+            width: 95%;
+            /* height: 80%; */
+            height: 600px;
         }
 
         .style-1 {
@@ -309,9 +310,10 @@
                 </div>
                 <div class="row clearfix" id="Editor1">
 
-                    <div style="position: absolute;right: 15px;">
+                    <!-- <div style="position: absolute; right: 90px;"> -->
+                    <div class="col-md-12 text-right" style="position: absolute; right: 90px;">
                         <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
-                        <button type="button" onclick="upload_editor()" class="btn bg-pink waves-effect" data-toggle="tooltip" data-placement="bottom"
+                        <button type="button" onclick="upload_editor()" class="btn bg-orange waves-effect" data-toggle="tooltip" data-placement="bottom"
                             title="SEND TO WHITE ARROW">
                                     <i class="material-icons">file_upload</i>
                                     <b> SEND TO BOARD </b>
@@ -332,7 +334,7 @@
                                    <b> STOP </b>
                                 </button>
                     </div>
-                    <br><br>
+                    <br><br><br>
                     <div id="editor">def main(): print('Hello IOT World')
                     </div>
                 </div>
@@ -944,8 +946,8 @@
     <category id="catio" colour="#27ae60" name="Input Output">
         <block type="ADC_input"></block>
         <block type="Pin_output"></block>
-        <block type="init_gyro"></block>
-        <block type="eiei"></block>
+        <!-- <block type="init_gyro"></block>
+        <block type="eiei"></block> -->
         <block type="Pin_motor_output">
             <value name="onoff_value">
                 <block type="Pin_hl">

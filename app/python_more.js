@@ -728,7 +728,7 @@ Blockly.Blocks['ADC_input'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
-            .appendField("Read Sensor on analog port")
+            .appendField("Analog sensor")
         this.setOutput(true, null);
         this.setColour('#4FC3F7');
         this.setTooltip('');

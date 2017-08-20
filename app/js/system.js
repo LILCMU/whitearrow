@@ -1208,11 +1208,11 @@ $('#read').click(function() { //read sensor
     if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
         sel = false;
-        $(this).text("stop")
+        $(this).text("Stop")
     } else {
         ws.send(String.fromCharCode(3))
         sel = true
-        $(this).text("streaming")
+        $(this).text("Start")
     }
 
 

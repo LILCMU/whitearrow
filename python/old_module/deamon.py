@@ -130,7 +130,6 @@ def run(filename):
         __import__(filename).main()
         send('Finished running..'+ filename)
         __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)
-        __import__('oled').finished(filename)
     except:
         send('Finished running..'+ filename)
         __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)

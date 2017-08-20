@@ -427,7 +427,7 @@ Blockly.Python['WLAN_checknetwork'] = function (block) {
     return code;
 };
 
-var pin_motor = 0;
+var pin_motor = 1;
 Blockly.Blocks['Pin_output'] = {
     init: function () {
         this.appendDummyInput()
@@ -452,6 +452,147 @@ Blockly.Python['Pin_output'] = function (block) {
     } else {
         var code = 'pin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n';
     }
+    return code;
+};
+
+
+// Blockly.Blocks['Pin_motor_output'] = {
+//     init: function () {
+//         this.appendValueInput("onoff_value")
+//             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
+//             .setCheck("Boolean")
+//             .appendField("Turn motor")
+//             .appendField(new Blockly.FieldDropdown([
+//                 ["Clockwise", "right"],
+//                 ["Counter-Clockwise", "left"]
+//             ]), "turn");
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#4FC3F7');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+// Blockly.Python['Pin_motor_output'] = function (block) { // Motor Control
+//     var dropdown_turn = block.getFieldValue('turn');
+//     var value_onoff_value = Blockly.Python.valueToCode(block, 'onoff_value', Blockly.Python.ORDER_ATOMIC);
+//     if (value_onoff_value == '(1)') {
+//         if (dropdown_turn == 'left') {
+//             if (pin_motor == '1') {
+//                 var code = 'pin1.value(1)\npin2.value(0)\n'
+//             } else {
+//                 var code = 'pin3.value(1)\npin4.value(0)\n'
+//             }
+//         } else if (dropdown_turn == 'right') {
+//             if (pin_motor == '1') {
+//                 var code = 'pin1.value(0)\npin2.value(1)\n'
+//             } else {
+//                 var code = 'pin3.value(0)\npin4.value(1)\n'
+//             }
+//         }
+//     } else {
+//         if (pin_motor == '1') {
+//             var code = 'pin1.value(0)\npin2.value(0)\n'
+//         } else {
+//             var code = 'pin3.value(0)\npin4.value(0)\n'
+//         }
+//     }
+//     return code;
+// };
+
+// Blockly.Blocks['Pin_hl'] = {
+//     init: function () {
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
+//             .appendField(new Blockly.FieldDropdown([
+//                 ['On', '1'],
+//                 ['Off', '0']
+//             ]), "value");
+//         this.setOutput(true, null);
+//         this.setColour('#4FC3F7');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+// Blockly.Python['Pin_hl'] = function (block) {
+//     var dropdown_value = block.getFieldValue('value');
+//     // TODO: Assemble Python into code variable.
+//     var code = dropdown_value;
+//     // TODO: Change ORDER_NONE to the correct strength.
+//     return [code, Blockly.Python.ORDER_NONE];
+// };
+
+Blockly.Blocks['Pin_motor_turn'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
+            .appendField("Turn motor")
+            .appendField(new Blockly.FieldDropdown([
+                ["Clockwise", "right"],
+                ["Counter-Clockwise", "left"]
+            ]), "turn");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#4FC3F7');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+var motor_direction = 'right';
+Blockly.Python['Pin_motor_turn'] = function (block) {
+    var dropdown_turn = block.getFieldValue('turn');
+    // TODO: Assemble Python into code variable.
+    motor_direction = dropdown_turn;
+    // console.log(motor_direction);
+
+    return '';
+};
+
+Blockly.Blocks['Pin_motor_onoff'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
+            .appendField("Turn motor")
+            .appendField(new Blockly.FieldDropdown([
+                ["On", "on"],
+                ["Off", "off"]
+            ]), "on_off");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#4FC3F7');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Python['Pin_motor_onoff'] = function (block) {
+    var dropdown_on_off = block.getFieldValue('on_off');
+    // TODO: Assemble Python into code variable.
+    // console.log(motor_direction);
+    if (dropdown_on_off == 'on') {
+        
+        if (motor_direction == 'left') {
+            if (pin_motor == '1') {
+                var code = 'pin1.value(1)\npin2.value(0)\n'
+            } else {
+                var code = 'pin3.value(1)\npin4.value(0)\n'
+            }
+        } else {
+            if (pin_motor == '1') {
+                var code = 'pin1.value(0)\npin2.value(1)\n'
+            } else {
+                var code = 'pin3.value(0)\npin4.value(1)\n'
+            }
+        }
+    } else {
+        if (pin_motor == '1') {
+            var code = 'pin1.value(0)\npin2.value(0)\n'
+        } else {
+            var code = 'pin3.value(0)\npin4.value(0)\n'
+        }
+    }
+    // console.log(code);
     return code;
 };
 
@@ -482,72 +623,6 @@ Blockly.Python['Pin_PWM_output'] = function (block) {
     }
     sensor_servo = 77;
     return code;
-};
-
-Blockly.Blocks['Pin_motor_output'] = {
-    init: function () {
-        this.appendValueInput("onoff_value")
-            .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
-            .setCheck("Boolean")
-            .appendField("Turn motor")
-            .appendField(new Blockly.FieldDropdown([
-                ["Clockwise", "right"],
-                ["Counter-Clockwise", "left"]
-            ]), "turn");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour('#4FC3F7');
-        this.setTooltip('');
-        this.setHelpUrl('');
-    }
-};
-Blockly.Python['Pin_motor_output'] = function (block) { // Motor Control
-    var dropdown_turn = block.getFieldValue('turn');
-    var value_onoff_value = Blockly.Python.valueToCode(block, 'onoff_value', Blockly.Python.ORDER_ATOMIC);
-    if (value_onoff_value == '(1)') {
-        if (dropdown_turn == 'left') {
-            if (pin_motor == '1') {
-                var code = 'pin1.value(1)\npin2.value(0)\n'
-            } else {
-                var code = 'pin3.value(1)\npin4.value(0)\n'
-            }
-        } else if (dropdown_turn == 'right') {
-            if (pin_motor == '1') {
-                var code = 'pin1.value(0)\npin2.value(1)\n'
-            } else {
-                var code = 'pin3.value(0)\npin4.value(1)\n'
-            }
-        }
-    } else {
-        if (pin_motor == '1') {
-            var code = 'pin1.value(0)\npin2.value(0)\n'
-        } else {
-            var code = 'pin3.value(0)\npin4.value(0)\n'
-        }
-    }
-    return code;
-};
-
-Blockly.Blocks['Pin_hl'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
-            .appendField(new Blockly.FieldDropdown([
-                ['On', '1'],
-                ['Off', '0']
-            ]), "value");
-        this.setOutput(true, null);
-        this.setColour('#4FC3F7');
-        this.setTooltip('');
-        this.setHelpUrl('');
-    }
-};
-Blockly.Python['Pin_hl'] = function (block) {
-    var dropdown_value = block.getFieldValue('value');
-    // TODO: Assemble Python into code variable.
-    var code = dropdown_value;
-    // TODO: Change ORDER_NONE to the correct strength.
-    return [code, Blockly.Python.ORDER_NONE];
 };
 
 var sensor_servo = 77;

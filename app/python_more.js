@@ -571,7 +571,7 @@ Blockly.Python['Pin_motor_onoff'] = function (block) {
     // TODO: Assemble Python into code variable.
     // console.log(motor_direction);
     if (dropdown_on_off == 'on') {
-        
+
         if (motor_direction == 'left') {
             if (pin_motor == '1') {
                 var code = 'pin1.value(1)\npin2.value(0)\n'
@@ -1124,5 +1124,54 @@ Blockly.Python['ujson_json'] = function (block) {
     // TODO: Assemble Python into code variable.
     var code = "{'" + text_key1 + "': " + value_name + ", '" + text_key2 + "': " + value_name2 + "}";
     // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['controls_forever'] = {
+    init: function () {
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("forever");
+        this.appendStatementInput("NAME")
+            .setCheck(null)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("do");
+        this.setPreviousStatement(true, null);
+        this.setColour("#c0392b");
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Python['controls_forever'] = function (block) {
+    var statements_name = Blockly.Python.statementToCode(block, 'NAME');
+    var code = 'while True:\n' + statements_name;
+    return code;
+};
+
+Blockly.Blocks.math.HUE = '#9b59b6';
+Blockly.Blocks['math_between'] = {
+    init: function () {
+        this.appendValueInput("input")
+            .setCheck(null);
+        this.appendDummyInput()
+            .appendField("is in between")
+            .appendField(new Blockly.FieldNumber(0), "NUM1")
+            .appendField(",")
+            .appendField(new Blockly.FieldNumber(100), "NUM2");
+        this.setInputsInline(true);
+        this.setOutput(true, null);
+        this.setColour(Blockly.Blocks.math.HUE);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+
+Blockly.Python['math_between'] = function (block) {
+    var value_input = Blockly.Python.valueToCode(block, 'input', Blockly.Python.ORDER_ATOMIC);
+    var number_num1 = block.getFieldValue('NUM1');
+    var number_num2 = block.getFieldValue('NUM2');
+    var code = value_input + ' >= ' + number_num1 + ' and ' + value_input + ' <= ' + number_num2;
     return [code, Blockly.Python.ORDER_NONE];
 };

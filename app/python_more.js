@@ -822,7 +822,7 @@ Blockly.Blocks['httplib_datalog_write_key'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/datalog.png", 30, 30, "*"))
-            .appendField("Setting channel ")
+            .appendField("Connect to Channel ")
             .appendField(new Blockly.FieldTextInput("Key"), "key");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);

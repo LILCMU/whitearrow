@@ -136,10 +136,20 @@ function button_click() {
     if (connected) {
         ws.send(String.fromCharCode(4))
         ws.close();
+        if (term) {
+            term.write('\x1b[31mDisconnecting..\x1b[m\r\n');
+        }
+
     } else {
         document.getElementById('url').disabled = true;
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
+        document.getElementById('status-svg').setAttribute('fill','#2e7d32');
+        var status_text = document.getElementById('status-text');
+        // status_text.setAttribute('fill','#ffffff');
+        status_text.setAttribute('x',122);
+        status_text.innerHTML = 'Online';
+
         connected = true;
         $('#ide_output_collapsible_header').trigger('click');
         connect('ws://' + document.getElementById('url').value + ':8266/');
@@ -151,7 +161,11 @@ function prepare_for_connect() {
     document.getElementById('url').disabled = false;
     document.getElementById('button').value = "Connect";
     document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect">perm_scan_wifi</i>';
-
+    document.getElementById('status-svg').setAttribute('fill','#000000');
+    var status_text = document.getElementById('status-text');
+    // status_text.setAttribute('fill','#ffffff');
+    status_text.setAttribute('x',120);
+    status_text.innerHTML = 'Offline';
 }
 
 

@@ -17,7 +17,7 @@ var database = "192.168.0.110"
 var blocklyArea = document.getElementById('Blockly');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
-var onresize = function(e) {
+var onresize = function (e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
 
     if (window.innerWidth < 1169) {
@@ -91,8 +91,8 @@ console.log(document.getElementById('status').value)
 var arraddons = [];
 arraddons = JSON.parse(window.localStorage.getItem('addons'));
 console.log(arraddons)
-    //connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
-setInterval(function() {
+//connect('ws://' + localStorage.nsc_prompt_ip + ':' + '8266' + '/')
+setInterval(function () {
     Blockly.svgResize(workspace);
     autosaveBlock();
 }, 100);
@@ -104,8 +104,8 @@ function calculate_size(win) {
     return [cols, 12];
 }
 
-(function() {
-    window.onload = function() {
+(function () {
+    window.onload = function () {
         var size = calculate_size(self);
         term = new Terminal({
             cols: size[0],
@@ -116,16 +116,16 @@ function calculate_size(win) {
         });
         term.open(document.getElementById("term"));
     };
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         var size = calculate_size(self);
         term.resize(size[0], size[1]);
     });
     if (connected === "false" && trigger) {
 
         $('#step1').trigger('click');
-        setTimeout(function() {}, 15000);
-        setTimeout(function() {}, 30000);
-        setTimeout(function() {
+        setTimeout(function () {}, 15000);
+        setTimeout(function () {}, 30000);
+        setTimeout(function () {
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
         }, 45000);
@@ -144,10 +144,10 @@ function button_click() {
         document.getElementById('url').disabled = true;
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
-        document.getElementById('status-svg').setAttribute('fill','#2e7d32');
+        document.getElementById('status-svg').setAttribute('fill', '#2e7d32');
         var status_text = document.getElementById('status-text');
         // status_text.setAttribute('fill','#ffffff');
-        status_text.setAttribute('x',122);
+        status_text.setAttribute('x', 122);
         status_text.innerHTML = 'Online';
 
         connected = true;
@@ -161,10 +161,10 @@ function prepare_for_connect() {
     document.getElementById('url').disabled = false;
     document.getElementById('button').value = "Connect";
     document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect">perm_scan_wifi</i>';
-    document.getElementById('status-svg').setAttribute('fill','#000000');
+    document.getElementById('status-svg').setAttribute('fill', '#000000');
     var status_text = document.getElementById('status-text');
     // status_text.setAttribute('fill','#ffffff');
-    status_text.setAttribute('x',120);
+    status_text.setAttribute('x', 120);
     status_text.innerHTML = 'Offline';
 }
 
@@ -296,7 +296,7 @@ function init_first() {
 
         case 3:
             ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
-                // ws.send("__import__('machine').reset()\r\n")
+            // ws.send("__import__('machine').reset()\r\n")
             break;
     }
 
@@ -312,7 +312,7 @@ function generate() {
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
     var execcode = _import + "\n" + _machine + "\n"
-        // var execcode = _import + "\n"
+    // var execcode = _import + "\n"
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
@@ -519,7 +519,7 @@ function save() {
 }
 
 function loadXml() {
-    var parseInputXMLfile = function(e) {
+    var parseInputXMLfile = function (e) {
         var xmlFile = e.target.files[0];
         var filename = xmlFile.name;
         var extensionPosition = filename.lastIndexOf('.');
@@ -528,7 +528,7 @@ function loadXml() {
         }
 
         var reader = new FileReader();
-        reader.onload = function() {
+        reader.onload = function () {
             var xml = Blockly.Xml.textToDom(reader.result);
             Blockly.Xml.domToWorkspace(workspace, xml);
             console.log(reader.result);
@@ -609,12 +609,12 @@ function shareAddons() {
     var xml_text = Blockly.Xml.domToText(xml);
     var str = $('form').serialize()
     var str2 = str + "&xml=" + String(xml_text)
-    $.post('http://' + database + ':100/nsc2017/api/block/addaddon', str2).done(function(data) {
+    $.post('http://' + database + ':100/nsc2017/api/block/addaddon', str2).done(function (data) {
             $('#res').append("<br><h3>your id is " + data.model[0].id + "  </h3><br>")
-                // $('#send').hide();
+            // $('#send').hide();
             console.log(data.model[0].id)
         })
-        .fail(function() {
+        .fail(function () {
             alert("error");
         });
 
@@ -631,7 +631,7 @@ function resetConfig() {
 getPopular()
 
 function getPopular() {
-    $.get("http://" + database + ":100/nsc2017/api/block/getpopularaddon", function(data) {
+    $.get("http://" + database + ":100/nsc2017/api/block/getpopularaddon", function (data) {
         var poppop = data.addons
         for (var i = 0; i < data.addons.length; i++) {
             $("#pop" + String(i)).append(("<h4> ID : " + data.addons[String(i)].id + "</h4><p>NAME : " + data.addons[String(i)].name + "</p><p>" + data.addons[String(i)].description + "</p><button onclick=\"loadAddons(" + String(data.addons[String(i)].id + ")\" class=\"btn bg-indigo waves-effect\">Click to Add</button>")))
@@ -643,9 +643,9 @@ function getPopular() {
 function searchAddons() {
     console.log("key=" + $('#searchquery').val())
     if ($('#searchquery').val() != "") {
-        $.post("http://" + database + ":100/nsc2017/api/block/searchaddon", "key=" + $('#searchquery').val()).done(function(data) {
+        $.post("http://" + database + ":100/nsc2017/api/block/searchaddon", "key=" + $('#searchquery').val()).done(function (data) {
             var poppop = data.addons
-                //console.log(data, "key=" + $('#searchquery').val())
+            //console.log(data, "key=" + $('#searchquery').val())
             for (var i = 0; i < 6; i++) {
                 document.getElementById("pop" + String(i)).innerHTML = ""
                 if (i < data.addons.length) {
@@ -666,9 +666,9 @@ function loadAddons(nameID) {
     console.log(nameID)
 
 
-    $.get("http://" + database + ":100/nsc2017/api/block/getaddon/aid/" + String(nameID), function(data) {
+    $.get("http://" + database + ":100/nsc2017/api/block/getaddon/aid/" + String(nameID), function (data) {
         console.log(data)
-            /*        var s = document.createElement("script");
+        /*        var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = data.wifi.files;
     $("head").append(s);
@@ -703,7 +703,7 @@ function loadAddons(nameID) {
 
 
         console.log(String(xmlString.replace('xmlns="http://www.w3.org/1999/xhtml"', '')));
-    }).done(function() {
+    }).done(function () {
 
     });
 
@@ -718,16 +718,16 @@ function connect(url) {
     ws.binaryType = 'arraybuffer';
     //ws.debug = true;
     // ws.timeoutInterval = 5400;
-    ws.onopen = function() {
+    ws.onopen = function () {
         term.removeAllListeners('data');
-        term.on('data', function(data) {
+        term.on('data', function (data) {
             // Pasted data from clipboard will likely contain
             // LF as EOL chars.
             data = data.replace(/\n/g, "\r");
             ws.send(data);
         });
 
-        term.on('title', function(title) {
+        term.on('title', function (title) {
             document.title = title;
         });
 
@@ -736,12 +736,12 @@ function connect(url) {
         ws.send('1234\r\n')
         term.write('\x1b[31mWelcome to MicroPython!\x1b[m\r\n');
         ws.send('import deamon\r\n')
-        setTimeout(function() {
+        setTimeout(function () {
             autowizard()
 
         }, 500);
 
-        ws.onmessage = function(event) {
+        ws.onmessage = function (event) {
             // console.log('onmessage')
 
             if (event.data == "$") {
@@ -857,7 +857,7 @@ function connect(url) {
                         }
                         checkCMD(cmd)
                         log.push(cmd)
-                            // console.log(cmd)
+                        // console.log(cmd)
                         cmd = ""
                         arrCMD = []
                     };
@@ -865,7 +865,7 @@ function connect(url) {
             }
         };
     };
-    ws.onclose = function() {
+    ws.onclose = function () {
         connected = false;
         if (term) {
             term.write('\x1b[31mDisconnected\x1b[m\r\n');
@@ -916,10 +916,10 @@ function run() {
         var code = generate();
         var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
         put_file(code, nameInput + ".py")
-        setTimeout(function() {
-            setTimeout(function() {
+        setTimeout(function () {
+            setTimeout(function () {
                 ws.send("deamon.run('" + nameInput + "')\r\n")
-                    // ws.send(nameInput + '.main()\r\n')
+                // ws.send(nameInput + '.main()\r\n')
                 ws.send("os.chdir('..')\r\n")
             }, 500)
         }, 1000)
@@ -943,10 +943,10 @@ function run_code() {
         var code = editor.getValue();
         var nameInput = "current" + String(timenow.getHours() + 1) + String(timenow.getMinutes()) + String(timenow.getSeconds())
         put_file(code, nameInput + ".py")
-        setTimeout(function() {
-            setTimeout(function() {
+        setTimeout(function () {
+            setTimeout(function () {
                 ws.send("deamon.run('" + nameInput + "')\r\n")
-                    // ws.send(nameInput + '.main()\r\n')
+                // ws.send(nameInput + '.main()\r\n')
                 ws.send("os.chdir('..')\r\n")
             }, 500)
         }, 1000)
@@ -960,7 +960,7 @@ function config() {
 
 function restart() {
     ws.send("__import__('machine').reset()\r\n")
-    setTimeout(function() {
+    setTimeout(function () {
         window.location.reload();
     }, 800)
 }
@@ -1119,7 +1119,7 @@ function handle_put_file_select(evt) {
     var f = files[0];
     put_file_name = f.name;
     var reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         put_file_data = new Uint8Array(e.target.result);
         document.getElementById('put-file-list').innerHTML = '' + escape(put_file_name) + ' - ' + put_file_data.length + ' bytes';
         document.getElementById('put-file-button').disabled = false;
@@ -1151,7 +1151,7 @@ function loadfile(num) {
     console.log(arrfile[num])
     get_file(arrfile[num])
     refreshFile()
-        //
+    //
 }
 
 
@@ -1180,45 +1180,156 @@ function smartConfig() {
     var ssid = document.getElementById('ssidconfig').value
     var pass = document.getElementById('passconfig').value
     console.log(ssid, pass)
-        //#!make deamon
+    //#!make deamon
 }
 
-var motorwayjson = {
-    "A": "1",
-    "B": "1"
+var motor_turn = {
+    'motorA-direction': 'cw',
+    'motorB-direction': 'cw'
+};
+var motor_selected = [];
+
+function select_motor(motor_select) {
+    motor_id = motor_select + '-direction';
+    motorObj = document.getElementById(motor_id);
+
+    if (motor_select == 'motorA') {
+        if (motor_selected.includes(motor_select)) {
+            motor_selected.splice(motor_selected.indexOf(motor_select), 1);
+            motorObj.setAttribute('fill', '#bdbdbd');
+        } else {
+            motor_selected.push(motor_select);
+            if (motor_turn[motor_id] == 'cw') {
+                motorObj.setAttribute('fill', '#47ea4f');
+            } else {
+                motorObj.setAttribute('fill', '#ff0b00');
+            }
+        }
+    } else if (motor_select == 'motorB') {
+        if (motor_selected.includes(motor_select)) {
+            motor_selected.splice(motor_selected.indexOf(motor_select), 1);
+            motorObj.setAttribute('fill', '#bdbdbd');
+        } else {
+            motor_selected.push(motor_select);
+            if (motor_turn[motor_id] == 'cw') {
+                motorObj.setAttribute('fill', '#47ea4f');
+            } else {
+                motorObj.setAttribute('fill', '#ff0b00');
+            }
+        }
+    }
 }
 
-$('[id^=motorway]').click(function() {
-    data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("motorway")[1]
-    id = $(this).attr('id').split("motorway")[1]
-    $(this).text(function(i, text) {
-        return text === "rotate_right" ? "rotate_left" : "rotate_right";
-    })
-    if ($(this).text() == "rotate_right") {
-        motorwayjson[id] = 1
-    } else {
-        motorwayjson[id] = 2
+function set_svg_cw(motor_direction, motor_text, motor_circle) {
+    motor_directionObj = document.getElementById(motor_direction);
+    motor_textObj = document.getElementById(motor_text);
+    motor_circleObj = document.getElementById(motor_circle);
 
+    motor_turn[motor_direction] = 'cw';
+    motor_directionObj.setAttribute('transform', 'scale(1,1)');
+    motor_directionObj.setAttribute('fill', '#47ea4f');
+    motor_textObj.setAttribute('x', 290);
+    motor_circleObj.setAttribute('cx', 430)
+}
+
+function set_svg_ccw(motor_direction, motor_text, motor_circle) {
+    motor_directionObj = document.getElementById(motor_direction);
+    motor_textObj = document.getElementById(motor_text);
+    motor_circleObj = document.getElementById(motor_circle);
+
+    motor_turn[motor_direction] = 'ccw';
+    motor_directionObj.setAttribute('transform', 'translate(973.8,0) scale(-1,1)');
+    motor_directionObj.setAttribute('fill', '#ff0b00');
+    motor_textObj.setAttribute('x', 410);
+    motor_circleObj.setAttribute('cx', 545)
+}
+
+function set_svg_on(motor_circle) {
+    motor_circleObj = document.getElementById(motor_circle);
+    
+    motor_circleObj.setAttribute('fill','#f1ff72');
+    
+}
+
+function set_svg_off(motor_circle) {
+    motor_circleObj = document.getElementById(motor_circle);
+    
+    motor_circleObj.setAttribute('fill','#ffffff');
+
+}
+
+function set_motor_cw() {
+    if (motor_selected.includes('motorA')) {
+        set_svg_cw('motorA-direction', 'motorA-text', 'motorA-circle');
     }
-
-})
-
-
-$('[id^=Motor]').click(function() {
-    data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("Motor")[1]
-    id = $(this).attr('id').split("Motor")[1]
-    $(this).toggleClass('btn bg-light-green waves-effect btn bg-red waves-effect ');
-    $(this).text(function(i, text) {
-        return text === "Motor" + id + " ON" ? "Motor" + id + " OFF" : "Motor" + id + " ON";
-    })
-    if ($(this).text() == "Motor" + id + " ON") {
-        ws.send("deamon.monitor(" + '"motor","' + id + '","' + motorwayjson[id] + '")\r\n')
-    } else {
-        ws.send("deamon.monitor(" + '"motor","' + id + '","0")\r\n')
+    if (motor_selected.includes('motorB')) {
+        set_svg_cw('motorB-direction', 'motorB-text', 'motorB-circle');
     }
-});
+}
+
+function set_motor_ccw() {
+    if (motor_selected.includes('motorA')) {
+        set_svg_ccw('motorA-direction', 'motorA-text', 'motorA-circle');
+    }
+    if (motor_selected.includes('motorB')) {
+        set_svg_ccw('motorB-direction', 'motorB-text', 'motorB-circle');
+    }
+}
+
+function turn_motor_on() {
+    if (motor_selected.includes('motorA')) {
+        set_svg_on('motorA-circle');
+    }
+    if (motor_selected.includes('motorB')) {
+        set_svg_on('motorB-circle');
+    }
+}
+
+function turn_motor_off() {
+    if (motor_selected.includes('motorA')) {
+        set_svg_off('motorA-circle');
+    }
+    if (motor_selected.includes('motorB')) {
+        set_svg_off('motorB-circle');
+    }
+}
+
+// var motorwayjson = {
+//     "A": "1",
+//     "B": "1"
+// }
+
+// $('[id^=motorway]').click(function() {
+//     data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("motorway")[1]
+//     id = $(this).attr('id').split("motorway")[1]
+//     $(this).text(function(i, text) {
+//         return text === "rotate_right" ? "rotate_left" : "rotate_right";
+//     })
+//     if ($(this).text() == "rotate_right") {
+//         motorwayjson[id] = 1
+//     } else {
+//         motorwayjson[id] = 2
+
+//     }
+
+// })
+
+// $('[id^=Motor]').click(function() {
+//     data = $(this).text().split("")[0] + ":" + $(this).attr('id').split("Motor")[1]
+//     id = $(this).attr('id').split("Motor")[1]
+//     $(this).toggleClass('btn bg-light-green waves-effect btn bg-red waves-effect ');
+//     $(this).text(function(i, text) {
+//         return text === "Motor" + id + " ON" ? "Motor" + id + " OFF" : "Motor" + id + " ON";
+//     })
+//     if ($(this).text() == "Motor" + id + " ON") {
+//         ws.send("deamon.monitor(" + '"motor","' + id + '","' + motorwayjson[id] + '")\r\n')
+//     } else {
+//         ws.send("deamon.monitor(" + '"motor","' + id + '","0")\r\n')
+//     }
+// });
+
 var sel = true;
-$('#read').click(function() { //read sensor
+$('#read').click(function () { //read sensor
     if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
         sel = false;
@@ -1232,20 +1343,20 @@ $('#read').click(function() { //read sensor
 
 })
 
-$('#show_OLED').click(function() {
+$('#show_OLED').click(function () {
     var h = document.getElementById('htext_olcd').value
     var b = document.getElementById('text_olcd').value
     ws.send('deamon.monitor("oled","' + h + '","' + b + '")\r\n')
 })
 
 
-$('#clear_OLED').click(function() {
+$('#clear_OLED').click(function () {
     document.getElementById('htext_olcd').value = ""
     document.getElementById('text_olcd').value = ""
     ws.send('deamon.monitor("oled","","")\r\n')
 })
 
-$('#start_beeper').click(function() {
+$('#start_beeper').click(function () {
     var f = document.getElementById('Freq').value
     var d = 512
     ws.send('deamon.monitor("beep",' + f + ',' + d + ')\r\n')
@@ -1276,7 +1387,7 @@ function smart_ap() {
 
 var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf" + parseInt(Math.random() * 100, 10));
 
-client.onMessageArrived = function(message) {
+client.onMessageArrived = function (message) {
     //Do something with the push message you received
     console.log(message.destinationName, message.payloadString)
 };
@@ -1285,18 +1396,18 @@ var options = {
     //connection attempt timeout in seconds
     timeout: 3,
     //Gets Called if the connection has successfully been established
-    onSuccess: function() {
+    onSuccess: function () {
         console.log("Connected");
     },
     //Gets Called if the connection could not be established
-    onFailure: function(message) {
+    onFailure: function (message) {
         console.log("Connection failed: " + message.errorMessage);
     }
 };
 
 //Attempt to connect
 client.connect(options);
-setTimeout(function() {
+setTimeout(function () {
     client.subscribe('NSC2017/#', {
         qos: 2
     });

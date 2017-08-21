@@ -13,6 +13,31 @@ def main():
     print('sys:noti:res:ok')
     print('$')
 
+def monitor_motor_control(motor_select, motor_state, motor_direction):
+    if(motor_select=='motorA'):
+        if(motor_state=='on'):
+            if(motor_direction=='cw'):
+                __import__('machine').Pin(4,__import__('machine').Pin.OUT,value=0)
+                __import__('machine').Pin(15,__import__('machine').Pin.OUT,value=1)
+            else:
+                __import__('machine').Pin(4,__import__('machine').Pin.OUT,value=1)
+                __import__('machine').Pin(15,__import__('machine').Pin.OUT,value=0)
+        else:
+            __import__('machine').Pin(4,__import__('machine').Pin.OUT,value=0)
+            __import__('machine').Pin(15,__import__('machine').Pin.OUT,value=0)
+    else:
+        if(motor_state=='on'):
+            if(motor_direction=='cw'):
+                __import__('machine').Pin(14,__import__('machine').Pin.OUT,value=0)
+                __import__('machine').Pin(12,__import__('machine').Pin.OUT,value=1)
+            else:
+                __import__('machine').Pin(14,__import__('machine').Pin.OUT,value=1)
+                __import__('machine').Pin(12,__import__('machine').Pin.OUT,value=0)
+        else:
+            __import__('machine').Pin(14,__import__('machine').Pin.OUT,value=0)
+            __import__('machine').Pin(12,__import__('machine').Pin.OUT,value=0)
+
+
 def monitor(state,value1,value2):
     if(state=="motor"):
         import machine

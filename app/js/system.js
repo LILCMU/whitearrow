@@ -1184,8 +1184,8 @@ function smartConfig() {
 }
 
 var motor_turn = {
-    'motorA-state':'off',
-    'motorB-state':'off',
+    'motorA-state': 'off',
+    'motorB-state': 'off',
     'motorA-direction': 'cw',
     'motorB-direction': 'cw'
 };
@@ -1237,7 +1237,7 @@ function set_svg_ccw(motor_direction, motor_text, motor_circle) {
     motor_directionObj = document.getElementById(motor_direction);
     motor_textObj = document.getElementById(motor_text);
     motor_circleObj = document.getElementById(motor_circle);
-    
+
     motor_directionObj.setAttribute('transform', 'translate(973.8,0) scale(-1,1)');
     motor_directionObj.setAttribute('fill', '#ff0b00');
     motor_textObj.setAttribute('x', 410);
@@ -1246,26 +1246,30 @@ function set_svg_ccw(motor_direction, motor_text, motor_circle) {
 
 function set_svg_on(motor_circle) {
     motor_circleObj = document.getElementById(motor_circle);
-    
-    motor_circleObj.setAttribute('fill','#f1ff72');
+
+    motor_circleObj.setAttribute('fill', '#f1ff72');
 }
 
 function set_svg_off(motor_circle) {
     motor_circleObj = document.getElementById(motor_circle);
-    
-    motor_circleObj.setAttribute('fill','#ffffff');
+
+    motor_circleObj.setAttribute('fill', '#ffffff');
 }
 
 function set_motor_cw() {
     if (motor_selected.includes('motorA')) {
         motor_turn['motorA-direction'] = 'cw';
         set_svg_cw('motorA-direction', 'motorA-text', 'motorA-circle');
-        ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        }
     }
     if (motor_selected.includes('motorB')) {
         motor_turn['motorB-direction'] = 'cw';
         set_svg_cw('motorB-direction', 'motorB-text', 'motorB-circle');
-        ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        }
     }
     // console.log(motor_turn);
 }
@@ -1274,12 +1278,16 @@ function set_motor_ccw() {
     if (motor_selected.includes('motorA')) {
         motor_turn['motorA-direction'] = 'ccw';
         set_svg_ccw('motorA-direction', 'motorA-text', 'motorA-circle');
-        ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        }
     }
     if (motor_selected.includes('motorB')) {
         motor_turn['motorB-direction'] = 'ccw';
         set_svg_ccw('motorB-direction', 'motorB-text', 'motorB-circle');
-        ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        }
     }
     // console.log(motor_turn);
 }
@@ -1288,12 +1296,16 @@ function turn_motor_on() {
     if (motor_selected.includes('motorA')) {
         motor_turn['motorA-state'] = 'on';
         set_svg_on('motorA-circle');
-        ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        }
     }
     if (motor_selected.includes('motorB')) {
         motor_turn['motorB-state'] = 'on';
         set_svg_on('motorB-circle');
-        ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");    
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        }
     }
     // console.log(motor_turn);
 }
@@ -1302,12 +1314,16 @@ function turn_motor_off() {
     if (motor_selected.includes('motorA')) {
         motor_turn['motorA-state'] = 'off';
         set_svg_off('motorA-circle');
-        ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        }
     }
     if (motor_selected.includes('motorB')) {
         motor_turn['motorB-state'] = 'off';
         set_svg_off('motorB-circle');
-        ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");    
+        if (ws) {
+            ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+        }
     }
     // console.log(motor_turn);
 }

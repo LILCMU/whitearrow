@@ -43,12 +43,22 @@ window.addEventListener('resize', Blockly.svgResize(workspace), false);
 onresize();
 Blockly.svgResize(workspace);
 
-if (!localStorage.nsc_prompt_ip) {
-    document.getElementById('url').value = '192.168.4.1'
-    localStorage.nsc_prompt_ip = '192.168.4.1'
-} else if (localStorage.nsc_prompt_ip) {
-    document.getElementById('url').value = localStorage.nsc_prompt_ip
+var reconnect_Interval;
+function checklocalstorage() {   
+    if (!localStorage.nsc_prompt_ip) {
+        document.getElementById('url').value = '192.168.4.1'
+        localStorage.nsc_prompt_ip = '192.168.4.1'
+    } else if (localStorage.nsc_prompt_ip) {
+        document.getElementById('url').value = localStorage.nsc_prompt_ip;
+        reconnect_Interval = setInterval(function () {
+            console.log('Auto Reconnect');
+            button_click();
+        }, 5000);
+    }
 }
+
+checklocalstorage();
+
 if (!localStorage.firsttime) {
     localStorage.firsttime = "true";
     step = 0;
@@ -141,6 +151,7 @@ function button_click() {
         }
 
     } else {
+        clearInterval(reconnect_Interval);
         document.getElementById('url').disabled = true;
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';

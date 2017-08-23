@@ -428,14 +428,16 @@ Blockly.Python['WLAN_checknetwork'] = function (block) {
 };
 
 var pin_motor = 1;
-Blockly.Blocks['Pin_output'] = {
+
+Blockly.Blocks['Pin_motor'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
             .appendField("Talk to")
             .appendField(new Blockly.FieldDropdown([
                 ["MotorA", "1"],
-                ["MotorB", "2"]
+                ["MotorB", "2"],
+                ["MotorA & MotorB", "3"]
             ]), "pin");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -444,83 +446,16 @@ Blockly.Blocks['Pin_output'] = {
         this.setHelpUrl('');
     }
 };
-Blockly.Python['Pin_output'] = function (block) {
+Blockly.Python['Pin_motor'] = function (block) {
     var dropdown_pin = block.getFieldValue('pin');
     pin_motor = dropdown_pin;
-    if (pin_motor == '1') {
-        var code = 'pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\n';
-    } else {
-        var code = 'pin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n';
-    }
-    return code;
+    // if (pin_motor == '1') {
+    //     var code = 'pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\n';
+    // } else {
+    //     var code = 'pin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n';
+    // }
+    return '';
 };
-
-
-// Blockly.Blocks['Pin_motor_output'] = {
-//     init: function () {
-//         this.appendValueInput("onoff_value")
-//             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
-//             .setCheck("Boolean")
-//             .appendField("Turn motor")
-//             .appendField(new Blockly.FieldDropdown([
-//                 ["Clockwise", "right"],
-//                 ["Counter-Clockwise", "left"]
-//             ]), "turn");
-//         this.setPreviousStatement(true, null);
-//         this.setNextStatement(true, null);
-//         this.setColour('#4FC3F7');
-//         this.setTooltip('');
-//         this.setHelpUrl('');
-//     }
-// };
-// Blockly.Python['Pin_motor_output'] = function (block) { // Motor Control
-//     var dropdown_turn = block.getFieldValue('turn');
-//     var value_onoff_value = Blockly.Python.valueToCode(block, 'onoff_value', Blockly.Python.ORDER_ATOMIC);
-//     if (value_onoff_value == '(1)') {
-//         if (dropdown_turn == 'left') {
-//             if (pin_motor == '1') {
-//                 var code = 'pin1.value(1)\npin2.value(0)\n'
-//             } else {
-//                 var code = 'pin3.value(1)\npin4.value(0)\n'
-//             }
-//         } else if (dropdown_turn == 'right') {
-//             if (pin_motor == '1') {
-//                 var code = 'pin1.value(0)\npin2.value(1)\n'
-//             } else {
-//                 var code = 'pin3.value(0)\npin4.value(1)\n'
-//             }
-//         }
-//     } else {
-//         if (pin_motor == '1') {
-//             var code = 'pin1.value(0)\npin2.value(0)\n'
-//         } else {
-//             var code = 'pin3.value(0)\npin4.value(0)\n'
-//         }
-//     }
-//     return code;
-// };
-
-// Blockly.Blocks['Pin_hl'] = {
-//     init: function () {
-//         this.appendDummyInput()
-//             .appendField(new Blockly.FieldImage("images/block/swap-horizontal-orientation-arrows.png", 30, 30, "*"))
-//             .appendField(new Blockly.FieldDropdown([
-//                 ['On', '1'],
-//                 ['Off', '0']
-//             ]), "value");
-//         this.setOutput(true, null);
-//         this.setColour('#4FC3F7');
-//         this.setTooltip('');
-//         this.setHelpUrl('');
-//     }
-// };
-// Blockly.Python['Pin_hl'] = function (block) {
-//     var dropdown_value = block.getFieldValue('value');
-//     // TODO: Assemble Python into code variable.
-//     var code = dropdown_value;
-//     // TODO: Change ORDER_NONE to the correct strength.
-//     return [code, Blockly.Python.ORDER_NONE];
-// };
 
 Blockly.Blocks['Pin_motor_turn'] = {
     init: function () {
@@ -574,22 +509,28 @@ Blockly.Python['Pin_motor_onoff'] = function (block) {
 
         if (motor_direction == 'left') {
             if (pin_motor == '1') {
-                var code = 'pin1.value(1)\npin2.value(0)\n'
+                var code = 'pin1(1)\npin2(0)\n'
+            } else if (pin_motor == '2') {
+                var code = 'pin3(1)\npin4(0)\n'
             } else {
-                var code = 'pin3.value(1)\npin4.value(0)\n'
+                var code = 'pin1(1)\npin2(0)\npin3(1)\npin4(0)\n'   
             }
         } else {
             if (pin_motor == '1') {
-                var code = 'pin1.value(0)\npin2.value(1)\n'
+                var code = 'pin1(0)\npin2(1)\n'
+            } else if (pin_motor == '2') {
+                var code = 'pin3(0)\npin4(1)\n'
             } else {
-                var code = 'pin3.value(0)\npin4.value(1)\n'
+                var code = 'pin1(0)\npin2(1)\npin3(0)\npin4(1)\n'
             }
         }
     } else {
         if (pin_motor == '1') {
-            var code = 'pin1.value(0)\npin2.value(0)\n'
+            var code = 'pin1(0)\npin2(0)\n'
+        } else if (pin_motor == '2'){
+            var code = 'pin3(0)\npin4(0)\n'
         } else {
-            var code = 'pin3.value(0)\npin4.value(0)\n'
+            var code = 'pin1(0)\npin2(0)\npin3(0)\npin4(0)\n'
         }
     }
     // console.log(code);
@@ -1040,6 +981,7 @@ Blockly.Python['oled_text'] = function (block) {
 Blockly.Blocks['Pin_PWM_beeper_time_beep_wait'] = {
     init: function () {
         this.appendValueInput("time")
+            .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
             .setCheck("Number")
             .appendField("beep for");
         this.appendDummyInput()
@@ -1072,6 +1014,7 @@ Blockly.Python['Pin_PWM_beeper_time_beep_wait'] = function (block) {
 Blockly.Blocks['Pin_PWM_beeper_time_beep'] = {
     init: function () {
         this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
             .appendField("beep");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -1089,6 +1032,7 @@ Blockly.Python['Pin_PWM_beeper_time_beep'] = function (block) {
 Blockly.Blocks['Pin_PWM_beeper_freq'] = {
     init: function () {
         this.appendValueInput("freq")
+            .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
             .setCheck("Number")
             .appendField("set beep frequency");
         this.appendDummyInput()

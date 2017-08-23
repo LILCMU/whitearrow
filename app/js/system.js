@@ -44,7 +44,8 @@ onresize();
 Blockly.svgResize(workspace);
 
 var reconnect_Interval;
-function checklocalstorage() {   
+
+function checklocalstorage() {
     if (!localStorage.nsc_prompt_ip) {
         document.getElementById('url').value = '192.168.4.1'
         localStorage.nsc_prompt_ip = '192.168.4.1'
@@ -168,14 +169,14 @@ function prepare_for_connect() {
     document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect">perm_scan_wifi</i>';
     // document.getElementById('status-svg').setAttribute('fill', '#000000');
     var status_text = document.getElementById('status-text');
-    status_text.setAttribute('fill','#f00');
+    status_text.setAttribute('fill', '#f00');
     status_text.setAttribute('x', 112);
     status_text.innerHTML = 'Offline';
 }
 
 
 function checkCMD(commandCMD) {
-    console.log(commandCMD.split(":"))
+    // console.log(commandCMD.split(":"))
     if (commandCMD.split(":")[1] == "true") {
 
     } else if (commandCMD.split(":")[0] == "step1") {
@@ -320,7 +321,7 @@ function generate() {
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
     if (_init_code) {
-        execcode += "\n" + _init_code + "\n"
+        execcode += "\n" + _init_code
     }
 
     for (var i = 1; i < newcode.length; i += 2) {
@@ -329,7 +330,7 @@ function generate() {
 
     editor.setValue(execcode);
 
-    console.log(execcode);
+    // console.log(execcode);
     return execcode
 }
 
@@ -355,6 +356,8 @@ function generateXML() {
     arrXml.push(xmlText.search("math"))
     arrXml.push(xmlText.search("uniqueid"))
     arrXml.push(xmlText.search("ujson"))
+    arrXml.push(xmlText.search("motor"))
+
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
         if (arrXml[i] > 0) {
@@ -368,7 +371,6 @@ function generateXML() {
                     } else if (!first_sublib) {
                         _machine += ","
                         _machine += "Pin"
-
                     }
                     break;
                 case 1:
@@ -378,65 +380,53 @@ function generateXML() {
                     } else if (!first) {
                         _import += ","
                         _import += "network"
-
                     }
                     break;
                 case 2:
-
                     if (first) {
                         _import += "import ubinascii,umqtt.simple as MQTTClient"
                         first = false;
                     } else if (!first) {
                         _import += ",ubinascii,"
                         _import += "umqtt.simple as MQTTClient"
-
                     }
                     break;
                 case 3:
-
                     if (first_sublib) {
                         _machine += "from machine import PWM"
                         first_sublib = false;
                     } else if (!first_sublib) {
                         _machine += ","
                         _machine += "PWM"
-
                     }
                     break;
                 case 4:
-
                     if (first_sublib) {
                         _machine += "from machine import I2C"
                         first_sublib = false;
                     } else if (!first_sublib) {
                         _machine += ","
                         _machine += "I2C"
-
                     }
                     break;
                 case 5:
-
                     if (first_sublib) {
                         _machine += "from machine import ADC"
                         first_sublib = false;
                     } else if (!first_sublib) {
                         _machine += ","
                         _machine += "ADC"
-
                     }
                     break;
                 case 6:
-
                     if (first) {
                         _import += "import time"
                         first = false;
                     } else if (!first) {
                         _import += ","
                         _import += "time"
-
                     }
                     break;
-
                 case 7:
                     if (first) {
                         _import += "import httplib"
@@ -464,7 +454,6 @@ function generateXML() {
                         _import += "oled"
                     }
                     break;
-
                 case 10:
                     if (first) {
                         _import += "import beeper"
@@ -473,9 +462,8 @@ function generateXML() {
                         _import += ","
                         _import += "beeper"
                     }
-                    _init_code += "beep = PWM(Pin(2), freq=600, duty=0)"
+                    _init_code += "beep = PWM(Pin(2), freq=600, duty=0)\n"
                     break;
-
                 case 11:
                     if (first) {
                         _import += "import math"
@@ -485,7 +473,6 @@ function generateXML() {
                         _import += "math"
                     }
                     break;
-
                 case 12:
                     if (first_sublib) {
                         _machine += "from machine import unique_id"
@@ -493,7 +480,6 @@ function generateXML() {
                     } else if (!first_sublib) {
                         _machine += ","
                         _machine += "unique_id"
-
                     }
                     break;
                 case 13:
@@ -505,6 +491,8 @@ function generateXML() {
                         _import += "ujson"
                     }
                     break;
+                case 14:
+                    _init_code += "pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
             }
         }
     }
@@ -600,7 +588,7 @@ function autoloadBlock() {
     generate()
 
     var loadedBlock = window.localStorage.getItem('autoSaveBlock');
-    console.log(loadedBlock)
+    // console.log(loadedBlock)
 
     if (!loadedBlock) return;
     if (!(loadedBlock.split('<block type="controls_main"')[1])) {
@@ -725,7 +713,7 @@ function connect(url) {
     //ws.debug = true;
     // ws.timeoutInterval = 5400;
     ws.onopen = function () {
-        
+
         //change status svg
         // document.getElementById('status-svg').setAttribute('fill', '#000000');
         var status_text = document.getElementById('status-text');

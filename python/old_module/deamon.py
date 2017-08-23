@@ -151,6 +151,7 @@ def send(text):
 def run(filename):
     __import__('oled').running(filename)
     __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=0)
+    __import__('beeper').run_beep()
     try:
         __import__(filename).main()
         send('Finished running..'+ filename)

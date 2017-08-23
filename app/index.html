@@ -21,7 +21,7 @@
     <link href="./resource/Roboto.css" rel="stylesheet" type="text/css">
     <link href="./resource/icon.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-    <link rel="stylesheet" href="./resource/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./resource/bootstrap.min.css">
     <script src="./resource/jquery.min.js"></script>
     <script src="./resource/bootstrap.min.js"></script>
     <script src="blockly_compressed.js"></script>
@@ -971,6 +971,13 @@
         <block type="logic_ternary"></block>
     </category>
     <category id="catLoops" colour="#c0392b" name="Loops">
+        <block type="controls_time_forever_wait">
+            <value name="time">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="controls_forever"></block>
         <block type="controls_repeat_ext">
             <value name="TIMES">

@@ -14,3 +14,8 @@ def speaker(in_freq,in_duty):
     beeper = machine.PWM(machine.Pin(2),freq=in_freq,duty=in_duty)
     time.sleep_ms(200)
     beeper.deinit()
+
+def run_beep():
+    beeper = machine.PWM(machine.Pin(2),freq=900,duty=512)
+    time.sleep_ms(100)
+    beeper.deinit()

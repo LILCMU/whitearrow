@@ -1003,7 +1003,7 @@ Blockly.Blocks['Pin_PWM_beeper_start'] = {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
             .appendField("Beeper start frequency :")
-            .appendField(new Blockly.FieldNumber(0, 0, 1000), "beeper_freq")
+            .appendField(new Blockly.FieldNumber(0, 0, 1024), "beeper_freq")
         // .appendField(" volume :")
         // .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
         this.setPreviousStatement(true, null);
@@ -1033,9 +1033,11 @@ Blockly.Blocks['Pin_PWM_beeper_deinit'] = {
     }
 };
 Blockly.Python['Pin_PWM_beeper_deinit'] = function (block) {
-    var code = 'beeper.deinit()\n';
+    var code = "beeper = PWM(Pin(2), freq=0, duty=0)\n";
     return code;
 };
+
+
 
 Blockly.Blocks['text_binary'] = {
     init: function () {
@@ -1142,10 +1144,47 @@ Blockly.Blocks['controls_forever'] = {
         this.setHelpUrl("");
     }
 };
-
 Blockly.Python['controls_forever'] = function (block) {
     var statements_name = Blockly.Python.statementToCode(block, 'NAME');
     var code = 'while True:\n' + statements_name;
+    return code;
+};
+
+Blockly.Blocks['controls_time_forever_wait'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("forever");
+        this.appendStatementInput("statement")
+            .setCheck(null)
+            .appendField("do");
+        this.appendValueInput("time")
+            .setCheck("Number")
+            .appendField("each loop wait for");
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([
+                ["second(s)", "second"],
+                ["millisecond(s)", "milli"],
+                ["microsecond(s)", "micro"]
+            ]), "suffix_second");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#c0392b');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Python['controls_time_forever_wait'] = function (block) {
+    var statements_name = Blockly.Python.statementToCode(block, 'statement');
+    var waittime  = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+    var suffix_time = block.getFieldValue('suffix_second');
+    // TODO: Assemble Python into code variable.
+    if (suffix_time == 'second') {
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep(' + waittime + ')'
+    } else if (suffix_time == 'milli') {
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_ms(' + waittime + ')'
+    } else if (suffix_time == 'micro') {
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_us(' + waittime + ')'
+    }
     return code;
 };
 

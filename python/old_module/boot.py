@@ -48,6 +48,9 @@ def callback(p):
     global state
     if state == 0:
         state = 1
+    elif state == 2:
+        __import__('sys').exit()
+        
     else:
         state = 0
 
@@ -57,9 +60,17 @@ p0.irq(trigger=machine.Pin.IRQ_FALLING, handler=callback)
 def run(p):
     global state
     if state==1:
+
+        state = 2
+
         __import__('oled').running('latest')
         __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=0)
+        __import__('beeper').run_beep()
+
         __import__('tmp/latest').main()
+
+        state = 0
+        __import__('machine').Pin(16,__import__('machine').Pin.OUT,value=1)
     else:
         pass
 

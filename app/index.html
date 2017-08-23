@@ -49,6 +49,7 @@
     <!-- NSC2017 Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="./css/themes/all-themes.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
+    <link rel="stylesheet" type="text/css" href="./css/loaders.css">
     <style type="text/css" media="screen">
         #editor {
             width: 95%;
@@ -380,7 +381,7 @@
                         <path d="M1650 760 c0 -11 7 -20 15 -20 8 0 15 9 15 20 0 11 -7 20 -15 20 -8
                    0 -15 -9 -15 -20z" />
                     </g>
-                    <text id="status-text" x="120" y="154" fill="#ffffff" font-size="1.5em">Offline</text>
+                    <text id="status-text" x="112" y="154" fill="#f00" font-size="2em">Offline</text>
                 </svg>
             </div>
             <!-- <p id="status-text">Offline</p> -->
@@ -443,7 +444,6 @@
                                 <span>Address : </span>
                                 <input type="text" class="form-control" placeholder="IP Address" required autofocus name="webrepl_url" id="url" value="192.168.4.1"><br>
                                 <input type="button" class="btn btn-primary waves-effect" id="button" value="Connect" onclick="button_click(); return false;"><br>
-
                             </li>
                         </ul>
                         <p>PROJECT SETTINGS</p>

@@ -151,16 +151,9 @@ function button_click() {
         }
 
     } else {
-        clearInterval(reconnect_Interval);
         document.getElementById('url').disabled = true;
         document.getElementById('button').value = "Disconnect";
         document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Connect">network_wifi</i>';
-        document.getElementById('status-svg').setAttribute('fill', '#2e7d32');
-        var status_text = document.getElementById('status-text');
-        // status_text.setAttribute('fill','#ffffff');
-        status_text.setAttribute('x', 122);
-        status_text.innerHTML = 'Online';
-
         connected = true;
         $('#ide_output_collapsible_header').trigger('click');
         connect('ws://' + document.getElementById('url').value + ':8266/');
@@ -172,10 +165,10 @@ function prepare_for_connect() {
     document.getElementById('url').disabled = false;
     document.getElementById('button').value = "Connect";
     document.getElementById('status').innerHTML = '<i class="material-icons" data-toggle="tooltip" data-placement="bottom"    title="status : Disconnect">perm_scan_wifi</i>';
-    document.getElementById('status-svg').setAttribute('fill', '#000000');
+    // document.getElementById('status-svg').setAttribute('fill', '#000000');
     var status_text = document.getElementById('status-text');
-    // status_text.setAttribute('fill','#ffffff');
-    status_text.setAttribute('x', 120);
+    status_text.setAttribute('fill','#f00');
+    status_text.setAttribute('x', 112);
     status_text.innerHTML = 'Offline';
 }
 
@@ -667,8 +660,6 @@ function searchAddons() {
     } else {
         getPopular()
     }
-
-
 }
 
 
@@ -708,11 +699,6 @@ function loadAddons(nameID) {
         var xml = Blockly.Xml.textToDom(xml_text);
         Blockly.Xml.domToWorkspace(workspace, xml);
 
-
-
-
-
-
         console.log(String(xmlString.replace('xmlns="http://www.w3.org/1999/xhtml"', '')));
     }).done(function () {
 
@@ -730,6 +716,17 @@ function connect(url) {
     //ws.debug = true;
     // ws.timeoutInterval = 5400;
     ws.onopen = function () {
+        
+        //change status svg
+        // document.getElementById('status-svg').setAttribute('fill', '#000000');
+        var status_text = document.getElementById('status-text');
+        status_text.setAttribute('x', 114);
+        status_text.setAttribute('fill', '#76ff03');
+        status_text.innerHTML = 'Online';
+
+        // clear auto reconnect interval
+        clearInterval(reconnect_Interval);
+
         term.removeAllListeners('data');
         term.on('data', function (data) {
             // Pasted data from clipboard will likely contain

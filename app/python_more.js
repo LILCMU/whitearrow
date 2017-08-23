@@ -998,45 +998,114 @@ Blockly.Python['oled_text'] = function (block) {
     return code;
 };
 
-Blockly.Blocks['Pin_PWM_beeper_start'] = {
+// Blockly.Blocks['Pin_PWM_beeper_start'] = {
+//     init: function () {
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
+//             .appendField("Beeper start frequency :")
+//             .appendField(new Blockly.FieldNumber(0, 0, 1024), "beeper_freq")
+//         // .appendField(" volume :")
+//         // .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#f1c40f');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+// Blockly.Python['Pin_PWM_beeper_start'] = function (block) {
+//     var number_beeper_freq = block.getFieldValue('beeper_freq');
+//     // var number_beeper_duty = block.getFieldValue('beeper_duty');
+//     var code = "beeper = PWM(Pin(2), freq=" + number_beeper_freq + ", duty=512)\n";
+//     return code;
+// };
+
+// Blockly.Blocks['Pin_PWM_beeper_deinit'] = {
+//     init: function () {
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
+//             .appendField("Turn off Beeper");
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#f1c40f');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+// Blockly.Python['Pin_PWM_beeper_deinit'] = function (block) {
+//     var code = "beeper = PWM(Pin(2), freq=0, duty=0)\n";
+//     return code;
+// };
+
+Blockly.Blocks['Pin_PWM_beeper_time_beep_wait'] = {
     init: function () {
+        this.appendValueInput("time")
+            .setCheck("Number")
+            .appendField("beep for");
         this.appendDummyInput()
-            .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
-            .appendField("Beeper start frequency :")
-            .appendField(new Blockly.FieldNumber(0, 0, 1024), "beeper_freq")
-        // .appendField(" volume :")
-        // .appendField(new Blockly.FieldNumber(0, 0, 1023), "beeper_duty");
+            .appendField(new Blockly.FieldDropdown([
+                ["second(s)", "second"],
+                ["millisecond(s)", "milli"],
+                ["microsecond(s)", "micro"]
+            ]), "suffix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#f1c40f');
-        this.setTooltip('');
-        this.setHelpUrl('');
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
-Blockly.Python['Pin_PWM_beeper_start'] = function (block) {
-    var number_beeper_freq = block.getFieldValue('beeper_freq');
-    // var number_beeper_duty = block.getFieldValue('beeper_duty');
-    var code = "beeper = PWM(Pin(2), freq=" + number_beeper_freq + ", duty=512)\n";
+Blockly.Python['Pin_PWM_beeper_time_beep_wait'] = function (block) {
+    var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+    var suffix_time = block.getFieldValue('suffix_second');
+    // TODO: Assemble Python into code variable.
+    if (suffix_time == 'second') {
+        var code = 'beep.duty(512)\n' + 'time.sleep(' + waittime + ')\nbeep.duty(0)\n'
+    } else if (suffix_time == 'milli') {
+        var code = 'beep.duty(512)\n' + 'time.sleep_ms(' + waittime + ')\nbeep.duty(0)\n'
+    } else if (suffix_time == 'micro') {
+        var code = 'beep.duty(512)\n' + 'time.sleep_us(' + waittime + ')\nbeep.duty(0)\n'
+    }
     return code;
 };
 
-Blockly.Blocks['Pin_PWM_beeper_deinit'] = {
+Blockly.Blocks['Pin_PWM_beeper_time_beep'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldImage("images/block/volume-up-indicator.png", 30, 30, "*"))
-            .appendField("Turn off Beeper");
+            .appendField("beep");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#f1c40f');
-        this.setTooltip('');
-        this.setHelpUrl('');
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
-Blockly.Python['Pin_PWM_beeper_deinit'] = function (block) {
-    var code = "beeper = PWM(Pin(2), freq=0, duty=0)\n";
+Blockly.Python['Pin_PWM_beeper_time_beep'] = function (block) {
+    // TODO: Assemble Python into code variable.
+    var code = 'beep.duty(512)\ntime.sleep_ms(100)\nbeep.duty(0)\n';
     return code;
 };
 
+Blockly.Blocks['Pin_PWM_beeper_freq'] = {
+    init: function () {
+        this.appendValueInput("freq")
+            .setCheck("Number")
+            .appendField("set beep frequency");
+        this.appendDummyInput()
+            .appendField("( 0 - 1024 )");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#f1c40f');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Python['Pin_PWM_beeper_freq'] = function (block) {
+    var freq_value = Blockly.Python.valueToCode(block, 'freq', Blockly.Python.ORDER_ATOMIC);
+    // TODO: Assemble Python into code variable.
+    var code = 'beep.freq(' + freq_value + ')\n';
+    return code;
+};
 
 
 Blockly.Blocks['text_binary'] = {
@@ -1175,15 +1244,15 @@ Blockly.Blocks['controls_time_forever_wait'] = {
 };
 Blockly.Python['controls_time_forever_wait'] = function (block) {
     var statements_name = Blockly.Python.statementToCode(block, 'statement');
-    var waittime  = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+    var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
     var suffix_time = block.getFieldValue('suffix_second');
     // TODO: Assemble Python into code variable.
     if (suffix_time == 'second') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep(' + waittime + ')'
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep(' + waittime + ')\n'
     } else if (suffix_time == 'milli') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_ms(' + waittime + ')'
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_ms(' + waittime + ')\n'
     } else if (suffix_time == 'micro') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_us(' + waittime + ')'
+        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_us(' + waittime + ')\n'
     }
     return code;
 };

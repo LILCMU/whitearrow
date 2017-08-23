@@ -49,7 +49,7 @@
     <!-- NSC2017 Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="./css/themes/all-themes.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/blockly-demo.css">
-    <link rel="stylesheet" type="text/css" href="./css/loaders.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/loaders.css"> -->
     <style type="text/css" media="screen">
         #editor {
             width: 95%;
@@ -1314,8 +1314,21 @@
         </block>
     </category>
     <category id="beeper" colour="#f1c40f" name="Beeper">
-        <block type="Pin_PWM_beeper_start"></block>
-        <block type="Pin_PWM_beeper_deinit"></block>
+        <block type="Pin_PWM_beeper_time_beep"></block>
+        <block type="Pin_PWM_beeper_freq">
+            <value name="freq">
+                <shadow type="math_number">
+                    <field name="NUM">600</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="Pin_PWM_beeper_time_beep_wait">
+            <value name="time">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
     </category>
     <sep></sep>
     <category id="catVariables" colour="#f39c12" custom="VARIABLE" name="Variables"></category>

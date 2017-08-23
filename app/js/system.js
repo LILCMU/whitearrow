@@ -76,6 +76,7 @@ document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
 var _import = ""
 var _machine = ""
+var _init_code = ""
 var sel = false;
 var space = Blockly.Python.INDENT;
 var d_space = Blockly.Python.INDENT + Blockly.Python.INDENT;
@@ -310,6 +311,7 @@ function init_first() {
 function generate() {
     _import = ""
     _machine = ""
+    _init_code = ""
 
     // Parse the XML into a tree.
     generateXML()
@@ -317,11 +319,17 @@ function generate() {
     var newcode = code.split('$')
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
+    if (_init_code) {
+        execcode += "\n" + _init_code + "\n"
+    }
+
     for (var i = 1; i < newcode.length; i += 2) {
         execcode += newcode[i]
     };
 
     editor.setValue(execcode);
+
+    console.log(execcode);
     return execcode
 }
 
@@ -465,6 +473,7 @@ function generateXML() {
                         _import += ","
                         _import += "beeper"
                     }
+                    _init_code += "beep = PWM(Pin(2), freq=600, duty=0)"
                     break;
 
                 case 11:

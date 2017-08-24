@@ -146,8 +146,12 @@ function calculate_size(win) {
 
 function button_click() {
     if (connected) {
+
+        clearInterval(reconnect_Interval);
+
         ws.send(String.fromCharCode(4))
         ws.close();
+        
         if (term) {
             term.write('\x1b[31mDisconnecting..\x1b[m\r\n');
         }

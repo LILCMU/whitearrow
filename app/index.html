@@ -1336,7 +1336,7 @@
     <sep></sep>
     <category id="catmqtt" colour="#d35400" name="MQTT">
         <block type="uniqueid_mqtt_init"></block>
-        <block type="mqtt_connect"></block>
+        <!-- <block type="mqtt_connect"></block> -->
         <block type="mqtt_publish">
             <value name="publish">
                 <shadow type="text">
@@ -1509,18 +1509,17 @@
 <script src="./js/menu.js"></script>
 <script src="./serviceWorker.js"></script>
 <script>
+    if (!('serviceWorker' in navigator)) {
+        console.log('Service worker not supported');
 
-if (!('serviceWorker' in navigator)) {
-    console.log('Service worker not supported');
-    
-  }
-  navigator.serviceWorker.register('./serviceWorker.js')
-  .then(function() {
-    console.log('Registered');
-  })
-  .catch(function(error) {
-    console.log('Registration failed:', error);
-  });
+    }
+    navigator.serviceWorker.register('./serviceWorker.js')
+        .then(function () {
+            console.log('Registered');
+        })
+        .catch(function (error) {
+            console.log('Registration failed:', error);
+        });
 </script>
 </body>
 

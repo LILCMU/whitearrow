@@ -39,8 +39,8 @@ Blockly.Blocks['uniqueid_mqtt_init'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .appendField("START")
-            .appendField(new Blockly.FieldTextInput("Host"), "hostServer");
+            .appendField("Connect to")
+            .appendField(new Blockly.FieldTextInput("Server name / IP"), "hostServer");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
@@ -50,27 +50,27 @@ Blockly.Blocks['uniqueid_mqtt_init'] = {
 
 Blockly.Python['uniqueid_mqtt_init'] = function (block) {
     var text_hostserver = block.getFieldValue('hostServer');
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_hostserver + '")\n';
+    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_hostserver + '")\nmqtt.connect()\n';
     return code;
 };
 
-Blockly.Blocks['mqtt_connect'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .appendField("Connect");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour('#d35400');
-        this.setTooltip('');
-    }
-};
+// Blockly.Blocks['mqtt_connect'] = {
+//     init: function () {
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
+//             .appendField("Connect");
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#d35400');
+//         this.setTooltip('');
+//     }
+// };
 
-Blockly.Python['mqtt_connect'] = function (block) {
-    // TODO: Assemble JavaScript into code variable.
-    var code = 'mqtt.connect()\n';
-    return code;
-};
+// Blockly.Python['mqtt_connect'] = function (block) {
+//     // TODO: Assemble JavaScript into code variable.
+//     var code = 'mqtt.connect()\n';
+//     return code;
+// };
 
 Blockly.Blocks['mqtt_disconnect'] = {
     init: function () {
@@ -839,7 +839,7 @@ Blockly.Blocks['httplib_datalog_write_key'] = {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/datalog.png", 30, 30, "*"))
             .appendField("Connect to Channel ")
-            .appendField(new Blockly.FieldTextInput("Key"), "key");
+            .appendField(new Blockly.FieldTextInput("Write Key"), "key");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#2c3e50');
@@ -859,8 +859,10 @@ Blockly.Blocks['httplib_datalog_write'] = {
     init: function () {
         this.appendValueInput("logging_write")
             .appendField(new Blockly.FieldImage("images/block/datalog.png", 30, 30, "*"))
-            .appendField("Record Data to")
+            .appendField("Record")
             .setCheck(null)
+        this.appendDummyInput()
+            .appendField("to")
             .appendField(new Blockly.FieldDropdown([
                 ["Field 1", "1"],
                 ["Field 2", "2"],

@@ -1,3 +1,5 @@
+// Blockly.mainWorkspace('x');
+
 var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
     media: 'media/',
     toolbox: document.getElementById('toolbox'),
@@ -11,6 +13,11 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
         trashcan: true
     }
 });
+
+workspace.createVariable('dice_roll');
+console.log(Blockly.Variables.allVariables(workspace));
+
+// Blockly.mainWorkspace('x');
 
 sessionStorage.file = []
 var database = "192.168.0.110"
@@ -51,10 +58,10 @@ function checklocalstorage() {
         localStorage.nsc_prompt_ip = '192.168.4.1'
     } else if (localStorage.nsc_prompt_ip) {
         document.getElementById('url').value = localStorage.nsc_prompt_ip;
-        reconnect_Interval = setInterval(function () {
-            console.log('Auto Reconnect');
-            button_click();
-        }, 5000);
+        // reconnect_Interval = setInterval(function () {
+        //     console.log('Auto Reconnect');
+        //     button_click();
+        // }, 5000);
     }
 }
 
@@ -333,6 +340,10 @@ function generate() {
     };
 
     editor.setValue(execcode);
+    // console.log(workspace);
+    // workspace.createVariable('hello')
+    // Blockly.Variables.createVariable('hello')
+    console.log(Blockly.Variables.allVariables(workspace));
 
     // console.log(execcode);
     return execcode

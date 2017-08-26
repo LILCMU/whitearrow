@@ -568,14 +568,15 @@
                                 </button>
 
                             </div>
+
                         </div>
                         <div class="row">
+
                             <div id="blocklyDiv"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row clearfix" id="Editor1">
-
                     <!-- <div style="position: absolute; right: 90px;"> -->
                     <div class="col-md-12 text-right" style="position: absolute; right: 90px;">
                         <input type="text" class="style-1" name="get_filename" id="get_filename" value="" placeholder="Untitled" />
@@ -1339,8 +1340,8 @@
     <category id="catmqtt" colour="#d35400" name="MQTT">
         <!-- <block type="uniqueid_mqtt_init"></block> -->
         <!-- <block type="mqtt_connect"></block> -->
-        <block type="mqtt_publish">
-            <value name="publish">
+        <block type="uniqueid_mqtt_publish">
+            <value name="message">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
                 </shadow>

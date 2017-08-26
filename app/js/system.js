@@ -476,7 +476,7 @@ function generateXML() {
                         _import += ","
                         _import += "beeper"
                     }
-                    _init_code += "beep = PWM(Pin(2), freq=600, duty=0)\n"
+                    _init_code += "\nbeep = PWM(Pin(2), freq=600, duty=0)\n"
                     break;
                 case 11:
                     if (first) {

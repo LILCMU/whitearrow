@@ -14,11 +14,6 @@ var workspace = Blockly.inject(document.getElementById('blocklyDiv'), {
     }
 });
 
-workspace.createVariable('dice_roll');
-console.log(Blockly.Variables.allVariables(workspace));
-
-// Blockly.mainWorkspace('x');
-
 sessionStorage.file = []
 var database = "192.168.0.110"
 var blocklyArea = document.getElementById('Blockly');
@@ -82,6 +77,8 @@ if (isAndroid || isiDevice) {
 var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
+var variable_msg_mqtt
+var statements_onmessage_mqtt = ""
 var _import = ""
 var _machine = ""
 var _init_code = ""
@@ -326,13 +323,14 @@ function generate() {
     _init_code = ""
 
     // Parse the XML into a tree.
-    generateXML()
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
+    
+    generateXML()
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
     if (_init_code) {
-        execcode += "\n" + _init_code
+        execcode += _init_code
     }
 
     for (var i = 1; i < newcode.length; i += 2) {
@@ -343,7 +341,7 @@ function generate() {
     // console.log(workspace);
     // workspace.createVariable('hello')
     // Blockly.Variables.createVariable('hello')
-    console.log(Blockly.Variables.allVariables(workspace));
+    // console.log(Blockly.Variables.allVariables(workspace));
 
     // console.log(execcode);
     return execcode
@@ -372,6 +370,7 @@ function generateXML() {
     arrXml.push(xmlText.search("uniqueid"))
     arrXml.push(xmlText.search("ujson"))
     arrXml.push(xmlText.search("motor"))
+    arrXml.push(xmlText.search("onmsg"))
 
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
@@ -507,8 +506,14 @@ function generateXML() {
                     }
                     break;
                 case 14:
-                    _init_code += "pin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
-            }
+                    // console.log('system');
+                    _init_code += "\npin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
+                    break;
+                case 15:
+                    // console.log('system.js', statements_onmessage_mqtt)
+                    _init_code += "\ndef onmessage(topic, "+ variable_msg_mqtt +"):\n" + statements_onmessage_mqtt + "\n"
+                    break;
+                }
         }
     }
 }

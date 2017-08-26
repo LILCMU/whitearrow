@@ -92,10 +92,11 @@ Blockly.Python['mqtt_disconnect'] = function (block) {
 
 Blockly.Blocks['mqtt_publish'] = {
     init: function () {
-        this.appendValueInput("publish")
+        this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
+            .appendField("Publish MQTT");
+        this.appendValueInput("publish")
             .setCheck(null)
-            .appendField("Publish ")
             .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
             .appendField("  Message :");
         this.appendDummyInput()
@@ -131,43 +132,100 @@ Blockly.Python['mqtt_publish'] = function (block) {
     return code;
 };
 
-Blockly.Blocks['mqtt_subscribe'] = {
+// Blockly.Blocks['mqtt_subscribe'] = {
+//     init: function () {
+//         this.appendDummyInput()
+//             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
+//             .appendField("Subscribe ")
+//             .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#d35400');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+// Blockly.Python['mqtt_subscribe'] = function (block) {
+//     var text_mqtt_topic = block.getFieldValue('mqtt_topic');
+//     var code = 'mqtt.subscribe(b\'' + text_mqtt_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'mqtt.wait_msg()\n';
+//     return code;
+// };
+
+// Blockly.Blocks['mqtt_onmessage'] = {
+//     init: function () {
+//         this.appendValueInput("NAME")
+//             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
+//             .setCheck(null)
+//             .appendField("Onmessage");
+//         this.setPreviousStatement(true, null);
+//         this.setNextStatement(true, null);
+//         this.setColour('#d35400');
+//         this.setTooltip('');
+//         this.setHelpUrl('');
+//     }
+// };
+
+// Blockly.Python['mqtt_onmessage'] = function (block) {
+//     var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+//     // TODO: Assemble Python into code variable.
+//     var code = 'mqtt.set_callback(' + value_name.split('(')[1] + ')\n';
+//     return code;
+// };
+
+Blockly.Blocks['uniqueid_mqtt_time_onmsg_subscribe'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .appendField("Subscribe ")
-            .appendField(new Blockly.FieldTextInput("topic"), "mqtt_topic")
+            .appendField("Subscribe MQTT");
+        this.appendDummyInput()
+            .appendField("Connect to")
+            .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name");
+        this.appendDummyInput()
+            .appendField("Topic :")
+            .appendField(new Blockly.FieldTextInput("WhiteArrow/#"), "topic");
+        this.appendStatementInput("Onmessage")
+            .setCheck(null);
+        this.appendDummyInput()
+            .appendField("when receive")
+            .appendField(new Blockly.FieldVariable("msg"), "msg")
+            .appendField("from MQTT");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
-        this.setTooltip('');
-        this.setHelpUrl('');
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
-Blockly.Python['mqtt_subscribe'] = function (block) {
-    var text_mqtt_topic = block.getFieldValue('mqtt_topic');
-    var code = 'mqtt.subscribe(b\'' + text_mqtt_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'mqtt.wait_msg()\n';
+
+Blockly.Python['uniqueid_mqtt_time_onmsg_subscribe'] = function (block) {
+    var text_server_name = block.getFieldValue('server_name');
+    var text_topic = block.getFieldValue('topic');
+    statements_onmessage_mqtt = Blockly.Python.statementToCode(block, 'Onmessage');
+    variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg'), Blockly.Variables.NAME_TYPE);
+    // TODO: Assemble Python into code variable.
+    console.log('statement',statements_onmessage_mqtt);
+    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '")\nmqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n';
     return code;
 };
 
 Blockly.Blocks['mqtt_onmessage'] = {
     init: function () {
-        this.appendValueInput("NAME")
-            .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .setCheck(null)
-            .appendField("Onmessage");
+        this.appendDummyInput()
+            .appendField("When receive message from MQTT");
+        this.appendStatementInput("NAME")
+            .setCheck(null);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
-        this.setTooltip('');
-        this.setHelpUrl('');
+        this.setTooltip("");
+        this.setHelpUrl("");
     }
 };
 
 Blockly.Python['mqtt_onmessage'] = function (block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+    var statements_name = Blockly.Python.statementToCode(block, 'NAME');
     // TODO: Assemble Python into code variable.
-    var code = 'mqtt.set_callback(' + value_name.split('(')[1] + ')\n';
+    var code = '...\n';
     return code;
 };
 // var pwm_port = 0;
@@ -369,7 +427,7 @@ Blockly.Blocks['WLAN_setting'] = {
             ]), "State");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#16a085');
+        this.setColour('#31ddbc');
         this.setTooltip('');
     }
 };
@@ -397,7 +455,7 @@ Blockly.Blocks['WLAN_connectwifi'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         // this.setOutput(true,null)
-        this.setColour('#16a085');
+        this.setColour('#31ddbc');
         this.setTooltip('');
     }
 };
@@ -417,7 +475,7 @@ Blockly.Blocks['WLAN_checknetwork'] = {
             .appendField("Check Network Status")
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#16a085');
+        this.setColour('#31ddbc');
         this.setTooltip('');
     }
 };
@@ -513,7 +571,7 @@ Blockly.Python['Pin_motor_onoff'] = function (block) {
             } else if (pin_motor == '2') {
                 var code = 'pin3(1)\npin4(0)\n'
             } else {
-                var code = 'pin1(1)\npin2(0)\npin3(1)\npin4(0)\n'   
+                var code = 'pin1(1)\npin2(0)\npin3(1)\npin4(0)\n'
             }
         } else {
             if (pin_motor == '1') {
@@ -527,7 +585,7 @@ Blockly.Python['Pin_motor_onoff'] = function (block) {
     } else {
         if (pin_motor == '1') {
             var code = 'pin1(0)\npin2(0)\n'
-        } else if (pin_motor == '2'){
+        } else if (pin_motor == '2') {
             var code = 'pin3(0)\npin4(0)\n'
         } else {
             var code = 'pin1(0)\npin2(0)\npin3(0)\npin4(0)\n'
@@ -698,7 +756,7 @@ Blockly.Blocks['time_delay'] = {
             ]), "prefix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#2ecc71');
+        this.setColour('#b7d82c');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -728,7 +786,7 @@ Blockly.Blocks['httplib_IFTTT_start'] = {
             .appendField(new Blockly.FieldTextInput("Event"), "event");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#34495e');
+        this.setColour('#455a64');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -751,7 +809,7 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
             .appendField("Send Value :");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#34495e');
+        this.setColour('#455a64');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -842,7 +900,7 @@ Blockly.Blocks['httplib_datalog_write_key'] = {
             .appendField(new Blockly.FieldTextInput("Write Key"), "key");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#2c3e50');
+        this.setColour('#795548');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -875,7 +933,7 @@ Blockly.Blocks['httplib_datalog_write'] = {
             ]), "field_id");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#2c3e50');
+        this.setColour('#795548');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -994,7 +1052,7 @@ Blockly.Blocks['Pin_PWM_beeper_time_beep_wait'] = {
             ]), "suffix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#f1c40f');
+        this.setColour('#f6cb1f');
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -1020,7 +1078,7 @@ Blockly.Blocks['Pin_PWM_beeper_time_beep'] = {
             .appendField("beep");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#f1c40f');
+        this.setColour('#f6cb1f');
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -1041,7 +1099,7 @@ Blockly.Blocks['Pin_PWM_beeper_freq'] = {
             .appendField("( 0 - 1024 )");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#f1c40f');
+        this.setColour('#f6cb1f');
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -1061,7 +1119,7 @@ Blockly.Blocks['text_binary'] = {
             .appendField("Binary Text");
         this.setInputsInline(true);
         this.setOutput(true, null);
-        this.setColour("#8e44ad");
+        this.setColour("#ad50d4");
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -1128,7 +1186,7 @@ Blockly.Blocks['ujson_json'] = {
             .appendField(new Blockly.FieldTextInput("key"), "key2")
             .appendField("  value :");
         this.setOutput(true, null);
-        this.setColour('#8e44ad');
+        this.setColour('#ad50d4');
         this.setTooltip('');
         this.setHelpUrl('');
     }
@@ -1154,7 +1212,7 @@ Blockly.Blocks['controls_forever'] = {
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField("do");
         this.setPreviousStatement(true, null);
-        this.setColour("#c0392b");
+        this.setColour("#ee1b05");
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -1183,7 +1241,7 @@ Blockly.Blocks['controls_time_forever_wait'] = {
             ]), "suffix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#c0392b');
+        this.setColour('#ee1b05');
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -1203,7 +1261,7 @@ Blockly.Python['controls_time_forever_wait'] = function (block) {
     return code;
 };
 
-Blockly.Blocks.math.HUE = '#9b59b6';
+Blockly.Blocks.math.HUE = '#e91e63';
 Blockly.Blocks['math_between'] = {
     init: function () {
         this.appendValueInput("input")

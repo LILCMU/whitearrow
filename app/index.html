@@ -24,11 +24,13 @@
     <link rel="stylesheet" type="text/css" href="./resource/bootstrap.min.css">
     <script src="./resource/jquery.min.js"></script>
     <script src="./resource/bootstrap.min.js"></script>
-    <script src="blockly_compressed.js"></script>
+    <script src="blockly_uncompressed.js"></script>
+    <!-- <script src="blockly_compressed.js"></script> -->
+    <script src="msg/js/en.js"></script>
     <script src="blocks_compressed.js"></script>
+    <script src="custom_colours.js"></script>
     <script src="python_compressed.js"></script>
     <script src="python_more.js"></script>
-    <script src="msg/js/en.js"></script>
     <script src="js/storage.js"></script>
     <!-- Bootstrap Select Css -->
     <link href="./plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
@@ -961,7 +963,7 @@
         <div id="ide_output_spacer"></div>
 </body>
 <xml id="toolbox" style="display: none">
-    <category id="catLogic" colour="#e74c3c" name="Logic">
+    <category id="catLogic" colour="#ff5252" name="Logic">
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
@@ -970,7 +972,7 @@
         <block type="logic_null"></block>
         <block type="logic_ternary"></block>
     </category>
-    <category id="catLoops" colour="#c0392b" name="Loops">
+    <category id="catLoops" colour="#ee1b05" name="Loops">
         <block type="controls_time_forever_wait">
             <value name="time">
                 <shadow type="math_number">
@@ -1013,7 +1015,7 @@
         <block type="controls_forEach"></block>
         <block type="controls_flow_statements"></block>
     </category>
-    <category id="catMath" colour="#9b59b6" name="Math">
+    <category id="catMath" colour="#e91e63" name="Math">
         <block type="math_number"></block>
         <block type="math_arithmetic">
             <value name="A">
@@ -1108,7 +1110,7 @@
         </block>
         <block type="math_random_float"></block>
     </category>
-    <category id="catText" colour="#8e44ad" name="Text">
+    <category id="catText" colour="#ad50d4" name="Text">
         <block type="text"></block>
         <block type="text_join"></block>
         <block type="text_binary"></block>
@@ -1187,7 +1189,7 @@
         </block>
         <block type="ujson_json"></block>
     </category>
-    <category id="catLists" colour="#2980b9" name="Lists">
+    <category id="catLists" colour="#295fb9" name="Lists">
         <block type="lists_create_with">
             <mutation items="0"></mutation>
         </block>
@@ -1249,13 +1251,13 @@
         </block>
         <block type="oled_clear"></block>
     </category>
-    <category id="catWifi" colour="#16a085" name="Wifi">
+    <category id="catWifi" colour="#31ddbc" name="Wifi">
         <!-- <block type="wlan_import"></block> -->
         <block type="WLAN_setting"></block>
         <block type="WLAN_connectwifi"></block>
         <block type="WLAN_checknetwork"></block>
     </category>
-    <category id="catio" colour="#27ae60" name="Input Output">
+    <category id="catio" colour="#1abc9c" name="Input Output">
         <block type="ADC_input"></block>
         <block type="Pin_motor"></block>
         <!-- <block type="init_gyro"></block>
@@ -1293,7 +1295,7 @@
         </block>
         <block type="Pin_PWMDeinit"></block>-->
     </category>
-    <category id="i2c" colour="#1abc9c" name="I2C">
+    <category id="i2c" colour="#27ae60" name="I2C">
         <block type="Pin_I2C_read"></block>
         <block type="Pin_I2C_write">
             <value name="i2c">
@@ -1304,7 +1306,7 @@
         </block>
         <block type="Pin_I2C_scan"></block>
     </category>
-    <category id="catTime" colour="#2ecc71" name="Time">
+    <category id="catTime" colour="#b7d82c" name="Time">
         <block type="time_delay">
             <value name="in_value">
                 <block type="math_number">
@@ -1313,7 +1315,7 @@
             </value>
         </block>
     </category>
-    <category id="beeper" colour="#f1c40f" name="Beeper">
+    <category id="beeper" colour="#f6cb1f" name="Beeper">
         <block type="Pin_PWM_beeper_time_beep"></block>
         <block type="Pin_PWM_beeper_freq">
             <value name="freq">
@@ -1335,7 +1337,7 @@
     <category id="catFunctions" colour="#e67e22" custom="PROCEDURE" name="Functions"></category>
     <sep></sep>
     <category id="catmqtt" colour="#d35400" name="MQTT">
-        <block type="uniqueid_mqtt_init"></block>
+        <!-- <block type="uniqueid_mqtt_init"></block> -->
         <!-- <block type="mqtt_connect"></block> -->
         <block type="mqtt_publish">
             <value name="publish">
@@ -1344,11 +1346,11 @@
                 </shadow>
             </value>
         </block>
-        <block type="mqtt_subscribe"></block>
-        <block type="mqtt_onmessage"></block>
-        <block type="mqtt_disconnect"></block>
+        <block type="uniqueid_mqtt_time_onmsg_subscribe"></block>
+        <!-- <block type="mqtt_onmessage"></block>
+        <block type="mqtt_disconnect"></block> -->
     </category>
-    <category id="catdatalog" colour="#2c3e50" name="DataLogging">
+    <category id="catdatalog" colour="#795548" name="DataLogging">
         <block type="httplib_datalog_write_key"></block>
         <block type="httplib_datalog_write">
             <value name="logging_write">
@@ -1359,7 +1361,7 @@
         </block>
         <!-- <block type="httplib_datalog_read"></block> -->
     </category>
-    <category id="catifttt" colour="#34495e" name="IFTTT">
+    <category id="catifttt" colour="#455a64" name="IFTTT">
         <block type="httplib_IFTTT_start"></block>
         <block type="httplib_IFTTT_sent"></block>
     </category>

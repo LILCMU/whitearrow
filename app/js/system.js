@@ -78,6 +78,7 @@ var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
 var variable_msg_mqtt
+var text_server_name
 var statements_onmessage_mqtt = ""
 var _import = ""
 var _machine = ""
@@ -155,7 +156,7 @@ function button_click() {
 
         ws.send(String.fromCharCode(4))
         ws.close();
-        
+
         if (term) {
             term.write('\x1b[31mDisconnecting..\x1b[m\r\n');
         }
@@ -325,7 +326,7 @@ function generate() {
     // Parse the XML into a tree.
     var code = Blockly.Python.workspaceToCode(workspace);
     var newcode = code.split('$')
-    
+
     generateXML()
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
@@ -340,6 +341,7 @@ function generate() {
     editor.setValue(execcode);
     // console.log(workspace);
     // workspace.createVariable('hello')
+    // console.log(Blockly.Variables.allVariables(workspace));
     // Blockly.Variables.createVariable('hello')
     // console.log(Blockly.Variables.allVariables(workspace));
 
@@ -370,6 +372,7 @@ function generateXML() {
     arrXml.push(xmlText.search("uniqueid"))
     arrXml.push(xmlText.search("ujson"))
     arrXml.push(xmlText.search("motor"))
+    arrXml.push(xmlText.search("initmqtt"))
     arrXml.push(xmlText.search("onmsg"))
 
     for (var i = 0; i < arrXml.length; i++) {
@@ -510,10 +513,18 @@ function generateXML() {
                     _init_code += "\npin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
                     break;
                 case 15:
-                    // console.log('system.js', statements_onmessage_mqtt)
-                    _init_code += "\ndef onmessage(topic, "+ variable_msg_mqtt +"):\n" + statements_onmessage_mqtt + "\n"
+                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '")\n'
                     break;
-                }
+                case 16:
+                    // console.log('system.js', statements_onmessage_mqtt)
+                    _init_code += "\ndef onmessage(topic, " + variable_msg_mqtt + "):\n"
+                    if (statements_onmessage_mqtt) {
+                        _init_code += statements_onmessage_mqtt + "\n"
+                    } else {
+                        _init_code += Blockly.Python.INDENT + 'pass\n'
+                    }
+                    break;
+            }
         }
     }
 }

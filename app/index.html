@@ -21,9 +21,13 @@
     <link href="./resource/Roboto.css" rel="stylesheet" type="text/css">
     <link href="./resource/icon.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./resource/bootstrap.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./resource/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <script src="./resource/jquery.min.js"></script>
-    <script src="./resource/bootstrap.min.js"></script>
+    <!-- <script src="./resource/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
     <!-- <script src="blockly_uncompressed.js"></script> -->
     <script src="blockly_compressed.js"></script>
     <script src="msg/js/en.js"></script>
@@ -45,7 +49,9 @@
     <link href="./plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
     <!--WaitMe Css-->
     <link href="./plugins/waitme/waitMe.css" rel="stylesheet" />
+        
     <link href="./css/materialize.css" rel="stylesheet">
+    <script src="js/materialize.js"></script>
     <!-- Custom Css -->
     <link href="./css/style.css" rel="stylesheet">
     <!-- NSC2017 Themes. You can choose a theme from css/themes instead of get all themes -->
@@ -1340,14 +1346,14 @@
     <category id="catmqtt" colour="#d35400" name="MQTT">
         <!-- <block type="uniqueid_mqtt_init"></block> -->
         <!-- <block type="mqtt_connect"></block> -->
-        <block type="uniqueid_mqtt_publish">
+        <block type="uniqueid_initmqtt_time_publish">
             <value name="message">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
                 </shadow>
             </value>
         </block>
-        <block type="uniqueid_mqtt_time_onmsg_subscribe"></block>
+        <block type="uniqueid_initmqtt_time_onmsg_subscribe"></block>
         <!-- <block type="mqtt_onmessage"></block>
         <block type="mqtt_disconnect"></block> -->
     </category>
@@ -1465,7 +1471,6 @@
     $('#Message').hide();
 </script>
 <!--<script src="toolbox.js"></script>-->
-<script src="js/materialize.js"></script>
 <!-- Jquery Core Js -->
 <script src="./plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap Core Js -->

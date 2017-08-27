@@ -90,7 +90,7 @@ Blockly.Python['controls_main'] = function (block) {
 //     return code;
 // };
 
-Blockly.Blocks['uniqueid_mqtt_publish'] = {
+Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
@@ -111,9 +111,9 @@ Blockly.Blocks['uniqueid_mqtt_publish'] = {
         this.setHelpUrl("");
     }
 };
-Blockly.Python['uniqueid_mqtt_publish'] = function (block) {
+Blockly.Python['uniqueid_initmqtt_time_publish'] = function (block) {
     var value_message = Blockly.Python.valueToCode(block, 'message', Blockly.Python.ORDER_ATOMIC);
-    var text_server_name = block.getFieldValue('server_name');
+    text_server_name = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
     var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
     // TODO: Assemble Python into code variable.
@@ -122,7 +122,7 @@ Blockly.Python['uniqueid_mqtt_publish'] = function (block) {
     } else {
         checkbox_retain = "False"
     }
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '")\nmqtt.connect()\nmqtt.publish(\'' + text_topic + '\',' + value_message + ',retain=' + checkbox_retain + ')\nmqtt.disconnect()\n';
+    var code = 'mqtt.connect()\nmqtt.publish(\'' + text_topic + '\',' + value_message + ',retain=' + checkbox_retain + ')\ntime.sleep_ms(100)\nmqtt.disconnect()\n';
     return code;
 };
 // Blockly.Python['mqtt_publish'] = function (block) {
@@ -184,7 +184,7 @@ Blockly.Python['uniqueid_mqtt_publish'] = function (block) {
 //     return code;
 // };
 
-Blockly.Blocks['uniqueid_mqtt_time_onmsg_subscribe'] = {
+Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
@@ -209,14 +209,14 @@ Blockly.Blocks['uniqueid_mqtt_time_onmsg_subscribe'] = {
     }
 };
 
-Blockly.Python['uniqueid_mqtt_time_onmsg_subscribe'] = function (block) {
-    var text_server_name = block.getFieldValue('server_name');
+Blockly.Python['uniqueid_initmqtt_time_onmsg_subscribe'] = function (block) {
+    text_server_name = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
     statements_onmessage_mqtt = Blockly.Python.statementToCode(block, 'Onmessage');
     variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg'), Blockly.Variables.NAME_TYPE);
     // TODO: Assemble Python into code variable.
     // console.log('statement', statements_onmessage_mqtt);
-    var code = 'CLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '")\nmqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n';
+    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n';
     return code;
 };
 

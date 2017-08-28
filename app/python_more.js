@@ -188,19 +188,19 @@ Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .appendField("Subscribe !!(Already loop in code)");
+            .appendField("Subscribe !!(Already loop in block)");
         this.appendDummyInput()
             .appendField("Connect to")
             .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name");
         this.appendDummyInput()
             .appendField("Topic :")
             .appendField(new Blockly.FieldTextInput("WhiteArrow/#"), "topic");
-        this.appendStatementInput("Onmessage")
-            .setCheck(null);
         this.appendDummyInput()
-            .appendField("when receive")
-            .appendField(new Blockly.FieldVariable("mqtt_msg"), "msg")
-            .appendField("from MQTT");
+            .appendField("Assign MQTT message to")
+            .appendField(new Blockly.FieldVariable("message"), "msg");
+        this.appendStatementInput("Onmessage")
+            .setCheck(null)
+            .appendField("do");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
@@ -1270,12 +1270,33 @@ Blockly.Blocks['math_between'] = {
         this.setHelpUrl("");
     }
 };
-
-
 Blockly.Python['math_between'] = function (block) {
     var value_input = Blockly.Python.valueToCode(block, 'input', Blockly.Python.ORDER_ATOMIC);
     var number_num1 = block.getFieldValue('NUM1');
     var number_num2 = block.getFieldValue('NUM2');
     var code = value_input + ' >= ' + number_num1 + ' and ' + value_input + ' <= ' + number_num2;
     return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['logic_ifstate'] = {
+    init: function () {
+        this.appendValueInput("condition")
+            .setCheck(null)
+            .appendField("if state change");
+        this.appendStatementInput("statement")
+            .setCheck(null)
+            .appendField("do");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#ff5252');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+}
+Blockly.Python['logic_ifstate'] = function (block) {
+    var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
+    var statements_if_true = Blockly.Python.statementToCode(block, 'statement');
+    // TODO: Assemble Python into code variable.
+    var code = 'if state_has_changed("' + value_condition + '"):\n'  + statements_if_true + '\n';
+    return code;
 };

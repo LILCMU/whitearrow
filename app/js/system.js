@@ -374,6 +374,7 @@ function generateXML() {
     arrXml.push(xmlText.search("motor"))
     arrXml.push(xmlText.search("initmqtt"))
     arrXml.push(xmlText.search("onmsg"))
+    arrXml.push(xmlText.search("ifstate"))
 
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
@@ -523,6 +524,20 @@ function generateXML() {
                     } else {
                         _init_code += Blockly.Python.INDENT + 'pass\n'
                     }
+                    break;
+                case 17:
+                    _init_code += "\nifstate = {}\n" +
+                    "def state_has_changed(text):\n" + Blockly.Python.INDENT +
+                      "current_state = eval(text)\n"  + Blockly.Python.INDENT +
+                      "global ifstate\n" + Blockly.Python.INDENT +
+                      "if text not in ifstate:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
+                        "ifstate[text] = False\n" + Blockly.Python.INDENT +
+                      "prev_state = ifstate[text]\n" + Blockly.Python.INDENT +
+                      "ifstate[text] = current_state\n" + Blockly.Python.INDENT +
+                      "state_changed = current_state\n" + Blockly.Python.INDENT +
+                      "if current_state == True:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
+                      "state_changed = (current_state != prev_state)\n" + Blockly.Python.INDENT +
+                      "return state_changed\n"
                     break;
             }
         }

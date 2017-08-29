@@ -30,6 +30,11 @@ Blockly.Python['controls_main'] = function (block) {
     } else if (!statements_a) {
         statements_a = Blockly.Python.PASS;
     }
+    if (statements_a.includes('publish')) {
+        check_mqtt_server = 'publish'
+    }else if (statements_a.includes('subscribe')) {
+        check_mqtt_server = 'subscribe'   
+    }
     var code = 'start$\ndef main():\n' + statements_a + '\$end\n';
 
     return code;
@@ -96,7 +101,7 @@ Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
             .appendField("Publish");
         this.appendValueInput("message")
-            .setCheck("String");
+            .setCheck(null);
         this.appendDummyInput()
             .appendField("to")
             .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
@@ -113,7 +118,7 @@ Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
 };
 Blockly.Python['uniqueid_initmqtt_time_publish'] = function (block) {
     var value_message = Blockly.Python.valueToCode(block, 'message', Blockly.Python.ORDER_ATOMIC);
-    text_server_name = block.getFieldValue('server_name');
+    text_server_publish = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
     var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
     // TODO: Assemble Python into code variable.
@@ -201,6 +206,17 @@ Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
         this.appendStatementInput("Onmessage")
             .setCheck(null)
             .appendField("do");
+        this.appendValueInput("time")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("each loop wait for");
+        this.appendDummyInput()
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(new Blockly.FieldDropdown([
+                ["second(s)", "second"],
+                ["millisecond(s)", "milli"],
+                ["microsecond(s)", "micro"]
+            ]), "suffix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
@@ -208,15 +224,24 @@ Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
         this.setHelpUrl("");
     }
 };
-
 Blockly.Python['uniqueid_initmqtt_time_onmsg_subscribe'] = function (block) {
-    text_server_name = block.getFieldValue('server_name');
+    text_server_subscribe = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
+    var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+    var suffix_time = block.getFieldValue('suffix_second');
     statements_onmessage_mqtt = Blockly.Python.statementToCode(block, 'Onmessage');
     variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg'), Blockly.Variables.NAME_TYPE);
+    if (suffix_time == 'second') {
+        suffix_time = ''
+    } else if (suffix_time == 'milli') {
+        suffix_time = '_ms'
+    } else if (suffix_time == 'micro') {
+        suffix_time = '_us'
+    }
+
     // TODO: Assemble Python into code variable.
     // console.log('statement', statements_onmessage_mqtt);
-    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n';
+    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n' + Blockly.Python.INDENT + 'time.sleep' + suffix_time + '(' + waittime + ')\n';
     return code;
 };
 
@@ -1297,6 +1322,6 @@ Blockly.Python['logic_ifstate'] = function (block) {
     var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
     var statements_if_true = Blockly.Python.statementToCode(block, 'statement');
     // TODO: Assemble Python into code variable.
-    var code = 'if state_has_changed("' + value_condition + '"):\n'  + statements_if_true + '\n';
+    var code = 'if state_has_changed("' + value_condition + '"):\n' + statements_if_true + '\n';
     return code;
 };

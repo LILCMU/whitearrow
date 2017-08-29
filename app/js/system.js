@@ -78,7 +78,9 @@ var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
 var variable_msg_mqtt
-var text_server_name
+var text_server_publish
+var text_server_subscribe
+var check_mqtt_server
 var statements_onmessage_mqtt = ""
 var _import = ""
 var _machine = ""
@@ -375,6 +377,7 @@ function generateXML() {
     arrXml.push(xmlText.search("initmqtt"))
     arrXml.push(xmlText.search("onmsg"))
     arrXml.push(xmlText.search("ifstate"))
+    // arrXml.push(xmlText.search("initmqttsub"))
 
     for (var i = 0; i < arrXml.length; i++) {
         // console.log(arrXml)
@@ -514,7 +517,11 @@ function generateXML() {
                     _init_code += "\npin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
                     break;
                 case 15:
-                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '")\n'
+                    if (check_mqtt_server == 'publish') {
+                        _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
+                    }else {
+                        _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
+                    }
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)
@@ -527,17 +534,17 @@ function generateXML() {
                     break;
                 case 17:
                     _init_code += "\nifstate = {}\n" +
-                    "def state_has_changed(text):\n" + Blockly.Python.INDENT +
-                      "current_state = eval(text)\n"  + Blockly.Python.INDENT +
-                      "global ifstate\n" + Blockly.Python.INDENT +
-                      "if text not in ifstate:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
+                        "def state_has_changed(text):\n" + Blockly.Python.INDENT +
+                        "current_state = eval(text)\n" + Blockly.Python.INDENT +
+                        "global ifstate\n" + Blockly.Python.INDENT +
+                        "if text not in ifstate:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
                         "ifstate[text] = False\n" + Blockly.Python.INDENT +
-                      "prev_state = ifstate[text]\n" + Blockly.Python.INDENT +
-                      "ifstate[text] = current_state\n" + Blockly.Python.INDENT +
-                      "state_changed = current_state\n" + Blockly.Python.INDENT +
-                      "if current_state == True:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
-                      "state_changed = (current_state != prev_state)\n" + Blockly.Python.INDENT +
-                      "return state_changed\n"
+                        "prev_state = ifstate[text]\n" + Blockly.Python.INDENT +
+                        "ifstate[text] = current_state\n" + Blockly.Python.INDENT +
+                        "state_changed = current_state\n" + Blockly.Python.INDENT +
+                        "if current_state == True:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
+                        "state_changed = (current_state != prev_state)\n" + Blockly.Python.INDENT +
+                        "return state_changed\n"
                     break;
             }
         }

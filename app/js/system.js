@@ -928,9 +928,6 @@ function connect(url) {
             }
         };
     };
-    ws.on('disconnect', function () {
-        console.log('disconnect');
-    })
     ws.onclose = function () {
         connected = false;
         if (term) {

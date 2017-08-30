@@ -10225,7 +10225,7 @@ fieldset[disabled] .form-control {
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 11 !important;
+    z-index: 20 !important;
 }
 
 .sidebar .legal {
@@ -10477,7 +10477,7 @@ fieldset[disabled] .form-control {
     right: -300px;
     top: 70px;
     background: #fdfdfd;
-    z-index: 100 !important;
+    z-index: 90 !important;
     -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);

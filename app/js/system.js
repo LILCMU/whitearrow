@@ -519,7 +519,7 @@ function generateXML() {
                 case 15:
                     if (check_mqtt_server == 'publish') {
                         _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
-                    }else {
+                    } else {
                         _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
                     }
                     break;
@@ -529,7 +529,7 @@ function generateXML() {
                     if (statements_onmessage_mqtt) {
                         _init_code += Blockly.Python.INDENT + variable_msg_mqtt + '=' + variable_msg_mqtt + '.decode("ascii")\n'
                         _init_code += Blockly.Python.INDENT + 'try:\n'
-                        _init_code += Blockly.Python.INDENT + Blockly.Python.INDENT + variable_msg_mqtt  + '=int(' + variable_msg_mqtt + ')\n'
+                        _init_code += Blockly.Python.INDENT + Blockly.Python.INDENT + variable_msg_mqtt + '=int(' + variable_msg_mqtt + ')\n'
                         _init_code += Blockly.Python.INDENT + 'except ValueError:\n'
                         _init_code += Blockly.Python.INDENT + Blockly.Python.INDENT + 'pass\n'
                         _init_code += statements_onmessage_mqtt + "\n"
@@ -764,6 +764,8 @@ function loadAddons(nameID) {
 
 function connect(url) {
     ws = new WebSocket(url);
+    // ws = new ReconnectingWebSocket(url);
+    // ws.debug = true;
     // ws.onclose = function(){
     //   setTimeout(connect(url), 500);
     // }
@@ -893,8 +895,6 @@ function connect(url) {
                                         type: "application/octet-stream"
                                     }), get_file_name);
                                 }
-
-
                             } else {
                                 term.write('Failed getting ' + get_file_name + "\r\n");
                             }
@@ -928,6 +928,9 @@ function connect(url) {
             }
         };
     };
+    ws.on('disconnect', function () {
+        console.log('disconnect');
+    })
     ws.onclose = function () {
         connected = false;
         if (term) {
@@ -1391,6 +1394,25 @@ function turn_motor_off() {
     // console.log(motor_turn);
 }
 
+function turn_all_motor_off() {
+    if (motor_selected.includes('motorA')) {
+        motor_selected.splice(motor_selected.indexOf(motor_select), 1);
+        motorObj.setAttribute('fill', '#bdbdbd');
+    }
+    if (motor_selected.includes('motorB')) {
+        motor_selected.splice(motor_selected.indexOf(motor_select), 1);
+        motorObj.setAttribute('fill', '#bdbdbd');
+    }
+    motor_turn['motorA-state'] = 'off';
+    motor_turn['motorB-state'] = 'off';
+    set_svg_off('motorA-circle');
+    set_svg_off('motorB-circle');
+    if (ws) {
+        ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
+        ws.send("deamon.monitor_motor_control('motorB','" + motor_turn['motorB-state'] + "','" + motor_turn['motorB-direction'] + "')\r\n");
+    }
+}
+
 // ws.send("deamon.monitor_motor_control('motorA','" + motor_turn['motorA-state'] + "','" + motor_turn['motorA-direction'] + "')\r\n");
 
 
@@ -1428,20 +1450,31 @@ function turn_motor_off() {
 //     }
 // });
 
+// $('#read').click(function () { //read sensor
+//     if (sel) {
+//         ws.send('deamon.monitor("sensor","","")\r\n')
+//         sel = false;
+//         $(this).text("Stop")
+//     } else {
+//         ws.send(String.fromCharCode(3))
+//         sel = true
+//         $(this).text("Start")
+//     }
+// })
+
 var sel = true;
-$('#read').click(function () { //read sensor
+
+var read_sensor = function() {
     if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
         sel = false;
-        $(this).text("Stop")
+        $('#read_sensor').text("Stop")
     } else {
         ws.send(String.fromCharCode(3))
         sel = true
-        $(this).text("Start")
+        $('#read_sensor').text("Start")
     }
-
-
-})
+}
 
 $('#show_OLED').click(function () {
     var h = document.getElementById('htext_olcd').value
@@ -1485,30 +1518,30 @@ function smart_ap() {
 }
 
 
-var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf" + parseInt(Math.random() * 100, 10));
+// var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientid_safasf" + parseInt(Math.random() * 100, 10));
 
-client.onMessageArrived = function (message) {
-    //Do something with the push message you received
-    console.log(message.destinationName, message.payloadString)
-};
-var options = {
+// client.onMessageArrived = function (message) {
+//     //Do something with the push message you received
+//     console.log(message.destinationName, message.payloadString)
+// };
+// var options = {
 
-    //connection attempt timeout in seconds
-    timeout: 3,
-    //Gets Called if the connection has successfully been established
-    onSuccess: function () {
-        console.log("Connected");
-    },
-    //Gets Called if the connection could not be established
-    onFailure: function (message) {
-        console.log("Connection failed: " + message.errorMessage);
-    }
-};
+//     //connection attempt timeout in seconds
+//     timeout: 3,
+//     //Gets Called if the connection has successfully been established
+//     onSuccess: function () {
+//         console.log("Connected");
+//     },
+//     //Gets Called if the connection could not be established
+//     onFailure: function (message) {
+//         console.log("Connection failed: " + message.errorMessage);
+//     }
+// };
 
-//Attempt to connect
-client.connect(options);
-setTimeout(function () {
-    client.subscribe('NSC2017/#', {
-        qos: 2
-    });
-}, 500)
+// //Attempt to connect
+// client.connect(options);
+// setTimeout(function () {
+//     client.subscribe('NSC2017/#', {
+//         qos: 2
+//     });
+// }, 500)

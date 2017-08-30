@@ -1,6 +1,5 @@
-
-function menu2(){
-generate();
+function menu2() {
+  generate();
   $('#Editor1').show();
   editor.resize();
   $('#Blockly').hide();
@@ -8,21 +7,20 @@ generate();
   $('#monitor').hide();
   $('#FileMannger').hide();
   $('#Message').hide();
+  disable_monitor()
 }
 
-function menu3(){
-  
-  
+function menu3() {
   $('#Editor1').hide();
   $('#Blockly').show();
   $('.blocklyToolboxDiv').show();
   $('#monitor').hide();
   $('#FileMannger').hide();
   $('#Message').hide();
+  disable_monitor()
 }
 
-function menu4(){
-
+function menu4() {
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
@@ -31,7 +29,7 @@ function menu4(){
   $('#Message').hide();
 }
 
-function menu5(){
+function menu5() {
   refreshFile()
   $('#Editor1').hide();
   $('#Blockly').hide();
@@ -39,14 +37,23 @@ function menu5(){
   $('#monitor').hide();
   $('#FileMannger').show();
   $('#Message').hide();
+  disable_monitor()
 }
 
-function menu6(){
-
+function menu6() {
   $('#Editor1').hide();
   $('#Blockly').hide();
   $('.blocklyToolboxDiv').hide();
   $('#monitor').hide();
   $('#FileMannger').hide();
   $('#Message').show();
+  disable_monitor()
+}
+
+function disable_monitor() {
+  if (!sel) {
+    ws.send(String.fromCharCode(3))
+    sel = true
+    $('#read_sensor').text("Start")
+  }
 }

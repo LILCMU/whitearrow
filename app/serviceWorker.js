@@ -4,16 +4,16 @@
 //importScripts('');
 //var worker = new Worker('./cache-polyfill.js');
 
-var cacheName = 'cache-v094';
+var cacheName = 'cache-v1';
 
 //Files to save in cache
 var files = [
-  './',
+  // './',
   './index.html',
   './index.html?utm=homescreen', //SW treats query string as new page
   './css/style.css',
   './css/materialize.css',
-   './css/blockly-demo.css',
+  './css/blockly-demo.css',
   'https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700', //caching 3rd party content
   'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', //caching 3rd party content
   'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', //caching 3rd party content
@@ -23,24 +23,22 @@ var files = [
   './blocks_compressed.js',
   './python_compressed.js',
   './python_more.js',
-    './msg/js/en.js',
-      './js/storage.js',
-        './python_more.js',
-
-    './js/ace/ace.js',
-      './js/materialize.js',
+  './msg/js/en.js',
+  './js/storage.js',
+  './js/ace/ace.js',
+  './js/materialize.js',
   './js/admin.js',
   './js/pages/ui/range-sliders.js',
   './js/pages/charts/jquery-knob.js',
   './js/pages/cards/colored.js',
-  './js/pages/ui/notifications.js',   
-  './js/reconnecting-websocket.js',   
-  './js/term.js',   
-  './js/monitor.js',   
-  './js/manager.js',   
-  './js/system.js',   
-  './js/prompt.js', 
-  './images/user-img-background.png',  
+  './js/pages/ui/notifications.js',
+  './js/reconnecting-websocket.js',
+  './js/term.js',
+  './js/monitor.js',
+  './js/manager.js',
+  './js/system.js',
+  './js/prompt.js',
+  './images/user-img-background.png',
   './images/user.jpg',
   './images/icons/favicon-16x16.png',
   './images/icons/favicon-32x32.png',
@@ -63,13 +61,13 @@ self.addEventListener('install', function (event) {
     .then(function (cache) {
       //[] of files to cache & if any of the file not present `addAll` will fail
       return cache.addAll(files)
-      .then(function () {
-        console.info('All files are cached');
-        return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
-      })
-      .catch(function (error) {
-        console.error('Failed to cache', error);
-      })
+        .then(function () {
+          console.info('All files are cached');
+          return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
+        })
+        .catch(function (error) {
+          console.error('Failed to cache', error);
+        })
     })
   );
 });
@@ -87,17 +85,17 @@ self.addEventListener('fetch', function (event) {
   //Tell the browser to wait for newtwork request and respond with below
   event.respondWith(
     //If request is already in cache, return it
-    caches.match(request).then(function(response) {
+    caches.match(request).then(function (response) {
       if (response) {
         return response;
       }
 
       //if request is not cached, add it to cache
-      return fetch(request).then(function(response) {
+      return fetch(request).then(function (response) {
         var responseToCache = response.clone();
         caches.open(cacheName).then(
-          function(cache) {
-            cache.put(request, responseToCache).catch(function(err) {
+          function (cache) {
+            cache.put(request, responseToCache).catch(function (err) {
               console.warn(request.url + ': ' + err.message);
             });
           });
@@ -117,11 +115,11 @@ self.addEventListener('activate', function (event) {
   console.info('Event: Activate');
 
   //Remove old and unwanted caches
-  event.waitUntil( 
-    caches.keys().then(function(cacheNames) {
+  event.waitUntil(
+    caches.keys().then(function (cacheNames) {
       return Promise.all(
-        cacheNames.map(function(cache) {
-          if (cache !== cacheName) {     //cacheName = 'cache-v094'
+        cacheNames.map(function (cache) {
+          if (cache !== cacheName) { //cacheName = 'cache-v1.0'
             return caches.delete(cache); //Deleting the cache
           }
         })
@@ -141,7 +139,7 @@ self.addEventListener('activate', function (event) {
   another sync is scheduled to retry (will will also waits for network connection)
 */
 
-self.addEventListener('sync', function(event) {
+self.addEventListener('sync', function (event) {
   console.info('Event: Sync');
 
   //Check registered sync name or emulated sync from devTools

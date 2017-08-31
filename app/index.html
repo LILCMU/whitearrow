@@ -1347,16 +1347,17 @@
     <category id="catFunctions" colour="#e67e22" custom="PROCEDURE" name="Functions"></category>
     <sep></sep>
     <category id="catmqtt" colour="#d35400" name="MQTT">
+        <block type="initmqtt_setting"></block>
         <!-- <block type="uniqueid_mqtt_init"></block> -->
         <!-- <block type="mqtt_connect"></block> -->
-        <block type="uniqueid_initmqtt_time_publish">
+        <block type="uniqueid_time_publish">
             <value name="message">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
                 </shadow>
             </value>
         </block>
-        <block type="uniqueid_initmqtt_time_onmsg_subscribe">
+        <block type="uniqueid_time_onmsg_subscribe">
             <value name="time">
                 <shadow type="math_number">
                     <field name="NUM">1</field>
@@ -1524,8 +1525,8 @@
 <script src="./js/sync.js"></script>
 <script src="./js/share.js"></script>
 <script src="./js/menu.js"></script>
-<script src="./serviceWorker.js"></script>
-<script>
+<!-- <script src="./serviceWorker.js"></script> -->
+<!-- <script>
     if (!('serviceWorker' in navigator)) {
         console.log('Service worker not supported');
 
@@ -1537,7 +1538,7 @@
         .catch(function (error) {
             console.log('Registration failed:', error);
         });
-</script>
+</script> -->
 </body>
 
 </html>

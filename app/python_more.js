@@ -32,8 +32,8 @@ Blockly.Python['controls_main'] = function (block) {
     }
     if (statements_a.includes('publish')) {
         check_mqtt_server = 'publish'
-    }else if (statements_a.includes('subscribe')) {
-        check_mqtt_server = 'subscribe'   
+    } else if (statements_a.includes('subscribe')) {
+        check_mqtt_server = 'subscribe'
     }
     var code = 'start$\ndef main():\n' + statements_a + '\$end\n';
 
@@ -94,8 +94,41 @@ Blockly.Python['controls_main'] = function (block) {
 //     var code = 'mqtt.disconnect()\n';
 //     return code;
 // };
+Blockly.Blocks['initmqtt_setting'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
+            .appendField("MQTT Setting");
+        this.appendDummyInput()
+            .appendField("Connect to")
+            .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
+            // .appendField("Topic :")
+            // .appendField(new Blockly.FieldTextInput("WhiteArrow"), "topic");
+        this.appendDummyInput()
+            .appendField("User :")
+            .appendField(new Blockly.FieldTextInput("None"), "user")
+            .appendField("Password")
+            .appendField(new Blockly.FieldTextInput("None"), "password");
+        this.appendDummyInput()
+            .appendField("leave 'None' for default setting");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#d35400');
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+Blockly.Python['initmqtt_setting'] = function (block) {
+    text_server_name = block.getFieldValue('server_name');
+    // var text_topic = block.getFieldValue('topic');
+    text_mqttuser = block.getFieldValue('user');
+    text_mqttpassword = block.getFieldValue('password');
+    // TODO: Assemble Python into code variable.
+    var code = '';
+    return code;
+};
 
-Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
+Blockly.Blocks['uniqueid_time_publish'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
@@ -103,9 +136,9 @@ Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
         this.appendValueInput("message")
             .setCheck(null);
         this.appendDummyInput()
-            .appendField("to")
-            .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
-            .appendField("Topic :")
+            // .appendField("to")
+            // .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
+            .appendField("to Topic :")
             .appendField(new Blockly.FieldTextInput("WhiteArrow"), "topic")
             .appendField("Retain :")
             .appendField(new Blockly.FieldCheckbox("TRUE"), "retain");
@@ -116,9 +149,9 @@ Blockly.Blocks['uniqueid_initmqtt_time_publish'] = {
         this.setHelpUrl("");
     }
 };
-Blockly.Python['uniqueid_initmqtt_time_publish'] = function (block) {
+Blockly.Python['uniqueid_time_publish'] = function (block) {
     var value_message = Blockly.Python.valueToCode(block, 'message', Blockly.Python.ORDER_ATOMIC);
-    text_server_publish = block.getFieldValue('server_name');
+    // text_server_publish = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
     var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
     // TODO: Assemble Python into code variable.
@@ -127,7 +160,7 @@ Blockly.Python['uniqueid_initmqtt_time_publish'] = function (block) {
     } else {
         checkbox_retain = "False"
     }
-    var code = 'mqtt.connect()\nmqtt.publish(\'' + text_topic + '\',' + value_message + ',retain=' + checkbox_retain + ')\ntime.sleep_ms(100)\nmqtt.disconnect()\n';
+    var code = 'mqtt.connect()\nmqtt.publish(\'' + text_topic + "\',str(" + value_message + "),retain=" + checkbox_retain + ')\ntime.sleep_ms(100)\nmqtt.disconnect()\n';
     return code;
 };
 // Blockly.Python['mqtt_publish'] = function (block) {
@@ -189,14 +222,14 @@ Blockly.Python['uniqueid_initmqtt_time_publish'] = function (block) {
 //     return code;
 // };
 
-Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
+Blockly.Blocks['uniqueid_time_onmsg_subscribe'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
             .appendField("Subscribe !!(Already loop in block)");
-        this.appendDummyInput()
-            .appendField("Connect to")
-            .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name");
+        // this.appendDummyInput()
+        //     .appendField("Connect to")
+        //     .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name");
         this.appendDummyInput()
             .appendField("Topic :")
             .appendField(new Blockly.FieldTextInput("WhiteArrow/#"), "topic");
@@ -224,8 +257,8 @@ Blockly.Blocks['uniqueid_initmqtt_time_onmsg_subscribe'] = {
         this.setHelpUrl("");
     }
 };
-Blockly.Python['uniqueid_initmqtt_time_onmsg_subscribe'] = function (block) {
-    text_server_subscribe = block.getFieldValue('server_name');
+Blockly.Python['uniqueid_time_onmsg_subscribe'] = function (block) {
+    // text_server_subscribe = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
     var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
     var suffix_time = block.getFieldValue('suffix_second');

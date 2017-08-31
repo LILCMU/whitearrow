@@ -78,9 +78,13 @@ var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
 var variable_msg_mqtt
+var text_server_name
 var text_server_publish
 var text_server_subscribe
 var check_mqtt_server
+var text_mqttuser
+var text_mqttpassword
+
 var statements_onmessage_mqtt = ""
 var _import = ""
 var _machine = ""
@@ -517,11 +521,12 @@ function generateXML() {
                     _init_code += "\npin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
                     break;
                 case 15:
-                    if (check_mqtt_server == 'publish') {
-                        _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
-                    } else {
-                        _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
-                    }
+                    // if (check_mqtt_server == 'publish') {
+                    //     _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
+                    // } else {
+                    // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
+                    // }
+                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="'+ text_mqttuser +'",password="'+ text_mqttpassword +'")\n'
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)
@@ -1461,7 +1466,7 @@ function turn_all_motor_off() {
 
 var sel = true;
 
-var read_sensor = function() {
+var read_sensor = function () {
     if (sel) {
         ws.send('deamon.monitor("sensor","","")\r\n')
         sel = false;

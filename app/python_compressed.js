@@ -548,7 +548,7 @@ Blockly.Python.math_change = function(a) {
     Blockly.Python.definitions_.from_numbers_import_Number = "from numbers import Number";
     var b = Blockly.Python.valueToCode(a, "DELTA", Blockly.Python.ORDER_ADDITIVE) || "0";
     a = Blockly.Python.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE);
-    return a + " = (" + a + " if isinstance(" + a + ", Number) else 0) + " + b + "\n"
+    return a + " = " + a + " + " + b + "\n"
 };
 Blockly.Python.math_round = Blockly.Python.math_single;
 Blockly.Python.math_trig = Blockly.Python.math_single;

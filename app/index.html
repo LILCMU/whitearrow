@@ -1380,7 +1380,13 @@
     </category>
     <category id="catifttt" colour="#455a64" name="IFTTT">
         <block type="httplib_IFTTT_start"></block>
-        <block type="httplib_IFTTT_sent"></block>
+        <block type="httplib_IFTTT_sent">
+            <value name="ifttt_value">
+                <shadow type="text">
+                    <field name="TEXT">Message</field>
+                </shadow>
+            </value>
+        </block>
     </category>
     <category id="catnetpie" colour="#7f8c8d" name="NETPIE">
         <block type="httplib_netpie_start"></block>

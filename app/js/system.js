@@ -544,16 +544,14 @@ function generateXML() {
                     break;
                 case 17:
                     _init_code += "\nifstate = {}\n" +
-                        "def state_has_changed(text):\n" + Blockly.Python.INDENT +
-                        "current_state = eval(text)\n" + Blockly.Python.INDENT +
+                        "def state_has_changed(text, boolean):\n" + Blockly.Python.INDENT +
+                        "current_state = boolean\n" + Blockly.Python.INDENT +
                         "global ifstate\n" + Blockly.Python.INDENT +
                         "if text not in ifstate:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
                         "ifstate[text] = False\n" + Blockly.Python.INDENT +
                         "prev_state = ifstate[text]\n" + Blockly.Python.INDENT +
                         "ifstate[text] = current_state\n" + Blockly.Python.INDENT +
-                        "state_changed = current_state\n" + Blockly.Python.INDENT +
-                        "if current_state == True:\n" + Blockly.Python.INDENT + Blockly.Python.INDENT +
-                        "state_changed = (current_state != prev_state)\n" + Blockly.Python.INDENT +
+                        "state_changed = current_state and (current_state != prev_state)\n" + Blockly.Python.INDENT +
                         "return state_changed\n"
                     break;
             }
@@ -965,7 +963,7 @@ function upload() {
 
 function upload_editor() {
     var code = editor.getValue();
-    var nameInput = document.getElementById('get_filename').value;
+    var nameInput = document.getElementById('get_filename').value + '.py';
     if (!nameInput) {
         alert("Please fill name")
     };
@@ -1003,7 +1001,7 @@ function run_code() {
     if (run_status == 1) {
         // term.write('Still running code..\r\n')
         stop()
-        run()
+        run_code()
     } else {
         run_status = 1
         var timenow = new Date();

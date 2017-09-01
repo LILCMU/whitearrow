@@ -826,13 +826,15 @@ Blockly.Python['time_delay'] = function (block) {
     return code;
 };
 
+var text_ifttt_key = ''
+var text_ifttt_event = ''
 Blockly.Blocks['httplib_IFTTT_start'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
-            .appendField("Start")
+            .appendField("Maker key :")
             .appendField(new Blockly.FieldTextInput("Key"), "key")
-            .appendField(", ")
+            .appendField("Event :")
             .appendField(new Blockly.FieldTextInput("Event"), "event");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -842,18 +844,18 @@ Blockly.Blocks['httplib_IFTTT_start'] = {
     }
 };
 Blockly.Python['httplib_IFTTT_start'] = function (block) {
-    var text_key = block.getFieldValue('key');
-    var text_event = block.getFieldValue('event');
+    text_ifttt_key = block.getFieldValue('key');
+    text_ifttt_event = block.getFieldValue('event');
     //   key = text_key;
     //   event = text_event;
     // TODO: Assemble Python into code variable.
-    var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_event + '/with/key/' + text_key;
+    var code = '';
     return code;
 };
 
 Blockly.Blocks['httplib_IFTTT_sent'] = {
     init: function () {
-        this.appendValueInput("NAME")
+        this.appendValueInput("ifttt_value")
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
             .setCheck(null)
             .appendField("Send Value :");
@@ -865,9 +867,9 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
     }
 };
 Blockly.Python['httplib_IFTTT_sent'] = function (block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+    var value_ifttt = Blockly.Python.valueToCode(block, 'ifttt_value', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = '\', json = {\'value1\':str(' + value_name + ')})\n';
+    var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_ifttt_event + '/with/key/' + text_ifttt_key + '\', json = {\'value1\':str(' + value_ifttt + ')})\n';
     return code;
 };
 
@@ -1355,6 +1357,6 @@ Blockly.Python['logic_ifstate'] = function (block) {
     var value_condition = Blockly.Python.valueToCode(block, 'condition', Blockly.Python.ORDER_ATOMIC);
     var statements_if_true = Blockly.Python.statementToCode(block, 'statement');
     // TODO: Assemble Python into code variable.
-    var code = 'if state_has_changed("' + value_condition + '"):\n' + statements_if_true + '\n';
+    var code = 'if state_has_changed("' + value_condition + '", '+ value_condition +'):\n' + statements_if_true + '\n';
     return code;
 };

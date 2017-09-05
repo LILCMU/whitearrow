@@ -827,15 +827,13 @@ Blockly.Python['time_delay'] = function (block) {
 };
 
 var text_ifttt_key = ''
-var text_ifttt_event = ''
+// var text_ifttt_event = ''
 Blockly.Blocks['httplib_IFTTT_start'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
-            .appendField("Maker key :")
-            .appendField(new Blockly.FieldTextInput("Key"), "key")
-            .appendField("Event :")
-            .appendField(new Blockly.FieldTextInput("Event"), "event");
+            .appendField("Webhook key :")
+            .appendField(new Blockly.FieldTextInput("Key"), "key");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#455a64');
@@ -845,7 +843,7 @@ Blockly.Blocks['httplib_IFTTT_start'] = {
 };
 Blockly.Python['httplib_IFTTT_start'] = function (block) {
     text_ifttt_key = block.getFieldValue('key');
-    text_ifttt_event = block.getFieldValue('event');
+    
     //   key = text_key;
     //   event = text_event;
     // TODO: Assemble Python into code variable.
@@ -858,7 +856,14 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
         this.appendValueInput("ifttt_value")
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
             .setCheck(null)
-            .appendField("Send Value :");
+            .appendField("Event :")
+            .appendField(new Blockly.FieldTextInput("Event"), "event")
+            .appendField("Send :")
+            .appendField(new Blockly.FieldDropdown([
+                ["Value 1", "1"],
+                ["Value 2", "2"],
+                ["Value 3", "3"]
+            ]), "value_id");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#455a64');
@@ -867,9 +872,11 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
     }
 };
 Blockly.Python['httplib_IFTTT_sent'] = function (block) {
+    var dropdown_value_id = block.getFieldValue('value_id');
     var value_ifttt = Blockly.Python.valueToCode(block, 'ifttt_value', Blockly.Python.ORDER_ATOMIC);
+    var text_ifttt_event = block.getFieldValue('event');
     // TODO: Assemble Python into code variable.
-    var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_ifttt_event + '/with/key/' + text_ifttt_key + '\', json = {\'value1\':str(' + value_ifttt + ')})\n';
+    var code = 'httplib.post(\'http://maker.ifttt.com/trigger/' + text_ifttt_event + '/with/key/' + text_ifttt_key + '\', json = {\'value'+ dropdown_value_id +'\':str(' + value_ifttt + ')})\n';
     return code;
 };
 

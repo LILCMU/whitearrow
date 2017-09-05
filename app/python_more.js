@@ -858,12 +858,12 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
             .setCheck(null)
             .appendField("Event :")
             .appendField(new Blockly.FieldTextInput("Event"), "event")
-            .appendField("Send :")
             .appendField(new Blockly.FieldDropdown([
                 ["Value 1", "1"],
                 ["Value 2", "2"],
                 ["Value 3", "3"]
-            ]), "value_id");
+            ]), "value_id")
+            .appendField(":");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#455a64');

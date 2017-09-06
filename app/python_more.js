@@ -832,7 +832,7 @@ Blockly.Blocks['httplib_IFTTT_start'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
-            .appendField("Webhook key :")
+            .appendField("Set webhook key :")
             .appendField(new Blockly.FieldTextInput("Key"), "key");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -856,12 +856,13 @@ Blockly.Blocks['httplib_IFTTT_sent'] = {
         this.appendValueInput("ifttt_value")
             .appendField(new Blockly.FieldImage("images/block/ifttt.png", 30, 30, "*"))
             .setCheck(null)
-            .appendField("Event :")
-            .appendField(new Blockly.FieldTextInput("Event"), "event")
+            .appendField("Send event :")
+            .appendField(new Blockly.FieldTextInput("event name"), "event")
+            .appendField("with value")
             .appendField(new Blockly.FieldDropdown([
-                ["Value 1", "1"],
-                ["Value 2", "2"],
-                ["Value 3", "3"]
+                ["1", "1"],
+                ["2", "2"],
+                ["3", "3"]
             ]), "value_id")
             .appendField(":");
         this.setPreviousStatement(true, null);

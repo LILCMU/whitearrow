@@ -331,8 +331,13 @@ function generate() {
 
     // Parse the XML into a tree.
     var code = Blockly.Python.workspaceToCode(workspace);
+    var variables = Blockly.Variables.allUsedVariables(workspace);
+    // console.log(variables);
+
+
     var newcode = code.split('$')
 
+    // console.log(newcode);
     generateXML()
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
@@ -340,18 +345,24 @@ function generate() {
         execcode += _init_code
     }
 
-    for (var i = 1; i < newcode.length; i += 2) {
-        execcode += newcode[i]
-    };
+    
+    for (var j = 0; j < variables.length; j++) {
+        var flag = true
+        for (var k = 0; k < newcode.length; k++) {
+            if (newcode[k].match(variables[j]) && flag) {
+                flag = false
+                execcode += newcode[k]
+            }
+        }
+    }
+    for (var i = 0; i < newcode.length; i++) {
+        if (newcode[i].match('def')) {
+            // console.log(newcode[i]);
+            execcode += newcode[i]
+        }
+    }
 
     editor.setValue(execcode);
-    // console.log(workspace);
-    // workspace.createVariable('hello')
-    // console.log(Blockly.Variables.allVariables(workspace));
-    // Blockly.Variables.createVariable('hello')
-    // console.log(Blockly.Variables.allVariables(workspace));
-
-    // console.log(execcode);
     return execcode
 }
 
@@ -526,7 +537,7 @@ function generateXML() {
                     // } else {
                     // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
                     // }
-                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="'+ text_mqttuser +'",password="'+ text_mqttpassword +'")\n'
+                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="' + text_mqttuser + '",password="' + text_mqttpassword + '")\n'
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)

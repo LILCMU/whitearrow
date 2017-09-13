@@ -59,7 +59,7 @@ Blockly.Python.init = function(a) {
     Blockly.Python.variableDB_ ? Blockly.Python.variableDB_.reset() : Blockly.Python.variableDB_ = new Blockly.Names(Blockly.Python.RESERVED_WORDS_);
     var b = [];
     a = a.getAllVariables();
-    for (var c = 0; c < a.length; c++) b[c] = Blockly.Python.variableDB_.getName(a[c].name, Blockly.Variables.NAME_TYPE) + " = None";
+    for (var c = 0; c < a.length; c++) b[c] = "$\n" + Blockly.Python.variableDB_.getName(a[c].name, Blockly.Variables.NAME_TYPE) + " = None\n$";
     Blockly.Python.definitions_.variables = b.join("\n")
 };
 Blockly.Python.finish = function(a) {
@@ -634,7 +634,7 @@ Blockly.Python.procedures_defreturn = function(a) {
     var f = Blockly.Python.valueToCode(a, "RETURN", Blockly.Python.ORDER_NONE) || "";
     f ? f = "  return " + f + "\n" : c || (c = Blockly.Python.PASS);
     for (var g = [], e = 0; e < a.arguments_.length; e++) g[e] = Blockly.Python.variableDB_.getName(a.arguments_[e], Blockly.Variables.NAME_TYPE);
-    b = "def " + d + "(" + g.join(", ") + "):\n" + b + c + f;
+    b = "$\ndef " + d + "(" + g.join(", ") + "):\n" + b + c + f + "$";
     b = Blockly.Python.scrub_(a, b);
     Blockly.Python.definitions_["%" + d] = b;
     return null

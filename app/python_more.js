@@ -35,7 +35,7 @@ Blockly.Python['controls_main'] = function (block) {
     } else if (statements_a.includes('subscribe')) {
         check_mqtt_server = 'subscribe'
     }
-    var code = 'start$\ndef main():\n' + statements_a + '\$end\n';
+    var code = '$\ndef main():\n' + statements_a + '\$\n';
 
     return code;
 };

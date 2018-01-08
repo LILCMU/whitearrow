@@ -1,7 +1,3 @@
-"""
-MicroPython Aosong DHT12 I2C driver
-"""
-
 class DHTBaseI2C:
     def __init__(self, i2c, addr=0x5c):
         self.i2c = i2c

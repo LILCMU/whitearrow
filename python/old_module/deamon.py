@@ -87,7 +87,7 @@ def monitor(state,value1,value2):
         adc = machine.ADC(0)
         while(True):
             send("monitor:sensor:"+str(adc.read()))
-            time.sleep_ms(500)
+            time.sleep_ms(100)
         del machine,time,adc
 
 def init(state,value1,value2):

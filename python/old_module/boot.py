@@ -24,7 +24,7 @@ gc.collect()
 os.chdir('tmp')
 tmp = os.listdir()
 try:
-    if len(os.listdir()) == 1:
+    if len(tmp) <= 1:
         pass
     else:
         for i in range(len(tmp)-1):

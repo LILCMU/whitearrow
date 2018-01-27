@@ -14,5 +14,5 @@ def main():
 		value1 = sensor.axes()[1]
 		value2 = ADC(0).read()
 		json = {"value1": value1, "value2": value2}
-		mqtt.publish('NSC2017',ujson.dumps(json),retain=True)
+		mqtt.publish('bubbleDemo',ujson.dumps(json),retain=True)
 		time.sleep(0.2)

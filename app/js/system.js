@@ -200,17 +200,19 @@ function checkCMD(commandCMD) {
     } else if (commandCMD.split(":")[0] == "step2") {
         if (commandCMD.split(":")[1] == "res") {
 
-            document.getElementById("response").value = cmd.split(":")[2]
-            document.getElementById("response").innerHTML = cmd.split(":")[2]
-            console.log(document.getElementById("response").value)
+            // document.getElementById("response").value = 
+            // document.getElementById("response").innerHTML = cmd.split(":")[2]
+            // console.log(document.getElementById("response").value)
+            localStorage.nsc_prompt_ip = cmd.split(":")[2]
+            localStorage.firsttime = false;    
         }
         step = 2;
 
-    } else if (commandCMD.split(":")[0] == "step3") {
-        console.log('hello')
-        step = 3;
-        localStorage.nsc_prompt_ip = document.getElementById("response").value
-        localStorage.firsttime = false;
+    // } else if (commandCMD.split(":")[0] == "step3") {
+        // console.log('hello')
+        // step = 3;
+        // localStorage.nsc_prompt_ip = document.getElementById("response").value
+        // localStorage.firsttime = false;
 
     } else if (commandCMD.split(":")[1] == "manager") {
 
@@ -298,13 +300,13 @@ function init_first() {
         case 2:
             $('#step3miss').trigger('click');
             $('#step3miss').trigger('click');
-
-            break;
-        case 3:
-            $('#step3miss').trigger('click');
-            $('#step3miss').trigger('click');
             step = 0;
             break;
+        // case 3:
+        //     $('#step3miss').trigger('click');
+        //     $('#step3miss').trigger('click');
+        //     // step = 0;
+        //     break;
     }
     switch (step + 1) {
         case 1:
@@ -315,10 +317,10 @@ function init_first() {
             ws.send('deamon.init("20","' + document.getElementById("ssid").value + '","' + document.getElementById("pass_ssid").value + '")\r\n')
             break;
 
-        case 3:
-            ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
-            // ws.send("__import__('machine').reset()\r\n")
-            break;
+        // case 3:
+        //     ws.send('deamon.init("30","' + document.getElementById("key").value + '","")\r\n')
+        //     // ws.send("__import__('machine').reset()\r\n")
+        //     break;
     }
 
 }

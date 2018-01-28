@@ -101,7 +101,7 @@ Blockly.Blocks['initmqtt_setting'] = {
             .appendField("MQTT Setting");
         this.appendDummyInput()
             .appendField("Connect to")
-            .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
+            .appendField(new Blockly.FieldTextInput("broker.demo.learninginventions.org"), "server_name")
             // .appendField("Topic :")
             // .appendField(new Blockly.FieldTextInput("WhiteArrow"), "topic");
         this.appendDummyInput()
@@ -139,7 +139,7 @@ Blockly.Blocks['uniqueid_time_publish'] = {
             // .appendField("to")
             // .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
             .appendField("to Topic :")
-            .appendField(new Blockly.FieldTextInput("WhiteArrow"), "topic")
+            .appendField(new Blockly.FieldTextInput("WhiteArrow/IoT/#"), "topic")
             .appendField("Retain :")
             .appendField(new Blockly.FieldCheckbox("TRUE"), "retain");
         this.setPreviousStatement(true, null);

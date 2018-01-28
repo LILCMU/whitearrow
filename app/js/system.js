@@ -531,6 +531,14 @@ function generateXML() {
                     break;
                 case 14:
                     // console.log('system');
+                    if (first_sublib) {
+                        // console.log(first)
+                        _machine += "from machine import Pin"
+                        first_sublib = false;
+                    } else if (!first_sublib) {
+                        _machine += ","
+                        _machine += "Pin"
+                    }
                     _init_code += "\npin1 = Pin(4, Pin.OUT)\npin2 = Pin(15, Pin.OUT)\npin3 = Pin(14, Pin.OUT)\npin4 = Pin(12, Pin.OUT)\n"
                     break;
                 case 15:

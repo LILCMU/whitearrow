@@ -556,6 +556,7 @@ function generateXML() {
                     // console.log('system.js', statements_onmessage_mqtt)
                     _init_code += "\ndef onmessage("+ variable_topic_mqtt +", " + variable_msg_mqtt + "):\n"
                     if (statements_onmessage_mqtt) {
+                        _init_code += Blockly.Python.INDENT + variable_topic_mqtt + '=' + variable_topic_mqtt + '.decode("ascii")\n'
                         _init_code += Blockly.Python.INDENT + variable_msg_mqtt + '=' + variable_msg_mqtt + '.decode("ascii")\n'
                         _init_code += Blockly.Python.INDENT + 'try:\n'
                         _init_code += Blockly.Python.INDENT + Blockly.Python.INDENT + variable_msg_mqtt + '=int(' + variable_msg_mqtt + ')\n'

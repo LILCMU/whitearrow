@@ -77,7 +77,9 @@ if (isAndroid || isiDevice) {
 var time = new Date();
 document.getElementById('status').value = "false"
 document.getElementById('filename').value = "Untitled";
+var variable_topic_mqtt
 var variable_msg_mqtt
+var isMQTTSubscribe = false
 var text_server_name
 var text_server_publish
 var text_server_subscribe
@@ -330,6 +332,7 @@ function generate() {
     _import = ""
     _machine = ""
     _init_code = ""
+    isMQTTSubscribe = false
 
     // Parse the XML into a tree.
     var code = Blockly.Python.workspaceToCode(workspace);
@@ -551,7 +554,7 @@ function generateXML() {
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)
-                    _init_code += "\ndef onmessage(topic, " + variable_msg_mqtt + "):\n"
+                    _init_code += "\ndef onmessage("+ variable_topic_mqtt +", " + variable_msg_mqtt + "):\n"
                     if (statements_onmessage_mqtt) {
                         _init_code += Blockly.Python.INDENT + variable_msg_mqtt + '=' + variable_msg_mqtt + '.decode("ascii")\n'
                         _init_code += Blockly.Python.INDENT + 'try:\n'

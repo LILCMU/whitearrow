@@ -226,7 +226,7 @@ Blockly.Blocks['uniqueid_time_onmsg_subscribe'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("images/block/mqtt.png", 30, 30, "*"))
-            .appendField("Subscribe !!(Already loop in block)");
+            .appendField("Subscribe");
         // this.appendDummyInput()
         //     .appendField("Connect to")
         //     .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name");
@@ -234,22 +234,14 @@ Blockly.Blocks['uniqueid_time_onmsg_subscribe'] = {
             .appendField("Topic :")
             .appendField(new Blockly.FieldTextInput("WhiteArrow/#"), "topic");
         this.appendDummyInput()
-            .appendField("Assign MQTT message to")
-            .appendField(new Blockly.FieldVariable("message"), "msg");
+            .appendField("Assign received topic to")
+            .appendField(new Blockly.FieldVariable("topic"), "topic_variable");
+        this.appendDummyInput()
+            .appendField("Assign received message to")
+            .appendField(new Blockly.FieldVariable("message"), "msg_variable");
         this.appendStatementInput("Onmessage")
             .setCheck(null)
             .appendField("do");
-        this.appendValueInput("time")
-            .setCheck("Number")
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("each loop wait for");
-        this.appendDummyInput()
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField(new Blockly.FieldDropdown([
-                ["second(s)", "second"],
-                ["millisecond(s)", "milli"],
-                ["microsecond(s)", "micro"]
-            ]), "suffix_second");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour('#d35400');
@@ -260,21 +252,14 @@ Blockly.Blocks['uniqueid_time_onmsg_subscribe'] = {
 Blockly.Python['uniqueid_time_onmsg_subscribe'] = function (block) {
     // text_server_subscribe = block.getFieldValue('server_name');
     var text_topic = block.getFieldValue('topic');
-    var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
-    var suffix_time = block.getFieldValue('suffix_second');
     statements_onmessage_mqtt = Blockly.Python.statementToCode(block, 'Onmessage');
-    variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg'), Blockly.Variables.NAME_TYPE);
-    if (suffix_time == 'second') {
-        suffix_time = ''
-    } else if (suffix_time == 'milli') {
-        suffix_time = '_ms'
-    } else if (suffix_time == 'micro') {
-        suffix_time = '_us'
-    }
+    variable_topic_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('topic_variable'), Blockly.Variables.NAME_TYPE);
+    variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg_variable'), Blockly.Variables.NAME_TYPE);
+    isMQTTSubscribe = true
 
     // TODO: Assemble Python into code variable.
     // console.log('statement', statements_onmessage_mqtt);
-    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n' + 'while True:\n' + Blockly.Python.INDENT + 'if True:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.wait_msg()\n' + Blockly.Python.INDENT + 'else:\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'mqtt.check_msg()\n' + Blockly.Python.INDENT + Blockly.Python.INDENT + 'time.sleep(1)\n' + Blockly.Python.INDENT + 'time.sleep' + suffix_time + '(' + waittime + ')\n';
+    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n';
     return code;
 };
 
@@ -1279,7 +1264,10 @@ Blockly.Blocks['controls_forever'] = {
 };
 Blockly.Python['controls_forever'] = function (block) {
     var statements_name = Blockly.Python.statementToCode(block, 'NAME');
-    var code = 'while True:\n' + statements_name;
+    var code = 'while True:\n' + statements_name
+    if (isMQTTSubscribe) {
+        code += Blockly.Python.INDENT + 'mqtt.check_msg()\n'
+    }
     return code;
 };
 
@@ -1311,12 +1299,17 @@ Blockly.Python['controls_time_forever_wait'] = function (block) {
     var waittime = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
     var suffix_time = block.getFieldValue('suffix_second');
     // TODO: Assemble Python into code variable.
+    var code = 'while True:\n' + statements_name
+
+    if (isMQTTSubscribe) {
+        code += Blockly.Python.INDENT + 'mqtt.check_msg()\n'
+    }
     if (suffix_time == 'second') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep(' + waittime + ')\n'
+        code += Blockly.Python.INDENT + 'time.sleep(' + waittime + ')\n'
     } else if (suffix_time == 'milli') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_ms(' + waittime + ')\n'
+        code += Blockly.Python.INDENT + 'time.sleep_ms(' + waittime + ')\n'
     } else if (suffix_time == 'micro') {
-        var code = 'while True:\n' + statements_name + Blockly.Python.INDENT + 'time.sleep_us(' + waittime + ')\n'
+        code += Blockly.Python.INDENT + 'time.sleep_us(' + waittime + ')\n'
     }
     return code;
 };

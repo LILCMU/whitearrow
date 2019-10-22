@@ -35,7 +35,10 @@ Blockly.Python['controls_main'] = function (block) {
     } else if (statements_a.includes('subscribe')) {
         check_mqtt_server = 'subscribe'
     }
-    var code = '$\ndef main():\n' + statements_a + '\$\n';
+    var variables_list = Blockly.Variables.allUsedVariables(workspace)
+    var glob_variables = variables_list.length ? "  global " + variables_list.join(", ") + "\n" : "";
+
+    var code = '$\ndef main():\n' + glob_variables + statements_a + '\$\n';
 
     return code;
 };

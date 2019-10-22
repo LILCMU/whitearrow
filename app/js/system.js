@@ -346,11 +346,6 @@ function generate() {
     generateXML()
     var execcode = _import + "\n" + _machine + "\n"
     // var execcode = _import + "\n"
-    if (_init_code) {
-        execcode += _init_code
-    }
-
-    
     for (var j = 0; j < variables.length; j++) {
         var flag = true
         for (var k = 0; k < newcode.length; k++) {
@@ -360,6 +355,11 @@ function generate() {
             }
         }
     }
+
+    if (_init_code) {
+        execcode += _init_code
+    }
+    
     for (var i = 0; i < newcode.length; i++) {
         if (newcode[i].match('def')) {
             // console.log(newcode[i]);
@@ -554,7 +554,9 @@ function generateXML() {
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)
-                    _init_code += "\ndef onmessage("+ variable_topic_mqtt +", " + variable_msg_mqtt + "):\n"
+                    var variables_list = Blockly.Variables.allUsedVariables(workspace)
+                    var glob_variables = variables_list.length ? "  global " + variables_list.join(", ") + "\n" : "";
+                    _init_code += "\ndef onmessage("+ variable_topic_mqtt +", " + variable_msg_mqtt + "):\n" + glob_variables
                     if (statements_onmessage_mqtt) {
                         _init_code += Blockly.Python.INDENT + variable_topic_mqtt + '=' + variable_topic_mqtt + '.decode("ascii")\n'
                         _init_code += Blockly.Python.INDENT + variable_msg_mqtt + '=' + variable_msg_mqtt + '.decode("ascii")\n'

@@ -104,7 +104,7 @@ Blockly.Blocks['initmqtt_setting'] = {
             .appendField("MQTT Setting");
         this.appendDummyInput()
             .appendField("Connect to")
-            .appendField(new Blockly.FieldTextInput("broker.demo.learninginventions.org"), "server_name")
+            .appendField(new Blockly.FieldTextInput("35.198.231.150"), "server_name")
             // .appendField("Topic :")
             // .appendField(new Blockly.FieldTextInput("WhiteArrow"), "topic");
         this.appendDummyInput()
@@ -142,9 +142,9 @@ Blockly.Blocks['uniqueid_time_publish'] = {
             // .appendField("to")
             // .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
             .appendField("to Topic :")
-            .appendField(new Blockly.FieldTextInput("WhiteArrow/IoT/#"), "topic")
+            .appendField(new Blockly.FieldTextInput("WhiteArrow/IoT"), "topic")
             .appendField("Retain :")
-            .appendField(new Blockly.FieldCheckbox("TRUE"), "retain");
+            .appendField(new Blockly.FieldCheckbox("FALSE"), "retain");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour("#d35400");
@@ -163,7 +163,7 @@ Blockly.Python['uniqueid_time_publish'] = function (block) {
     } else {
         checkbox_retain = "False"
     }
-    var code = 'mqtt.connect()\nmqtt.publish(\'' + text_topic + "\',str(" + value_message + "),retain=" + checkbox_retain + ')\ntime.sleep_ms(100)\nmqtt.disconnect()\n';
+    var code = 'mqtt.publish(\'' + text_topic + "\',str(" + value_message + "),retain=" + checkbox_retain + ')\n';
     return code;
 };
 // Blockly.Python['mqtt_publish'] = function (block) {
@@ -262,7 +262,7 @@ Blockly.Python['uniqueid_time_onmsg_subscribe'] = function (block) {
 
     // TODO: Assemble Python into code variable.
     // console.log('statement', statements_onmessage_mqtt);
-    var code = 'mqtt.set_callback(onmessage)\nmqtt.connect()\nmqtt.subscribe(b\'' + text_topic + '\')\n';
+    var code = 'mqtt.set_callback(onmessage)\nmqtt.subscribe(b\'' + text_topic + '\')\n';
     return code;
 };
 

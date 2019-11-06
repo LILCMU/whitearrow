@@ -550,7 +550,7 @@ function generateXML() {
                     // } else {
                     // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
                     // }
-                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="' + text_mqttuser + '",password="' + text_mqttpassword + '")\n'
+                    _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="' + text_mqttuser + '",password="' + text_mqttpassword + '")\nmqtt.connect()\n'
                     break;
                 case 16:
                     // console.log('system.js', statements_onmessage_mqtt)

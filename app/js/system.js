@@ -327,25 +327,23 @@ function init_first() {
 
 }
 
-
 function generate() {
     _import = ""
     _machine = ""
     _init_code = ""
     isMQTTSubscribe = false
 
-    // Parse the XML into a tree.
+    //? generate for checking include modules and some enabled flags
+    generateXML()
+    var execcode = _import + "\n" + _machine + "\n"
+    
+    //? Parse the XML into a tree.
     var code = Blockly.Python.workspaceToCode(workspace);
     var variables = Blockly.Variables.allUsedVariables(workspace);
     // console.log(variables);
-
+    // console.log(code);
 
     var newcode = code.split('$')
-
-    // console.log(newcode);
-    generateXML()
-    var execcode = _import + "\n" + _machine + "\n"
-    // var execcode = _import + "\n"
     for (var j = 0; j < variables.length; j++) {
         var flag = true
         for (var k = 0; k < newcode.length; k++) {
@@ -568,6 +566,7 @@ function generateXML() {
                     } else {
                         _init_code += Blockly.Python.INDENT + 'pass\n'
                     }
+                    isMQTTSubscribe = true
                     break;
                 case 17:
                     _init_code += "\nifstate = {}\n" +

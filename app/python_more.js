@@ -258,7 +258,6 @@ Blockly.Python['uniqueid_time_onmsg_subscribe'] = function (block) {
     statements_onmessage_mqtt = Blockly.Python.statementToCode(block, 'Onmessage');
     variable_topic_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('topic_variable'), Blockly.Variables.NAME_TYPE);
     variable_msg_mqtt = Blockly.Python.variableDB_.getName(block.getFieldValue('msg_variable'), Blockly.Variables.NAME_TYPE);
-    isMQTTSubscribe = true
 
     // TODO: Assemble Python into code variable.
     // console.log('statement', statements_onmessage_mqtt);

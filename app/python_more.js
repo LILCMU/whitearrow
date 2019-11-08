@@ -30,11 +30,11 @@ Blockly.Python['controls_main'] = function (block) {
     } else if (!statements_a) {
         statements_a = Blockly.Python.PASS;
     }
-    if (statements_a.includes('publish')) {
-        check_mqtt_server = 'publish'
-    } else if (statements_a.includes('subscribe')) {
-        check_mqtt_server = 'subscribe'
-    }
+    // if (statements_a.includes('publish')) {
+    //     check_mqtt_server = 'publish'
+    // } else if (statements_a.includes('subscribe')) {
+    //     check_mqtt_server = 'subscribe'
+    // }
     var variables_list = Blockly.Variables.allUsedVariables(workspace)
     var glob_variables = variables_list.length ? "  global " + variables_list.join(", ") + "\n" : "";
 
@@ -139,10 +139,13 @@ Blockly.Blocks['uniqueid_time_publish'] = {
         this.appendValueInput("message")
             .setCheck(null);
         this.appendDummyInput()
-            // .appendField("to")
-            // .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
+        // .appendField("to")
+        // .appendField(new Blockly.FieldTextInput("broker.mqttdashboard.com"), "server_name")
             .appendField("to Topic :")
-            .appendField(new Blockly.FieldTextInput("WhiteArrow/IoT"), "topic")
+        this.appendValueInput("topic")
+            .setCheck(null);
+        // .appendField(new Blockly.FieldTextInput("WhiteArrow/IoT"), "topic")
+        this.appendDummyInput()
             .appendField("Retain :")
             .appendField(new Blockly.FieldCheckbox("FALSE"), "retain");
         this.setPreviousStatement(true, null);
@@ -155,7 +158,8 @@ Blockly.Blocks['uniqueid_time_publish'] = {
 Blockly.Python['uniqueid_time_publish'] = function (block) {
     var value_message = Blockly.Python.valueToCode(block, 'message', Blockly.Python.ORDER_ATOMIC);
     // text_server_publish = block.getFieldValue('server_name');
-    var text_topic = block.getFieldValue('topic');
+    // var text_topic = block.getFieldValue('topic');
+    var text_topic = Blockly.Python.valueToCode(block, 'topic', Blockly.Python.ORDER_ATOMIC);
     var checkbox_retain = block.getFieldValue('retain') == 'TRUE';
     // TODO: Assemble Python into code variable.
     if (checkbox_retain) {
@@ -163,7 +167,7 @@ Blockly.Python['uniqueid_time_publish'] = function (block) {
     } else {
         checkbox_retain = "False"
     }
-    var code = 'mqtt.publish(\'' + text_topic + "\',str(" + value_message + "),retain=" + checkbox_retain + ')\n';
+    var code = "mqtt.publish(str(" + text_topic + "),str(" + value_message + "),retain=" + checkbox_retain + ")\n";
     return code;
 };
 // Blockly.Python['mqtt_publish'] = function (block) {

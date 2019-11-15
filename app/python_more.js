@@ -997,6 +997,34 @@ Blockly.Python['httplib_datalog_write'] = function (block) {
     return code;
 };
 
+Blockly.Blocks['datalab_publish'] = {
+    init: function () {
+        this.appendValueInput("logging_value")
+            .appendField(new Blockly.FieldImage("images/block/datalog.png", 30, 30, "*"))
+            .appendField("Record")
+            .setCheck("Number")
+        this.appendDummyInput()
+            .appendField("as")
+            .appendField(new Blockly.FieldTextInput("field_name"), "datalab_field")
+            .appendField("to")
+            .appendField(new Blockly.FieldTextInput("channel_name"), "datalab_channel")
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour('#795548');
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
+};
+Blockly.Python['datalab_publish'] = function (block) {
+    var value_logging = Blockly.Python.valueToCode(block, 'logging_value', Blockly.Python.ORDER_ATOMIC);
+    var text_field = block.getFieldValue('datalab_field');
+    var text_channel = block.getFieldValue('datalab_channel');
+    // TODO: Assemble Python into code variable.
+    var code = 'datalab.publish("' + text_channel + '","' + text_field + '",' + 'str('+ value_logging +'))\n';
+    return code;
+};
+
+
 Blockly.Blocks['oled_clear'] = {
     init: function () {
         this.appendDummyInput()

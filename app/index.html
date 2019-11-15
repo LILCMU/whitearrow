@@ -1372,12 +1372,19 @@
         <!-- <block type="mqtt_onmessage"></block>
         <block type="mqtt_disconnect"></block> -->
     </category>
-    <category id="catdatalog" colour="#795548" name="DataLogging">
-        <block type="httplib_datalog_write_key"></block>
+    <category id="catdatalog" colour="#795548" name="Datalab">
+        <!-- <block type="httplib_datalog_write_key"></block>
         <block type="httplib_datalog_write">
             <value name="logging_write">
                 <shadow type="text">
                     <field name="TEXT">Message</field>
+                </shadow>
+            </value>
+        </block> -->
+        <block type="datalab_publish">
+            <value name="logging_value">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
                 </shadow>
             </value>
         </block>

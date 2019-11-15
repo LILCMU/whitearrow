@@ -395,6 +395,7 @@ function generateXML() {
     arrXml.push(xmlText.search("initmqtt"))
     arrXml.push(xmlText.search("onmsg"))
     arrXml.push(xmlText.search("ifstate"))
+    arrXml.push(xmlText.search("datalab"))
     // arrXml.push(xmlText.search("initmqttsub"))
 
     for (var i = 0; i < arrXml.length; i++) {
@@ -544,9 +545,9 @@ function generateXML() {
                     break;
                 case 15:
                     // if (check_mqtt_server == 'publish') {
-                    //     _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
+                        // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_publish + '")\n'
                     // } else {
-                    // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
+                        // _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_subscribe + '")\n'
                     // }
                     _init_code += '\nCLIENT_ID = ubinascii.hexlify(unique_id())\nmqtt = MQTTClient.MQTTClient(CLIENT_ID,"' + text_server_name + '",user="' + text_mqttuser + '",password="' + text_mqttpassword + '")\nmqtt.connect()\n'
                     break;
@@ -580,8 +581,17 @@ function generateXML() {
                         "state_changed = current_state and (current_state != prev_state)\n" + Blockly.Python.INDENT +
                         "return state_changed\n"
                     break;
+                case 18:
+                    if (first) {
+                        _import += "import datalab"
+                        first = false;
+                    } else if (!first) {
+                        _import += ","
+                        _import += "datalab"
+                    }
+                    break;
+                }
             }
-        }
     }
 }
 
